@@ -1447,15 +1447,16 @@ def cmd_check(a):
 
     # a warning justified in overrides (by item id, or by section: warmup / strength / crossfit) is accepted
     sections = {"разминка": "warmup", "силовая": "strength", "кроссфит": "crossfit"}
+    def ru_of(k):
+        return (st.cat.strength.get(k) or st.cat.cross.get(k) or st.cat.warm.get(k) or {}).get("ru")
+
     accepted = []
     for w in list(warns):
         sec = sections.get(w.split(":")[0])
-        ids_hit = [k for k in overrides if k in (sec,) or any(k == i.get("id") and (i.get("ru", "") in w or
-                   st.cat.strength.get(k, st.cat.cross.get(k, st.cat.warm.get(k, {}))).get("ru", "@@") in w)
-                   for i in wu + sl + ci)]
-        if ids_hit:
+        hit = next((k for k in overrides if k == sec or (ru_of(k) and ru_of(k) in w)), None)
+        if hit:
             warns.remove(w)
-            accepted.append(f"{w} — {overrides[ids_hit[0]]}")
+            accepted.append(f"{w} — {overrides[hit]}")
     res = {"ok": not errors, "errors": errors, "warnings": warns, "accepted": accepted,
            "estimate": {"session_min": session, "crossfit_min": round(est_seconds(st, cf) / 60, 1),
                         "cap_min": cf.get("cap_min")}}
