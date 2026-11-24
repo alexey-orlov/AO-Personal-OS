@@ -57,7 +57,11 @@ zeros** ("7/22/2026") — block lookup is an exact string match.
 
 A session is three parts, usually separated by horizontal rules and circled
 markers: **I** warm-up → **II** core strength → **III** crossfit closing
-(often with `(x3)` rounds and a boxed finish time). **Log section II only.**
+(often with `(x3)` rounds and a boxed finish time). **`log` writes section II
+only.** Sections I and III have their own rows under the strength part
+(categories Warm-up and Crossfit; layout and cell conventions in the README,
+row names in `references/exercises.md`). They were backfilled by hand for
+20.07–30.10 on 23.11.26 and are not logged per session yet.
 When markers are missing, recognize parts by vocabulary —
 `references/exercises.md` lists known warm-up and crossfit items; strength
 lines have per-set weights in kg, warm-up/crossfit lines have times (40",
