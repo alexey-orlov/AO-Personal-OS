@@ -1,90 +1,72 @@
-# The trainer's method: rules for composing a plan
+# The trainer's method: what you choose
 
 Distilled from 28 sessions with the Kyiv trainer (20.07–30.10.2026). The
-engine already applies the numbers; these rules cover what you choose.
-Evidence: `automations/personal-trainer/DECISIONS.md`.
+engine already sets the day, every weight, the warm-up trio and the crossfit
+doses; these rules cover the few choices left to you. Evidence:
+`automations/personal-trainer/DECISIONS.md`.
 
 ## The day
 
-- Three day types, each about once a week: **Ноги** (hack squat, legs,
-  glutes, a shoulder move), **Грудь** (presses, flies, lateral raises),
-  **Спина** (pulldowns, rows, pullover, rear delts). Take
-  `rotation.next` (the least recently trained) unless Alex names a day.
-- One session = I warm-up (~10 min) → II strength, 5–6 exercises → III
-  crossfit, 7–12 min for time.
+- Three day types, each about once a week: **Ноги** (ГАКК, legs, glutes, a
+  shoulder move), **Грудь** (presses, flies, lateral raises), **Спина**
+  (pulldowns, rows, pullover, rear delts). Take `rotation.next`; the engine
+  already moves it when pain rules out the day's main lift. Alex may name
+  another day (`--day`).
+- One session = I warm-up (3 movements) → II strength (4–6 exercises) → III
+  crossfit (3–5 movements, 6–12 min for time).
 
 ## II. Strength
 
-- Start from `strength.items`: the exercises of the last session of that
-  day, in the order main → secondary → isolation → shoulders. Copy the
-  weights, sets and reps the engine suggests.
-- Keep the main lift (ГАКК / Жим Смитт / Верт. тяга) and its partner. The
-  only supersets are the trainer's: ГАКК + Отведение, Сгиб. голени + Разгиб.
-  бедра (mark the first with `superset_next`).
-- Variety like the trainer's: at most **one** swap per session, in an
-  isolation or shoulder slot, from `strength.pool` (status active or rare),
-  e.g. Сведение рук лёжа ↔ с нижнего блока, Реверс on a chest day, Жим
-  сидя на плечи в Смитт on a legs or back day. Never `retired`.
-- `action: swap` (pain today or last time) → replace with a pool exercise
-  that loads other joints, or drop it; say which in `overrides`.
-- `action: new` (no history) → leave `kg` out; the table shows «вес
-  подобрать».
-- Add `cue` only to `back: caution` exercises, and only on the first session
-  after a pause, in a new gym or when his back complains.
+- `strength.items` is the last session of that day with the engine's
+  weights, already swapped for machines this gym lacks. Keep it.
+- Supersets are only the trainer's: ГАКК + Отведение, Сгиб. голени + Разгиб.
+  бедра (or their substitutes).
+- Change an exercise only when:
+  - its `action` is `swap` (pain): take a pool exercise of the same role
+    that loads other joints, or drop it;
+  - Alex asks for variety, or the same exercises ran 3 sessions in a row on
+    this day: swap one isolation or shoulder slot from `strength.pool`
+    (never the main lift).
+  Say why in `overrides`.
+- `action` `probe` or `new` has no weight: keep it without `kg`; the table
+  shows the lb hint or «подобрать».
 
 ## I. Warm-up: the lower back first
 
-- 3 movements × 2 sets (2×15 reps, 2×40–45″ holds, 2×20 taps, 2×10 halos),
-  each from a different family. Families and their current rung are in
-  `warmup.families`:
-  A Dog birds → планка высокая → plank shoulder taps ·
-  B бок. планка → с поворотом · C удержание резины ·
-  D ягодичный мост → на каждую ногу → + жим гантелями ·
-  E экстензия → с 10 кг → сидя с гантелью · F махи блином вокруг головы.
-- Always at least one of A/B/C. The trainer's latest standard trio is
-  **E + B + A**: экстензия, бок. планка с поворотом, Dog birds. Rotate one
-  slot every 1–3 sessions: D (bridge) on legs days, F (halos) or A3 (taps)
-  on chest days, C (Pallof) on any day.
-- Slow progression: keep each family's current rung. Move one family up a
-  rung only when its hint is `may_advance` (6+ sessions at the rung, no
-  back complaints), and at most one family per session; holds grow by +5″.
-  `step_down_after_pause` → use the rung below for this session (E3 → E1,
-  10 kg halo → 5 kg).
+`warmup.suggested` already applies the trainer's pattern: the last warm-up of
+that day, one slot rotated when the same three repeat (D bridge on legs, F
+halos on chest, C band on back), each family on its rung, at most one rung
+up after 6+ sessions, no weights for the first session after 3+ weeks off,
+stabilizers only (A/B/C) when the back hurts. Use it as is; change it only
+when Alex asks or the gym lacks the kit.
 
 ## III. Crossfit
 
-- Default: **3 rounds for time**, 3–5 movements, cap 10–12′, Alex records
-  the time. Sometimes (≈1 in 4) another format: 21-15-9 couplet with a
-  cardio buy-in (Скакалка 50 / Air bike 15 cal), or a descending rope
-  ladder (Скакалка 50-40-30 between movements).
-- Composition: 1 cardio or plyo (скакалка, JJ, row, air bike, box jumps,
-  burpees) + 2–3 movements for other muscle groups + **one** for the day's
-  muscles, bodyweight or light: pull-ups on a back day, dips or push-ups on
-  a chest day, lunges or wall balls on a legs day. Two is the ceiling (the
-  trainer's chest days); after a hard strength part or `hard` feedback, none.
-  Wall balls and thrusters count as pressing on a chest day.
-- Variety: never repeat any of `crossfit.recent[-3:]`; prefer movements
-  with low `usage_last10`; change the cardio piece and the format from the
-  last session.
-- Loads stay the trainer's light ones (catalog `max_kg`): thrusters ≤ 20–25 kg,
-  wall ball 6 kg, lunges ≤ 15 kg in total, goblet or sumo ≤ 20 kg (32 kg
-  never again), 10 kg plate. At most 2 `back: caution` movements per combo.
-- After 3+ weeks off, `readiness low` or `time_min` ≤ 45: 2–3 rounds, cap
-  6–8′, no new movements. `readiness low` and pain may skip III entirely
-  (`"format": "skip"`).
+- Format: 3 rounds for time by default (`crossfit.dose` sets rounds and
+  cap). About one session in four, another format the trainer used: a
+  21-15-9 couplet with one cardio buy-in, or a jump-rope ladder 50-40-30
+  between three movements. Not after a pause or on a low-readiness day
+  (`dose.known_only` true).
+- Pick 4 movements from `crossfit.pool` (doses there are already scaled):
+  1 cardio or plyo + 2 for other muscles + 1 for the day's muscles
+  (`day_muscles` true: pull-ups on a back day, dips or push-ups on a chest
+  day, lunges or wall balls on a legs day). Two day-muscle movements at most;
+  none after `hard` feedback on that day's muscles.
+- Variety: not the same combo as any in `crossfit.recent`; nothing that was
+  in both of the last two combos; prefer low `uses_last10`; change the
+  cardio piece from last time.
+- Equipment the gym hasn't confirmed (`equipment` field): add its
+  `fallback` to the item.
+- Keep the check's time estimate within the cap: cut reps, not movements.
 
-## The lower back: always
+## Lower back
 
-- No free weight loads the spine (catalog `never`): strength is machines;
-  free weights appear only light, in warm-up and crossfit.
-- `--pain lower_back`: the engine swaps ГАКК, жим ногами, пулловер,
-  разгиб. бедра. Warm-up only A/B/C families, no loaded экстензия.
-  Crossfit without any `caution` movement (fine: air bike, скакалка,
-  push-ups, pull-ups, plank dumbbell drag).
+No free weight loads the spine (catalog `never`): strength is machines;
+free weights appear only light, in warm-up and crossfit. The engine and the
+check enforce pain rules; don't work around them.
 
 ## Time and tiredness
 
-- `time_min` 45–60: drop the last isolation exercise and keep the warm-up.
-  Under 45: warm-up 2 movements, strength 4 exercises, crossfit cap 6′ or skip.
-- `readiness low`: the engine holds every weight; keep 3 sets unless he asks
-  for less; crossfit 2 rounds or skip.
+The engine trims: `trim.drop` lists strength exercises to leave out,
+`trim.warmup_max` the warm-up size, `crossfit.dose` the rounds and cap. Low
+readiness holds every weight; crossfit 2 rounds or `"format": "skip"`.

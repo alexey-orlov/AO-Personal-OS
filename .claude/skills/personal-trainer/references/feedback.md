@@ -1,38 +1,42 @@
-# Alex's words → flags and ratings
+# Alex's words → flags, ratings, gym
 
 ## Before or during the session (brief flags)
 
 | He says | Flag |
 |---|---|
 | болит / тянет / ноет / дискомфорт + поясница, спина внизу | `--pain lower_back` |
-| … плечо | `--pain shoulder` |
-| … локоть | `--pain elbow` |
-| … колено | `--pain knee` |
-| … запястье, кисть | `--pain wrist` |
-| … шея | `--pain neck` |
-| … бедро, таз, пах | `--pain hip` |
-| плохо спал, устал, болею, нет сил, разбит, после перелёта | `--readiness low` |
+| … плечо · локоть · колено · запястье · шея · бедро, таз | `--pain shoulder` · `elbow` · `knee` · `wrist` · `neck` · `hip` |
+| плохо спал, устал, болею, нет сил, разбит, джетлаг | `--readiness low` |
+| переехал, давно не был (без жалоб на самочувствие) | no flag: the engine handles the pause |
 | мало времени, есть 40 минут | `--time 40` |
 | хочу спину / ноги / грудь | `--day pull` / `legs` / `push` |
-| нет тренажёра X, занят X | swap X from `strength.pool`; if the gym never has it, add `"<id>": "<what instead>"` to gym.json `substitutions` |
+| X занят, сегодня не работает | `--missing <id>` |
 
-Several pains: `--pain lower_back,knee`. Pain that sounds sharp, new or
-spreading (a leg going numb, a sudden twinge under load): stop planning and
-tell him to skip that area today and see a doctor if it persists; no plan
-works around an injury.
+Several pains: `--pain lower_back,knee`. Sharp, new or spreading pain (a
+leg going numb, a twinge under load): no plan; tell him to skip that area
+today and see a doctor if it persists.
 
 ## After the session (feedback ratings)
 
-| He says about an exercise | rating | Next time (engine) |
-|---|---|---|
-| легко, изи, мог больше, лёгкий вес | `easy` | the weight rises one session sooner |
-| норм, ок, нормально | `ok` | normal slow progression |
-| тяжело, на пределе, еле, последний подход через силу | `hard` | weight held; twice in a row → one step back |
-| не дожал, не сделал N повторов, сбросил вес | `fail` + note the reps | one step back |
-| больно, тянуло, неприятно в … | `pain` + joint in note | exercise swapped next time |
-| не делал, пропустил | `skipped` | no change |
+| He says about an exercise | rating |
+|---|---|
+| легко, изи, мог больше | `easy` |
+| норм, ок | `ok` |
+| тяжело, на пределе, последний подход еле | `hard` |
+| не дожал, не сделал N повторов, сбросил вес | `fail` + the reps in `note` |
+| больно, тянуло, неприятно в … | `pain` + `joint` (lower_back, knee, shoulder, elbow, wrist, neck, hip) |
+| не делал, пропустил | `skipped` |
 
-Not said about an exercise = nothing recorded (it is not `ok`). A general
-«всё норм» → `ok` for every strength exercise of that plan. Numbers he
-names («на тяге взял 140 lb», «присед 3×6 на 255») go to `actual`, and the
-next weights start from them. Crossfit time goes to `crossfit_time`.
+Not mentioned = not recorded. «Всё норм» → `ok` for every strength exercise
+of that plan. Weights he names («на тяге взял 140», «присед 3×6 на 255»)
+→ `actual` in lb (or kg if he says кг); the next plan starts from them.
+Crossfit time → `crossfit_time`.
+
+## The gym
+
+| He says | Command |
+|---|---|
+| нет Т-тяги / такого тренажёра нет | `gym --missing chest_supported_tbar` |
+| есть тренажёр для махов одной рукой | `gym --have lateral_raise_1arm` |
+| вместо X делаю Y | `gym --use X=Y` |
+| нет скакалки / есть гребля | `gym --equip rope=missing` / `rower=have` |
