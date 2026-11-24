@@ -125,6 +125,12 @@ Google account can open — share a sheet created elsewhere with that account.
 | exit 3, 403 on one spreadsheet | that sheet is not shared with the account, or the Sheets API is disabled on the project | share the sheet / enable the API |
 | exit 2, network error | sandbox network, not the credential | retry; never record it as "not found" |
 
+Interactive session on a Mac without `.work/` (the MacBook Air, as of
+2026-11-23): the Google Sheets connector reaches the same sheets. Its
+`update_values` parses input the way typing does, so the text `10/10` becomes
+a date. Prefix text with `'`, or write typed cells through
+`update_spreadsheet` → `updateCells`. Scripts keep using this credential.
+
 Security: the JSON is a **secret** — env var / secret store only, never in
 the repo, a chat message, an issue, or a commit message. The cloud
 environment shows variable values to anyone who can open that environment
