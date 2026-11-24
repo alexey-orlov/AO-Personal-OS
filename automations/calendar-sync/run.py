@@ -239,8 +239,21 @@ def reverse_pass(placeholders, g_min, g_max, gcal):
     return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors
 
 
+def snapshot_calendars():
+    """Write EventKit's calendar list to .work/state/calendars.txt ("[source] (type) :: title"), so a
+    session without the host app's Calendar grant can see which accounts the sync would read."""
+    try:
+        out = subprocess.run([READER, "--list"], capture_output=True, text=True, timeout=30)
+        if out.returncode == 0:
+            with open(os.path.join(HERE, ".work/state/calendars.txt"), "w", encoding="utf-8") as f:
+                f.write(out.stdout)
+    except Exception:
+        pass
+
+
 def main():
     now = datetime.now(timezone.utc)
+    snapshot_calendars()
     source, placeholders, complete, err = read_ss()
     if not complete:
         sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
