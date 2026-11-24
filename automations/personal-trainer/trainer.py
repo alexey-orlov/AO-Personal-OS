@@ -1026,7 +1026,7 @@ def est_seconds(st, cf):
 def cmd_brief(a):
     today = parse_date(a.today) if a.today else date.today()
     st = State(today, a.day, (a.pain or "").split(","), a.readiness, a.time,
-               missing=(a.missing or "").split(","))
+               missing=(a.missing or "").split(","), cleared=(a.ok or "").split(","))
     if not st.sessions:
         die("history is empty: run `sync` or `import-grid` first")
     rot = st.rotation()
@@ -1036,7 +1036,8 @@ def cmd_brief(a):
     for i in t_ids:
         ex, origin = resolve(st, i)
         if ex is None:
-            dropped.append({"id": i, "ru": st.cat.strength[i]["ru"], "why": "нет в зале и нет замены"})
+            why = "сегодня занят, замены нет" if i in st.missing_today else "нет в зале и нет замены"
+            dropped.append({"id": i, "ru": st.cat.strength[i]["ru"], "why": why})
             continue
         s = suggest(st, ex, origin)
         if origin is None and st.machines.get(i) in ("unknown", "unlikely") and ex.get("alt_ids"):
@@ -1057,19 +1058,36 @@ def cmd_brief(a):
                                        "last_used": ddmm(occ[-1].date) if occ else None, "action": sg.get("action"),
                                        "kg": sg.get("kg"), "lb": sg.get("lb"), "hint_lb": sg.get("hint_lb"),
                                        "replaces": origin}.items() if v is not None})
-    trim = None
-    if st.time_min:
+    trim, trimmed = None, []
+    warm = warmup_suggest(st, day)
+    if st.time_min:   # the engine trims; the lists below are already cut to fit
         n_max = 4 if st.time_min <= 45 else 5 if st.time_min <= 60 else 7
         keep = sorted(strength, key=lambda s: (ROLE_RANK[s["role"]], st.cat.strength[s["id"]]["order"]))[:n_max]
-        trim = {"strength_max": n_max, "warmup_max": 2 if st.time_min <= 45 else 3,
-                "drop": [s["id"] for s in strength if s not in keep]}
+        trimmed = [{"id": s["id"], "ru": s["ru"]} for s in strength if s not in keep]
+        strength = [s for s in strength if s in keep]
+        w_max = 2 if st.time_min <= 45 else 3
+        core_first = sorted(warm["suggested"], key=lambda w: st.cat.warm[w["id"]]["family"] not in CORE)
+        warm["suggested"] = [w for w in warm["suggested"] if w in core_first[:w_max]]
+        trim = {"time_min": st.time_min, "strength_max": n_max, "warmup_max": w_max}
+    streak = 0
+    t_set = set(t_ids)
+    for s in reversed(st.sessions):
+        if st.session_day(s) != day or not s["strength"]:
+            continue
+        if {st.cat.s_row.get(norm(i["name"])) for i in s["strength"]} - {None} == t_set:
+            streak += 1
+        else:
+            break
     p = st.pause()
     ask = []
     if p.get("ask"):
         ask.append(f"Тренировался после {ddmm(p['last_session'])}? В логе {p['days_since']} дн. без тренировок")
+    for j in sorted(st.pain):   # red-flag screen before planning around pain
+        extra = ", отдаёт в ногу?" if j == "lower_back" else (", отдаёт в руку?" if j in ("neck", "shoulder") else "?")
+        ask.append(f"{JOINTS.get(j, j).capitalize()}: ноет тупо или острая боль{extra}")
     for j, d in sorted(st.recent_pain.items()):
         if j not in st.pain:
-            ask.append(f"{JOINTS.get(j, j).capitalize()}: {d} было больно — как сейчас?")
+            ask.append(f"{JOINTS.get(j, j).capitalize()}: {d} было больно — как сейчас? (нормально → --ok {j})")
     brief = {
         "today": today.isoformat(), "day": day, "day_ru": st.cat.days[day]["ru"],
         "gym": {"name": st.gym["name"], "units": st.units.name(), "since": st.gym.get("since"),
@@ -1077,11 +1095,12 @@ def cmd_brief(a):
                     parse_date(s["date"]) >= st.gym_since for s in st.sessions)},
         "pause": p, "rotation": rot, "ask": ask,
         "pre": {"pain": sorted(st.pain), "readiness": st.readiness, "time_min": st.time_min,
-                "missing": st.missing_today, "recent_pain": st.recent_pain},
+                "missing": st.missing_today, "cleared": sorted(st.cleared), "recent_pain": st.recent_pain},
         "body_weight_kg": next((s["body_weight"] for s in reversed(st.sessions) if s.get("body_weight")), None),
-        "strength": {"template_from": t_date, "items": strength, "dropped": dropped, "pool": pool},
+        "strength": {"template_from": t_date, "template_streak": streak, "items": strength,
+                     "dropped": dropped, "trimmed": trimmed, "pool": pool},
         "trim": trim,
-        "warmup": warmup_suggest(st, day),
+        "warmup": warm,
         "crossfit": crossfit_brief(st, day),
         "history_synced_at": st.history_synced,
     }
@@ -1345,7 +1364,8 @@ def cmd_check(a):
     if cf.get("format") != "skip" and not 3 <= len(ci) <= 6:
         errors.append(f"кроссфит: {len(ci)} движений, у тренера 3–6")
     prim = set(st.cat.days.get(day, {}).get("primary_patterns", []))
-    rec, usage = crossfit_recent(st)
+    rec, usage, _ = crossfit_recent(st)
+    dose = crossfit_dose(st)
     overlap, caution = [], 0
     for it in ci:
         base = st.cat.cross.get(it["id"])
