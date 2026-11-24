@@ -1139,7 +1139,9 @@ function workoutView(w) {
   nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "II" }), el("h2", { text: "Strength" }), el("span", { class: "faint small", text: units + (isLb() ? " · kg below" : "") })));
   const curId = currentExId(w);
   w.plan.strength.forEach((it, k) => {
-    nodes.push(exerciseCard(w, it, it.id === curId && active));
+    // a superset is done set by set, alternating: when its first half is current, the second opens with it
+    const prev = w.plan.strength[k - 1];
+    nodes.push(exerciseCard(w, it, active && (it.id === curId || (!!prev?.superset_next && prev.id === curId))));
     if (it.superset_next) nodes.push(el("div", { class: "ss-link", text: "+ superset with the next one, no rest between" }));
   });
 
