@@ -298,26 +298,43 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors
 
 
-def snapshot_calendars():
-    """EventKit's calendar list -> [(source, type, title)], or None when it can't be read. Also saved
-    to .work/state/calendars.txt, so a session without the host app's Calendar grant can see it."""
+def snapshot_calendars(g_min, g_max):
+    """EventKit's calendar list -> [(source, type, title)], or None when it can't be read. Also saved,
+    with each calendar's count of timed events in the sync window, to .work/state/calendars.txt, so a
+    session without the host app's Calendar grant can see what every calendar holds."""
     try:
         out = subprocess.run([READER, "--list"], capture_output=True, text=True, timeout=30)
     except Exception:
         return None
     if out.returncode != 0:
         return None
+    cals = [m.groups() for m in (_LIST_LINE.match(x.strip()) for x in out.stdout.splitlines()) if m]
+    timed = {}
+    try:
+        lo = datetime.fromisoformat(g_min.replace("Z", "+00:00"))
+        hi = datetime.fromisoformat(g_max.replace("Z", "+00:00"))
+        allr = subprocess.run([READER, "--from", g_min, "--days", str((hi - lo).days + 1)],
+                              capture_output=True, text=True, timeout=60)
+        for r in json.loads(allr.stdout or "[]") if allr.returncode == 0 else []:
+            if not r.get("all_day") and sc._utc(r["start"]) < hi:
+                k = (r.get("source"), r.get("source_type"), r.get("calendar"))
+                timed[k] = timed.get(k, 0) + 1
+    except Exception:
+        timed = None
     try:
         with open(os.path.join(HERE, ".work/state/calendars.txt"), "w", encoding="utf-8") as f:
-            f.write(out.stdout)
+            for s, t, c in cals:
+                n = "?" if timed is None else timed.get((s, t, c), 0)
+                f.write("[%s] (%s) :: %s  —  %s timed events in %s .. %s\n" % (s, t, c, n, g_min[:10], g_max[:10]))
     except OSError:
         pass
-    return [m.groups() for m in (_LIST_LINE.match(x.strip()) for x in out.stdout.splitlines()) if m]
+    return cals
 
 
 def main():
     now = datetime.now(timezone.utc)
-    ek_cals = snapshot_calendars()
+    g_min, g_max = window_bounds(now)
+    ek_cals = snapshot_calendars(g_min, g_max)
     # Two Exchange accounts would make the reader mirror both as SoftServe and could send the "Busy"
     # blocks into the wrong one (README, gotcha 8): write nothing until the source is pinned.
     if ek_cals and sum(1 for _, t, c in ek_cals if t == "exchange" and c.casefold() == "calendar") > 1:
@@ -330,7 +347,6 @@ def main():
         sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
         print("ERROR: %s" % err)
         return 1
-    g_min, g_max = window_bounds(now)
     import gcal
 
     counts = {"added": 0, "modified": 0, "deleted": 0, "rev_added": 0, "rev_modified": 0, "rev_deleted": 0}
