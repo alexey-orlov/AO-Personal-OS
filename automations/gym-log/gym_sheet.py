@@ -365,8 +365,11 @@ class Model:
                 w["r"] += 1
 
     # ---- edit planning -------------------------------------------------
-    def _write(self, r, c, v):
-        vals = [_cell_value(x) for x in (v if isinstance(v, list) else [v])]
+    def _write(self, r, c, v, raw=False):
+        """raw=True: write as typed, no apostrophe. Only for values that must
+        parse, like the date header (an escaped «11/23/2026» stays text)."""
+        vals = v if isinstance(v, list) else [v]
+        vals = list(vals) if raw else [_cell_value(x) for x in vals]
         w = {"r": r, "c": c, "vals": vals}
         self.value_writes.append(w)
         for i, x in enumerate(vals):
@@ -422,7 +425,7 @@ class Model:
                       "startColumnIndex": col, "endColumnIndex": col + BLOCK_W},
             "cell": {"userEnteredFormat": {"numberFormat": {"type": "DATE", "pattern": "M/d/yyyy"}}},
             "fields": "userEnteredFormat.numberFormat"}})
-        self._write(0, col, date)
+        self._write(0, col, date, raw=True)    # must parse as a date, not text
         self._write(1, col, SUB_HEADERS)
         self.created["blocks"].append(date)
         return col
