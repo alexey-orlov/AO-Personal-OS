@@ -1,0 +1,2427 @@
+{
+ "sessions": [
+  {
+   "date": "2026-07-20",
+   "body_weight": 74,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 4,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 66,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим L 45°",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 30,
+     "w_end": 40,
+     "category": "Chest"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "10",
+      "w_start": 24,
+      "w_end": 24
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "T2B",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Sit-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Hand stand push-ups 10 → Thrusters 10 (24 кг) → T2B 15 → Sit-ups 15 → Скакалка 50",
+    "rounds": "3",
+    "cap": "10'",
+    "finish": "11:53"
+   },
+   "warmup_summary": "Dog birds 2x15 → Удержание резины 2x40\" → Ягодичный мост 2x15"
+  },
+  {
+   "date": "2026-07-22",
+   "body_weight": 73.6,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 52,
+     "w_end": 62,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 59,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга верт. одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 45,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 45,
+     "category": "Back"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": null,
+      "reps": "12",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Walking lunges",
+      "sets": null,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Squats",
+      "sets": null,
+      "reps": "20",
+      "w_start": 32,
+      "w_end": 32
+     },
+     {
+      "name": "Burpees",
+      "sets": null,
+      "reps": "12",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Row",
+      "sets": null,
+      "reps": "30 cal",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Row 30 cal → Pull-ups 12 → Lunges 20 (15 кг) → Burpees 12 → Squats 20 (32 кг)",
+    "rounds": "-",
+    "cap": "15–18' (зачёркнуто)",
+    "finish": "21:44"
+   },
+   "warmup_summary": "Бок. планка 2x40\" → Удержание резины 2x40\" → Ягодичный мост 2x15"
+  },
+  {
+   "date": "2026-07-24",
+   "body_weight": 73.8,
+   "strength": [
+    {
+     "name": "ГАКК присед",
+     "sets": 4,
+     "reps": "10",
+     "w_start": 75,
+     "w_end": 120,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. голени",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 59,
+     "w_end": 73,
+     "category": "Legs"
+    },
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 59,
+     "w_end": 63,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. бедра в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 22.5,
+     "w_end": 29.5,
+     "category": "Glutes"
+    },
+    {
+     "name": "Жим на плечи сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 45,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Махи на плечи",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 32,
+     "w_end": 36,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": null,
+      "reps": "9",
+      "w_start": 24,
+      "w_end": 24
+     },
+     {
+      "name": "T2B",
+      "sets": null,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Канат",
+      "sets": null,
+      "reps": "40\"",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Протяжка с приседом",
+      "sets": null,
+      "reps": "15",
+      "w_start": 20,
+      "w_end": 20
+     }
+    ],
+    "summary": "Канат 40\" → Протяжка с приседом 15 (20 кг) → Thrusters 9 (24 кг) → T2B 15",
+    "rounds": "-",
+    "cap": "12'",
+    "finish": "9:29"
+   },
+   "warmup_summary": "Dog birds 2x15 → Удерж. резины 2x40\" → Ягодичный мост 2x15"
+  },
+  {
+   "date": "2026-07-29",
+   "body_weight": 73.3,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 52,
+     "w_end": 59,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 59,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 45,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 25,
+     "w_end": 35,
+     "category": "Back"
+    },
+    {
+     "name": "Сгиб. на бицепс",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 52,
+     "category": "Back"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "20",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Скакалка 50 → Pull-ups 10 → Wall-ball 15 → Hand stand push-ups 20",
+    "rounds": "3",
+    "cap": "10'",
+    "finish": "11:27"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\" → Ягодичный мост 2x15"
+  },
+  {
+   "date": "2026-07-31",
+   "body_weight": 73.2,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 60,
+     "w_end": 80,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 60,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 68.3,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим в брусьях сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63.5,
+     "w_end": 63.5,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим L 45°",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 45,
+     "category": "Chest"
+    }
+   ],
+   "warmup": [],
+   "crossfit": {
+    "items": []
+   }
+  },
+  {
+   "date": "2026-08-03",
+   "body_weight": 73.4,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 4,
+     "reps": "8",
+     "w_start": 75,
+     "w_end": 75,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 68.5,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим в брусьях сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63.5,
+     "w_end": 63.5,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 50,
+     "w_end": 40,
+     "category": "Chest"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Dips",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "T2B",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": 3,
+      "reps": "20",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Squats",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 20,
+      "w_end": 20
+     },
+     {
+      "name": "HP",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Pull-ups 10 → Deeps 10 → T2B 15 → HP 15 → Squats 20 (20 кг) → Wall ball 20",
+    "rounds": "3",
+    "cap": "зачёркнуто",
+    "finish": "18:19"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\" → Удерж. резины 2x40\""
+  },
+  {
+   "date": "2026-08-05",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 3,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 3,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "21-15-9",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Air bike",
+      "sets": 3,
+      "reps": "15 cal",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Жим швунговый",
+      "sets": 3,
+      "reps": "21-15-9",
+      "w_start": 12.5,
+      "w_end": 12.5
+     }
+    ],
+    "summary": "Скакалка 50 → Жим швунговый 21-15-9 (12,5 кг) → Pull-ups 21-15-9 → Air bike 15 cal",
+    "rounds": "3 (21-15-9)",
+    "cap": "12–14'",
+    "finish": "не записано"
+   },
+   "warmup_summary": "Dog birds 3x15 (3 поверх 2?) → Боковая планка 3x40' (3 поверх 2?)"
+  },
+  {
+   "date": "2026-08-10",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Walking lunges",
+      "sets": null,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Dips",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Sumo squats",
+      "sets": null,
+      "reps": "20",
+      "w_start": 32,
+      "w_end": 32
+     }
+    ],
+    "summary": "Walking lunges 20 (15 кг) → Deeps 10 → Sumo squats 20 (32 кг)",
+    "rounds": "-",
+    "cap": "12'",
+    "finish": "6:49"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\""
+  },
+  {
+   "date": "2026-08-12",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 4,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": 4,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Sumo squats",
+      "sets": 4,
+      "reps": "20",
+      "w_start": 32,
+      "w_end": 32
+     }
+    ],
+    "summary": "Pull-ups 10 → Push-ups 15 → Sumo squats 20 (32 кг)",
+    "rounds": "4 (план 3–5)",
+    "cap": "-",
+    "finish": "нет на фото"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\""
+  },
+  {
+   "date": "2026-08-14",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "ГАКК присед",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 100,
+     "w_end": 120,
+     "category": "Legs"
+    },
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 64,
+     "w_end": 68,
+     "category": "Legs"
+    },
+    {
+     "name": "Жим ногами сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 95,
+     "w_end": 113,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. бедра в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 22.5,
+     "w_end": 32,
+     "category": "Glutes"
+    },
+    {
+     "name": "Жим на плечи сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 54,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Махи на плечи",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 39,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост на каждую ногу",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "21-15-9",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "21-15-9",
+      "w_start": 25,
+      "w_end": 25
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Thrusters 21-15-9 (25 кг) → Pull-ups 21-15-9 → Скакалка 50",
+    "rounds": "3 (21-15-9)",
+    "cap": "-",
+    "finish": "7:35"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\" → Ягодичный мост на каждую ногу 2x15"
+  },
+  {
+   "date": "2026-08-17",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Walking lunges",
+      "sets": null,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Dips",
+      "sets": null,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": null,
+      "reps": "10",
+      "w_start": 6,
+      "w_end": 6
+     },
+     {
+      "name": "Push-ups",
+      "sets": null,
+      "reps": "25",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Wall ball 10 (6 кг) → Deeps 15 → Walking lunges 20 (15 кг) → Push-ups 25",
+    "rounds": "-",
+    "cap": "10–12' ?",
+    "finish": "11:10"
+   },
+   "warmup_summary": "Dog birds 2x15 → Бок. планка 2x40\""
+  },
+  {
+   "date": "2026-08-19",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Скакалка",
+      "sets": 2,
+      "reps": "50+40",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Скакалка 50 → Pull-ups 15 → Скакалка 40 → Hand stand push-ups 15; 3-й круг без скакалки",
+    "rounds": "3 (3-й без скакалки)",
+    "cap": "10'",
+    "finish": "9:05"
+   },
+   "warmup_summary": "Dog birds 2x15 → Удержание резины с колена 2x40\""
+  },
+  {
+   "date": "2026-09-14",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "ГАКК присед",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 85,
+     "w_end": 120,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. голени",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 52,
+     "w_end": 66,
+     "category": "Legs"
+    },
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 59,
+     "w_end": 68.5,
+     "category": "Legs"
+    },
+    {
+     "name": "Жим ногами сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 95,
+     "w_end": 113,
+     "category": "Legs"
+    },
+    {
+     "name": "Махи на плечи",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 39,
+     "w_end": 41,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 59,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Протяжка к ключицам",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 45,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [],
+   "crossfit": {
+    "items": []
+   }
+  },
+  {
+   "date": "2026-09-18",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 3,
+     "reps": "8-8-6",
+     "w_start": 80,
+     "w_end": 80,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 73,
+     "w_end": 73,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 40,
+     "category": "Chest"
+    },
+    {
+     "name": "Махи на плечи",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 39,
+     "w_end": 41,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Жим гантелями сидя на плечи",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 15,
+     "w_end": 15,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [],
+   "crossfit": {
+    "items": []
+   }
+  },
+  {
+   "date": "2026-09-21",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Планка высокая",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Squats",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 16,
+      "w_end": 16
+     }
+    ],
+    "summary": "Pull-ups 10 → Push-ups 15 → Squats 20 (16 кг) → Rope jumps 50",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "11:25"
+   },
+   "warmup_summary": "Удержание резины с колен 2x40\" → Ягодичный мост 2x15 → Планка высокая 2x40\""
+  },
+  {
+   "date": "2026-09-23",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 80,
+     "w_end": 80,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 73,
+     "w_end": 73,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 40,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим в Hammer под углом 60°",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 40,
+     "w_end": 40,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 27,
+     "w_end": 34,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост + жим гантелями",
+     "sets": 2,
+     "reps": "15",
+     "w_start": "10+10",
+     "w_end": "10+10"
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Walking lunges",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Dips",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Plank dumbbell drag",
+      "sets": 3,
+      "reps": "30",
+      "w_start": 8,
+      "w_end": 8
+     }
+    ],
+    "summary": "Deeps 10 → Lunges walking 20 (15 кг) → Plank dumbbell drag 30 (8 кг)",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "8:09"
+   },
+   "warmup_summary": "Боковая планка с поворотом 2x15 → Dog birds 2x15 → Ягодичный мост + жим гантелями 2x15 (10+10 кг)"
+  },
+  {
+   "date": "2026-09-25",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Бок. планка",
+     "sets": 2,
+     "reps": "40\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост на каждую ногу",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "10",
+      "w_start": 20,
+      "w_end": 20
+     },
+     {
+      "name": "Walking lunges",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "T2B",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": 3,
+      "reps": "20",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Thrusters 10 (20 кг) → T2B 10 → Lunges walking 20 (15 кг) → Push-ups 20",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "7:39"
+   },
+   "warmup_summary": "Боковая планка на удерж. 2x40\" → Ягодичный мост по 1 ноге 2x15 → Экстензия с контролем осанки 2x15"
+  },
+  {
+   "date": "2026-09-28",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 66,
+     "w_end": 68,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 63,
+     "w_end": 63,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга верт. одной рукой",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 41,
+     "w_end": 50,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 41,
+     "w_end": 45.5,
+     "category": "Back"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 34,
+     "w_end": 39,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост на каждую ногу",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Dips",
+      "sets": null,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": null,
+      "reps": "20",
+      "w_start": 6,
+      "w_end": 6
+     },
+     {
+      "name": "JJ",
+      "sets": null,
+      "reps": "25",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Pull-ups 10 → Deeps 15 → Wall ball 20 (6 кг) → JJ 25",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "8:29"
+   },
+   "warmup_summary": "Бок. планка с поворотом 2x15 → Ягодичный мост на каждую ногу 2x15 → Экстензия с контролем осанки 2x15"
+  },
+  {
+   "date": "2026-10-02",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 80,
+     "w_end": 80,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 73,
+     "w_end": 73,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 40,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим в Hammer под углом 60°",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 40,
+     "w_end": 40,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 34,
+     "w_end": 34,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Махи блином вокруг головы",
+     "sets": 2,
+     "reps": "10",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "10",
+      "w_start": "10/10",
+      "w_end": "10/10"
+     },
+     {
+      "name": "Walking lunges",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Зашагивание на тумбу",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 20,
+      "w_end": 20
+     }
+    ],
+    "summary": "Hand stand push ups 10 → Lunges walking 20 (15 кг) → Thrusters 10 (10 кг/10) → Зашагивание на тумбу 20 (20 кг)",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "10:43"
+   },
+   "warmup_summary": "Бок. планка с поворотом 2x15 → Экстензия с контролем 2x15 → Махи блином вокруг головы 2x10 (10 кг)"
+  },
+  {
+   "date": "2026-10-05",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "ГАКК присед",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 100,
+     "w_end": 140,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 66,
+     "category": "Legs"
+    },
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 66,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. бедра в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 30,
+     "w_end": 32,
+     "category": "Glutes"
+    },
+    {
+     "name": "Отведение на ягодицы",
+     "sets": 3,
+     "reps": "15",
+     "w_start": 86,
+     "w_end": 100,
+     "category": "Glutes"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 34,
+     "w_end": 34,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Wall ball",
+      "sets": 3,
+      "reps": "10",
+      "w_start": 6,
+      "w_end": 6
+     },
+     {
+      "name": "Burpees",
+      "sets": 3,
+      "reps": "5",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Box jumps",
+      "sets": 3,
+      "reps": "5",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Приседания с блином над головой",
+      "sets": 3,
+      "reps": "10+?",
+      "w_start": 10,
+      "w_end": 10
+     }
+    ],
+    "summary": "Приседания с блином над головой 10 (10 кг) → Box jumps 5 → Присед. с блином над головой (без числа) → Burpees 5 → Wall ball 10 (6 кг)",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "7:30"
+   },
+   "warmup_summary": "Экстензия 2x15 (10 кг) → Dog birds 2x15 → Бок. планка с поворотом 2x15"
+  },
+  {
+   "date": "2026-10-07",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Махи блином вокруг головы",
+     "sets": 2,
+     "reps": "10",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "10",
+      "w_start": 20,
+      "w_end": 20
+     },
+     {
+      "name": "Скакалка",
+      "sets": 3,
+      "reps": "50+40+30",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "T2B",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Отжимания вниз головой 10 → Скакалка 50 → Thrusters 10 (20 кг) → Скакалка 40 → T2B 10 → Скакалка 30",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "12:17"
+   },
+   "warmup_summary": "Боковая планка с поворотом 2x15 → Махи блином 2x10 (10 кг) → Dog birds 2x15"
+  },
+  {
+   "date": "2026-10-09",
+   "body_weight": null,
+   "strength": [],
+   "warmup": [
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост на каждую ногу",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": 3,
+      "reps": "21-15-9",
+      "w_start": 20,
+      "w_end": 20
+     },
+     {
+      "name": "Walking lunges",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Dips",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Box jumps",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Box jumps 10 → Deeps 10 → Walking lunges 20 (15 кг) → Thrusters 21-15-9 (20 кг)",
+    "rounds": "3 (Thrusters 21-15-9)",
+    "cap": "-",
+    "finish": "8:55"
+   },
+   "warmup_summary": "Бок. планка с поворотом 2x15 → Экстензия 2x15 (10 кг) → Ягодичный мост на к.н. 2x15"
+  },
+  {
+   "date": "2026-10-12",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "ГАКК присед",
+     "sets": 3,
+     "reps": "6-8",
+     "w_start": 130,
+     "w_end": 150,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 62,
+     "w_end": 68,
+     "category": "Legs"
+    },
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 68,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. бедра в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 32,
+     "w_end": 34,
+     "category": "Glutes"
+    },
+    {
+     "name": "Отведение на ягодицы",
+     "sets": 3,
+     "reps": "15",
+     "w_start": 89,
+     "w_end": 107,
+     "category": "Glutes"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 39,
+     "w_end": 39,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "45\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Thrusters",
+      "sets": null,
+      "reps": "20",
+      "w_start": 20,
+      "w_end": 20
+     },
+     {
+      "name": "Walking lunges",
+      "sets": null,
+      "reps": "20",
+      "w_start": 15,
+      "w_end": 15
+     },
+     {
+      "name": "Burpees",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Burpees 10 → Walking lunges 20 (15 кг) → Pull-ups 10 → Thrusters 20 (20 кг)",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "11:00"
+   },
+   "warmup_summary": "Экстензия 10кг 2x15 → Ягодичный мост 2x15 → Резина удержание 2x45\""
+  },
+  {
+   "date": "2026-10-14",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 79,
+     "w_end": 73,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 45,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук лёжа",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 18,
+     "w_end": 18,
+     "category": "Chest"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 39,
+     "w_end": 39,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    },
+    {
+     "name": "Планка со сменой рук",
+     "sets": 2,
+     "reps": "20",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Dips",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": null,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": null,
+      "reps": "25",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Row",
+      "sets": null,
+      "reps": "20 cal",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Deeps 10 → Wall ball 15 → Row 20 Cal → Push-ups 25",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "не записано"
+   },
+   "warmup_summary": "Боковая планка с поворотом 2x15 → Экстензия 10кг 2x15 → Планка с переменной (?) сменой рук 2x20"
+  },
+  {
+   "date": "2026-10-16",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 68,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63,
+     "w_end": 63,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 41,
+     "w_end": 41,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 35,
+     "w_end": 35,
+     "category": "Back"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия сидя с гантелью",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Hand stand push-ups",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": 3,
+      "reps": "10",
+      "w_start": 6,
+      "w_end": 6
+     },
+     {
+      "name": "Box jumps",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Hand stand push-ups 10 → Pull-ups 10 → Box Jumps 10 → Wall ball 10 (6 кг)",
+    "rounds": "3",
+    "cap": "-",
+    "finish": "7:38"
+   },
+   "warmup_summary": "Бок. планка с поворотом 2x15 → Экстензия сидя с гантелью 2x15 → Dog birds 2x15"
+  },
+  {
+   "date": "2026-10-21",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 73,
+     "w_end": 73,
+     "category": "Chest"
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 45,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук сидя с нижнего блока",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 16,
+     "w_end": 16,
+     "category": "Chest"
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 39,
+     "w_end": 39,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия сидя с гантелью",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    },
+    {
+     "name": "Plank shoulders touch",
+     "sets": 2,
+     "reps": "20",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Thrusters",
+      "sets": null,
+      "reps": "15",
+      "w_start": 10,
+      "w_end": 10
+     },
+     {
+      "name": "Dips",
+      "sets": null,
+      "reps": "9",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": null,
+      "reps": "21",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Burpees",
+      "sets": null,
+      "reps": "6",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Push-ups 21 → Thrusters 15 (10 кг) → Deeps 9 → Burpees 6",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "не читается («9.» и рисунок)"
+   },
+   "warmup_summary": "Plank shoulders touch 2x20 → Экстензия сидя с гант. 10кг 2x15 → Dog birds 2x15"
+  },
+  {
+   "date": "2026-10-23",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 68,
+     "w_end": 68,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63,
+     "w_end": 63,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 41,
+     "w_end": 41,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 35,
+     "w_end": 35,
+     "category": "Back"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия сидя с гантелью",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Выпады",
+      "sets": null,
+      "reps": "20",
+      "w_start": 10,
+      "w_end": 10
+     },
+     {
+      "name": "Скакалка",
+      "sets": null,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Box jumps",
+      "sets": null,
+      "reps": "5",
+      "w_start": null,
+      "w_end": null
+     }
+    ],
+    "summary": "Скакалка 50 → Выпады 20 (10 кг) → Pull-ups 10 → Box jumps 5",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "не записано (нарисованы часы)"
+   },
+   "warmup_summary": "Экстензия с гант. 2x15 → Бок. планка с поворотом 2x15 → Dog birds 2x15"
+  },
+  {
+   "date": "2026-10-30",
+   "body_weight": 72.3,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 68,
+     "w_end": 68,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63,
+     "w_end": 63,
+     "category": "Back"
+    },
+    {
+     "name": "Пулловер с колен",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 41,
+     "w_end": 41,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга в упоре",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 35,
+     "w_end": 35,
+     "category": "Back"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 70,
+     "w_end": 70,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Экстензия сидя с гантелью",
+     "sets": 2,
+     "reps": "15",
+     "w_start": 10,
+     "w_end": 10
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Pull-ups",
+      "sets": null,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Выпады",
+      "sets": null,
+      "reps": "20",
+      "w_start": 10,
+      "w_end": 10
+     },
+     {
+      "name": "Скакалка",
+      "sets": null,
+      "reps": "50",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Wall ball",
+      "sets": null,
+      "reps": "10",
+      "w_start": 6,
+      "w_end": 6
+     }
+    ],
+    "summary": "Скакалка 50 → Выпады 20 (10 кг) → Pull-ups 10 → Wall ball 10 (6 кг); одна строка зачёркнута",
+    "rounds": "-",
+    "cap": "-",
+    "finish": "9:10"
+   },
+   "warmup_summary": "Экстензия сидя (10кг) 2x15 → Dog birds 2x15 → Бок. планка с поворотом 2x15"
+  }
+ ],
+ "source": "My training sheet (connector grid)",
+ "synced_at": "2026-11-23T16:11:45"
+}
