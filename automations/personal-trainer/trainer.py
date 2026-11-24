@@ -1646,7 +1646,8 @@ def cmd_lb(a):
 def cmd_backtest(a):
     hist = load_json(HISTORY_F)
     frm = parse_date(a.frm) if a.frm else date(2026, 9, 21)
-    to = parse_date(a.to) if a.to else date.today()
+    kyiv_until = parse_date(load_json(GYM_F)["gyms"].get("kyiv", {}).get("until")) or date.today()
+    to = parse_date(a.to) if a.to else kyiv_until   # the trainer's own sessions only
     rows, day_hits, day_total = [], 0, 0
     for s in hist["sessions"]:
         d = parse_date(s["date"])
