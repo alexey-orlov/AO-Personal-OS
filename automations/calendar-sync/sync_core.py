@@ -534,7 +534,7 @@ def reverse_reconcile(inp):
 
 
 # --------------------------------------------------------------------------- #
-# schedule gate  (hourly around the clock, Mon–Fri, in the zone run.sh passes = the Mac's)
+# schedule gate  (every 30 minutes around the clock, Mon–Fri, in the zone run.sh passes = the Mac's)
 # Alex works with Europe and the US at once (moved to SF 2026-11-19), so every hour of a
 # weekday counts; the gate only turns away stray weekend ticks launchd coalesces on wake.
 # --------------------------------------------------------------------------- #
