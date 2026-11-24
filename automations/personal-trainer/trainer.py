@@ -467,6 +467,10 @@ def shape(ex, top, step, ramp_first=None):
 
 
 def suggest(st, ex):
+    """Next weights for one exercise, in the trainer's style:
+    ramp in (1st set lighter) -> close the ramp -> reps to the top of the range ->
+    hold the weight N sessions -> one step up on the 2nd and 3rd set. Pauses keep
+    the weight and start lower; long pauses and a new gym cut it."""
     U = st.units
     lo, hi = ex["rep_range"]
     rep_txt = f"{lo}-{hi}" if lo != hi else str(hi)
@@ -484,6 +488,7 @@ def suggest(st, ex):
         return res
 
     step = U.step(ex)
+    pyramid = ex["scheme"] == "pyramid"
     cur = [o for o in occ if not st.gym_since or o.date >= st.gym_since]
     last = (cur or occ)[-1]
     gap = (st.today - last.date).days
@@ -493,69 +498,78 @@ def suggest(st, ex):
         res.update(action="swap", why=f"{ddmm(last.date)} было больно — заменить из пула дня")
         return res
 
+    def ramp(top, first_steps=1):
+        return shape(ex, top, step, None if pyramid else max(top - first_steps * step, step))
+
     def done(action, weights, why, reps=None):
         res.update(action=action, why=why, reps=reps or res["reps"], **U.pair(weights))
-        if st.readiness == "low" and action in ("step_up", "close_ramp", "re_entry_up", "calibrate_up"):
-            prev = U.pair(shape(ex, U.from_kg(last.we), step, U.from_kg(last.ws)))
-            res.update(action="hold", why=why + "; самочувствие слабое — без прибавки", **prev)
+        if st.readiness == "low" and action in ("step_up", "close_ramp", "re_entry_up"):
+            keep = shape(ex, U.from_kg(last.we), step, U.from_kg(last.ws) if U.from_kg(last.ws) < U.from_kg(last.we) else None)
+            res.update(action="hold", why=why + "; самочувствие слабое — без прибавки", **U.pair(keep))
         return res
 
-    # first time in this gym: start from the old gym's numbers, minus the pause
+    # A. first time on this gym's machine: Kyiv numbers are only a starting point
     if not cur:
-        top = U.floor_from_kg(last.we * f)
-        why = (f"первый раз в новом зале: в Киеве {clean_num(last.we)} кг ({ddmm(last.date)}), "
-               f"пауза {gap} дн. → −{round((1 - f) * 100)} %; 1-й подход — проба, тренажёр другой")
-        return done("calibrate", shape(ex, top, step, top - step if ex["scheme"] != "pyramid" else None),
-                    why, f"{lo}-{hi}" if lo != hi else str(hi))
+        top = U.floor_from_kg(last.we * f * CALIBRATION)
+        cut = round((1 - f * CALIBRATION) * 100)
+        why = (f"новый тренажёр: в Киеве {clean_num(last.we)} кг ({ddmm(last.date)}) → старт −{cut} %; "
+               f"1-й подход — проба, если 2-й легко на {hi}+ — 3-й на шаг тяжелее")
+        return done("calibrate", ramp(top, 2), why, str(lo) if gap >= 14 else rep_txt)
 
     W, F = U.from_kg(last.we), U.from_kg(last.ws)
+
+    # B. back on this movement after 2+ weeks
+    if gap >= 14:
+        top = W if f == 1.0 else U.floor_from_kg(last.we * f)
+        why = (f"{gap} дн. без упражнения: вес как {ddmm(last.date)}, 1-й подход легче, повторы по нижней границе"
+               if f == 1.0 else f"{gap} дн. без упражнения: −{round((1 - f) * 100)} % от {clean_num(last.we)} кг")
+        return done("re_entry", ramp(top, 2), why, str(lo))
+
     per = parse_reps(last.reps)
     missed = per["kind"] == "per_set" and min(per["vals"]) < lo
     below_top = per["kind"] == "single" and per["vals"][0] < hi
     prev = cur[-2] if len(cur) > 1 else None
     fb_prev = st.fb(prev.date, ex["id"]) if prev else None
 
-    # pause since the last time on this machine
-    if f < 1.0:
-        top = U.floor_from_kg(last.we * f)
-        why = f"пауза {gap} дн. (последний раз {ddmm(last.date)}: {clean_num(last.we)} кг) → −{round((1 - f) * 100)} %, 1-й подход легче"
-        return done("re_entry", shape(ex, top, step, top - step if ex["scheme"] != "pyramid" else None), why)
-
-    # re-entry after a pause or a gym change: climb back one step per session
-    target = None
-    for i in range(len(occ) - 1, 0, -1):
-        a, b = occ[i - 1], occ[i]
-        if (b.date - a.date).days >= 14 or (st.gym_since and a.date < st.gym_since <= b.date):
-            since = [o for o in occ[i:]]
-            if len(since) <= 3:
-                target = U.from_kg(a.we)
-            break
-
+    # C. feedback and missed reps come before any increase
     if fb == "fail" or (fb == "hard" and fb_prev == "hard"):
         return done("step_back", shape(ex, max(W - step, step), step), "в прошлый раз не дожал — шаг назад")
     if fb == "hard" or missed:
-        why = "в прошлый раз было тяжело — держим вес" if fb == "hard" else \
-            f"не все повторы ({last.reps}) — держим вес, добираем повторы"
+        why = ("в прошлый раз было тяжело — держим вес" if fb == "hard"
+               else f"не все повторы ({last.reps}) — держим вес, добираем повторы")
         return done("hold", shape(ex, W, step, F if F < W else None), why)
-    if target is not None and W < target:
-        nxt = min(W + step * (2 if fb == "easy" and W + 2 * step <= target else 1), target)
-        return done("re_entry_up", shape(ex, nxt, step, W if ex["scheme"] != "pyramid" else None),
-                    f"возврат после паузы: ориентир {clean_num(U.to_kg(target))} кг, +1 шаг за тренировку")
-    if ex["scheme"] == "pyramid":
+
+    # D. climbing back to the weight before a break or the gym change (first 3 sessions)
+    marks = [b for b in global_breaks(st) if b <= last.date]
+    if st.gym_since and st.gym_since <= last.date:
+        marks.append(st.gym_since)
+    if marks:
+        mark = max(marks)
+        since = [o for o in occ if o.date >= mark]
+        before = [o for o in occ if o.date < mark]
+        if before and len(since) <= 3:
+            target = U.from_kg(before[-1].we)
+            if W < target:
+                jump = 2 if fb == "easy" and W + 2 * step <= target else 1
+                nxt = min(W + jump * step, target)
+                return done("re_entry_up", ramp(nxt) if not pyramid else shape(ex, nxt, step),
+                            f"возврат к весу до перерыва ({clean_num(before[-1].we)} кг): +{jump} шаг")
+
+    # E. normal slow progression
+    need = max(1, ex.get("progress_n", 3) - (1 if fb == "easy" else 0))
+    if pyramid:
         flat_n = 0
         for o in reversed(cur):
-            if U.from_kg(o.we) == W:
-                flat_n += 1
-            else:
+            if U.from_kg(o.we) != W:
                 break
-        need = max(1, ex.get("progress_n", 2) - (1 if fb == "easy" else 0))
+            flat_n += 1
         if flat_n >= need and not below_top:
-            return done("step_up", shape(ex, W + step, step), f"верх {clean_num(last.we)} кг держится {flat_n}× → +1 шаг")
-        return done("hold", shape(ex, W, step), f"верх {clean_num(last.we)} кг: {flat_n} из {need} тренировок до прибавки")
+            return done("step_up", shape(ex, W + step, step), f"верх {clean_num(last.we)} кг сделан → +1 шаг")
+        return done("hold", shape(ex, W, step), f"верх {clean_num(last.we)} кг: {flat_n} из {need} до прибавки")
     if F < W:
         nf = min(W, F + step)
         return done("close_ramp", shape(ex, W, step, nf if nf < W else None),
-                    "1-й подход подтягиваем к рабочему весу (как тренер: 66/68/68 → 68/68/68)")
+                    "1-й подход подтягиваем к рабочему весу")
     if below_top:
         return done("add_reps", shape(ex, W, step), f"вес тот же, добрать до {hi} повторов", str(hi))
     flat_n = 0
@@ -567,10 +581,9 @@ def suggest(st, ex):
             flat_n += 1
         else:
             break
-    need = max(1, ex.get("progress_n", 3) - (1 if fb == "easy" else 0))
     if flat_n >= need:
-        return done("step_up", shape(ex, W + step, step, W), f"{clean_num(last.we)} кг × {hi} держится {flat_n}× → +1 шаг "
-                    "(новый вес на 2-м и 3-м подходе)", f"{lo}-{hi}" if lo != hi else str(hi))
+        return done("step_up", shape(ex, W + step, step, W),
+                    f"{clean_num(last.we)} кг × {hi} — {flat_n} раза → +1 шаг на 2-м и 3-м подходе", rep_txt)
     return done("hold", shape(ex, W, step), f"{clean_num(last.we)} кг: {flat_n} из {need} ровных тренировок до прибавки")
 
 
@@ -609,7 +622,8 @@ def warmup_state(st):
             rungs = sorted(set(rungs) | {(e["loaded_level"]["level"], e["id"] + "+kg")
                                          for e in st.cat.warm.values() if e["family"] == fam and e.get("loaded_level")})
         hint = "hold"
-        if gap >= 21 and lvl > 1:
+        loaded = bool(st.cat.warm[wid].get("load_kg")) or lvl != st.cat.warm[wid]["level"]
+        if gap >= 21 and loaded:
             hint = "step_down_after_pause"
         elif n >= 6 and any(r[0] > lvl for r in rungs) and "lower_back" not in st.pain:
             hint = "may_advance"
