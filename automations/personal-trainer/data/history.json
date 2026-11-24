@@ -586,7 +586,7 @@
       "w_end": 20
      },
      {
-      "name": "HP",
+      "name": "Hand stand push-ups",
       "sets": 3,
       "reps": "15",
       "w_start": null,
@@ -1804,8 +1804,8 @@
       "name": "Thrusters",
       "sets": 3,
       "reps": "10",
-      "w_start": "10/10",
-      "w_end": "10/10"
+      "w_start": "10+10",
+      "w_end": "10+10"
      },
      {
       "name": "Walking lunges",
@@ -2087,7 +2087,7 @@
     {
      "name": "Пулловер с колен",
      "sets": 3,
-     "reps": "?",
+     "reps": "10",
      "w_start": 45,
      "w_end": 41,
      "category": "Back"
