@@ -502,6 +502,49 @@ class TestReverse(unittest.TestCase):
         self.assertEqual(plan["updates"][0]["ss_id"], "SS2")
         self.assertEqual(plan["relinks"]["cal1::m1"]["ss_id"], "SS2")
 
+    def ek(self, uid="U1", start="2026-06-20T08:00:00-07:00", end="2026-06-20T08:30:00-07:00", **kw):
+        """An ss-cal-read row from a calendar read straight from Apple Calendar (GigaCloud's feed)."""
+        e = {"uid": "local-" + uid, "external_id": uid, "title": "Product daily", "start": start, "end": end,
+             "all_day": False, "recurring": False, "detached": False, "occurrence": start,
+             "availability": "busy", "status": "none", "attendees": [], "organizer_email": ""}
+        e.update(kw)
+        return e
+
+    def test_eventkit_busy_rules_and_keys(self):
+        # 2026-11-24: GigaCloud read from Apple Calendar's subscription instead of Google's lagging copy
+        rows = [
+            self.ek("A"),                                                   # busy
+            self.ek("N", availability="notSupported"),                      # feed can't say -> busy
+            self.ek("T", availability="tentative"),                         # tentative -> busy
+            self.ek("F", availability="free"),                              # Free -> skip
+            self.ek("C", status="canceled"),                                # cancelled -> skip
+            self.ek("X", title="Canceled: (HOLD) Integrity expectations"),  # Outlook's cancelled title -> skip
+            self.ek("D", all_day=True),                                     # all-day -> skip
+            self.ek("S", attendees=[{"email": "olekorlov@softserveinc.com"}]),  # already on SS -> skip
+            self.ek("R", recurring=True),                                   # a series: UID + original start
+            self.ek("R", recurring=True, start="2026-06-21T08:00:00-07:00", end="2026-06-21T08:30:00-07:00",
+                    occurrence="2026-06-21T08:00:00-07:00"),
+            self.ek("M", detached=True, start="2026-06-22T09:00:00-07:00", end="2026-06-22T09:30:00-07:00",
+                    occurrence="2026-06-22T08:00:00-07:00"),                # moved occurrence keeps its key
+            self.ek("A"),                                                   # a repeated key -> one slot
+        ]
+        out = sc.eventkit_busy({"events": rows, "calendar": "GigaCloud"})["busy_events"]
+        self.assertEqual([b["key"] for b in out], [
+            "ek:GigaCloud::A", "ek:GigaCloud::N", "ek:GigaCloud::T",
+            "ek:GigaCloud::R@20260620T150000Z", "ek:GigaCloud::R@20260621T150000Z",
+            "ek:GigaCloud::M@20260622T150000Z"])
+        self.assertEqual((out[5]["start"], out[5]["end"]), ("2026-06-22T09:00:00-07:00", "2026-06-22T09:30:00-07:00"))
+
+    def test_eventkit_slot_converges_through_its_placeholder(self):
+        busy = sc.eventkit_busy({"events": [self.ek("A")], "calendar": "GigaCloud"})["busy_events"]
+        c = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": []})["creates"][0]
+        self.assertEqual(c["marker"], "[[gcal-busy:ek:GigaCloud::A]]")
+        # read back from SS in another offset with no ledger: recognised, not created again
+        ph = [{"ss_id": "SS9", "key": "ek:GigaCloud::A",
+               "start": "2026-06-20T18:00:00+03:00", "end": "2026-06-20T18:30:00+03:00"}]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph})
+        self.assertEqual(plan["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
+
     def test_delete_guarded_on_incomplete_read(self):
         ledger = {"cal1::gone": {"ss_id": "SSx", "hash": "h"}}
         full = sc.reverse_reconcile({"busy_events": [], "reverse_ledger": ledger, "ss_placeholders": []})
