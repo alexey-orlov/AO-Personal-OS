@@ -164,6 +164,28 @@ class TestReconcile(unittest.TestCase):
         self.assertEqual(out["counts"]["delete"], 2)
         self.assertEqual({d["google_event_id"] for d in out["deletes"]}, {"gOld18", "gOld25"})
 
+    def test_second_live_copy_of_a_current_meeting_is_pruned(self):
+        # 2026-11-24: Google held two copies of one live occurrence (one an hour early, left by
+        # the CET bug) and the stale one was never removed. Keep the ledger's, prune the other.
+        ev = src("PDLC daily", "2026-06-18T08:00:00", "2026-06-18T08:30:00")
+        c = sc.reconcile(base([ev]))["creates"][0]
+        keep = {"google_event_id": "gKeep", "source_key": c["source_key"],
+                "content_hash": c["content_hash"], "start_kiev": c["start_kiev"]}
+        stale = {"google_event_id": "gDup", "source_key": c["source_key"],
+                 "content_hash": "stale", "start_kiev": "2026-06-18T17:00:00+03:00"}
+        ledger = {c["source_key"]: {"google_event_id": "gKeep", "content_hash": c["content_hash"],
+                                    "start_kiev": c["start_kiev"]}}
+        out = sc.reconcile(base([ev], ledger=ledger, google_copies=[keep, stale]))
+        self.assertEqual(out["counts"], {"create": 0, "update": 0, "delete": 1, "skip": 1})
+        self.assertEqual(out["deletes"][0]["google_event_id"], "gDup")
+        self.assertEqual(out["deletes"][0]["reason"], "duplicate")
+        # no ledger: the first listed copy is kept, whichever order Google returns
+        out = sc.reconcile(base([ev], google_copies=[keep, stale]))
+        self.assertEqual([d["google_event_id"] for d in out["deletes"]], ["gDup"])
+        # an incomplete read prunes nothing
+        out = sc.reconcile(base([ev], ledger=ledger, google_copies=[keep, stale], source_complete=False))
+        self.assertEqual(out["counts"]["delete"], 0)
+
 
 class TestExtract(unittest.TestCase):
     def test_split_copies_and_natives(self):
@@ -446,6 +468,39 @@ class TestReverse(unittest.TestCase):
                "start": "2026-06-20T15:00:00+03:00", "end": "2026-06-20T15:30:00+03:00"}]
         plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph})
         self.assertEqual(plan["counts"]["skip"], 1)
+        # ...and the ledger is re-pointed at it, so it stays tracked once it leaves the read window
+        self.assertEqual(plan["relinks"], {"cal1::m1": {
+            "ss_id": "SS1", "hash": sc._rev_hash("2026-06-20T15:00:00+03:00", "2026-06-20T15:30:00+03:00")}})
+
+    PH = {"start": "2026-06-20T15:00:00+03:00", "end": "2026-06-20T15:30:00+03:00"}
+
+    def test_duplicate_placeholder_for_a_live_slot_is_pruned(self):
+        # 2026-11-24: SS held two "Busy" blocks for one Google event and kept both forever.
+        busy = sc.reverse_sources({"events": [self.gev(id="m1")]})["busy_events"]
+        h = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {},
+                                  "ss_placeholders": []})["creates"][0]["hash"]
+        ledger = {"cal1::m1": {"ss_id": "SS1", "hash": h}}
+        ph = [{"ss_id": "SS2", "key": "cal1::m1", **self.PH}, {"ss_id": "SS1", "key": "cal1::m1", **self.PH}]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger, "ss_placeholders": ph})
+        self.assertEqual(plan["counts"], {"create": 0, "update": 0, "delete": 1, "skip": 1})
+        self.assertEqual(plan["deletes"], [{"op": "delete", "ss_id": "SS2", "key": "cal1::m1", "duplicate": True}])
+        self.assertEqual(plan["relinks"], {})
+        # incomplete read -> nothing pruned
+        guarded = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger,
+                                        "ss_placeholders": ph, "source_complete": False})
+        self.assertEqual(guarded["counts"]["delete"], 0)
+
+    def test_vanished_ledger_id_adopts_the_placeholder_on_ss(self):
+        # the ledger's placeholder is gone from SS but another one for the slot is there: move it
+        # (an update aimed at the vanished id made the writer create a second block)
+        moved = sc.reverse_sources({"events": [self.gev(id="m1", start="2026-06-20T16:00:00+03:00",
+                                                        end="2026-06-20T16:30:00+03:00")]})["busy_events"]
+        ledger = {"cal1::m1": {"ss_id": "SSgone", "hash": "old"}}
+        ph = [{"ss_id": "SS2", "key": "cal1::m1", **self.PH}]
+        plan = sc.reverse_reconcile({"busy_events": moved, "reverse_ledger": ledger, "ss_placeholders": ph})
+        self.assertEqual(plan["counts"], {"create": 0, "update": 1, "delete": 0, "skip": 0})
+        self.assertEqual(plan["updates"][0]["ss_id"], "SS2")
+        self.assertEqual(plan["relinks"]["cal1::m1"]["ss_id"], "SS2")
 
     def test_delete_guarded_on_incomplete_read(self):
         ledger = {"cal1::gone": {"ss_id": "SSx", "hash": "h"}}
