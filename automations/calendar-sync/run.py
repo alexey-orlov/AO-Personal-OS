@@ -187,21 +187,81 @@ def forward_pass(now, source, g_min, g_max, gcal):
             "deleted": deleted}, errors
 
 
-def reverse_pass(placeholders, g_min, g_max, gcal):
-    """Google busy (all calendars) -> SS 'Busy' placeholders. Returns (counts, errors)."""
-    events, complete = [], True
+_LIST_LINE = re.compile(r"^\[(.*)\] \((\w+)\) :: (.*)$")
+
+
+def ek_sources():
+    """CALSYNC_EK_SOURCES ("type:Title[=Google calendar id it replaces]", comma-separated)
+    -> [(type, title, replaced Google calendar id or None)]."""
+    out = []
+    for item in os.environ.get("CALSYNC_EK_SOURCES", "").split(","):
+        spec, _, gid = item.strip().partition("=")
+        typ, _, title = spec.partition(":")
+        if typ.strip() and title.strip():
+            out.append((typ.strip().lower(), title.strip(), gid.strip() or None))
+    return out
+
+
+def read_ek(typ, title, g_min, g_max):
+    """One Apple Calendar calendar over the Google window [g_min, g_max) -> (rows, error)."""
+    lo = datetime.fromisoformat(g_min.replace("Z", "+00:00"))
+    hi = datetime.fromisoformat(g_max.replace("Z", "+00:00"))
+    try:
+        out = subprocess.run([READER, "--type", typ, "--calendar", title, "--from", g_min,
+                              "--days", str((hi - lo).days + 1)],
+                             capture_output=True, text=True, timeout=60)
+    except Exception as e:
+        return None, "reader spawn failed: %s" % e
+    if out.returncode != 0:
+        return None, "reader exit %s: %s" % (out.returncode, (out.stderr or "").strip()[:200])
+    try:
+        rows = json.loads(out.stdout or "[]")
+    except json.JSONDecodeError as e:
+        return None, "reader bad JSON: %s" % e
+    return [r for r in rows if sc._utc(r["start"]) < hi and sc._utc(r["end"]) > lo], None   # Google's overlap rule
+
+
+def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
+    """Busy time in every Google calendar and in the calendars read straight from Apple Calendar
+    (CALSYNC_EK_SOURCES) -> SS 'Busy' placeholders. Returns (counts, errors)."""
+    zero = {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}
+    events, complete, errors = [], True, []
     try:
         cals = gcal.list_calendars()
     except Exception as e:
-        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, ["rev list_calendars: %s" % e]
+        return zero, ["rev list_calendars: %s" % e]
+    # A calendar read from Apple Calendar replaces its slower Google copy while it is there. When
+    # Apple Calendar can't be listed or read, neither copy is used and nothing is pruned: falling
+    # back to the Google copy for one run would re-key every placeholder of that calendar twice.
+    ek_busy, skip = [], set()
+    for typ, title, gid in ek_sources():
+        if ek_cals is None:
+            complete = False
+            if gid:
+                skip.add(gid)
+            errors.append("rev %s: Apple Calendar list unavailable" % title)
+            continue
+        if not any(t == typ and c.casefold() == title.casefold() for _, t, c in ek_cals):
+            continue                                  # not in Apple Calendar: its Google copy stays the source
+        if gid:
+            skip.add(gid)
+        rows, err = read_ek(typ, title, g_min, g_max)
+        if err:
+            complete = False
+            errors.append("rev %s: %s" % (title, err))
+            continue
+        ek_busy += sc.eventkit_busy({"events": rows, "calendar": title, "config": CFG})["busy_events"]
     for cal in cals:
+        if cal["id"] in skip:
+            continue
         try:
             for ev in gcal.list_events(g_min, g_max, calendar_id=cal["id"]):
                 ev["_cal"] = cal["id"]
                 events.append(ev)
-        except Exception:
-            complete = False                      # a calendar failed -> don't prune placeholders this run
-    busy = sc.reverse_sources({"events": events, "config": CFG})["busy_events"]
+        except Exception as e:
+            complete = False                          # a calendar failed -> don't prune placeholders this run
+            errors.append("rev list %s: %s" % (cal.get("summaryOverride") or cal.get("summary") or cal["id"], e))
+    busy = sc.reverse_sources({"events": events, "config": CFG})["busy_events"] + ek_busy
     rledger = _load_json(REV_LEDGER, {})
     plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": rledger,
                                  "ss_placeholders": placeholders, "source_complete": complete, "config": CFG})
@@ -209,16 +269,15 @@ def reverse_pass(placeholders, g_min, g_max, gcal):
     if DRY:
         print("[reverse] DRY plan: +%d ~%d -%d =%d skip (complete=%s)"
               % (c["create"], c["update"], c["delete"], c["skip"], complete))
-        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, []
+        return zero, errors
     by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
     dup_ids = {d["ss_id"] for d in plan["deletes"] if d.get("duplicate")}
     try:
         results = ss_write(plan["creates"] + plan["updates"] + plan["deletes"])
     except Exception as e:
-        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, ["rev writer: %s" % e]
+        return zero, errors + ["rev writer: %s" % e]
     rledger.update(plan.get("relinks") or {})   # point the ledger at the placeholder SS really holds
     ra = rm = rd = 0
-    errors = []
     for r in results:
         if not r.get("ok"):
             errors.append("rev %s %s: %s" % (r.get("op"), r.get("key") or r.get("ss_id"), r.get("error")))
@@ -240,20 +299,32 @@ def reverse_pass(placeholders, g_min, g_max, gcal):
 
 
 def snapshot_calendars():
-    """Write EventKit's calendar list to .work/state/calendars.txt ("[source] (type) :: title"), so a
-    session without the host app's Calendar grant can see which accounts the sync would read."""
+    """EventKit's calendar list -> [(source, type, title)], or None when it can't be read. Also saved
+    to .work/state/calendars.txt, so a session without the host app's Calendar grant can see it."""
     try:
         out = subprocess.run([READER, "--list"], capture_output=True, text=True, timeout=30)
-        if out.returncode == 0:
-            with open(os.path.join(HERE, ".work/state/calendars.txt"), "w", encoding="utf-8") as f:
-                f.write(out.stdout)
     except Exception:
+        return None
+    if out.returncode != 0:
+        return None
+    try:
+        with open(os.path.join(HERE, ".work/state/calendars.txt"), "w", encoding="utf-8") as f:
+            f.write(out.stdout)
+    except OSError:
         pass
+    return [m.groups() for m in (_LIST_LINE.match(x.strip()) for x in out.stdout.splitlines()) if m]
 
 
 def main():
     now = datetime.now(timezone.utc)
-    snapshot_calendars()
+    ek_cals = snapshot_calendars()
+    # Two Exchange accounts would make the reader mirror both as SoftServe and could send the "Busy"
+    # blocks into the wrong one (README, gotcha 8): write nothing until the source is pinned.
+    if ek_cals and sum(1 for _, t, c in ek_cals if t == "exchange" and c.casefold() == "calendar") > 1:
+        err = "two Exchange accounts in Apple Calendar: sync stopped until the SoftServe source is pinned"
+        sc.log_run({"path": RUNLOG, "ok": False, "error": err})
+        print("ERROR: %s" % err)
+        return 1
     source, placeholders, complete, err = read_ss()
     if not complete:
         sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
@@ -271,7 +342,7 @@ def main():
         errors.append("forward pass: %s" % e)
     if REVERSE:
         try:
-            rev, rerr = reverse_pass(placeholders, g_min, g_max, gcal)
+            rev, rerr = reverse_pass(placeholders, g_min, g_max, gcal, ek_cals)
             counts.update(rev); errors += rerr
         except Exception as e:
             errors.append("reverse pass: %s" % e)
