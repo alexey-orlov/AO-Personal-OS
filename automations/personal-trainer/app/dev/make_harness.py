@@ -46,7 +46,7 @@ mock = r"""
   const db = {
     collection: coll => ({ onSnapshot(next) { (subs.get(coll) || subs.set(coll, []).get(coll)).push(next); setTimeout(() => next(snapOf(coll)), 20); return () => {}; } }),
     doc: path => ({
-      async set(data) { window.__writes.push({ path, data: JSON.parse(JSON.stringify(data)) }); store.set(path, JSON.parse(JSON.stringify(data))); notify(path.split("/")[0]); },
+      async set(data) { if (window.__dbDown) throw { code: "unavailable", message: "test: store down" }; window.__writes.push({ path, data: JSON.parse(JSON.stringify(data)) }); store.set(path, JSON.parse(JSON.stringify(data))); notify(path.split("/")[0]); },
       async update(data) { store.set(path, Object.assign({}, store.get(path), data)); notify(path.split("/")[0]); },
       async get() { const v = store.get(path); return { id: path.split("/")[1], exists: !!v, data: () => v && JSON.parse(JSON.stringify(v)) }; },
     }),

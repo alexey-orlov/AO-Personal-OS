@@ -1680,7 +1680,10 @@ class SheetModel {
  *  as a date, a crossfit finish like 9:40 as a duration, everything else as text; an empty value clears the cell. */
 function shCell(v, kind) {
   if (v === null || v === undefined || v === "") return {};
-  if (kind === "date") { const [m, d, y] = String(v).split("/").map(Number); return { userEnteredValue: { numberValue: (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5 } }; }
+  // the date header carries its own date format: the block it is copied from may hold its date as text (11/23 does), and a bare
+  // serial would then read "46350", so the next save could not find its own block (2026-11-24 test on a scratch copy)
+  if (kind === "date") { const [m, d, y] = String(v).split("/").map(Number); return { userEnteredValue: { numberValue: (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5 },
+    userEnteredFormat: { numberFormat: { type: "DATE", pattern: "M/d/yyyy" } } }; }
   if (kind === "finish") { const t = /^\s*(\d{1,3})\s*[:'′]\s*(\d{1,2})\s*("|″|'')?\s*$/.exec(String(v)); if (t) return { userEnteredValue: { numberValue: Math.round((+t[1] * 60 + +t[2]) / 86400 * 1e12) / 1e12 } }; }
   if (typeof v === "number") return { userEnteredValue: { numberValue: v } };
   const s = String(v).trim().replace(/^'/, "");
@@ -1740,7 +1743,7 @@ async function syncToSheet(w) {
     for (const key of Object.keys(SH_SUMMARY)) { const [catName, fields] = SH_SUMMARY[key]; const given = payload[key] || {};
       for (const [field, rowName] of Object.entries(fields)) { if (given[field] == null || given[field] === "") continue; M.write(M.ensureExercise(catName, rowName), col, given[field], field === "finish" ? "finish" : undefined); } }
     const requests = [...M.requests, ...M.writes.map(x => ({ updateCells: { start: { sheetId: M.sheetId, rowIndex: x.r, columnIndex: x.c },
-      rows: [{ values: x.vals.map((v, i) => shCell(v, i === 0 ? x.kind : undefined)) }], fields: "userEnteredValue" } }))];
+      rows: [{ values: x.vals.map((v, i) => shCell(v, i === 0 ? x.kind : undefined)) }], fields: x.kind === "date" ? "userEnteredValue,userEnteredFormat.numberFormat" : "userEnteredValue" } }))];
     await call("update_spreadsheet", { spreadsheetId: id, requests });
     // read the block back and compare every written cell
     const lastRow = Math.max(...M.writes.map(x => x.r)) + 1;
