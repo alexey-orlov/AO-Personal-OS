@@ -71,7 +71,12 @@
    "status": "active",
    "note_ru": "вес = блины без грифа (как в блокноте)",
    "us_transfer": "smith",
-   "en_short": "Smith Incline Press"
+   "en_short": "Smith Incline Press",
+   "alt_ids": [
+    "incline_press_machine",
+    "seated_chest_press"
+   ],
+   "unit_note_ru": "Смитт: вес блинов, без грифа"
   },
   {
    "id": "machine_bench",
@@ -112,7 +117,10 @@
    "status": "rare",
    "note_ru": "до 02.10 стоял первым в день груди; с 07.10 тренер заменил его Жимом Смитт",
    "us_transfer": "machine",
-   "en_short": "Machine Bench Press"
+   "en_short": "Machine Bench Press",
+   "alt_ids": [
+    "seated_chest_press"
+   ]
   },
   {
    "id": "seated_chest_press",
@@ -151,7 +159,10 @@
    "back": "safe",
    "status": "active",
    "us_transfer": "machine",
-   "en_short": "Chest Press"
+   "en_short": "Chest Press",
+   "alt_ids": [
+    "machine_bench"
+   ]
   },
   {
    "id": "incline_press_machine",
@@ -304,7 +315,10 @@
    "status": "active",
    "note_ru": "попытки 79 стоили повторов (07.10, 14.10) — тренер вернул 73",
    "us_transfer": "machine",
-   "en_short": "Pec Deck"
+   "en_short": "Pec Deck",
+   "alt_ids": [
+    "low_cable_fly"
+   ]
   },
   {
    "id": "db_fly",
@@ -376,7 +390,10 @@
    "back": "safe",
    "status": "active",
    "us_transfer": "cable",
-   "en_short": "Low Cable Fly"
+   "en_short": "Low Cable Fly",
+   "alt_ids": [
+    "pec_deck"
+   ]
   },
   {
    "id": "lat_pulldown",
@@ -415,7 +432,10 @@
    "status": "active",
    "note_ru": "вариант «шир. хват» — та же строка",
    "us_transfer": "cable",
-   "en_short": "Lat Pulldown"
+   "en_short": "Lat Pulldown",
+   "alt_ids": [
+    "single_arm_pulldown"
+   ]
   },
   {
    "id": "seated_cable_row",
@@ -455,7 +475,10 @@
    "back_cue_ru": "без раскачки поясницей",
    "status": "active",
    "us_transfer": "cable",
-   "en_short": "Seated Cable Row"
+   "en_short": "Seated Cable Row",
+   "alt_ids": [
+    "chest_supported_row_machine"
+   ]
   },
   {
    "id": "chest_supported_tbar",
@@ -1039,7 +1062,8 @@
    "status": "active",
    "note_ru": "25.09 (20/25/30), 09.10 (30×3)",
    "us_transfer": "smith",
-   "en_short": "Smith Shoulder Press"
+   "en_short": "Smith Shoulder Press",
+   "unit_note_ru": "Смитт: вес блинов, без грифа"
   },
   {
    "id": "db_shoulder_press",
@@ -1159,7 +1183,7 @@
    ],
    "ru": "Махи одной рукой (трос)",
    "en": "Single-Arm Cable Lateral Raise",
-   "en_short": "1-Arm Cable Lateral Raise",
+   "en_short": "Cable Lateral Raise",
    "alt_us": [],
    "day": [
     "any"
@@ -1307,7 +1331,8 @@
     "family": "A",
     "level": 3,
     "sets": 2,
-    "reps": 20
+    "reps": 20,
+    "en_short": "Shoulder Taps"
    },
    {
     "id": "side_plank",
@@ -1338,7 +1363,7 @@
     "sheet_rows": [
      "Удержание резины"
     ],
-    "ru": "Удержание резины (с колен)",
+    "ru": "Удержание резины",
     "en": "Pallof Hold (band)",
     "family": "C",
     "level": 1,
@@ -1363,12 +1388,13 @@
     "sheet_rows": [
      "Ягодичный мост на каждую ногу"
     ],
-    "ru": "Ягодичный мост на каждую ногу",
+    "ru": "Ягодичный мост на 1 ногу",
     "en": "Single-Leg Glute Bridge",
     "family": "D",
     "level": 2,
     "sets": 2,
-    "reps": 15
+    "reps": 15,
+    "en_short": "1-Leg Glute Bridge"
    },
    {
     "id": "glute_bridge_press",
@@ -1960,10 +1986,11 @@
      "lower_back",
      "shoulder"
     ],
-    "status": "rare",
+    "status": "retired",
     "sec": 3,
     "equipment": "barbell",
-    "en_short": "Squat High Pull"
+    "en_short": "Squat High Pull",
+    "note_ru": "наклон с весом от пола — для поясницы не даём (решение 23.11)"
    }
   ]
  },
