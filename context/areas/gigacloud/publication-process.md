@@ -1,7 +1,7 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
-_updated: 2026-10-29_
+_status: the process and its CRM automation (closed in Q2) are documented in a UA deck v9 (2026-10-12, 58 shown slides + 3 hidden) for the department heads, pending Alex's four small questions; in Q3 the team runs PLM 2.0 — competences 70 %, delivery 50 %, contracts 30 %, revisions not started (2026-11-25)_
+_updated: 2026-11-25_
 
 ## Snapshot
 
@@ -64,6 +64,13 @@ _updated: 2026-10-29_
 
 ## Active threads
 
+- **PLM 2.0 in Q3'FY2026** (% from Alex's KPI slide, progress from the weekly, both 2026-11-25; Alex's Q3 project «Оновлення PLM»):
+  - competences (Sukhenko), stage 3, 70 % — the meeting with Doroshenko, Shaporina, Kosenko and Zubko is held;
+  - contracts (Lebedenko), stage 1, 30 % — the working format with the process department is agreed; in work: one contract process for all resell, which contract processes move to Review Required, priorities, entering addenda in the CRM;
+  - delivery (Lebedenko, Sukhenko, Kuznietsov; due 31.12), stage 1, 50 % — descriptions and teams for Infrastructure and Licenses + Addons are filled, Our services in work; a training on the Licenses delivery process (Flow 5: Vendor manager order) is agreed and scheduled;
+  - revisions, stage 5, 0 % — starts after the other three.
+
+  On the product-committee deck as «PLM 2.0: процес публікації продуктів». (chat, 2026-11-25)
 - **Presenting the process to the department heads.** Deck v4 was delivered 2026-10-12. Next, Alex:
   - says whether Capacity manager is a possible Responsible for delivery (the License delivery process names it);
   - decides on L4 support (R&D) and an InfoSec competence item;
@@ -111,11 +118,10 @@ _updated: 2026-10-29_
 
 ## Activity
 
+- 2026-11-25 — PLM 2.0 Q3 status (four tasks with % and progress) on the product-committee deck. (chat)
 - 2026-10-12 — the two dictated feedback memos behind decks v3 and v4 (processed by hand 2026-10-29): [14:17, on v2](calls/other/2026-10-29_154100_default_202610121417467AB7FC95.md) · [19:35, on v3](calls/other/2026-10-29_154300_default_20261012193542DEBF166F.md). Open from them: a real Marketing brief screenshot to replace the mock-up; the change-type list for the stage-5 table (the handoff later found «New Component Added» routes to delivery and design in the CRM export, not to Head of Product).
 - 2026-10-12 — [deck v9](docs/publication-process-deck/HANDOFF.md) — go-live and PoC pages whole again with numbered zooms of their hints; departments for every action-plan task (Alex). (chat)
 - 2026-10-12 — [deck v8](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; Alex's action plan; accent slide at both ends; map chips sized from measured widths. (chat)
 - 2026-10-12 — [decks v5–v7](docs/publication-process-deck/HANDOFF.md) — hidden field-check slides per approver; slide 4 cut to one note; bold lead-ins in every scanned list. (chat)
 - 2026-10-12 — [deck v4](docs/publication-process-deck/HANDOFF.md) — 56 slides: the CRM checklist slide, colour-band stage headers, «Перед першим клієнтом», stage 4 with the 17 change types that need an approval; fresh review applied. (chat)
-- 2026-10-12 — [deck v3](docs/publication-process-deck/HANDOFF.md) — 46 slides: cards headed by step + Owner, UI-path captions, roles / team-readiness / competence schemas, transposed team tables. (chat)
-- 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12, after a Voice Memos sync restart) — the source of v2's rework.
-- 2026-10-11 — [decks v1 (37 slides) and v2 (42)](docs/publication-process-deck/HANDOFF.md) — built from Alex's brief, his Miro and the CRM checklist export, then reworked on his dictated feedback. (chat)
+- 2026-10-11 — [decks v1–v3](docs/publication-process-deck/HANDOFF.md) — built from Alex's brief, his Miro and the CRM checklist export, then reworked on his [dictated feedback](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md). (chat)
