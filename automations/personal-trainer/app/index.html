@@ -1691,66 +1691,80 @@ function sheetBody(s, w) {
         el("button", { class: "opt", type: "button", on: { click: () => doResult(applyTired(w, true), w) } }, el("b", { text: "Unwell / injured" }), el("span", { class: "small muted", text: "Skip what's left of strength and crossfit, finish with what's done" }))),
       el("div", { class: "eyebrow", text: "Time left" }),
       el("div", { class: "seg" }, ...[40, 30, 20].map(m => el("button", { type: "button", on: { click: () => doResult(applyTime(w, m), w) } }, `${m} min`))),
-      el("p", { class: "faint small", text: "Machine busy or missing? Tap ⋯ on that exercise." }), close];
+      el("p", { class: "faint small", text: "Machine busy or missing? Tap ⋯ on that exercise." })];
   }
   if (s.kind === "ex" && w) {
-    const ex = exS(s.id) || {};
-    const pi = w.plan.strength.find(x => x.id === s.id);
-    return [el("h2", { text: ex.en_short || s.id }), el("div", { class: "ru", text: ex.ru }),
-      (ex.alt_us || []).length ? el("p", { class: "small muted", text: "Same movement on: " + ex.alt_us.join(", ") }) : null,
-      pi?.if_missing ? el("p", { class: "small muted", text: "If the gym doesn't have it, the trainer's swap: " + pi.if_missing }) : null,
-      el("div", { class: "list" },
-        pi?.replaces ? el("button", { class: "opt", type: "button", on: { click: () => reportGym(w, { have: pi.replaces }, `Noted: this gym has ${enName(pi.replaces)}. The next plan uses it after the sync.`) } },
-          el("b", { text: `This gym has ${enName(pi.replaces)}` }), el("span", { class: "small muted", text: `Today stays on ${enName(s.id)}; the trainer switches back at the next sync` })) : null,
-        pi?.swapped_from ? el("button", { class: "opt", type: "button", on: { click: () => doResult([restoreOriginal(w, s.id)], w) } }, el("b", { text: `Back to ${enName(pi.swapped_from.id)}` }), el("span", { class: "small muted", text: "Undo the swap: the original exercise with its planned weights" })) : null,
-        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy-later"); doResult([r], w); } } }, el("b", { text: "Machine busy: do it later" }), el("span", { class: "small muted", text: "Moves it to the end of the strength part" })),
-        el("button", { class: "opt", type: "button", on: { click: () => openSheet({ kind: "swapPick", id: s.id, reason: "busy" }) } }, el("b", { text: "Machine busy: swap it" }), el("span", { class: "small muted", text: "Pick another exercise for the same slot, with the trainer's weights" })),
-        el("button", { class: "opt", type: "button", on: { click: () => openSheet({ kind: "swapPick", id: s.id, reason: "missing" }) } }, el("b", { text: "This gym doesn't have it" }), el("span", { class: "small muted", text: "Pick a swap; the trainer learns at the next sync" })),
-        (ex.alt_us || []).length ? el("button", { class: "opt", type: "button", on: { click: () => { slog(w, s.id).machine = ex.alt_us[0]; w.changes.push({ at: nowISO(), kind: "swap", summary: `${ex.en_short} on ${ex.alt_us[0]}`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: `Doing it on ${ex.alt_us[0]}` }), el("span", { class: "small muted", text: "Same exercise, different machine: logged with the sets" })) : null,
-        el("button", { class: "opt", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "skipped", note: "" }; w.changes.push({ at: nowISO(), kind: "skip", summary: `${ex.en_short} skipped`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: "Skip it" }), el("span", { class: "small muted", text: "Recorded as skipped: no change to next time's weight" }))), close];
-  }
-  if (s.kind === "swapPick" && w) {
-    const pi = w.plan.strength.find(x => x.id === s.id);
-    const used = new Set(w.plan.strength.map(i => i.id));
-    const cands = swapCandidates(ctxForWorkout(w), s.id, new Set(w.checkin.pain || []), used, true).slice(0, 5);
+    // one sheet: the slot's ring (planned first, the current one marked), then the other things to do with it
+    const i = w.plan.strength.findIndex(x => x.id === s.id); const pi = w.plan.strength[i]; if (!pi) return null;
+    const ex = exS(pi.id) || {}; const ring = swapRing(w, i);
+    const P = new Set(w.checkin.pain || []); const rep = gymReports().machines;
     const wt = c => c.lb?.length ? `${[...new Set(c.lb)].join("–")} lb` : c.hint_lb ? `find the weight (usually ${c.hint_lb} lb)` : "pick a weight";
-    return [el("h2", { text: `Swap ${enName(s.id)} for…` }),
+    const opt = c => {
+      const cur = c.id === pi.id; const pic = thumbFor(c.id);
+      const hurt = (exS(c.id)?.joints || []).filter(j => P.has(j)).map(j => JOINT_EN[j]);
+      const warn = hurt.length ? `loads your ${hurt.join(", ")} today` : rep[c.id] === "missing" ? "you said this gym doesn't have it" : "";
+      return el("button", { class: "opt", type: "button", "aria-current": String(cur), on: { click: () => cur ? closeSheet() : doResult([swapTo(w, i, c.id, "machine busy or swapped")], w) } },
+        pic ? el("img", { class: "thumb", src: picSrc(pic), alt: "", loading: "lazy" }) : el("span", { class: "thumb none", html: ICON.dumbbell }),
+        el("span", { class: "txt" }, el("span", { class: "row1" }, el("b", { text: enName(c.id) }), c.planned ? el("span", { class: "tag", text: "Planned" }) : null),
+          el("span", { class: "ru", text: ruName(c.id) }), el("span", { class: "small muted" }, wt(c), warn ? el("span", { class: "warn-s", text: " · " + warn }) : null)),
+        cur ? el("span", { class: "badge ok", text: "Now" }) : null);
+    };
+    return [sheetHead(enName(pi.id), ruName(pi.id)),
+      el("div", { class: "eyebrow", text: ring.length > 1 ? "Swap for" : "Swap" }),
+      ring.length > 1 ? el("div", { class: "list ring" }, ...ring.map(opt)) : el("p", { class: "muted small", text: "No safe swap for this one today: do it later or skip it." }),
+      ring.length > 1 ? el("p", { class: "faint small", style: "margin-top:-6px", text: "The planned exercise stays first, so you can always switch back." }) : null,
+      el("div", { class: "eyebrow", text: "Other" }),
       el("div", { class: "list" },
-        pi?.swapped_from ? el("button", { class: "opt", type: "button", on: { click: () => doResult([restoreOriginal(w, s.id)], w) } }, el("b", { text: `Back to ${enName(pi.swapped_from.id)}` }), el("span", { class: "small muted", text: "The original exercise" })) : null,
-        ...cands.map(c => el("button", { class: "opt", type: "button", on: { click: () => doResult([swapExercise(w, s.id, s.reason, c.id)], w) } },
-          el("b", { text: enName(c.id) }), el("span", { class: "ru", text: ruName(c.id) }), el("span", { class: "small muted", text: wt(c) }))),
-        cands.length || pi?.swapped_from ? null : el("p", { class: "muted small", text: "No safe swap for this one today: skip it or do it later." })),
-      el("button", { class: "btn block", type: "button", on: { click: () => openSheet({ kind: "ex", id: s.id }) } }, "Back")];
+        pi.replaces ? el("button", { class: "opt", type: "button", on: { click: () => reportGym(w, { have: pi.replaces }, `Noted: this gym has ${enName(pi.replaces)}. The next plan uses it after the sync.`) } },
+          el("b", { text: `This gym has ${enName(pi.replaces)}` }), el("span", { class: "small muted", text: `Today stays on ${enName(pi.id)}; the trainer switches back at the next sync` })) : null,
+        el("button", { class: "opt", type: "button", on: { click: () => doResult([moveLater(w, pi.id)], w) } }, el("b", { text: "Machine busy: do it later" }), el("span", { class: "small muted", text: "Moves it to the end of the strength part" })),
+        el("button", { class: "opt", type: "button", on: { click: () => doResult([markMissing(w, i)], w) } }, el("b", { text: "This gym doesn't have it" }), el("span", { class: "small muted", text: "Switches to the next exercise in the list; the trainer learns it at the sync" })),
+        (ex.alt_us || []).length ? el("button", { class: "opt", type: "button", on: { click: () => { slog(w, pi.id).machine = ex.alt_us[0]; w.changes.push({ at: nowISO(), kind: "swap", summary: `${ex.en_short} on ${ex.alt_us[0]}`, ids: [pi.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: `Doing it on ${ex.alt_us[0]}` }), el("span", { class: "small muted", text: "Same exercise, different machine: logged with the sets" })) : null,
+        el("button", { class: "opt", type: "button", on: { click: () => { w.feedback.items[pi.id] = { rating: "skipped", note: "" }; w.changes.push({ at: nowISO(), kind: "skip", summary: `${ex.en_short} skipped`, ids: [pi.id] }); touch(w); passFloor(w, pi.id); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: "Skip it" }), el("span", { class: "small muted", text: "Recorded as skipped: no change to next time's weight" })))];
   }
   if (s.kind === "painRate" && w) {
     s.spots ||= [];
-    return [el("h2", { text: `Where did ${enName(s.id)} hurt?` }), el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(s.spots.includes(p.key)), on: { click: () => { const i = s.spots.indexOf(p.key); i >= 0 ? s.spots.splice(i, 1) : s.spots.push(p.key); renderSheet(); } } }, p.label))),
+    return [sheetHead(`Where did ${enName(s.id)} hurt?`), el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(s.spots.includes(p.key)), on: { click: () => { const i = s.spots.indexOf(p.key); i >= 0 ? s.spots.splice(i, 1) : s.spots.push(p.key); renderSheet(); } } }, p.label))),
       el("input", { type: "text", id: "painRateNote", placeholder: "Optional: what it felt like", value: s.note || "", on: { input: e => { s.note = e.target.value; } } }),
       el("p", { class: "small muted", text: "Next time the trainer swaps this exercise. Want the rest of today to avoid that area too?" }),
       el("div", { class: "row" },
         el("button", { class: "btn grow", type: "button", disabled: !s.spots.length, on: { click: () => ratePain(w, s, false) } }, "Just record it"),
-        el("button", { class: "btn primary grow", type: "button", disabled: !s.spots.length, on: { click: () => ratePain(w, s, true) } }, "Record + adjust")), close];
+        el("button", { class: "btn primary grow", type: "button", disabled: !s.spots.length, on: { click: () => ratePain(w, s, true) } }, "Record + adjust"))];
   }
   if (s.kind === "failRate" && w) {
     const L = slog(w, s.id); const ps = w.plan.strength.find(x => x.id === s.id);
-    return [el("h2", { text: "Missed reps" }), el("p", { class: "muted small", text: `Set the reps you actually did on each set (target ${ps?.reps}). Next time the trainer goes one step back.` }),
+    return [sheetHead("Missed reps", enName(s.id)), el("p", { class: "muted small", text: `Set the reps you actually did on each set (target ${ps?.reps}). Next time the trainer goes one step back.` }),
       el("div", { class: "sets" }, ...L.sets.map((st, i) => el("div", { class: "row" }, el("span", { class: "grow", text: `Set ${i + 1} · ${st.lb ?? "—"} lb` }),
         el("div", { class: "stepper", style: "width:150px" }, el("button", { type: "button", "aria-label": "Fewer reps", on: { click: () => { st.reps = Math.max(0, st.reps - 1); renderSheet(); } } }, "−"), el("div", { class: "v", text: String(st.reps) }), el("button", { type: "button", "aria-label": "More reps", on: { click: () => { st.reps++; renderSheet(); } } }, "+"))))),
-      el("button", { class: "btn primary block", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "fail", note: "reps " + L.sets.filter(x => x.done).map(x => x.reps).join("-") }; saveWorkout(w); closeSheet(); render(); } } }, "Save"), close];
+      el("button", { class: "btn primary block", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "fail", note: "reps " + L.sets.filter(x => x.done).map(x => x.reps).join("-") }; touch(w); passFloor(w, s.id); saveWorkout(w); closeSheet(); render(); } } }, "Save")];
   }
   if (s.kind === "finish" && w) {
     const unrated = w.plan.strength.filter(it => !w.feedback.items[it.id]);
     const bw = w.body_weight_kg;
-    return [el("h2", { text: "Finish workout" }),
+    // "Save session" long after the last set (forgot to tap Finish, or saving at home): offer the real end time
+    s.lastAt ??= w.log.last_at || null;
+    const gap = s.lastAt ? (Date.now() - Date.parse(s.lastAt)) / 60000 : 0;
+    s.end ??= gap > 15 ? "last" : "now";
+    const endIso = s.end === "last" && s.lastAt ? s.lastAt : null;
+    const dur = w.started_at ? ((endIso ? Date.parse(endIso) : Date.now()) - Date.parse(w.started_at)) / 1000 : 0;
+    return [sheetHead("Finish workout"),
+      w.started_at ? el("div", { class: "row" }, el("span", { class: "muted grow", text: "Session time" }), el("b", { class: "hdr-total", text: hms(dur) })) : null,
+      w.started_at && gap > 15 ? el("div", { style: "display:flex;flex-direction:column;gap:6px" },
+        el("p", { class: "small muted", style: "margin:0", text: `Nothing logged for ${mins(gap * 60)}. When did you finish?` }),
+        el("div", { class: "seg" }, ...[["last", `At ${clockOf(s.lastAt)}, last set`], ["now", "Just now"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(s.end === v), on: { click: () => { s.end = v; renderSheet(); } } }, l)))) : null,
       unrated.length ? el("div", { class: "note warn small", text: `Not rated: ${unrated.map(it => enName(it.id)).join(", ")}. Unrated exercises send nothing to the trainer about difficulty; their logged sets still count.` }) : null,
       el("label", { class: "eyebrow", for: "overall", text: "Anything for the trainer?" }),
       el("textarea", { id: "overall", placeholder: "e.g. hack squat machine is a Hoist, felt deeper than Kyiv", on: { input: e => { w.feedback.overall = e.target.value; saveWorkout(w); } } }, w.feedback.overall || ""),
       el("label", { class: "eyebrow", for: "bw", text: "Body weight (optional)" }),
       el("div", { class: "row" }, el("input", { type: "number", id: "bw", inputmode: "decimal", step: "0.1", placeholder: "kg", value: bw ?? "", class: "grow", on: { input: e => { const v = parseFloat(e.target.value); w.body_weight_kg = isFinite(v) ? v : undefined; document.getElementById("bwlb").textContent = isFinite(v) ? `${Math.round(v * KG_LB)} lb` : ""; saveWorkout(w); } } }), el("span", { id: "bwlb", class: "muted", text: bw ? `${Math.round(bw * KG_LB)} lb` : "" })),
-      el("button", { class: "btn primary block", type: "button", on: { click: () => { closeSheet(); finishWorkout(w); } } }, "Save session"), close];
+      el("button", { class: "btn primary block", type: "button", on: { click: () => {
+        // read the fields as they are now: the tap may land before the typing reached the record
+        const note = document.getElementById("overall"); if (note) w.feedback.overall = note.value;
+        const bwv = parseFloat(document.getElementById("bw")?.value); w.body_weight_kg = isFinite(bwv) ? bwv : w.body_weight_kg;
+        document.activeElement?.blur?.(); closeSheet(); finishWorkout(w, endIso); } } }, "Save session")];
   }
   if (s.kind === "cancel" && w) {
-    return [el("h2", { text: w.status === "planned" ? "Discard this plan?" : "Cancel this workout?" }), el("p", { class: "muted", text: "Logged sets stay in the record, marked cancelled. Nothing goes to the trainer as feedback." }),
+    return [sheetHead(w.status === "planned" ? "Discard this plan?" : "Cancel this workout?"), el("p", { class: "muted", text: "Logged sets stay in the record, marked cancelled. Nothing goes to the trainer as feedback." }),
       el("button", { class: "btn danger block", type: "button", on: { click: () => { w.status = "cancelled"; saveWorkout(w, true); lsSet("tn.cur", null); S.cur = null; S.view = "home"; S.ck = null; closeSheet(); render(); } } }, w.status === "planned" ? "Discard" : "Cancel workout"), el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Keep it")];
   }
   if (s.kind === "media") return mediaSheet(s);
@@ -1766,10 +1780,11 @@ function doPain(w, s, sharp) {
 function ratePain(w, s, adjust) {
   const spots = PAIN_SPOTS.filter(p => s.spots.includes(p.key));
   const joint = spots.find(p => p.joint && JOINT_EN[p.joint])?.joint; // one of trainer.py JOINTS
+  const note = document.getElementById("painRateNote"); if (note) s.note = note.value;   // the tap may land before the typing reached the state
   w.feedback.items[s.id] = Object.assign({ rating: "pain", note: [spots.map(p => p.label.toLowerCase()).join(", "), s.note].filter(Boolean).join(": ") }, joint ? { joint } : {});
-  stopRest();
+  stopRest(); touch(w); passFloor(w, s.id);
   if (adjust) applyPain(w, spots, false);
-  saveWorkout(w); closeSheet(); render();
+  document.activeElement?.blur?.(); saveWorkout(w); closeSheet(); render();
 }
 function doResult(changes, w) { saveWorkout(w, true); closeSheet(); const c = (changes || []).filter(Boolean); toast(c.length ? "Changed: " + c.join("; ") : "Nothing left to change for that."); }
 
