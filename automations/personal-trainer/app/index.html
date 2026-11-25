@@ -968,7 +968,10 @@ async function startBuild(ck, useClaude) {
   S.cur = id; S.view = "workout"; lsSet("tn.cur", id); window.scrollTo(0, 0); render();
 }
 const curW = () => S.cur ? S.workouts[S.cur] : null;
-function startSession(w) { if (w.status === "planned") { w.status = "active"; w.started_at = nowISO(); saveWorkout(w, true); } keepAwake(); render(); }
+function startSession(w) {
+  if (w.status === "planned") { w.status = "active"; w.started_at = nowISO(); focusSeg(w, "warmup", w.started_at); touch(w); saveWorkout(w, true); }
+  keepAwake(); render();
+}
 let wake = null;
 async function keepAwake() { try { if (!wake && navigator.wakeLock) { wake = await navigator.wakeLock.request("screen"); wake.addEventListener("release", () => { wake = null; }); } } catch {} }
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && curW()?.status === "active") keepAwake(); });
@@ -981,6 +984,104 @@ function slog(w, id) { const ps = w.plan.strength.find(x => x.id === id); w.log.
 function repsTarget(r, i) { if (r == null) return 10; const s = String(r); if (s.includes("-") && s.split("-").length > 2) { const p = s.split("-").map(Number); return p[Math.min(i, p.length - 1)] || 10; } return parseInt(s, 10) || 10; }
 function exState(w, id) { const L = w.log.strength[id]; const fb = w.feedback.items[id]; if (fb?.rating === "skipped") return "done"; if (!L) return "todo"; const all = L.sets.length && L.sets.every(s => s.done); return all && fb ? "done" : L.sets.some(s => s.done) ? "doing" : "todo"; }
 function currentExId(w) { for (const it of w.plan.strength) if (exState(w, it.id) !== "done") return it.id; return null; }
+
+/* ================================================================ session clock
+   The whole session runs from "Start workout" to "Save session". log.timeline ([{k, at}]) records which part has the floor:
+   "warmup", one strength slot ("s:" + the planned exercise's id, so a swap keeps its time; a superset pair shares its first
+   slot), "crossfit" (set-up and the for-time clock), then "idle" once the crossfit time is in. Finishing a part hands the
+   floor to the next, so warm-up + exercises + crossfit add up to the session. It lives in the record: a reload or a locked
+   phone loses nothing. */
+const slotOf = it => it.swapped_from?.id || it.id;
+function segOf(w, it) { const L = w.plan.strength; const k = L.indexOf(it); return "s:" + slotOf(k > 0 && L[k - 1].superset_next ? L[k - 1] : it); }
+function segOfId(w, id) { const it = w.plan.strength.find(x => x.id === id); return it ? segOf(w, it) : null; }
+function focusSeg(w, k, at) {
+  if (!k || w.status !== "active") return;
+  const T = (w.log.timeline ||= []); if (T[T.length - 1]?.k === k) return;
+  T.push({ k, at: at || nowISO() });
+}
+/** Who gets the floor once the warm-up or an exercise is finished: the next exercise not done, else crossfit, else nobody. */
+function nextSeg(w) {
+  const it = w.plan.strength.find(x => exState(w, x.id) !== "done");
+  if (it) return segOf(w, it);
+  const cf = w.plan.crossfit;
+  return cf?.items?.length && cf.format !== "skip" && !w.log.crossfit?.time ? "crossfit" : "idle";
+}
+/** After a rating or a skip: if that exercise had the floor, pass it on. */
+function passFloor(w, id) { const T = w.log.timeline || []; if (exState(w, id) === "done" && T[T.length - 1]?.k === segOfId(w, id)) focusSeg(w, nextSeg(w)); }
+function touch(w) { w.log.last_at = nowISO(); }
+function segTimes(w) {
+  const T = w?.log?.timeline || []; const end = w.finished_at ? Date.parse(w.finished_at) : Date.now(); const out = {};
+  T.forEach((e, i) => { if (e.k === "end") return; const a = Date.parse(e.at), b = i + 1 < T.length ? Date.parse(T[i + 1].at) : end; out[e.k] = (out[e.k] || 0) + Math.max(0, b - a) / 1000; });
+  out.strength = Object.entries(out).reduce((s, [k, v]) => k.startsWith("s:") ? s + v : s, 0);
+  return out;
+}
+function liveSeg(w) { const T = w?.log?.timeline || []; const k = T[T.length - 1]?.k; return w?.status === "active" && k && k !== "idle" && k !== "end" ? k : null; }
+function totalSec(w) { return w?.started_at ? Math.max(0, ((w.finished_at ? Date.parse(w.finished_at) : Date.now()) - Date.parse(w.started_at)) / 1000) : 0; }
+function hms(sec) { sec = Math.max(0, Math.round(sec)); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return h ? `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}` : `${m}:${String(s).padStart(2, "0")}`; }
+function mins(sec) { const m = Math.max(0, Math.round(sec / 60)); return m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? " " + (m % 60) + " min" : ""}` : `${m} min`; }
+function clockOf(iso) { return new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }); }
+function segLabel(w, k) {
+  if (k === "warmup") return "Warm-up"; if (k === "crossfit") return "Crossfit";
+  const L = w.plan.strength; const i = L.findIndex(x => "s:" + slotOf(x) === k); if (i < 0) return "Strength";
+  return L[i].superset_next && L[i + 1] ? `${enName(L[i].id)} + ${enName(L[i + 1].id)}` : enName(L[i].id);
+}
+const activeW = () => { const w = curW(); return w?.status === "active" ? w : Object.values(S.workouts).find(x => x.status === "active") || null; };
+/** A part's clock: live while it has the floor, its total once done, nothing before it starts. */
+function timerNode(w, k) {
+  if (!w || w.status !== "active") return null;
+  const t = segTimes(w); const live = liveSeg(w); const on = k === live || (k === "strength" && live?.startsWith("s:"));
+  if (!on && !(t[k] > 0)) return null;
+  return el("span", { class: "tmr" + (on ? " live" : ""), "data-t": k, "aria-label": on ? "time on this part so far" : "time spent", text: hms(t[k] || 0) });
+}
+/* one ticking interval while a workout is on; it rewrites the clocks' text in place and never re-renders the screen */
+let tickT = 0;
+function syncTicker() { const on = !!activeW(); if (on && !tickT) tickT = setInterval(paintTimers, 1000); else if (!on && tickT) { clearInterval(tickT); tickT = 0; } }
+function paintTimers() {
+  const w = activeW(); if (!w) return syncTicker();
+  const t = segTimes(w); const live = liveSeg(w);
+  for (const n of document.querySelectorAll("[data-t]")) {
+    const k = n.dataset.t; const v = k === "total" ? totalSec(w) : k === "live" ? (live ? t[live] || 0 : 0) : t[k] || 0;
+    const txt = hms(v); if (n.textContent !== txt) n.textContent = txt;
+  }
+}
+
+/* ================================================================ last time and the record
+   config/records (app_sync.py export, from the "My training" history): per exercise the last session and the heaviest top
+   set of all time, each with its gym. Finished app sessions the history doesn't hold yet are folded in on top. Weights show
+   in the units of the gym they were lifted in (Kyiv kg, the US gym lb): the machines differ, so a converted number would mislead. */
+let REC = null;
+const repN = r => { const m = String(r ?? "").match(/\d+/g); return m ? Math.min(...m.map(Number)) : 0; };
+function records() {
+  const base = S.cfg.records; const ws = Object.values(S.workouts).filter(w => w.status === "done" && w.feedback?.actual);
+  const key = [base?.computed_at || "", ...ws.map(w => w.id + "@" + (w.updated_at || ""))].join("|");
+  if (REC?.key === key) return REC.items;
+  const items = clone(base?.items || {}); const asOf = base?.as_of || "";
+  const gym = S.cfg.gym?.current || null;
+  for (const w of ws.slice().sort((a, b) => a.date < b.date ? -1 : 1)) {
+    if (w.date <= asOf && w.sync?.sheet_logged_at) continue;   // already in the history the records came from
+    for (const [id, a] of Object.entries(w.feedback.actual || {})) {
+      const lb = (a.lb || []).filter(x => x != null); const kg = (a.kg?.length ? a.kg : lb.map(lbToKg)).filter(x => x != null); if (!kg.length) continue;
+      const top = Math.max(...kg); const ti = kg.lastIndexOf(top); const reps = a.reps_per_set || [];
+      const r = items[id] ||= {};
+      if (!r.last || r.last.date <= w.date) r.last = { date: w.date, gym, sets: a.sets || kg.length, reps: String(a.reps ?? ""), kg: [kg[0], kg[kg.length - 1]], lb: lb.length ? [lb[0], lb[lb.length - 1]] : undefined };
+      const cand = { date: w.date, gym, kg: top, lb: lb[ti], reps: String(reps[ti] ?? a.reps ?? "") };
+      if (!r.best || cand.kg > r.best.kg + 0.05 || (Math.abs(cand.kg - r.best.kg) <= 0.05 && repN(cand.reps) > repN(r.best.reps))) r.best = cand;
+    }
+  }
+  REC = { key, items }; return items;
+}
+const GYM_SHORT = { kyiv: "Kyiv" };
+function recW(kg, lb, gym) { const us = gym ? S.cfg.gym?.gyms?.[gym]?.units === "lb" : isLb(); return us ? `${lb ?? kgToLb5(kg)} lb` : `${Math.round(kg * 10) / 10} kg`; }
+function recNode(id) {
+  const r = records()[id]; if (!r?.last && !r?.best) return null;
+  const cur = S.cfg.gym?.current; const other = g => g && g !== cur ? ` · ${GYM_SHORT[g] || g}` : "";
+  const shortD = d => new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const L = r.last, B = r.best; const kids = [];
+  if (L) { const a = recW(L.kg[0], L.lb?.[0], L.gym), b = recW(L.kg[L.kg.length - 1], L.lb?.[1], L.gym);
+    kids.push(el("span", null, "Last ", el("b", { text: `${L.sets || "?"}×${L.reps}` }), ` · ${a === b ? a : a.replace(/ (lb|kg)$/, "") + "–" + b} · ${shortD(L.date)}${other(L.gym)}`)); }
+  if (B) kids.push(el("span", null, "Best ", el("b", { text: `${recW(B.kg, B.lb, B.gym)} × ${B.reps}` }), other(B.gym)));
+  return el("div", { class: "rec" }, ...kids);
+}
 
 /* ================================================================ adjustments mid-session */
 function remainingIds(w) { return w.plan.strength.filter(it => { const L = w.log.strength[it.id]; return !(L && L.sets.some(s => s.done)) && !w.feedback.items[it.id]; }).map(it => it.id); }
