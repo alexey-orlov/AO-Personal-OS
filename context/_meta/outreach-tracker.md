@@ -17,7 +17,7 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | blackberry | BlackBerry (QNX) | [blackberry](../areas/softserve/blackberry.md) | 8 | 2026-11-22 |
 | nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | loreal-north-america | L'Oréal North America | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 4 | 2026-11-23 |
-| also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 5 | 2026-11-24 |
+| also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 6 | 2026-11-24 |
 | maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | aes | AES (Maximo's parent) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-23 |
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
