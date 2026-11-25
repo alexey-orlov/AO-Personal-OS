@@ -1278,7 +1278,7 @@ function renderHeader() {
     brand.className = "brand live"; brand.setAttribute("role", "timer");
     brand.replaceChildren(
       el("span", { class: "hdr-row" }, el("span", { class: "hdr-lbl", text: "Workout" }), el("span", { class: "hdr-total", "data-t": "total", text: hms(totalSec(aw)) })),
-      el("small", null, live ? [segLabel(aw, live) + " · ", el("span", { "data-t": "live", text: hms(t[live] || 0) })] : aw.log?.timeline?.length ? "All parts done: tap Finish" : ""));
+      el("small", null, live ? [segLabel(aw, live) + " · ", el("span", { "data-t": "live", text: hms(t[live] || 0) })] : !aw.log?.timeline?.length ? "" : nextSeg(aw) === "idle" ? "All parts done: tap Finish" : "Up next: " + segLabel(aw, nextSeg(aw))));
     brand.onclick = S.view === "workout" && S.cur === aw.id ? null : () => { S.cur = aw.id; S.view = "workout"; lsSet("tn.cur", aw.id); window.scrollTo(0, 0); render(); };
     return;
   }
@@ -1559,7 +1559,7 @@ function crossfitCard(w) {
       el("button", { class: "btn primary grow", type: "button", on: { click: () => { if (w.status === "planned") startSession(w);
         S.cfTimer = running ? { id: w.id, acc: elapsed } : { id: w.id, start: Date.now() - elapsed * 1000 };
         L.clock = running ? { acc: elapsed } : { start: S.cfTimer.start }; if (!running) focusSeg(w, "crossfit"); touch(w); saveWorkout(w, true); tickClock(); render(); } } }, running ? "Pause" : elapsed ? "Resume" : "Start clock"),
-      elapsed ? el("button", { class: "btn grow", type: "button", on: { click: () => { L.time = mmss(elapsed); S.cfTimer = null; delete L.clock; focusSeg(w, "idle"); touch(w); saveWorkout(w, true); render(); } } }, "Done · " + mmss(elapsed)) : null));
+      elapsed ? el("button", { class: "btn grow", type: "button", on: { click: () => { L.time = mmss(elapsed); S.cfTimer = null; delete L.clock; focusSeg(w, nextSeg(w)); touch(w); saveWorkout(w, true); render(); } } }, "Done · " + mmss(elapsed)) : null));
     if (w.status !== "done") kids.push(el("button", { class: "linkbtn", type: "button", on: { click: () => openTimeEntry(w) } }, "Timed it on another clock? Enter the time"));
   } else {
     kids.push(el("div", { class: "row" }, el("div", { class: "clock grow", text: L.time }), w.status !== "done" ? el("button", { class: "how", type: "button", on: { click: () => openTimeEntry(w) } }, "Edit") : null));
@@ -1584,7 +1584,7 @@ function durEntry(w, L) {
     const m = parseInt(document.getElementById("cfMin")?.value || "0", 10) || 0, s = parseInt(document.getElementById("cfSec")?.value || "0", 10) || 0;
     const tot = m * 60 + s; if (!tot) return toast("Enter the minutes and seconds, e.g. 9 and 40.");
     document.activeElement?.blur?.();
-    L.time = mmss(tot); S.cfTimer = null; delete L.clock; S.cfEdit = null; focusSeg(w, "idle"); touch(w); saveWorkout(w, true); render();
+    L.time = mmss(tot); S.cfTimer = null; delete L.clock; S.cfEdit = null; focusSeg(w, nextSeg(w)); touch(w); saveWorkout(w, true); render();
   };
   const field = (id, label, max, ph, val) => el("input", { type: "text", id, inputmode: "numeric", pattern: "[0-9]*", maxlength: String(max), autocomplete: "off", enterkeyhint: id === "cfMin" ? "next" : "done",
     placeholder: ph, value: val, "aria-label": label, on: { input: digits, keydown: e => { if (e.key === "Enter") { e.preventDefault(); id === "cfMin" ? document.getElementById("cfSec")?.focus() : save(); } } } });
