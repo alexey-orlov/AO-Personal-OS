@@ -1150,8 +1150,15 @@ function swapRing(w, i) {
   const it = w.plan.strength[i]; if (!it) return [];
   const origin = it.swapped_from || { id: it.id, item: it };
   const others = new Set(w.plan.strength.filter((_, j) => j !== i).map(x => x.id));
-  const ctx = ctxForWorkout(w);
-  let alts = ctx ? swapCandidates(ctx, origin.id, new Set(w.checkin.pain || []), others, true).filter(c => c.id !== origin.id).slice(0, RING_ALTS) : [];
+  const ctx = ctxForWorkout(w); const P = new Set(w.checkin.pain || []); const g = gymCfg(); const rep = gymReports().machines;
+  const pool = ctx ? swapCandidates(ctx, origin.id, P, others, true).filter(c => c.id !== origin.id) : [];
+  // the catalog's own alternatives (alt_ids, both ways: the same movement on another machine) come first, whatever their role:
+  // a busy hack squat goes to the leg press. With the engine's weights when the brief has them, else "pick a weight".
+  const s = idx()?.s || {};
+  const catAlts = [...new Set([...(s[origin.id]?.alt_ids || []), ...Object.keys(s).filter(k => (s[k].alt_ids || []).includes(origin.id))])]
+    .filter(id => id !== origin.id && !others.has(id) && s[id] && s[id].status !== "retired" && !hitsPain(s[id], P) && (rep[id] || g.machines?.[id]) !== "missing" && !g.substitutions?.[id])
+    .map(id => pool.find(c => c.id === id) || (ctx?.sugg?.[id]?.kg ? ctx.sugg[id] : { id }));
+  let alts = [...catAlts, ...pool.filter(c => !catAlts.some(a => a.id === c.id))].slice(0, RING_ALTS);
   // the exercise on the slot now always stays in its ring, even if it no longer ranks
   if (it.id !== origin.id && !alts.some(c => c.id === it.id)) alts = [...alts.slice(0, RING_ALTS - 1), Object.assign({}, it)];
   return [Object.assign({}, origin.item || {}, { id: origin.id, planned: true }), ...alts];
