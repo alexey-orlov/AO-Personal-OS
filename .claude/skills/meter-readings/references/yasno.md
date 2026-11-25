@@ -15,5 +15,16 @@
   `/my/metering/top-up-balance` says «Показання успішно збережені» and offers a top-up («Перейти
   до оплати»). Never pay; close or leave the page. The balance updates once the distribution
   operator confirms the reading.
+- **History:** «Усі показання» (`/my/metering?accountId=<id>`) has a toggle «Тільки враховані» /
+  «Усі». Each line gives the month, the source and the kWh: «Від клієнта · Особистий кабінет
+  YASNO», «Від ОСР · Зчитування контролера» (a reading the distribution operator took) or plain «Від
+  ОСР». «Не враховані» marks a reading that was not counted. A reading saved through the form shows
+  at once as «Від клієнта <date>».
+- **ОСР's figure for the 1st:** around 24.11.2026 ОСР booked plain «Від ОСР» figures for 01.11.2026 on
+  both accounts (Победы 34 061, Смоленская 83 935), above the real meters (inferred: estimates). The
+  readings sent earlier that month (Победы 33427 on 19.11, Смоленская 83699 on 23.11) then vanished
+  from the history, not even listed as «Не враховані». «Попередні» shows that figure, and the form
+  still saves a lower value («Спожито» goes negative). On 2026-11-24 Alex chose zero-difference
+  readings equal to the ОСР figure for both accounts.
 - **Advice on the form:** submit in the last two days of a month or the first three of the next
   for accurate billing. It is advice, not a block; mention it when today is outside that window.

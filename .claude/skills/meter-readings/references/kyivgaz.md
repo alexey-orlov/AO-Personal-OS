@@ -17,8 +17,15 @@
   still goes to Alex first.
 - **When:** «передавайте показання лічильників з 1 по 3 число кожного місяця»; «несвоєчасно передані
   показання враховуються в наступному місяці».
-- **Refusal seen 2026-11-20:** «Показання не передавали більше одного місяця. Показання не прийнято!
-  Надішліть, будь-ласка, фото лічильника через розділ "Звернення" для перевірки та внесення
+- **Refusal (20.11 and 24.11.2026):** «Показання не передавали більше одного місяця. Показання не
+  прийнято! Надішліть, будь-ласка, фото лічильника через розділ "Звернення" для перевірки та внесення
   показань.» Nothing is recorded then. The way back is a meter photo filed through «Звернення»
   (`/message`): only Alex can supply the photo, and filing it is a message on his behalf, so it
   needs his yes.
+- **Appeals:** `/message` lists them by Тема, Зміст and Дата, without a status. The status and the
+  answer arrive as notifications in the bell (links whose text holds the appeal number). Alex's
+  №218832 (23.11.2026, photo, 07150.946) was answered on 24.11: «Виконано… Показання лічильника
+  прийнято в обробку». The answer also asked for a reading every month on the 1st–3rd, even with no
+  use. It said the address lacks a signed «заява-приєднання» to the distribution contract (the
+  owner's documents, one PDF through «Звернення та документи»). It also said the meter is due for
+  verification, to be booked through the contact centre.

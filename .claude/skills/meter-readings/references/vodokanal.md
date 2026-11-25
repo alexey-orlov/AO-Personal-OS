@@ -25,6 +25,10 @@
   покази» as the page opens would send every meter, the untouched ones with zero consumption.
 - **Any change of the account filter re-ticks all rows**, including ones you unticked; typed values
   survive. Set the selection last, on the unfiltered list. An unticked row's input is disabled.
+- **Ticking re-renders the table.** After a click on the header checkbox or a row checkbox the
+  extension's element references go stale: look them up again before the next click or typing.
+- After a long pause, such as a question to Alex, the tab can fall back to `/dashboard/home`. Open
+  `/dashboard/counters` again and paste `scripts/vk_list.js` again.
 - The «Поточний» input is prefilled with the previous value (`5`, `398.434`). Real typing of
   `00005.435` is accepted as is, and «Кількість» updates to the difference.
 - «Надіслати покази» opens «Підтвердження · Підтверджуєте внесення показу? · Ні / Так». After
@@ -33,8 +37,9 @@
   precision.
 - «Історія» opens a dialog per meter (period, previous, final, quantity, date, source: Споживач,
   Оператор or Розрахунковий) for a selectable period; close it with its header ×. Dialogs stack
-  if one is not closed. The period defaults to the last four months and does not take typing:
-  widen it in the date picker (arrows, the start day, the end day), then press the magnifier.
+  if one is not closed. The period defaults to the last four months in every meter's dialog and does
+  not take typing: widen it in the date picker (arrows, the start day, the end day), then press the
+  magnifier.
 - Dates («Дата введення», «Останнє внесення») print in the browser's timezone, Pacific while the Mac
   is in SF: 23.11.2026 21:47 here was 24.11.2026 07:47 in Kyiv. Київтеплоенерго prints Kyiv time.
 - **Estimates.** A period with no reading gets an estimate on the last day of the next month at

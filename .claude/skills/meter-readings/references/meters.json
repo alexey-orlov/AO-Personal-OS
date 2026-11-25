@@ -19,8 +19,8 @@
         "account_number": "0251754",
         "address": "просп. Берестейський, буд. 45, кв. 25",
         "meters": [
-          { "serial": "2310504", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account" },
-          { "serial": "4816600", "kind": "hot", "room": "единственный", "how_known": "one hot meter on the account" }
+          { "serial": "2310504", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account", "history_note": "The cabinet is ahead of the meter: «Оператор» estimates of 8.429 m³ a month (January–August 2026) after the last real reading, 331 (entered 25.01.2026), took «Початковий» to 398.434 while the meter read 392 on 2026-11-24. Real use is ~6.1 m³ a month, so a reading below «Початковий» is expected until about the end of December 2026. Each such month is Alex's call (on 2026-11-24 he chose a zero-difference reading of 398.434); ask him with these numbers." },
+          { "serial": "4816600", "kind": "hot", "room": "единственный", "how_known": "one hot meter on the account", "history_note": "Водоканал holds 15.5, the meter 13: KTE's own control reading on 30.10.2026 recorded 13, and KTE has had 13 since at least December 2024. At Водоканал 15.5 has stood since July 2025 or earlier, each month «Розрахунковий» with 0. Hot water is barely used, so the meter will not reach 15.5 soon. Each month is Alex's call (on 2026-11-24 he chose a zero-difference reading of 15.5)." }
         ]
       },
       {
@@ -52,7 +52,7 @@
         "account_number": "434006400250100",
         "cabinet_id": "199001",
         "meters": [
-          { "serial": "4816600", "meter_id": "728022", "kind": "hot", "room": "единственный", "same_as": "vodokanal 4816600", "how_known": "one hot meter on the account (KTE: «Кухня»)" }
+          { "serial": "4816600", "meter_id": "728022", "kind": "hot", "room": "единственный", "same_as": "vodokanal 4816600", "how_known": "one hot meter on the account (KTE: «Кухня»)", "history_note": "13 since at least December 2024. A «Контрольне знімання» on 30.10.2026 (after an e-appeal, «ел.звернення, акт КТЕ») confirmed 13 and recalculated 01.03.2025–30.09.2026 to 0. Водоканал still holds 15.5 for the same meter." }
         ]
       },
       {
@@ -74,7 +74,7 @@
         "account_number": "5920300061",
         "submit": true,
         "meters": [
-          { "serial": "00205019", "type": "ГАЛЛУС-2000 G6-4.0(x)", "kind": "gas", "room": "единственный", "how_known": "one gas meter on the account" }
+          { "serial": "00205019", "type": "ГАЛЛУС-2000 G6-4.0(x)", "kind": "gas", "room": "единственный", "how_known": "one gas meter on the account", "history_note": "Only Київгаз estimates («Розрахунок») since the last real reading, 6854.00 on 25.01.2026: 7316.00 on 31.10.2026 while the meter read 7150 on 2026-11-24. Direct submissions were refused on 20.11 and 24.11 (no reading for over a month). Alex's appeal №218832 (23.11.2026, photo, 07150.946) was answered on 24.11: «Виконано… прийнято в обробку». A one-off scheduled task (kyivgaz-pobedy-retry-2026-12-01) checks the history and retries 07150.00 on 2026-12-01." }
         ]
       },
       {
@@ -89,8 +89,8 @@
   "yasno": {
     "cabinet": "https://yasno.ua/my/personal-accounts",
     "accounts": [
-      { "folder": "Победы", "account_id": "326798", "account_number": "08018102505", "zones": 1, "submit": true },
-      { "folder": "Смоленская", "account_id": "326797", "account_number": "08020010005", "zones": 1, "submit": true },
+      { "folder": "Победы", "account_id": "326798", "account_number": "08018102505", "zones": 1, "submit": true, "history_note": "ОСР booked 34 061 for 01.11.2026 (plain «Від ОСР», not a controller reading) while the meter read 33937 on 2026-11-24, and the 33427 sent on 19.11 vanished from the history. Real use is ~200 kWh a month, so the meter passes 34 061 in about mid-December 2026. On 2026-11-24 Alex chose a zero-difference reading of 34 061." },
+      { "folder": "Смоленская", "account_id": "326797", "account_number": "08020010005", "zones": 1, "submit": true, "history_note": "ОСР booked 83 935 for 01.11.2026 (plain «Від ОСР») above the meter's 83699,9 of 2026-11-23, and the 83699 sent that day vanished from the history. On 2026-11-24 Alex had a zero-difference reading of 83 935 sent." },
       { "folder": "Антоновича", "account_id": "326823", "account_number": "04003421503", "zones": 2, "submit": false, "why": "the distribution operator reads it remotely (Alex, 2026-11-18)" }
     ]
   }

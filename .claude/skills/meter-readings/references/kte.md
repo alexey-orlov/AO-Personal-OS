@@ -18,12 +18,17 @@
 
   On 2026-11-19 Антоновича's kitchen meter showed 1.03 in the column, but the field held 1.16 from a
   «Контрольне знімання» dated 01.11.2026 (entered 05.11). Победы and Смоленская had empty fields.
+- **Shared with Водоканал:** the same hot meter can hold different values in the two cabinets, and
+  KTE's «Контрольне знімання» settles which one is real. On 2026-11-24 Победы read 13 on the meter
+  and at KTE (inspection 30.10.2026) but 15.5 at Водоканал.
 - **History:** `/my-cabinet/send_counters/history_counters/<cabinet_id>/<meter_id>`. Each line holds the
   date, «Зараховано», a code («> 50»), the reading, the kind («Поточні», or «Перерахунок» for a
   recalculation), the source and when it was entered (Kyiv time). The source is «ОК абонента» for
   the subscriber, «Контрольне знімання» for a KTE inspection or «Розрахункові» for a calculated
-  value. After three months without a reading KTE bills «Норма (не передача >3 місяців)»; Смоленська
-  had those for May–September 2026 until a «претензія» on 24.10.2026 recalculated them to 0.
+  value («Плановий показник», «Показник будинкового лічильника (не передача >3 місяців)» or «Норма
+  (не передача >3 місяців)»). Смоленська had «Норма» bills for May–September 2026 until a
+  «претензія» on 24.10.2026 recalculated them to 0. Победы had a 16.1 building-meter estimate from
+  March 2025 until an inspection on 30.10.2026 recalculated 01.03.2025–30.09.2026 to 0.
 - **Submit:** one «Передати показання» button sends every row of the account; there is no per-row
   selection. Send only when every meter of the account has a new value in hand. The page then says
   «Дякуємо за внесення показників! Останнього тижня наступного місяця заходьте сюди знову!».

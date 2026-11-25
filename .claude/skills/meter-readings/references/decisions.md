@@ -121,3 +121,38 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
     SF, 23.11 21:47 at Водоканал and 24.11 07:48 at КТЕ were a minute apart.
 14. Writing Alex's one-month choice into `meters.json` as a standing "send without asking" rule was
     refused by the permission classifier: a lower-than-previous reading stays his call every month.
+
+## 2026-11-24: Победы, every cabinet ahead of the meter
+
+### Rules from Alex
+- The readings came as the tenant's text «Ноябрь 26. Показания: х/в-392, г/в-13, газ-7150,
+  эл/эн-33937».
+- After ten months of estimates every cabinet except KTE was above the meter. Each meter was shown
+  with its last real reading. Alex chose zero-difference readings for both Водоканал meters and for
+  Yasno. For gas he asked to retry now and, if refused, to check his appeal and retry on 01.12.
+- On Смоленская: «если не приняло снижение — то там тоже нужно было отправить нулевое (равное
+  прошлому)». When ОСР's figure has displaced a reading, a zero-difference reading equal to that
+  figure goes instead.
+
+### What the run did
+- Водоканал: cold 2310504 398.434 → 398.434 and hot 4816600 15.5 → 15.5, both «Споживач», period
+  «жовтень 2026 (10)», 24.11.2026 18:37 Pacific.
+- Київтеплоенерго: 4816600 13 → `00013.0000`, «Дякуємо за внесення показників!», history
+  «2026-11-25 · Зараховано · Поточні · ОК абонента».
+- Yasno Победы: 34 061 → 34061 (0), «Показання успішно збережені», listed at once as «Від клієнта
+  25 лист 2026».
+- Yasno Смоленская: 83 935 → 83935 (0), the same, after Alex's answer above.
+- Київгаз: 07150.00 was refused again («не передавали більше одного місяця»). Alex's own appeal
+  №218832 had been answered «Виконано… прийнято в обробку». The scheduled task
+  `kyivgaz-pobedy-retry-2026-12-01` checks the history and retries on 01.12.
+
+### Lessons
+15. After months without readings, every provider at an address can be ahead of the meter at once.
+    Read every history first, then ask once: one question per meter, with the last real reading and
+    where the gap came from.
+16. A hot meter shared by Водоканал and KTE can hold different values in each cabinet. KTE's
+    «Контрольне знімання» settles which one is real.
+17. Yasno's «Показання успішно збережені» is not the end. ОСР can later book its own figure for the
+    1st, and the reading then disappears from the history. The next run checks «Усі показання».
+18. Київгаз answers appeals in the notification bell, and the answer can hold tasks for Alex
+    (documents for the contract, meter verification). Relay them.
