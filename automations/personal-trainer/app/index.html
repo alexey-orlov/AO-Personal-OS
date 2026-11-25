@@ -184,6 +184,7 @@ textarea { min-height: 80px; resize: vertical }
 .rec b { font-weight: 600; color: var(--ink-2) }
 /* swaps */
 .swapline { display: flex; gap: 8px; align-items: center }
+.swapline .grow { flex: 1; min-width: 0 }
 .swapline .how { min-height: 34px }
 .ring .opt { flex-direction: row; align-items: center; gap: 12px }
 .ring .opt[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); background: var(--accent-soft) }
@@ -1537,17 +1538,19 @@ function crossfitCard(w) {
         howBtn(it.id));
     })),
   ];
-  if (!L.time) {
-    kids.push(el("div", { class: "clock", id: "cfClock", text: mmss(elapsed) }));
+  const editing = S.cfEdit === w.id && w.status !== "done";
+  if (editing) kids.push(durEntry(w, L));
+  else if (!L.time) {
+    const over = cf.cap_min && elapsed > cf.cap_min * 60;
+    kids.push(el("div", { class: "clock" + (over ? " over" : ""), id: "cfClock", role: "timer", text: mmss(elapsed) }));
     kids.push(el("div", { class: "row" },
       el("button", { class: "btn primary grow", type: "button", on: { click: () => { if (w.status === "planned") startSession(w);
         S.cfTimer = running ? { id: w.id, acc: elapsed } : { id: w.id, start: Date.now() - elapsed * 1000 };
-        L.clock = running ? { acc: elapsed } : { start: S.cfTimer.start }; saveWorkout(w, true); tickClock(); render(); } } }, running ? "Pause" : elapsed ? "Resume" : "Start clock"),
-      elapsed ? el("button", { class: "btn grow", type: "button", on: { click: () => { L.time = mmss(elapsed); S.cfTimer = null; delete L.clock; saveWorkout(w, true); render(); } } }, "Done · " + mmss(elapsed)) : null));
-    kids.push(el("div", { class: "row" }, el("input", { type: "text", id: "cfTime", inputmode: "numeric", placeholder: "or type the time, e.g. 9:40", class: "grow", value: S.cfDraft || "", on: { input: e => { S.cfDraft = e.target.value; } } }),
-      el("button", { class: "btn", type: "button", on: { click: () => { const s = parseMMSS(S.cfDraft); if (s == null) return toast("Type the time as minutes:seconds, e.g. 9:40"); L.time = mmss(s); S.cfDraft = ""; saveWorkout(w); render(); } } }, "Save")));
+        L.clock = running ? { acc: elapsed } : { start: S.cfTimer.start }; if (!running) focusSeg(w, "crossfit"); touch(w); saveWorkout(w, true); tickClock(); render(); } } }, running ? "Pause" : elapsed ? "Resume" : "Start clock"),
+      elapsed ? el("button", { class: "btn grow", type: "button", on: { click: () => { L.time = mmss(elapsed); S.cfTimer = null; delete L.clock; focusSeg(w, "idle"); touch(w); saveWorkout(w, true); render(); } } }, "Done · " + mmss(elapsed)) : null));
+    if (w.status !== "done") kids.push(el("button", { class: "linkbtn", type: "button", on: { click: () => openTimeEntry(w) } }, "Timed it on another clock? Enter the time"));
   } else {
-    kids.push(el("div", { class: "row" }, el("div", { class: "clock grow", text: L.time }), el("button", { class: "how", type: "button", on: { click: () => { delete L.time; saveWorkout(w); render(); } } }, "Edit")));
+    kids.push(el("div", { class: "row" }, el("div", { class: "clock grow", text: L.time }), w.status !== "done" ? el("button", { class: "how", type: "button", on: { click: () => openTimeEntry(w) } }, "Edit") : null));
     if (cf.format === "rounds") kids.push(el("div", { class: "row" }, el("span", { class: "grow muted small", text: "Rounds finished" }),
       el("div", { class: "stepper", style: "width:150px" }, el("button", { type: "button", "aria-label": "Fewer rounds", on: { click: () => { L.rounds_done = Math.max(0, (L.rounds_done ?? cf.rounds) - 1); saveWorkout(w); render(); } } }, "−"),
         el("div", { class: "v", text: String(L.rounds_done ?? cf.rounds) }), el("button", { type: "button", "aria-label": "More rounds", on: { click: () => { L.rounds_done = (L.rounds_done ?? cf.rounds) + 1; saveWorkout(w); render(); } } }, "+"))));
