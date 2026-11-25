@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
-_status: allocation framework implemented in Юніт.xlsx — steps 1–5 computed for all five buckets in tab «4. Allocation by components (k)» (Юніт 08.10); results deck v23 (43 slides, 10-09; Next steps block added): Public Cloud on OpenStack and Licenses cost more than their current average check (+32 %, +15 %), professional services 111× the check_
-_updated: 2026-10-16_
+_status: the first part is done — allocation framework implemented in Юніт.xlsx, steps 1–5 computed for all five buckets, results deck v23 (43 slides, 10-09: OpenStack and Licenses cost more than their current average check, +32 % and +15 %, professional services 111× the check); next steps run in 8 directions by owner (Юніт (5) «Next steps»): 1, 2, 4, 5 in progress, 3 yearly from 01.04.2027, 6–8 not started (2026-11-25)_
+_updated: 2026-11-25_
 
 ## Snapshot
 

@@ -11,7 +11,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 - Alex is CPO at GigaCloud (cloud infrastructure). [CLAUDE.md]
 - Expected note streams (classify Axis 2 → `calls/` subfolders): `product-issues-sukhenko` (recurring weekly), `product-team-weekly`, `other`.
 - Active product problem: automating the CREASHO/Krayshu product-catalog (CRM) → Billing integration, today a semi-manual Excel-over-email + Jira flow. [calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
-- **Role transition (2026-10-16):** Alex goes part-time in Q3'FY2026 (focus on four projects, incl. a Kyivstar synergy, + helping Edik), then ad-hoc consulting; Edik is proposed as Product Lead, Product Operations as a COO function, product strategy with Product Lead + CTO. → [product-team-structure](product-team-structure.md) (chat, 2026-10-16)
+- **Role transition (2026-10-16):** Alex goes part-time in Q3'FY2026 (focus on four projects, incl. a Kyivstar synergy, + helping Edik), then ad-hoc consulting; Edik is now Product Lead (so titled in the margin plan's «Next steps», 2026-11-25), Product Operations proposed as a COO function, product strategy with Product Lead + CTO. → [product-team-structure](product-team-structure.md) (chat, 2026-10-16)
 - Catalog shape (from 2026-08-27 exports): 96 products / 463 priced components; products are containers, only components carry prices, a sale is a case-by-case component set. Three component economic types: infra (GM 20–50%), license resell (2–5%), prof services (20–30%). (chat, 2026-08-27)
 - **Product team strategy 2026** (Alex's Miro goal tree, brief of 2026-11-10): **GTM** → IaaS (three goals in this order: cost-effectiveness & margin of IaaS products · strategic diversification of cloud solutions · development of existing products on market demand + sales enablement, which absorbs the tree's «sales-team efficiency» leaf), Resell (Microsoft, Amazon, Veeam), Services (cybersecurity, AI / DevOps); **Business efficiency** → data-driven decisions, transparent PLM. (chat, 2026-11-10)
 - **Half-year portfolio status** (brief, 2026-11-10). Done: flexible hardware configurations (private-cloud storage per disk, three disk sizes), Private Cloud on OpenStack (HCI from 3–4 nodes), vSAN Advanced Memory Tiering (40 %+ memory saving), Private Cloud on Azure Local, Public S3 Storage (Cubbit; Poland + Kyiv), quote / stock prices in the CRM, Advanced Compliance versions for government customers, Azure + AWS resell, the VCFaaS relaunch, USD prices for licenses, Security Authorization Services (launched 10.2026). In progress: Public Cloud on OpenStack v2, low-cost hardware and cheaper DC services, Broadcom licenses via the partner evoila (the direct Broadcom contract runs only to 08.2027), Private Kubernetes by vCluster, VMware-customer migration capability, resell vs managed license terms, the resell contract base, partner prof-services resell, DevOps / infrastructure services. Planned: storage performance, Colocation, Private S3, renewal / fixed / controlled prices, quote improvements. Business efficiency (done, parts in progress): lost-deal analysis, PLM automation, real product margin. (chat, 2026-11-10)
@@ -41,8 +41,8 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 ## Subprojects
 
 - [product-team-structure](product-team-structure.md) — CPO part-time transition: restructure deck v1 (10 slides, 2026-10-20: Q4 fork part-time CPO ↔ Advisor, hiring of three roles); next steps start with Alex's terms and Edik's offer; Head of Product vacancy live, test assignment v2 drafted 2026-11-22.
-- [pricing-unit-economics](pricing-unit-economics.md) — component cost allocation: steps 1–5 computed, plan deck v5 + results deck v23 (2026-10-09). Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
-- [publication-process](publication-process.md) — product publication process + CRM checklist: deck v4 (56 slides, 2026-10-12), to be presented to department heads.
+- [pricing-unit-economics](pricing-unit-economics.md) — component cost allocation: steps 1–5 computed, plan deck v5 + results deck v23 (2026-10-09); next steps in 8 directions by owner, four in progress (2026-11-25). Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
+- [publication-process](publication-process.md) — product publication process + CRM checklist: deck v9 (2026-10-12) for the department heads; PLM 2.0 in Q3 — competences 70 %, delivery 50 %, contracts 30 %, revisions not started (2026-11-25).
 
 ## People
 
@@ -65,6 +65,10 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Open loops
 
+- Mine — committee deck v1: Alex's review, and its open points. (chat, 2026-11-25)
+  - The Q2-closed list: OpenStack and USD prices were left out as Q1; government products, Azure Local's repackaging and Security Authorization Services as closed in Q3, outside the Q3 plan.
+  - Go-live support for OpenStack and Kubernetes: the sources hold no case.
+  - Cadence: who the «triangle» sync includes, and how often the product committee meets; the sales sync is shown as one meeting for the pipeline and product issues (inferred).
 - Mine — results deck before the talk. [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-12)
   - Confirm which VCFaaS scheme is current (hardware lease or not) and that the evoila partner contract is signed.
   - Confirm that Azure Local is back in active sale after its repackaging.
@@ -79,6 +83,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
+- 2026-11-25 — product committee deck v1 — 11 UA slides; the data behind it folded into [pricing-unit-economics](pricing-unit-economics.md) (8 next-step directions, FY planning), [publication-process](publication-process.md) (PLM 2.0 in Q3) and [product-team-structure](product-team-structure.md) (titles, zones, cadence). (chat)
 - 2026-11-22 — [Head of Product test assignment v2](docs/hop-test-assignment/evaluation-key.md) — UA Google Doc (three tasks) plus evaluation key, re-cut after three fresh-context candidate reads; the vacancy is live on PeopleForce. (chat)
 - 2026-11-12 — [half-year results deck v6 → v7](docs/h1-results-deck/HANDOFF.md) — 26 slides on Alex's fourth round; v7 also drops the lost-deal analysis from the strategy slide. OpenStack shows its price gap to VMware and its 3–4-node minimum instead of invented segment variants. Public S3 shows its 11 clients and Cubbit's real logo instead of the protection tiers. The pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. (chat)
 - 2026-11-12 — [half-year results deck v5](docs/h1-results-deck/HANDOFF.md) — 27 slides on Alex's third round. Project slides cut to problem → solution → plain visual → value, with details in the notes. Each IaaS goal got a sub-header and a goal strip in its headers. VCFaaS moved to Resell, the government and VCFaaS slides were reframed, and the strategy slide is animated. (chat)
@@ -88,4 +93,3 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
 - 2026-09-26 — [results deck](pricing-unit-economics.md) — 26-slide UA deck of allocation results (steps 1–4, 5 buckets, 5 methods, per-component examples) from Alex's brief + Юніт.xlsx; handoff rewritten for both decks. (chat)
 - 2026-08-27 — [action-plan deck](pricing-unit-economics.md) — 11-slide UA deck for CFO/department alignment built from Alex's brief + Margin.xlsx (4-model taxonomy A–D, price stack, InfoSec P&L split, next steps). (chat)
-- 2026-08-27 — [pricing approach](pricing-cost-allocation-approach.md) — component cost-allocation & pricing approach designed and verified; new subproject page created. (chat)
