@@ -4,8 +4,9 @@ Always-on, **two-way busy sync** between Alex's **SoftServe** work calendar and 
 for **this week + next week**:
 - **Forward** — each SoftServe meeting is mirrored into Google as an `SS:`-prefixed copy (with the real
   Busy/Free status + organizer/participants).
-- **Reverse** — wherever Alex is busy in **any** Google calendar (Alex Orlov / Family / GigaCloud), a
-  content-free **"Busy"** placeholder is written into SoftServe so colleagues can't book over it.
+- **Reverse** — wherever Alex is busy in **any** Google calendar (Alex Orlov / Family) or in GigaCloud's
+  Exchange calendar, a content-free **"Busy"** placeholder is written into SoftServe so colleagues can't
+  book over it.
 
 Reads SS from the **SoftServe Exchange account in Apple Calendar (EventKit)**, reads/writes Google via the
 **Calendar API**, and writes SS placeholders back via **EventKit**. Runs **every 30 minutes around the
@@ -20,34 +21,39 @@ code; there is no live Claude session, no Chrome MCP, no Google connector.
 ```
 forward:  Apple Calendar (EventKit read)  →  sync_core.reconcile          →  Google Calendar API
 reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  →  Apple Calendar (EventKit write)
-          + Apple Calendar subscriptions (GigaCloud, EventKit read)
+          + GigaCloud's Exchange calendar (EventKit read)
             ss_cal_read.swift / gcal.py        sync_core.py                   ss_cal_write.swift / gcal.py
                  both passes orchestrated by run.py, hosted by launchd → CalendarSync.app (no window) → run.sh
 ```
 
-- **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar (`--exchange`)
-  or one named calendar (`--type subscribed --calendar GigaCloud --from <iso>`) and emits one JSON row
+- **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads SoftServe's account
+  (`--type exchange --source Exchange`) or one named calendar (`--type exchange --calendar Календар
+  --from <iso>`; names exact and case-insensitive, as `--list` prints them) and emits one JSON row
   per event: uid, title, start/end (absolute ISO instants carrying the Mac's local offset), `all_day`,
   `recurring`, location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes,
   `attendees[{name,email,status,is_me}]`, and the event's `calendar`/`source`/`source_type`,
   `external_id` (iCal UID), `occurrence` (original start in a series), `detached`, `availability`,
-  `status`. A filter that matches no calendar exits 5 (`NO_MATCHING_CALENDAR`): it never falls back to
-  every calendar, which EventKit does for an empty list.
+  `status`. It never reads more than was named: an unknown flag exits 4 (`BAD_ARG`, e.g. the retired
+  `--exchange`), a filter that matches no calendar exits 5 (`NO_MATCHING_CALENDAR`; EventKit reads every
+  calendar for an empty list), and a `--source` title two accounts share exits 6 (`AMBIGUOUS_SOURCE`).
 - **`ss_cal_write.swift`** → compiled to `.work/ss-cal-write`. Reverse leg: reads `create|update|delete`
   JSON commands on stdin and writes/removes `availability=.busy` "Busy" events (no attendees, a
-  `[[gcal-busy:<key>]]` note) in the SS Exchange calendar; echoes each event's `calendarItemIdentifier`.
+  `[[gcal-busy:<key>]]` note) in exactly one calendar, `CALSYNC_SS_WRITE_CAL` of the Exchange account
+  `CALSYNC_SS_SOURCE`, and exits 3 when that isn't exactly one calendar. It updates or deletes only
+  events in that calendar that carry the marker, and refuses any other; echoes each event's
+  `calendarItemIdentifier`.
 - **`sync_core.py`** — deterministic brain: timezone math, per-occurrence keys, content-hash diff,
   ledgers, payload + description building, status→Busy/Free mapping, the reverse busy-filter +
   `reverse_reconcile`, schedule gate, daily-summary aggregation. Stdlib only, fully unit-tested.
 - **`gcal.py`** — dependency-free Google client (stdlib urllib). OAuth installed-app flow (scopes:
   `calendar.events` for forward writes + `calendar.readonly` for the reverse multi-calendar read);
   `list_calendars` / list / create / update / delete, always `sendUpdates=none`.
-- **`run.py`** — one tick = **forward pass** (EventKit read → `reconcile` → `gcal`) then **reverse pass**
-  (all Google calendars + `CALSYNC_EK_SOURCES` → `reverse_reconcile` → `ss-cal-write`). Skips all-day
-  events; pulls our own `[[gcal-busy]]` placeholders out of the forward source. Writes, for
-  diagnostics, `.work/state/last-read.json` (the SS read) and `.work/state/calendars.txt` (every Apple
-  Calendar calendar with its count of timed events in the window). Stops without writing when Apple
-  Calendar holds two Exchange calendars titled "Calendar" (gotcha 8).
+- **`run.py`** — one tick = **forward pass** (EventKit read of SoftServe's account only → `reconcile` →
+  `gcal`) then **reverse pass** (all Google calendars + `CALSYNC_EK_SOURCES` → `reverse_reconcile` →
+  `ss-cal-write`). Skips all-day events; pulls our own `[[gcal-busy]]` placeholders out of the forward
+  source. Writes, for diagnostics, `.work/state/last-read.json` (the SS read) and
+  `.work/state/calendars.txt` (every Apple Calendar calendar with its count of timed events in the
+  window). A DRY run lists every create and delete it would make, in both legs.
 - **Host:** launchd `com.user.calendar-sync` runs `open -g -j -W ~/Applications/CalendarSync.app` every
   30 minutes (:00 and :30), Mon–Fri Mac-local time. The app is a faceless AppleScript applet built by
   `setup.sh` (`LSUIElement`: no window, no Dock icon) that runs `run.sh daemon` and holds the macOS
@@ -67,8 +73,8 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
 | `run.sh` | runner, one run at a time (`.work/state/run.lock`, stale locks taken over): `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (41) |
-| `config.sh` | constants + Keychain creds + `LIVE` flag + `CALSYNC_EK_SOURCES` (calendars read from Apple Calendar) |
+| `test_sync_core.py` | unit tests (42) |
+| `config.sh` | constants + Keychain creds + `LIVE` flag + `CALSYNC_SS_SOURCE`/`CALSYNC_SS_WRITE_CAL` (SoftServe's account and calendar) + `CALSYNC_EK_SOURCES` (calendars read from Apple Calendar) |
 | `setup.sh` | builds the reader + writer (swiftc), builds the host app if missing, installs the launchd agent. `--plist-only` reinstalls just the agent · `--build-host` builds the app only (test before switching) · `--rebuild-host` rebuilds it and reinstalls (macOS asks for the grants again) · `--terminal-host` installs the Terminal fallback. Lints the plist before replacing anything. |
 | `~/Applications/CalendarSync.app` | the faceless host app (built by `setup.sh`, not in git); its grants live in System Settings → Privacy & Security → Calendars / Files and Folders |
 | `~/Library/Logs/calendar-sync/host.log` | every run's console output, plus a line when the host can't start `run.sh` |
@@ -112,20 +118,24 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
   in-window. Calendars hidden in Google's calendar list are skipped (2026-11-24: only "a.orlov", an
   empty URL import). A slot counts as **busy** if it is timed (not all-day), not `transparent` (Free),
   not cancelled, and not self-declined. iCloud Home/Work are not read (no timed events, 2026-11-24).
-- **GigaCloud straight from Apple Calendar** (`CALSYNC_EK_SOURCES`, 2026-11-24): Google's GigaCloud
-  is a copy of its Outlook feed that Google refreshes every 5–6 h (see Limits). While Apple Calendar
-  holds a subscription to the same feed titled **GigaCloud** (type `subscribed`, refreshed every 5 min),
-  the reverse leg reads it through EventKit (`sync_core.eventkit_busy`: same busy rule; key
-  `ek:GigaCloud::<iCal UID>`, plus the original start for an occurrence of a series) and skips Google's
-  copy. Without the subscription, Google's copy stays the source. If Apple Calendar can't be listed or
-  read, neither copy is used and nothing is pruned that run, so one bad read never re-keys GigaCloud's
-  blocks twice. The switch re-keys them once: the first run deletes the Google-keyed blocks and creates
-  the same slots from the subscription. EventKit reports some feeds' availability as `notSupported`;
-  that counts as busy.
+- **GigaCloud straight from Apple Calendar** (`CALSYNC_EK_SOURCES="exchange:Календар=<Google copy's
+  id>"`, since 2026-11-24): Google's GigaCloud is a copy of its published Outlook feed that Google
+  refreshes every 5–6 h (see Limits). Apple Calendar holds GigaCloud's own Exchange account (titled by
+  its address; its main calendar is «Календар»), so the reverse leg reads that calendar through EventKit
+  and skips Google's copy. `sync_core.eventkit_busy` applies the same busy rule, plus one the feed could
+  not: a meeting Alex declined doesn't block. SoftServe's own account never counts as a source. The key
+  is `ek:<iCal UID>` (plus the original start for an occurrence of a series) and names no calendar or
+  account, because it sits in the SS block's notes, which SS colleagues with full-details access can
+  read. If the account leaves Apple Calendar, Google's copy is the source again. If Apple Calendar can't
+  be listed or read, neither copy is used and nothing is pruned that run, so one bad read never re-keys
+  GigaCloud's blocks twice. The switch re-keyed them once (2026-11-24 16:42 PT: 25 Google-keyed blocks
+  deleted, the same 25 slots created from Exchange; the next run changed nothing). EventKit reports some
+  feeds' availability as `notSupported`; that counts as busy.
 - **1:1 placeholders:** each busy slot → one SS event titled **"Busy"**, `availability=.busy`, **no
   attendees** (nothing emailed), **no details** (colleagues see only that the time is taken). Keyed by
-  `calendarId::eventId`; create/update/delete tracked in `reverse-ledger.json`. The idempotency hash is
-  over the **absolute UTC instant** (Google and EventKit render the same moment with different offsets).
+  `calendarId::eventId` (Google) or `ek:<iCal UID>` (Apple Calendar); create/update/delete tracked in
+  `reverse-ledger.json`. The idempotency hash is over the **absolute UTC instant** (Google and EventKit
+  render the same moment with different offsets).
 - **Anti-recursion (two loops, both broken):**
   - *SS→Google→SS:* the reverse source filter skips forward copies (`SS:` prefix **or** `ssSync` marker)
     and any event with `olekorlov@softserveinc.com` as organizer/attendee — so real SS meetings and our
@@ -163,13 +173,17 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 7. **AppleScript `contents of t` on a tab held in a variable returns the tab, not its text** (the
    built-in `contents` operator dereferences the variable). Use Terminal's `history of tab 1 of w`.
    It silently matched nothing in the 2026-11-20 window cleanup until switched.
-8. **Apple Calendar must hold only one Exchange account, SoftServe's.** The reader treats every Exchange
-   calendar as SoftServe (`--exchange`), and the writer picks the first writable Exchange calendar titled
-   "Calendar". A second Exchange account (GigaCloud's Microsoft 365, say) would have its meetings
-   mirrored to Google as `SS:` copies and could get the "Busy" blocks written into it, so `run.py` stops
-   without writing when it sees two Exchange calendars titled "Calendar". Pin the source by account
-   (`ss-cal-read --source`, and the same in the writer) before adding one. GigaCloud comes in as a
-   calendar subscription, which is not an Exchange account.
+8. **Two Exchange accounts: everything SoftServe is pinned by account title.** Apple Calendar holds
+   SoftServe's account ("Exchange", the name macOS gives a new Exchange account) and, since 2026-11-24,
+   GigaCloud's. `CALSYNC_SS_SOURCE` pins the forward read (`--type exchange --source Exchange`) and the
+   writer (`CALSYNC_SS_WRITE_CAL` of that account, nothing else), and the reverse leg never reads that
+   account. A title two accounts share stops the run (reader exit 6, writer exit 3), so if another
+   Exchange account ever arrives under the default name, rename one in System Settings → Internet
+   Accounts. Why: the 16:30 PT run on 2026-11-24, minutes after the GigaCloud account was added, read its
+   19 meetings as SoftServe (the old `--exchange` took every Exchange account) and put 18 `SS:` copies
+   into Google (no one notified: Alex is their only attendee). The guard meant to stop it looked for a
+   second calendar titled "Calendar", and GigaCloud's is «Календар». The pinned run at 16:42 deleted
+   all 18.
 
 ## Setup (one-time)
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
@@ -184,12 +198,11 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
      (forward writes) **+ `calendar.readonly`** (reverse multi-calendar read). Authorizing from another
      device? Use `gcal.py authurl` (prints the consent URL) then `gcal.py exchange '<pasted redirect URL>'`.
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
-4. **GigaCloud without Google's delay** (only Alex can do this: the feed link carries an access token):
-   copy GigaCloud's published-calendar ICS link (Outlook on the web → Settings → Calendar → Shared
-   calendars → Publish a calendar; the same link Google subscribes to; don't reset it, or Google's copy
-   stops). In Calendar.app: File → New Calendar Subscription → paste → Subscribe → Name **GigaCloud**,
-   Location **On My Mac**, Auto-refresh **Every 5 minutes**, remove alerts and attachments → OK. The
-   next run switches over; `.work/state/calendars.txt` shows the calendar and its event count.
+4. **GigaCloud without Google's delay** (done 2026-11-24; only Alex can sign in): add the GigaCloud
+   Microsoft 365 account to Apple Calendar as a Microsoft Exchange account. The next run reads its
+   «Календар» instead of Google's copy; `.work/state/calendars.txt` lists it with its event count. A
+   different title, or a calendar subscription to the published feed instead, needs only a new
+   `CALSYNC_EK_SOURCES` value (`exchange:<title>` or `subscribed:<title>`).
 
 ## Schedule & notifications
 - **Every 30 minutes (:00 and :30), around the clock, Mon–Fri on the Mac's local clock** (Alex,
@@ -209,7 +222,7 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 ## Test / verify
 ```bash
 # unit tests (no Calendar/network needed)
-cd /tmp && python3 -I /Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/calendar-sync/test_sync_core.py
+cd /Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/calendar-sync && python3 -m unittest test_sync_core
 # one real pass through the host app, no window (output in ~/Library/Logs/calendar-sync/host.log)
 open -g -j -W ~/Applications/CalendarSync.app
 # trigger the installed daemon out-of-cycle (the same path the half-hourly tick takes)
@@ -225,9 +238,10 @@ launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
   only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on its
   own timer. Observed 2026-10-26 → 11-24: GigaCloud changes landed in Google in 28 batches, always at
   :15 past an hour and never less than 5 h apart (25 of 27 gaps 6 h or more), so Google fetches the
-  feed about every 5–6 h or less often (inferred). The Apple Calendar subscription (Reverse leg) cuts
-  that to the 5-minute refresh plus the next run, about 35 min at worst; Google's own GigaCloud
-  calendar stays hours behind. The subscription refreshes only while the Mac is awake.
+  feed about every 5–6 h or less often (inferred). Reading GigaCloud's Exchange account in Apple
+  Calendar (Reverse leg) cuts that to Calendar.app's own refresh of the account (Calendar → Settings →
+  Accounts → Refresh Calendars) plus the next run, at most 30 min later. Google's own GigaCloud calendar
+  stays hours behind, and Calendar.app refreshes only while the Mac is awake.
 - A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
   surfaced via the daily summary as a write error.
 
