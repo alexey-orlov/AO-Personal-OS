@@ -1,7 +1,7 @@
 # Bohdan Khomych
 
 _Associate Director of R&D, SoftServe · bkhomy@softserveinc.com_
-_updated: 2026-10-21_
+_updated: 2026-11-25_
 
 Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / product-lead role — the "Speaker A" of the recurring 1:1s and the "Bohdan" who owns POC-funding and packaging decisions.
 
@@ -14,6 +14,7 @@ Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / 
 - Introduces himself to Oracle as the R&D director leading SoftServe's Oracle practice, whose team productizes assets for SoftServe and Oracle customers and supplies upskilled engineers for the AI Accelerator Packs, AIDP, AI Lakehouse and, later, the Intelligence Platform (2026-09-29).
 - Sets and defends Alex's OKRs; carries the top-down R&D KPI restructure downward, including unfunded domain mandates (Energy, Life Sciences) he is openly uncomfortable with.
 - Leads the **AI Jumpstart program for scientists** and acts as its life-science SME (a physicist by training, by his own account): he chose its three verticals from his three presales as the life-science expert and owns the deck's Workflow section (2026-10-19) → [softserve/jumpstart-science](../areas/softserve/jumpstart-science.md).
+- Sets Alex's focus after the move (2026-11-24, inferred: the 1:1's unnamed Speaker A): US accounts, hardware and AI devices first; owns Logitech on the outreach list and joins its new opportunities → [softserve](../areas/softserve/README.md#active-threads-area-level).
 
 ## History
 - 2026-06-09 — engagement-scope 1:1: part-time ~50–80 h/mo, product-lead + agentic-SME combo agreed. [1:1](../areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
@@ -23,3 +24,4 @@ Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / 
 - 2026-09-18 — 1:1: defense track handed entirely to Alex (Bohdan keeps only the NVIDIA follow-up); site/sales-materials rules set — no public client names, Karsten as single contact, no prices on the site. [1:1](../areas/softserve/calls/oracle/2026-09-24_183557_one-on-one_20260918181849CD8CD9A8.md)
 - 2026-10-19 — scientists' Jumpstart working sync with Alex and Inna ("Speaker A" there too, confirmed by his posts in the meeting chat): three verticals, lead-giving platforms only, NobleAI as the competitor, a free lighthouse client per person run as discovery. [sync](../areas/softserve/calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
 - 2026-10-21 — co-authored session 2 of the scientists' offering preparation with Taras Rumezhak, "Agentic Scientific Jumpstart" (three ranked workflows for a 6-week pod); Taras presented. [session 2](../areas/softserve/calls/jumpstart-science/2026-10-21_140416_default_pasted-science-workflows-session.md)
+- 2026-11-24 — 1:1 (Speaker A, inferred): Alex's focus after the move set to US accounts, hardware and AI devices first, with a generalized offering portfolio before partner work; Haemonetics to be packaged like an Oracle pack; verdicts on which past projects to package; Physical AI and Simulations as separate services, his direction, not final. [1:1](../areas/softserve/calls/2026-11-25_092814_one-on-one_20261124144031AE96DFF0.md)
