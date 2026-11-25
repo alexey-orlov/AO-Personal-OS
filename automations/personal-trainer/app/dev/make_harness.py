@@ -17,22 +17,36 @@ APPDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 H = os.path.join(APPDIR, ".work", "harness")
 APP = sys.argv[1] if len(sys.argv) > 1 else os.path.join(APPDIR, "index.html")
 seed = {}
-for coll in ("config", "briefs", "workouts"):
+for coll in ("config", "briefs", "workouts", "media", "media_requests"):
     d = os.path.join(H, "seed", coll)
     if not os.path.isdir(d):
         continue
     for f in sorted(os.listdir(d)):
+        if not f.endswith(".json"):
+            continue
         body = json.load(open(os.path.join(d, f), encoding="utf-8"))
-        seed[f"{coll}/{f[:-5]}"] = body.get("data", body) if coll == "workouts" else body   # ArtifactData out_dir files wrap the body
+        seed[f"{coll}/{f[:-5]}"] = body.get("data", body) if coll in ("workouts", "media", "media_requests") and "data" in body else body   # ArtifactData out_dir files wrap the body
+TODAY = (seed.get("config/sync") or {}).get("for_date") or "2026-11-24"
+# pictures the page asks for at /_blob/<asset id>: the harness serves local copies from _blob/<id>.<ext> (http.server needs the extension)
+BLOBS = {os.path.splitext(f)[0]: f for f in (os.listdir(os.path.join(H, "_blob")) if os.path.isdir(os.path.join(H, "_blob")) else [])}
 MOCK_SHEET = os.path.join(APPDIR, "dev", "sheet_mock.js")
 
 mock = r"""
 <script>
-/* --- test harness only: shift "today" to 2026-11-24 (the brief's date) --- */
+/* --- test harness only: shift "today" to the brief's date, 16:00 UTC --- */
 (() => {
-  const Real = Date; const OFF = Date.UTC(2026, 10, 24, 16, 0, 0) - Real.now();
+  const [Y, M, D0] = "__TODAY__".split("-").map(Number);
+  const Real = Date; const OFF = Date.UTC(Y, M - 1, D0, 16, 0, 0) - Real.now();
   class D extends Real { constructor(...a) { if (a.length) super(...a); else super(Real.now() + OFF); } static now() { return Real.now() + OFF; } }
   window.Date = D;
+})();
+/* --- /_blob/<id>: local copies (_blob/<id>.<ext>) or, for test uploads, the uploaded file itself --- */
+(() => {
+  const BLOBS = __BLOBS__; window.__uploads = new Map();
+  const fix = img => { const m = /\/_blob\/([0-9a-z]+)$/.exec(img.getAttribute("src") || ""); if (!m) return;
+    const u = window.__uploads.get(m[1]); if (u) img.src = u; else if (BLOBS[m[1]]) img.src = "_blob/" + BLOBS[m[1]]; };
+  new MutationObserver(ms => { for (const r of ms) { if (r.type === "attributes") fix(r.target); for (const n of r.addedNodes || []) if (n.nodeType === 1) { if (n.tagName === "IMG") fix(n); n.querySelectorAll?.("img").forEach(fix); } } })
+    .observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["src"] });
 })();
 /* --- in-memory db with the page's API surface (collection().onSnapshot, doc().set/get/update) --- */
 (() => {
@@ -57,12 +71,16 @@ mock = r"""
   sample.limits = async () => ({ maxPromptBytes: 262144, tools: { maxCount: 8 } });
   window.__writes = []; window.__calls = [];
   window.__store = store;
-  window.claude = { use: async name => name === "db" ? db : name === "sample" ? (window.__noClaude ? null : sample) : name === "mcp" ? (window.__sheetMcp || null) : null };
+  /* stand-in asset store: an upload keeps the file in the page and answers with an id, as the real one does */
+  const assets = { async upload(blob) { const id = Math.random().toString(16).slice(2).padEnd(32, "0").slice(0, 32); window.__uploads.set(id, URL.createObjectURL(blob));
+      window.__calls.push({ kind: "upload", type: blob.type, size: blob.size }); return { id, url: "/_blob/" + id, sizeBytes: blob.size, contentType: blob.type }; },
+    async delete(id) { window.__calls.push({ kind: "asset_delete", id }); window.__uploads.delete(id); }, async list() { return { assets: [], usage: {} }; } };
+  window.claude = { use: async name => name === "db" ? db : name === "sample" ? (window.__noClaude ? null : sample) : name === "mcp" ? (window.__sheetMcp || null) : name === "assets" ? assets : null };
 })();
 </script>
 """
 sheet_js = open(MOCK_SHEET, encoding="utf-8").read() if os.path.exists(MOCK_SHEET) else ""
-mock = mock.replace("__SEED__", json.dumps(seed, ensure_ascii=False).replace("<", "\\u003c"))
+mock = mock.replace("__SEED__", json.dumps(seed, ensure_ascii=False).replace("<", "\\u003c")).replace("__TODAY__", TODAY).replace("__BLOBS__", json.dumps(BLOBS))
 page = open(APP, encoding="utf-8").read()
 html = ("<!doctype html><html><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,viewport-fit=cover\">"
         "<style>:root{color-scheme:light}body{margin:0}</style></head><body>" + ("<script>" + sheet_js + "</script>" if sheet_js else "") + mock + page + "</body></html>")
