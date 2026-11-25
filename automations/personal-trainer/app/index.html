@@ -1559,20 +1559,60 @@ function crossfitCard(w) {
   }
   return el("div", { class: "card" }, ...kids);
 }
-/** Kit nobody has confirmed at this gym: name the fallback and let him answer once (→ trainer.py gym --equip at sync). */
+/** The crossfit time typed in: minutes and seconds in two number fields (the phone's number pad has no ":"). */
+function openTimeEntry(w) {
+  if (w.status === "planned") startSession(w);
+  S.cfEdit = w.id; render();
+  setTimeout(() => document.getElementById("cfMin")?.focus(), 50);
+}
+function durEntry(w, L) {
+  const cur = L.time ? parseMMSS(L.time) : null;
+  const digits = e => { const v = e.target.value.replace(/\D/g, "").slice(0, Number(e.target.getAttribute("maxlength")) || 3); if (v !== e.target.value) e.target.value = v; };
+  const save = () => {
+    const m = parseInt(document.getElementById("cfMin")?.value || "0", 10) || 0, s = parseInt(document.getElementById("cfSec")?.value || "0", 10) || 0;
+    const tot = m * 60 + s; if (!tot) return toast("Enter the minutes and seconds, e.g. 9 and 40.");
+    document.activeElement?.blur?.();
+    L.time = mmss(tot); S.cfTimer = null; delete L.clock; S.cfEdit = null; focusSeg(w, "idle"); touch(w); saveWorkout(w, true); render();
+  };
+  const field = (id, label, max, ph, val) => el("input", { type: "text", id, inputmode: "numeric", pattern: "[0-9]*", maxlength: String(max), autocomplete: "off", enterkeyhint: id === "cfMin" ? "next" : "done",
+    placeholder: ph, value: val, "aria-label": label, on: { input: digits, keydown: e => { if (e.key === "Enter") { e.preventDefault(); id === "cfMin" ? document.getElementById("cfSec")?.focus() : save(); } } } });
+  return el("div", { style: "display:flex;flex-direction:column;gap:10px" },
+    el("label", { class: "eyebrow", for: "cfMin", text: "Finish time" }),
+    el("div", { class: "dur" }, field("cfMin", "Minutes", 3, "9", cur != null ? String(Math.floor(cur / 60)) : ""), el("span", { class: "u", text: "min" }),
+      field("cfSec", "Seconds", 2, "40", cur != null ? String(cur % 60).padStart(2, "0") : ""), el("span", { class: "u", text: "sec" })),
+    el("div", { class: "row" }, el("button", { class: "btn primary grow", type: "button", on: { click: save } }, "Save time"),
+      el("button", { class: "btn", type: "button", on: { click: () => { document.activeElement?.blur?.(); S.cfEdit = null; render(); } } }, "Cancel")));
+}
+/** Kit nobody has confirmed at this gym: name the fallback and let him answer once (→ trainer.py gym --equip at sync).
+ *  "No rope" puts the fallback in and keeps the way back, like every other swap. */
 function kitLine(w, it, cf) {
-  if (!it.fallback || w.status === "done" || w.log.crossfit?.time) return null;
+  if (w.status === "done" || w.log.crossfit?.time) return null;
+  if (it.swapped_from) return el("div", { class: "swapline" }, el("span", { class: "small faint grow", text: `↻ Planned: ${enName(it.swapped_from.id)} · no ${KIT_EN[kitKey({ id: it.swapped_from.id })] || "kit"}` }),
+    el("button", { class: "how", type: "button", on: { click: () => {
+      const i = cf.items.indexOf(it); const key = kitKey({ id: it.swapped_from.id });
+      if (i >= 0) cf.items[i] = clone(it.swapped_from);
+      w.gym_reports = (w.gym_reports || []).filter(g => !(g.equip === key && g.status === "missing"));
+      w.changes.push({ at: nowISO(), kind: "swap", summary: `crossfit: back to ${enName(it.swapped_from.id)}`, ids: [it.id, it.swapped_from.id] });
+      saveWorkout(w, true); render(); } } }, "Back"));
+  if (!it.fallback) return null;
   const st = kitStatus({ id: it.id }); if (["have", "seen"].includes(st)) return null;
   const key = kitKey({ id: it.id }); const kit = KIT_EN[key] || key.replace("_", " ");
   return el("div", { class: "kit" }, el("span", { class: "small muted", text: `No ${kit}? ${enName(it.fallback)} instead.` }),
     el("span", { class: "kit-q" },
       el("button", { class: "how", type: "button", on: { click: () => { delete it.fallback; reportGym(w, { equip: key, status: "have" }, `Noted: this gym has a ${kit}.`); render(); } } }, "Have it"),
       el("button", { class: "how", type: "button", on: { click: () => {
-        const i = cf.items.indexOf(it); if (i >= 0) cf.items[i] = fallbackItem(w, it);
+        const i = cf.items.indexOf(it); if (i >= 0) { const ni = fallbackItem(w, it); ni.swapped_from = clone(it); cf.items[i] = ni; }
         reportGym(w, { equip: key, status: "missing" }, `Noted: no ${kit} here. ${enName(it.fallback)} instead.`); render(); } } }, `No ${kit}`)));
 }
 let clockT = 0;
-function tickClock() { clearInterval(clockT); clockT = setInterval(() => { const T = S.cfTimer; const n = document.getElementById("cfClock"); if (!T?.start) return clearInterval(clockT); if (n) n.textContent = mmss((Date.now() - T.start) / 1000); }, 500); }
+function tickClock() {
+  clearInterval(clockT);
+  clockT = setInterval(() => {
+    const T = S.cfTimer; const n = document.getElementById("cfClock"); if (!T?.start) return clearInterval(clockT);
+    const sec = (Date.now() - T.start) / 1000; const cap = S.workouts[T.id]?.plan?.crossfit?.cap_min;
+    if (n) { n.textContent = mmss(sec); n.classList.toggle("over", !!cap && sec > cap * 60); }
+  }, 500);
+}
 
 /* ---------------- rest timer */
 let restT = 0;
@@ -1609,18 +1649,36 @@ function renderBar() {
 /* ---------------- sheets */
 function openSheet(s) { S.sheet = s; renderSheet(); }
 function closeSheet() { S.sheet = null; renderSheet(); }
+/* A sheet is rebuilt whenever data changes: it keeps its scroll position, slides in only when it first opens, and the page
+   behind it doesn't scroll. The header (title, ✕) stays on top; dragging it down closes the sheet; so does Escape. */
 function renderSheet() {
   const n = document.getElementById("sheet"); const s = S.sheet; const w = curW();
-  if (!s) return n.replaceChildren();
-  const body = sheetBody(s, w); if (!body) { S.sheet = null; return n.replaceChildren(); }
-  const scrim = el("div", { class: "scrim", on: { click: e => { if (e.target === scrim) closeSheet(); } } }, el("div", { class: "sheet", role: "dialog", "aria-modal": "true" }, el("div", { class: "grab" }), ...body));
-  n.replaceChildren(scrim);
+  const prev = n.querySelector(".sheet"); const key = s ? s.kind + ":" + (s.id || "") : "";
+  const top = prev && prev.dataset.key === key ? prev.scrollTop : 0;
+  if (!s) { document.documentElement.classList.remove("sheet-open"); return n.replaceChildren(); }
+  const body = sheetBody(s, w); if (!body) { S.sheet = null; document.documentElement.classList.remove("sheet-open"); return n.replaceChildren(); }
+  const sheet = el("div", { class: "sheet" + (prev ? "" : " enter"), role: "dialog", "aria-modal": "true", "data-key": key, tabindex: "-1" }, ...body);
+  const scrim = el("div", { class: "scrim", on: { click: e => { if (e.target === scrim) closeSheet(); } } }, sheet);
+  n.replaceChildren(scrim); sheet.scrollTop = top;
+  document.documentElement.classList.add("sheet-open");
+  if (!prev) sheet.focus({ preventScroll: true });
+  const head = sheet.querySelector(".sheet-h");
+  if (head) { let y0 = null;
+    head.addEventListener("pointerdown", e => { if (e.target.closest("button")) return; y0 = e.clientY; try { head.setPointerCapture(e.pointerId); } catch {} sheet.style.transition = "none"; });
+    head.addEventListener("pointermove", e => { if (y0 != null) sheet.style.transform = `translateY(${Math.max(0, e.clientY - y0)}px)`; });
+    const end = e => { if (y0 == null) return; const dy = e.clientY - y0; y0 = null; sheet.style.transition = "transform .15s ease-out"; if (dy > 90) closeSheet(); else sheet.style.transform = ""; };
+    head.addEventListener("pointerup", end); head.addEventListener("pointercancel", end); }
+}
+document.addEventListener("keydown", e => { if (e.key !== "Escape") return; if (S.lightbox) { S.lightbox = null; renderLightbox(); } else if (S.sheet) closeSheet(); });
+function sheetHead(title, sub) {
+  return el("div", { class: "sheet-h" }, el("div", { class: "grab", "aria-hidden": "true" }),
+    el("div", { style: "min-width:0" }, el("h2", { text: title }), sub ? el("div", { class: "ru", text: sub }) : null),
+    el("button", { class: "x", type: "button", "aria-label": "Close", on: { click: closeSheet } }, "×"));
 }
 function sheetBody(s, w) {
-  const close = el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Close");
   if (s.kind === "adjust" && w) {
     s.spots ||= [];
-    return [el("h2", { text: "Adjust the rest of the session" }), el("p", { class: "muted small", text: "Only exercises you haven't started change. Done sets stay as logged." }),
+    return [sheetHead("Adjust the rest of the session"), el("p", { class: "muted small", text: "Only exercises you haven't started change. Done sets stay as logged." }),
       el("div", { class: "eyebrow", text: "Something hurts" }),
       el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(s.spots.includes(p.key)), on: { click: () => { const i = s.spots.indexOf(p.key); i >= 0 ? s.spots.splice(i, 1) : s.spots.push(p.key); renderSheet(); } } }, p.label))),
       s.spots.includes("other") ? el("input", { type: "text", id: "adjNote", placeholder: "Where and how", value: s.note || "", on: { input: e => { s.note = e.target.value; } } }) : null,
