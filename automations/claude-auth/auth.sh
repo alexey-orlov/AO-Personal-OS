@@ -48,9 +48,9 @@ claude_auth_failed() {  # <file>... -> 0 if any file holds a Claude auth failure
 
 claude_auth_fix() {  # one-line fix for the auth mode in use
   if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
-    echo "Fix: the long-lived token was rejected (expired or revoked). In Terminal: claude setup-token — then save the new token with: security add-generic-password -U -a \"\$USER\" -s CLAUDE_CODE_OAUTH_TOKEN -w"
+    echo "Fix: the long-lived token was rejected (expired, revoked or saved wrong). In the macOS Terminal app: claude setup-token, then $CLAUDE_AUTH_DIR/save-token.sh (start it first, copy the token when it asks)."
   else
-    echo "Fix: in Terminal run: claude auth login — or, so it can't lapse again: claude setup-token, then save the token with: security add-generic-password -U -a \"\$USER\" -s CLAUDE_CODE_OAUTH_TOKEN -w"
+    echo "Fix: this Mac has no long-lived token, so the jobs ride the interactive login, which has lapsed. In the macOS Terminal app: claude setup-token, then $CLAUDE_AUTH_DIR/save-token.sh (start it first, copy the token when it asks)."
   fi
 }
 
