@@ -52,6 +52,11 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - Match metric granularity to the question — don't substitute an aggregate for a segment;
   flag the gap instead.
 - Keep distinctions explicit. Don't quietly merge categories Alex has drawn.
+- **Map a source onto a structure in the source's own units and words** (Alex, 2026-11-24, on mapping the Jumpstart deck onto the R&D
+  explainer: "do direct mapping of either entire directions or examples, or nothing, but do not reframe"). The unit is what the source
+  names (a direction, an example module), quoted as written. Mark it only where it targets the item directly; leave the rest blank, and
+  say in chat what has no match. Do not add units of your own, "partly" marks or paraphrased labels. My first mapping split the
+  deck's directions into lab steps and closest-row partial matches, and it read as a different offer.
 - Don't force-fill a fixed framework. When mapping content into a given set of categories,
   a matrix, or a template, populate only cells the evidence supports and mark the rest "—".
   A fully-populated grid is a red flag (template-completion bias), not a win — separate
