@@ -181,7 +181,8 @@ textarea { min-height: 80px; resize: vertical }
 .section-h .tmr { align-self: center }
 /* last result and record: one quiet line on each exercise */
 .rec { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12.5px; line-height: 1.35; color: var(--ink-3); margin-top: 3px }
-.rec b { font-weight: 600; color: var(--ink-2) }
+.rec span { min-width: 0 }
+.ex-head .name .rec b, .rec b { display: inline; font: 600 12.5px/1.35 var(--f-body); letter-spacing: 0; color: var(--ink-2) }
 /* swaps */
 .swapline { display: flex; gap: 8px; align-items: center }
 .swapline .grow { flex: 1; min-width: 0 }
