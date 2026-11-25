@@ -16,15 +16,26 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - Forecasts: give a range (best / likely / worst) with the anchor for each, never a single
   number.
 - **Numbers rest on published data, the proof sits beside the page, and scores come from a separate
-  reviewer** (Alex, 2026-11-24, on the R&D explainer: he asked for "real, benchmarked numbers so I can
+  reviewer held to Alex's anchors** (Alex, 2026-11-24, on the R&D explainer: he asked for "real, benchmarked numbers so I can
   trust", then, once he had them, "remove citations and proof links"). Derive each share, duration or
   percentage from the closest published data, and keep the sources and the derivation in an evidence
   file beside the page (SoftServe work: its OneDrive folder). An explainer shows the numbers clean:
   the number, its range on hover, "~" on an estimate and one footer line on where the figures come
   from; no source numbers, source lists or proof links. A score on a scale (impact, fit, maturity)
-  comes from a fresh agent that holds only the items, the scale and the evidence it finds. The
-  author's own scores run high: the explainer's first pass rated 28 of 56 kinds of work "big"; the
-  review, on Alex's stricter scale, rated 2 radical.
+  comes from a fresh agent that holds only the items, the scale and the evidence it finds. Its brief
+  says what the scale measures and gives Alex's anchors as fixed calibration. Each anchor keeps its
+  own scope: one comparison he gives sets the size of a step, not an ordering for every row.
+  For agentic-AI impact, the scale measures how much the work changes for the person, not throughput
+  in older studies. "Radical" means agents do the work and people direct and check, as when people
+  stop writing code and talk to an agent. A middle score names its one specific help, or it moves:
+  down to none (everyday chatbot use, already automated, physical work, waiting) or up a level
+  (Alex, 2026-11-24: "I still see lots of 1/3 and it's not clear whether it's a substantial thing
+  or marginal improvement"). Without the anchors, scores drifted both ways:
+  - the author's first pass rated 28 of 56 kinds of work "big";
+  - the first independent review scored by measured productivity, rated 2 radical and capped coding at 2;
+  - the re-review with anchors rated 13 radical, 19 moderate, 15 limited and 10 none. Its first pass
+    still held nine data items too low, because my brief turned Alex's one release-metrics example
+    into a rule for every layer.
 - Comparative claims: judge competition at the **use-case** level (can it do the customer's
   job?), not the product-category label — a broad platform and a narrow primitive can compete
   head-on even when they're "different categories". Verify a product's *current* capability
