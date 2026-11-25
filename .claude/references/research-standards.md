@@ -94,6 +94,14 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   is a closed vocabulary (named components in a fixed order, or ✗), never a free-form comment, and a
   weak, hosting-only or far-fetched fit is ✗, not a hedged "Low" (Alex, same day, on the Oracle-fit
   column).
+- **A list holds one altitude, and no two of its items overlap** (Alex, 2026-11-24, on business
+  situations and VP challenges for the hardware Jumpstart: "too large", "more of VP points",
+  "overlapping"). Name the altitude before writing: a company situation the CEO weighs (a launch, a
+  migration, a regulator's deadline) versus a bottleneck the VP's team owns (slow testing). Move each
+  lower-level item to the lower list or drop it. Test every pair: if one trigger or one fix covers
+  both, merge them. Give the fewest items that cover the space, often the user's own examples plus one
+  or two, each a name and one line, with no evidence or solution tails unless asked. My first cut held
+  ten situations, four of them team-level, and eight challenges, three of them overlapping.
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
