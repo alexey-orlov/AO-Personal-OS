@@ -7,8 +7,8 @@ run.py — one calendar-sync pass, pure code (no Claude, no browser).
 Run isolated so zoneinfo imports cleanly under macOS TCC:
     python3 -I run.py            # honors CALSYNC_DRY_RUN; prints a one-line result
 Env (from config.sh): CALSYNC_HERE, CALSYNC_LEDGER, CALSYNC_RUNLOG, CALSYNC_CALENDAR_ID,
-CALSYNC_ATTENDEE, CALSYNC_SS_EMAIL, CALSYNC_TZ, CALSYNC_PREFIX, CALSYNC_DAYS_AHEAD,
-CALSYNC_DRY_RUN, CALSYNC_GOOGLE_CLIENT_ID/_SECRET.
+CALSYNC_ATTENDEE, CALSYNC_SS_EMAIL, CALSYNC_SS_SOURCE, CALSYNC_EK_SOURCES, CALSYNC_TZ,
+CALSYNC_PREFIX, CALSYNC_DAYS_AHEAD, CALSYNC_DRY_RUN, CALSYNC_GOOGLE_CLIENT_ID/_SECRET.
 """
 import os
 import re
@@ -30,6 +30,7 @@ RUNLOG = os.environ.get("CALSYNC_RUNLOG", os.path.join(HERE, ".work/state/run-lo
 DAYS = int(os.environ.get("CALSYNC_DAYS_AHEAD", "14"))
 DRY = os.environ.get("CALSYNC_DRY_RUN", "1") == "1"
 REVERSE = os.environ.get("CALSYNC_REVERSE", "1") == "1"   # reverse leg on by default; CALSYNC_REVERSE=0 disables
+SS_SOURCE = os.environ.get("CALSYNC_SS_SOURCE", "Exchange")   # SoftServe's account title in Apple Calendar
 CFG = {
     "days_ahead": DAYS,
     "prefix": os.environ.get("CALSYNC_PREFIX", "SS: "),
@@ -43,13 +44,16 @@ _REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
 
 
 def read_ss():
-    """Apple Calendar (Exchange source) -> (forward source_events, reverse placeholders, complete, err).
+    """Apple Calendar (SoftServe's Exchange account only) -> (forward source_events, reverse
+    placeholders, complete, err).
 
-    Splits the single EventKit read: our own reverse 'Busy' placeholders (notes carry the
-    [[gcal-busy:...]] marker) are pulled OUT of the forward source — that's the Loop-B
-    recursion break — and returned separately so the reverse leg can reconcile them."""
+    Pinned to the account titled CALSYNC_SS_SOURCE: another Exchange account in Apple Calendar
+    (GigaCloud's, since 2026-11-24) must never be read as SoftServe. Splits the single EventKit
+    read: our own reverse 'Busy' placeholders (notes carry the [[gcal-busy:...]] marker) are pulled
+    OUT of the forward source — that's the Loop-B recursion break — and returned separately so the
+    reverse leg can reconcile them."""
     try:
-        out = subprocess.run([READER, "--exchange", "--days", str(DAYS)],
+        out = subprocess.run([READER, "--type", "exchange", "--source", SS_SOURCE, "--days", str(DAYS)],
                              capture_output=True, text=True, timeout=60)
     except Exception as e:
         return [], [], False, "reader spawn failed: %s" % e
@@ -158,6 +162,10 @@ def forward_pass(now, source, g_min, g_max, gcal):
         print("[forward] DRY plan: +%d ~%d -%d =%d skip" % (c["create"], c["update"], c["delete"], c["skip"]))
         for x in plan["creates"]:
             print("   would create %s @ %s" % (x["payload"]["summary"], x["payload"]["startTime"]))
+        for x in plan["deletes"]:
+            cur = ledger.get(x["source_key"]) or {}
+            print("   would delete %s @ %s (%s)" % (cur.get("title", x["source_key"]), cur.get("start_kiev", "?"),
+                                                    x.get("reason")))
         return {"added": 0, "modified": 0, "deleted": 0}, []
     applied, errors = {"creates": [], "updates": [], "deletes": []}, []
     for x in plan["creates"]:
@@ -191,23 +199,23 @@ _LIST_LINE = re.compile(r"^\[(.*)\] \((\w+)\) :: (.*)$")
 
 
 def ek_sources():
-    """CALSYNC_EK_SOURCES ("type:Title[=Google calendar id it replaces]", comma-separated)
-    -> [(type, title, replaced Google calendar id or None)]."""
+    """CALSYNC_EK_SOURCES ("<account>::<calendar>[=<Google calendar id it replaces>]", comma-
+    separated, names as `ss-cal-read --list` prints them) -> [(account, calendar, Google id or None)]."""
     out = []
     for item in os.environ.get("CALSYNC_EK_SOURCES", "").split(","):
         spec, _, gid = item.strip().partition("=")
-        typ, _, title = spec.partition(":")
-        if typ.strip() and title.strip():
-            out.append((typ.strip().lower(), title.strip(), gid.strip() or None))
+        src, sep, cal = spec.partition("::")
+        if sep and src.strip() and cal.strip():
+            out.append((src.strip(), cal.strip(), gid.strip() or None))
     return out
 
 
-def read_ek(typ, title, g_min, g_max):
+def read_ek(src, cal, g_min, g_max):
     """One Apple Calendar calendar over the Google window [g_min, g_max) -> (rows, error)."""
     lo = datetime.fromisoformat(g_min.replace("Z", "+00:00"))
     hi = datetime.fromisoformat(g_max.replace("Z", "+00:00"))
     try:
-        out = subprocess.run([READER, "--type", typ, "--calendar", title, "--from", g_min,
+        out = subprocess.run([READER, "--source", src, "--calendar", cal, "--from", g_min,
                               "--days", str((hi - lo).days + 1)],
                              capture_output=True, text=True, timeout=60)
     except Exception as e:
@@ -234,23 +242,23 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     # Apple Calendar can't be listed or read, neither copy is used and nothing is pruned: falling
     # back to the Google copy for one run would re-key every placeholder of that calendar twice.
     ek_busy, skip = [], set()
-    for typ, title, gid in ek_sources():
+    for src, cal, gid in ek_sources():
         if ek_cals is None:
             complete = False
             if gid:
                 skip.add(gid)
-            errors.append("rev %s: Apple Calendar list unavailable" % title)
+            errors.append("rev %s: Apple Calendar list unavailable" % cal)
             continue
-        if not any(t == typ and c.casefold() == title.casefold() for _, t, c in ek_cals):
+        if not any(s.casefold() == src.casefold() and c.casefold() == cal.casefold() for s, _, c in ek_cals):
             continue                                  # not in Apple Calendar: its Google copy stays the source
         if gid:
             skip.add(gid)
-        rows, err = read_ek(typ, title, g_min, g_max)
+        rows, err = read_ek(src, cal, g_min, g_max)
         if err:
             complete = False
-            errors.append("rev %s: %s" % (title, err))
+            errors.append("rev %s: %s" % (cal, err))
             continue
-        ek_busy += sc.eventkit_busy({"events": rows, "calendar": title, "config": CFG})["busy_events"]
+        ek_busy += sc.eventkit_busy({"events": rows, "config": CFG})["busy_events"]
     for cal in cals:
         if cal["id"] in skip:
             continue
@@ -269,6 +277,10 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     if DRY:
         print("[reverse] DRY plan: +%d ~%d -%d =%d skip (complete=%s)"
               % (c["create"], c["update"], c["delete"], c["skip"], complete))
+        for x in plan["creates"] + plan["updates"]:
+            print("   would %s Busy %s .. %s  [%s]" % (x["op"], x["start"], x["end"], x["key"][:70]))
+        for x in plan["deletes"]:
+            print("   would delete %s%s" % (x.get("key") or x["ss_id"], " (duplicate)" if x.get("duplicate") else ""))
         return zero, errors
     by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
     dup_ids = {d["ss_id"] for d in plan["deletes"] if d.get("duplicate")}
@@ -335,13 +347,8 @@ def main():
     now = datetime.now(timezone.utc)
     g_min, g_max = window_bounds(now)
     ek_cals = snapshot_calendars(g_min, g_max)
-    # Two Exchange accounts would make the reader mirror both as SoftServe and could send the "Busy"
-    # blocks into the wrong one (README, gotcha 8): write nothing until the source is pinned.
-    if ek_cals and sum(1 for _, t, c in ek_cals if t == "exchange" and c.casefold() == "calendar") > 1:
-        err = "two Exchange accounts in Apple Calendar: sync stopped until the SoftServe source is pinned"
-        sc.log_run({"path": RUNLOG, "ok": False, "error": err})
-        print("ERROR: %s" % err)
-        return 1
+    # SoftServe is pinned by account title in the reader and the writer, and a title two accounts
+    # share fails both (README, gotcha 8), so a second Exchange account can't pass for SoftServe.
     source, placeholders, complete, err = read_ss()
     if not complete:
         sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
