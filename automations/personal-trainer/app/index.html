@@ -1389,7 +1389,7 @@ function workoutView(w) {
     w.changes?.length ? el("details", null, el("summary", { class: "small muted", text: `${w.changes.length} change${w.changes.length > 1 ? "s" : ""} today` }), ...w.changes.map(c => el("div", { class: "small faint", text: `${new Date(c.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} · ${c.summary}` }))) : null));
 
   /* I warm-up */
-  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "I" }), el("h2", { text: "Warm-up" }), el("span", { class: "faint small", text: "lower back first" })));
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "I" }), el("h2", { text: "Warm-up" }), timerNode(w, "warmup") || el("span", { class: "faint small", text: "lower back first" })));
   nodes.push(el("div", { class: "card" }, ...w.plan.warmup.map(it => {
     const done = w.log.warmup[it.id]?.sets_done || 0; const n = it.sets || 2;
     const dose = it.secs ? `${n} × ${it.secs}″` : `${n} × ${it.reps}`;
@@ -1397,11 +1397,11 @@ function workoutView(w) {
       el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "ru", text: ruName(it.id) }),
         el("div", { class: "small muted" }, dose + (it.kg ? ` · ${isLb() ? kgToLb5(it.kg) + " lb" : it.kg + " kg"} (${isLb() ? it.kg + " kg" : kgToLb5(it.kg) + " lb"})` : ""), " ", howBtn(it.id))),
       el("div", { class: "dots" }, it.secs && done < n && w.status !== "done" ? holdBtn(w, it) : null, ...Array.from({ length: n }, (_, i) => el("button", { class: "tick", type: "button", "aria-pressed": String(done > i), "aria-label": `Set ${i + 1} done`,
-        on: { click: () => { if (!active) startSession(w); w.log.warmup[it.id] = { sets_done: done > i ? i : i + 1 }; saveWorkout(w); render(); } } }, done > i ? "✓" : String(i + 1)))));
+        on: { click: () => { if (w.status === "planned") startSession(w); w.log.warmup[it.id] = { sets_done: done > i ? i : i + 1 }; warmupTick(w); saveWorkout(w); render(); } } }, done > i ? "✓" : String(i + 1)))));
   })));
 
   /* II strength */
-  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "II" }), el("h2", { text: "Strength" }), el("span", { class: "faint small", text: units + (isLb() ? " · kg below" : "") })));
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "II" }), el("h2", { text: "Strength" }), timerNode(w, "strength") || el("span", { class: "faint small", text: units + (isLb() ? " · kg below" : "") })));
   const curId = currentExId(w);
   w.plan.strength.forEach((it, k) => {
     // a superset is done set by set, alternating: when its first half is current, the second opens with it
@@ -1411,7 +1411,7 @@ function workoutView(w) {
   });
 
   /* III crossfit */
-  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "III" }), el("h2", { text: "Crossfit" }), el("span", { class: "faint small", text: "for time" })));
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "III" }), el("h2", { text: "Crossfit" }), timerNode(w, "crossfit") || el("span", { class: "faint small", text: "for time" })));
   nodes.push(crossfitCard(w));
 
   if (w.status !== "done") nodes.push(el("button", { class: "btn danger block", type: "button", on: { click: () => openSheet({ kind: "cancel" }) } }, w.status === "planned" ? "Discard this plan" : "Cancel workout"));
