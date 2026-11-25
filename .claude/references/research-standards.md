@@ -15,14 +15,16 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - Flag selection bias, recency, and jurisdiction limits proactively — not only when asked.
 - Forecasts: give a range (best / likely / worst) with the anchor for each, never a single
   number.
-- **Every number on a page shows where it comes from, at the number itself, and scores are given
-  by a separate reviewer** (Alex, 2026-11-24, on the R&D explainer: "real, benchmarked numbers so
-  I can trust", "review the agent's impact independently"). A share, duration or percentage carries
-  its source number from a numbered list on the page, or "est." with its range on hover; a footer
-  that names sources in bulk does not count. A score on a scale (impact, fit, maturity) comes from a
-  fresh agent that holds only the items, the scale and the evidence it finds. The author's own
-  scores run high: the explainer's first pass rated 28 of 56 kinds of work "big"; the review, on
-  Alex's stricter scale, rated 2 radical.
+- **Numbers rest on published data, the proof sits beside the page, and scores come from a separate
+  reviewer** (Alex, 2026-11-24, on the R&D explainer: he asked for "real, benchmarked numbers so I can
+  trust", then, once he had them, "remove citations and proof links"). Derive each share, duration or
+  percentage from the closest published data, and keep the sources and the derivation in an evidence
+  file beside the page (SoftServe work: its OneDrive folder). An explainer shows the numbers clean:
+  the number, its range on hover, "~" on an estimate and one footer line on where the figures come
+  from; no source numbers, source lists or proof links. A score on a scale (impact, fit, maturity)
+  comes from a fresh agent that holds only the items, the scale and the evidence it finds. The
+  author's own scores run high: the explainer's first pass rated 28 of 56 kinds of work "big"; the
+  review, on Alex's stricter scale, rated 2 radical.
 - Comparative claims: judge competition at the **use-case** level (can it do the customer's
   job?), not the product-category label — a broad platform and a narrow primitive can compete
   head-on even when they're "different categories". Verify a product's *current* capability
