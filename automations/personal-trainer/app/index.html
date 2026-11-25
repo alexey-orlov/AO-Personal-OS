@@ -205,8 +205,9 @@ textarea { min-height: 80px; resize: vertical }
 /* bottom sheets: a header with the title and a close button stays on top while the body scrolls; drag the header down to close */
 html.sheet-open, html.sheet-open body { overflow: hidden }
 .sheet { padding-top: 0; overscroll-behavior: contain }
+.sheet > * { flex-shrink: 0 }   /* a scrolling flex column would squeeze clipped blocks (.acts) to a sliver */
 .sheet.enter { animation: sheet-up .2s ease-out }
-@keyframes sheet-up { from { transform: translateY(40px); opacity: .4 } }
+@keyframes sheet-up { from { transform: translateY(48px) } }
 @media (prefers-reduced-motion: reduce) { .sheet.enter { animation: none } }
 .sheet-h { position: sticky; top: 0; z-index: 2; background: var(--bg); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; align-items: start; padding: 8px 0 8px; touch-action: none }
 .sheet-h .grab { grid-column: 1 / -1; justify-self: center; margin-bottom: 4px }
