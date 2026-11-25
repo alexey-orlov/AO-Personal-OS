@@ -1798,67 +1798,138 @@ function mediaFor(id) {
   for (const m of (e?.media || [])) items.push(Object.assign({ added_by: "skill" }, m));
   return items;
 }
+/** The picture for small previews: his own photo of the machine first, then the start drawing, then anything. */
+function thumbFor(id) {
+  const p = mediaFor(id).filter(isPic);
+  return p.find(m => m.role === "machine") || p.find(m => m.added_by !== "me" && /start/i.test(m.title || "")) || p.find(m => m.added_by !== "me") || p[0] || null;
+}
+/** The brand of this kind of machine at the current gym, from gym.json brands_seen ("Matrix (selectorized machines, cardio)"). */
+function brandFor(ex) {
+  const sc = String(ex?.step_class || ""); const want = /^plates/.test(sc) ? /plate/i : /^stack/.test(sc) ? /selectori/i : null;
+  const hit = want && (gymCfg().brands_seen || []).find(b => want.test(b)); return hit ? hit.split("(")[0].trim() : null;
+}
+/* his own photos from this gym: the machine itself and the instructions plate printed on it */
+const PHOTO_SLOTS = [["machine", "The machine", "Photo of this gym's machine"], ["placard", "Its instructions", "Photo of the plate on the machine"]];
+const ROLE_RANK_PIC = { machine: 0, placard: 1 };
+/* The How-to sheet, in the order it is needed at the machine: pictures (his photos, then the start and end drawings; tap to
+   enlarge), the trainer's notes, saved videos, then ways to find more. Nothing in it is lost when the data refreshes. */
 function mediaSheet(s) {
-  const id = s.id; const e = exS(id) || exW(id) || exC(id) || {};
-  const items = mediaFor(id);
-  const q = encodeURIComponent(`${e.en || id} proper form`);
-  const nodes = [el("h2", { text: e.en_short || e.en || id }), el("div", { class: "ru", text: e.ru || "" })];
-  const cues = [e.cue, e.back_cue_ru, e.note_ru].filter(Boolean);
-  if (cues.length) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Trainer's notes: " }), cues.join(" · ")));
-  const shown = items.filter(m => m.asset_id || safeUrl(m.url));
-  const pics = shown.filter(isPic), rest = shown.filter(m => !isPic(m));
+  const id = s.id; const e = exS(id) || exW(id) || exC(id) || {}; const name = e.en_short || e.en || id;
+  const shown = mediaFor(id).filter(m => m.asset_id || safeUrl(m.url));
+  const pics = shown.filter(isPic); const vids = shown.filter(m => !isPic(m));
+  const mine = pics.filter(m => m.added_by === "me").sort((a, b) => (ROLE_RANK_PIC[a.role] ?? 2) - (ROLE_RANK_PIC[b.role] ?? 2));
+  const drawn = pics.filter(m => m.added_by !== "me");
+  const machine = !!exS(id) && e.step_class !== "db_each";
   const link = (href, text) => safeUrl(href) ? el("a", { href, target: "_blank", rel: "noopener" }, text) : text;
-  if (pics.length) {
-    nodes.push(el("div", { class: "pics" + (pics.length === 1 ? " one" : "") }, ...pics.map(m => el("figure", null,
-      el("img", { src: picSrc(m), alt: `${e.en_short || e.en || id}: ${m.title || "demo"}`, loading: "lazy" }), m.title ? el("figcaption", { text: m.title }) : null))));
-    const credits = [...new Map(pics.map(m => [[m.source, m.license, m.source_url, m.added_by].join("|"), m])).values()];
-    nodes.push(el("div", { class: "faint small credit" }, ...credits.map((m, i) => [i ? " · " : "",
-      m.added_by === "me" ? "Your upload" : (m.source || "Unknown author"),
+  const nodes = [sheetHead(name, e.ru)];
+  const fig = m => el("figure", null, el("button", { class: "picbtn", type: "button", "aria-label": `Enlarge: ${m.title || "picture"}`, on: { click: () => openLightbox(id, m) } },
+    el("img", { src: picSrc(m), alt: `${name}: ${m.title || "picture"}`, loading: "lazy" })), el("figcaption", { text: m.added_by === "me" ? (m.title || "Your photo") : (m.title || "") }));
+  const slots = machine && S.assets ? PHOTO_SLOTS.filter(([role]) => !mine.some(m => m.role === role)) : [];
+  if (mine.length || drawn.length || slots.length) {
+    const all = [...mine, ...drawn];
+    nodes.push(el("div", { class: "pics" + (all.length + slots.length === 1 ? " one" : "") }, ...all.map(fig), ...slots.map(([role, label, hint]) => addTile(id, role, label, hint))));
+    const fitNote = drawn.find(m => m.fit_note)?.fit_note;
+    if (fitNote) nodes.push(el("div", { class: "faint small", style: "margin-top:-6px", text: "Drawings: " + fitNote }));
+    const credits = [...new Map(drawn.map(m => [[m.source, m.license, m.source_url].join("|"), m])).values()];
+    if (credits.length) nodes.push(el("div", { class: "faint small credit", style: "margin-top:-8px" }, "Drawings: ", ...credits.map((m, i) => [i ? " · " : "", m.source || "Unknown author",
       m.license ? [", ", link(m.license_url, m.license)] : null, safeUrl(m.source_url) ? [", ", link(m.source_url, "source")] : null])));
   }
-  for (const m of rest) {
+  const cues = [e.cue, e.back_cue_ru, e.note_ru].filter(Boolean);
+  if (cues.length) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Trainer's notes: " }), cues.join(" · ")));
+  if (vids.length) nodes.push(el("div", { class: "acts" }, ...vids.map(m => {
     const src = m.asset_id ? "/_blob/" + m.asset_id : safeUrl(m.url);
-    if (m.kind === "video" && m.asset_id) nodes.push(el("figure", { class: "media", style: "margin:0" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), el("div", { class: "faint small", text: m.title || "Your video" })));
-    else nodes.push(el("a", { class: "linkcard", href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: [m.source, new URL(src).hostname.replace(/^www\./, "")].filter(Boolean).join(" · ") }))));
-  }
-  if (!shown.length) nodes.push(el("p", { class: "muted small", text: "No demo saved for this exercise yet." }));
-  nodes.push(el("a", { class: "linkcard", href: `https://www.youtube.com/results?search_query=${q}`, target: "_blank", rel: "noopener" }, icon("search"), el("span", null, el("b", { text: "Search YouTube" }), el("div", { class: "faint small", text: `“${e.en || id} proper form” · opens YouTube` }))));
-  const tipBox = el("div", { class: "tips", id: "tipBox" });
-  if (S.sample) nodes.push(el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", on: { click: () => askTips(id, tipBox) } }, icon("spark"), el("span", null, el("b", { text: "Technique tips from Claude" }), el("div", { class: "faint small", text: "Setup, the movement, keeping your lower back safe" }))));
-  nodes.push(tipBox);
-  const req = S.requests[id];
-  nodes.push(el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", disabled: !!req && !req.done, on: { click: () => requestDemo(id) } }, icon("flag"),
+    if (m.kind === "video" && m.asset_id) return el("figure", { class: "media", style: "margin:0;padding:10px" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), el("div", { class: "faint small", text: m.title || "Your video" }));
+    return el("a", { href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: [m.source, new URL(src).hostname.replace(/^www\./, "")].filter(Boolean).join(" · ") })));
+  })));
+  if (!pics.length && !vids.length && !slots.length) nodes.push(el("p", { class: "muted small", text: "No pictures or videos saved for this one yet." }));
+  const tip = S.tips?.[id]; if (tip) nodes.push(el("div", { class: "tipbox", id: "tipBox", "aria-live": "polite", text: tip.text || "Thinking…" }));
+  const brand = exS(id) ? brandFor(e) : null; const plain = (e.en || id).replace(/\s*\(.*?\)\s*/g, " ").trim();
+  const req = S.requests[id]; const acts = [];
+  acts.push(el("a", { href: `https://www.youtube.com/results?search_query=${encodeURIComponent(plain + " proper form")}`, target: "_blank", rel: "noopener" }, icon("search"),
+    el("span", null, el("b", { text: "Search YouTube" }), el("div", { class: "faint small", text: `“${plain} proper form”` }))));
+  if (brand) acts.push(el("a", { href: `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(`${brand} ${plain} machine`)}`, target: "_blank", rel: "noopener" }, icon("image"),
+    el("span", null, el("b", { text: `See the ${brand} machine` }), el("div", { class: "faint small", text: `The brand this gym has: its photos and instructions plate, in Google Images` }))));
+  if (S.sample) acts.push(el("button", { type: "button", disabled: tip?.state === "loading", on: { click: () => askTips(id) } }, icon("spark"),
+    el("span", null, el("b", { text: tip ? "Technique tips again" : "Technique tips from Claude" }), el("div", { class: "faint small", text: "Setup, the movement, keeping your lower back safe" }))));
+  if (!vids.length || (req && !req.done)) acts.push(el("button", { type: "button", disabled: !!req && !req.done, on: { click: () => requestDemo(id) } }, icon("flag"),
     el("span", null, el("b", { text: req && !req.done ? "Demo requested" : "Ask the trainer to find a demo" }), el("div", { class: "faint small", text: req && !req.done ? `Asked ${fmtDate(req.requested_at)}; it's attached at the next sync` : "At the next sync Claude finds a good video and saves it here" }))));
   if (S.assets) {
-    const inp = el("input", { type: "file", id: "upl", accept: "image/*,video/*", hidden: true, on: { change: ev => uploadMedia(id, ev.target.files[0]) } });
-    nodes.push(inp, el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", on: { click: () => inp.click() } }, icon("up"), el("span", null, el("b", { text: "Add your own photo or video" }), el("div", { class: "faint small", text: "e.g. the machine's instruction plate or the trainer showing you" }))));
+    const inp = el("input", { type: "file", id: "upl", accept: "image/*,video/*", hidden: true, on: { change: ev => { uploadMedia(id, ev.target.files[0]); ev.target.value = ""; } } });
+    acts.push(inp, el("button", { type: "button", on: { click: () => inp.click() } }, icon("up"), el("span", null, el("b", { text: "Add a photo or video" }), el("div", { class: "faint small", text: "e.g. the trainer showing you, or a note to yourself" }))));
   }
-  nodes.push(el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Close"));
+  nodes.push(el("div", { class: "eyebrow", text: "Find more" }), el("div", { class: "acts" }, ...acts));
   return nodes;
 }
-async function askTips(id, box) {
+function addTile(id, role, label, hint) {
+  const up = S.uploading?.[id + ":" + role];
+  const inp = el("input", { type: "file", accept: "image/*", hidden: true, id: "upl-" + role, on: { change: ev => { uploadMedia(id, ev.target.files[0], role); ev.target.value = ""; } } });
+  return el("figure", null, inp, el("button", { class: "add-tile", type: "button", disabled: !!up, on: { click: () => inp.click() } },
+    up ? el("span", { class: "spin" }) : el("span", { html: ICON.camera }), up ? "Saving…" : label, up ? null : el("span", { class: "faint", text: hint })));
+}
+async function askTips(id) {
   const e = exS(id) || exW(id) || exC(id) || {};
-  box.textContent = "Thinking…";
+  S.tips ||= {}; if (S.tips[id]?.state === "loading") return;
+  S.tips[id] = { state: "loading", text: "" }; renderSheet();
   try {
     const { text } = await S.sample(`You are a strength coach. Give technique tips for "${e.en}" (${e.ru}) for a lifter whose problem zone is the lower back. ${e.cue ? "Trainer's cue: " + e.cue + "." : ""} ${e.back_cue_ru ? "Back cue: " + e.back_cue_ru + "." : ""} ${e.alt_us?.length ? "US machine names: " + e.alt_us.join(", ") + "." : ""}
-Plain text, no markdown headings. Four short lines starting with: "Setup:", "Move:", "Back:", "Common mistake:". Each under 25 words.`, { modelTier: "quick", cache: { gcTime: 86400000 }, onText: ({ text }) => { box.textContent = text; } });
-    box.textContent = text;
-  } catch (err) { box.textContent = err.code === "not_granted" ? "Claude isn't allowed on this page." : "Couldn't get tips right now. Try again in a moment."; if (err.code === "not_granted") S.sample = null; }
+Plain text, no markdown headings. Four short lines starting with: "Setup:", "Move:", "Back:", "Common mistake:". Each under 25 words.`, { modelTier: "quick", cache: { gcTime: 86400000 },
+      onText: ({ text }) => { S.tips[id] = { state: "loading", text }; const b = document.getElementById("tipBox"); if (b) b.textContent = text; } });
+    S.tips[id] = { state: "done", text };
+  } catch (err) { S.tips[id] = { state: "error", text: err.code === "not_granted" ? "Claude isn't allowed on this page." : "Couldn't get tips right now. Try again in a moment." }; if (err.code === "not_granted") S.sample = null; }
+  renderSheet();
 }
 async function requestDemo(id) {
   try { await S.db.doc("media_requests/" + id).set({ id, en: exS(id)?.en || exW(id)?.en || exC(id)?.en || id, ru: ruName(id), requested_at: nowISO(), done: false }); toast("Asked. The demo appears here after the next sync."); }
   catch (e) { toast(`Couldn't save the request (${e.code}).`); }
 }
-async function uploadMedia(id, file) {
-  if (!file) return;
-  toast("Uploading…");
+/** A phone photo is 3–5 MB: shrink it to 1600 px on the long side before it goes up, so it opens fast at the gym. */
+function decodeImg(file) { return new Promise((res, rej) => { const u = URL.createObjectURL(file); const img = new Image(); img.onload = () => res({ img, u }); img.onerror = () => { URL.revokeObjectURL(u); rej(new Error("decode")); }; img.src = u; }); }
+async function downscale(file, max = 1600) {
+  if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type)) return file;
   try {
-    const a = await S.assets.upload(file);
-    const kind = (a.contentType || file.type).startsWith("video") ? "video" : "image";
-    const cur = S.media[id]?.items || [];
-    const doc = { id, items: [...cur, { kind, asset_id: a.id, title: file.name.replace(/\.[^.]+$/, ""), added_by: "me", added_at: nowISO() }] };
-    await S.db.doc("media/" + id).set(doc); S.media[id] = doc; toast("Saved to this exercise."); renderSheet();
+    const { img, u } = await decodeImg(file); const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    if (k === 1 && file.size < 1.5e6) { URL.revokeObjectURL(u); return file; }
+    const c = document.createElement("canvas"); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(u);
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.85));
+    return blob ? new File([blob], (file.name || "photo").replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" }) : file;
+  } catch { return file; }
+}
+async function uploadMedia(id, file, role) {
+  if (!file || !S.assets) return;
+  const key = id + ":" + (role || "any"); S.uploading = Object.assign({}, S.uploading, { [key]: true }); renderSheet();
+  try {
+    const blob = file.type.startsWith("image/") ? await downscale(file) : file;
+    const a = await S.assets.upload(blob);
+    const kind = (a.contentType || blob.type || file.type).startsWith("video") ? "video" : "image";
+    const item = { kind, asset_id: a.id, title: role === "machine" ? "The machine" : role === "placard" ? "Its instructions" : (file.name || "Your photo").replace(/\.[^.]+$/, ""), added_by: "me", added_at: nowISO() };
+    if (role) item.role = role;
+    const doc = { id, items: [...(S.media[id]?.items || []), item] };
+    await S.db.doc("media/" + id).set(doc); S.media[id] = doc;
+    toast(role ? "Saved: it shows on this exercise from now on." : "Saved to this exercise.");
   } catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full." : `Upload failed (${e.code || "error"}). Files up to 20 MB.`); }
+  finally { delete S.uploading[key]; renderSheet(); }
+}
+async function deleteMedia(id, m) {
+  const doc = { id, items: (S.media[id]?.items || []).filter(x => !(x.asset_id && x.asset_id === m.asset_id)) };
+  try { await S.db.doc("media/" + id).set(doc); S.media[id] = doc; } catch (e) { return toast(`Couldn't remove it (${e.code}).`); }
+  try { await S.assets?.delete(m.asset_id); } catch {}
+  S.lightbox = null; renderLightbox(); renderSheet(); toast("Photo deleted.");
+}
+/* a picture full screen: tap outside it or ✕ to close; his own photos can be deleted here */
+function openLightbox(id, m) { S.lightbox = { id, m }; renderLightbox(); }
+function closeLightbox() { S.lightbox = null; renderLightbox(); }
+function renderLightbox() {
+  const n = document.getElementById("lightbox"); if (!n) return; const L = S.lightbox;
+  if (!L) return n.replaceChildren();
+  const own = L.m.added_by === "me" && !!S.assets;
+  const box = el("div", { class: "lightbox", role: "dialog", "aria-modal": "true", "aria-label": L.m.title || "Picture", on: { click: e => { if (e.target === box) closeLightbox(); } } },
+    el("button", { class: "x", type: "button", "aria-label": "Close", on: { click: closeLightbox } }, "×"),
+    el("img", { src: picSrc(L.m), alt: `${enName(L.id)}: ${L.m.title || "picture"}` }),
+    el("div", { class: "cap", text: [enName(L.id), L.m.title].filter(Boolean).join(" · ") }),
+    own ? (L.confirm ? el("div", { class: "row" }, el("button", { class: "btn danger", type: "button", on: { click: () => deleteMedia(L.id, L.m) } }, "Delete for good"), el("button", { class: "btn", type: "button", on: { click: () => { L.confirm = false; renderLightbox(); } } }, "Keep it"))
+      : el("button", { class: "btn", type: "button", on: { click: () => { L.confirm = true; renderLightbox(); } } }, "Delete this photo")) : null);
+  n.replaceChildren(box);
 }
 
 /* ---------------- the "My training" sheet, written on "Save session"
