@@ -178,7 +178,7 @@
       "created": "2026-07-25",
       "aliases": [],
       "hint": "hardware-for-abundance: robots, drones, fusion/microreactors, physical-AI fleets — distinct from the compute/energy-grid/labs material in tech-frontier-and-abundance",
-      "note": "split from tech-frontier-and-abundance, 2026-07-25; split 2026-08-25 → resource-abundance-nuclear-minerals-ocean"
+      "note": "split from tech-frontier-and-abundance, 2026-07-25; split 2026-08-25 → resource-abundance-nuclear-minerals-ocean; split 2026-11-25 → robot-learning-world-models-and-simulation"
     },
     "hiring-and-recruiting-craft": {
       "title": "Hiring & recruiting craft",
@@ -349,6 +349,14 @@
       "aliases": [],
       "hint": "AI agents doing GTM work: lead qualification, inbound chat, outbound, renewals, marketing ops, headless CRM",
       "note": "split from growth-gtm-and-pricing, 2026-10-25"
+    },
+    "robot-learning-world-models-and-simulation": {
+      "title": "Robot learning: world models, simulation & foundation-model controllers",
+      "status": "active",
+      "created": "2026-11-25",
+      "aliases": [],
+      "hint": "robot learning research: world models, real-to-sim-to-real simulation, robot policies (memory, reasoning, zero-shot), pretrained LLMs as robot controllers / code-as-policies — distinct from the physical-economy market and hardware-company material in physical-abundance-signals",
+      "note": "split from physical-abundance-signals, 2026-11-25"
     }
   }
 }

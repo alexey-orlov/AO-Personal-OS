@@ -183,7 +183,7 @@ related: [YC shifts founders' plausible outcomes from billions to tens of billio
 ### Huge seed rounds create expectations, not just capital
 Alex recounts raising ~€1bn seed (reported as €1.2bn in conversation) and says the real cost wasn't dilution but the external expectations that large raises create—investors and the public start timing and judging progress. He warns that if a billion-euro seed produces no visible output for years, that expectation can threaten survival, so founders must manage timelines and communications carefully. This reframes the tradeoff: more capital buys scale but also a much stricter social timetable.
 — Y Combinator · 2026-07-25 · guest: Alex (Amilabs) · [▶ 22:23](https://www.youtube.com/watch?v=FVsgX0AdDTo&t=1343) · `pi-FVsgX0AdDTo-04`
-related: theme → [Physical abundance signals](physical-abundance-signals.md) (the world-models research program this capital funds, `pi-FVsgX0AdDTo-01..03`)
+related: theme → [Robot learning: world models, simulation & foundation-model controllers](robot-learning-world-models-and-simulation.md) (the world-models research program this capital funds, `pi-FVsgX0AdDTo-01..03`)
 
 ### Start narrow initially but be audacious about long-term vision
 Alex advises founders to pick a very narrow, tractable problem to solve first (one customer or use-case) while publicly committing to a large, long-term vision that guides product and hiring. He argues that trying to build 'everything for everyone' from day one kills small teams, whereas a tight tunnel with a big horizon lets a startup iterate and scale credibility over time. This balances early execution discipline with the ambition needed to tackle hard technical frontiers.
@@ -376,7 +376,7 @@ The public software cohort has shifted toward slower growth and profitability: r
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — supply-constrained cycle backdrop
 - [Product discovery & strategy](product-discovery-and-strategy.md) — willingness-to-pay discipline
 - [AI agents & applications](ai-agents-and-applications.md) — what Emergent and other native-AI firms are actually building
-- [Physical abundance signals](physical-abundance-signals.md) — Amilabs' world-models bet, the technical program the €1bn seed funds
+- [Robot learning: world models, simulation & foundation-model controllers](robot-learning-world-models-and-simulation.md) — Amilabs' world-models bet, the technical program the €1bn seed funds
 
 ## Source episodes
 - [Y Combinator — The State of Startups in 2026 (2026-09-17)](../episodes/2026/2026-09-17--yc--state-of-startups-in-2026.md)

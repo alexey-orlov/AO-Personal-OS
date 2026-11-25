@@ -91,7 +91,7 @@ Kalanick argues high‑scale industrial tasks favor specialized machines with wh
 related: theme → [Physical abundance signals](physical-abundance-signals.md#humanoid-robots-are-heading-toward-commodity-pricing-software-becomes-the-value) (a skeptical counterweight to the humanoid-commodity-pricing thread — Kalanick bets industrial value lands on wheeled, task-specific platforms instead)
 
 ## Related themes
-- [Physical abundance signals](physical-abundance-signals.md) — parent theme; split off 2026-08-25. Still holds the humanoid-robots/drones/fusion-energy hardware cluster, the Applied Intuition/Waymo physical-AI and safety-critical-autonomy material, the Amilabs/Scenix/Boom world-models and simulation cluster, and Kalanick's atoms-as-computer/food-delivery-automation insights.
+- [Physical abundance signals](physical-abundance-signals.md) — parent theme; split off 2026-08-25. Still holds the humanoid-robots/drones/fusion-energy hardware cluster, the Applied Intuition/Waymo physical-AI and safety-critical-autonomy material, Boom's supersonic program (the Amilabs/Scenix world-models and simulation cluster moved to [Robot learning: world models, simulation & foundation-model controllers](robot-learning-world-models-and-simulation.md) on 2026-11-25), and Kalanick's atoms-as-computer/food-delivery-automation insights.
 
 ## Source episodes
 - [a16z — Travis Kalanick on Building Atoms After Uber (2026-08-14)](../episodes/2026/2026-08-14--a16z--travis-kalanick-building-atoms-after-uber.md)
