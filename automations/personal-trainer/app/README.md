@@ -29,7 +29,18 @@ with the other unit beside them.
   is removed once the database holds that version and comes back on load if
   it is newer, so a dropped connection at the gym loses nothing. The workout
   header says "Saved", "Saving…" or "Not saved online yet: kept on this
-  phone, retrying".
+  phone, retrying". A half-done session reopens where it was, clocks
+  included (they are timestamps in the record), on any device.
+- **The session clock:** "Start workout" starts it, "Save session" stops it,
+  and during a session the sticky header shows it with the part in progress
+  ("Hack Squat + Hip Abduction · 4:12"). `log.timeline` records which part
+  has the floor: the warm-up (one clock), each strength slot (a swap keeps
+  the slot's time; a superset shares one), the crossfit (set-up and the
+  for-time clock), then nothing. Finishing a part hands the floor to the
+  next, so the parts add up to the session; cards and section heads show
+  their own times, the summary and History the totals. If "Save session"
+  comes 15+ minutes after the last logged set, the finish sheet offers that
+  set's time as the end.
 - **"Save session" writes the session to "My training" at once**, through
   Alex's own Google Sheets connector (`config/sheet` holds the sheet id and
   tab): the same payload as `app_sync.py sheet` and the same layout rules as
@@ -63,9 +74,10 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
 | `config/skill` | skill | `{"methodology_md": "...", "feedback_md": "...", "pushed_at": "..."}` — the two reference files verbatim; the page's Claude reads them |
 | `config/sync` | skill | `{"pushed_at", "for_date", "history_synced_at", "last_session"}` |
 | `config/sheet` | skill (`app_sync.py export`, from gym-log's `config.sh`) | `{"spreadsheet_id", "tab"}` — where "Save session" writes |
+| `config/records` | skill (`app_sync.py export`, from `data/history.json`) | `{"as_of", "computed_at", "items": {"<id>": {"last": {"date", "gym", "sets", "reps", "kg": [start, end]}, "best": {"date", "gym", "kg", "reps"}}}}` — the "Last … · Best …" line on every exercise card; the app folds in its own finished sessions the history doesn't hold yet. Weights show in the units of the gym they were lifted in (Kyiv kg, US lb) |
 | `briefs/legs` · `briefs/push` · `briefs/pull` | skill | `{"for_date", "computed_at", "normal": <trainer.py brief --day X>, "low": <… --readiness low>}` |
 | `workouts/<YYYY-MM-DD>` | app (skill may create a `planned` one) | see below |
-| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "license_url", "source_url", "added_by": "skill \| me", "added_at"}]}` — append, never drop Alex's items |
+| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "license_url", "source_url", "added_by": "skill \| me", "added_at", "role": "machine \| placard", "fit_note", "everkinetic"}]}` — append, never drop Alex's items. `role` marks his own photos of this gym's machine and of the instructions plate on it; `fit_note` says what a near-match drawing shows differently ("an underhand grip; the pull is the same"); `everkinetic` is the drawing's id_num |
 | `media_requests/<exercise id>` | app ("Ask the trainer to find a demo"); skill sets `done` | `{"id", "en", "ru", "requested_at", "done": false}` |
 
 ### `workouts/<id>`
@@ -92,9 +104,11 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
                "summary": "...", "ids": ["..."]}],
   "log": {
     "warmup":   {"<id>": {"sets_done": 2}},
-    "strength": {"<id>": {"sets": [{"lb": 120, "kg": 54.4, "reps": 10, "done": true}],
+    "strength": {"<id>": {"sets": [{"lb": 120, "kg": 54.4, "reps": 10, "done": true, "at": "..."}],
                           "machine": "optional: the US machine used instead (alt_us)"}},
-    "crossfit": {"time": "9:40", "rounds_done": 3, "items": {"<id>": {"reps": "50"}}}
+    "crossfit": {"time": "9:40", "rounds_done": 3, "items": {"<id>": {"reps": "50"}}},
+    "timeline": [{"k": "warmup | s:<planned id> | crossfit | idle | end", "at": "..."}],   // who had the floor, from when
+    "last_at": "..."                  // the last logged action: the end time a late "Save session" offers
   },
   "feedback": {                       // = stdin of `trainer.py feedback <date>`, verbatim
     "items":  {"<id>": {"rating": "easy | ok | hard | fail | pain | skipped", "note": "..."}},
@@ -124,14 +138,21 @@ Rules the app keeps, so the engine can trust the data:
   `pain_detail` / `pain_note`.
 - A sharp, sudden or spreading pain stops the plan for that area and tells
   Alex to skip it and see a doctor if it persists (feedback.md).
-- Every change Alex makes mid-session is reversible and keeps his data: a
-  swap offers a choice, the swapped exercise keeps "Back to <original>", and
-  no swap, skip or rebuild deletes a logged set (2026-11-24: a one-way
-  auto-swap left him unable to return to the Rear Delt Fly).
+- Every change Alex makes mid-session is reversible and keeps his data, and
+  no swap, skip or rebuild deletes a logged set. A slot's swaps form one
+  fixed ring: the planned exercise first, then the catalog's own
+  alternatives (`alt_ids`, both ways, whatever their role: a busy hack squat
+  goes to the leg press), then the pool's, best first. Picking never
+  reorders the ring, the swapped card keeps "↻ Planned: … · Back", and "This
+  gym doesn't have it" moves to the next ring entry; going back to the
+  planned exercise withdraws that report (2026-11-25: on 11/23 the swaps
+  ping-ponged Smith Shoulder Press ↔ Cable Lateral Raise with no way back
+  to the Rear Delt Fly). The crossfit kit fallback ("No rope") keeps a
+  "Back" the same way.
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
-> **Brief compatibility.** The app (version 4, 2026-11-24) reads the first
+> **Brief compatibility.** The app (version 5, 2026-11-25) reads the first
 > brief shape and the compact one of engine `8b8cc1ac` (`ask` with recent-pain
 > questions, `pre.recent_pain` / `pre.cleared`, `trim`, `warmup.suggested`,
 > `crossfit.dose` with `movements` / `why`, `crossfit.pool` with `fallback`,
@@ -177,10 +198,10 @@ Rules the app keeps, so the engine can trust the data:
    app's session summary shows each exercise's next weights from it. Commit `data/history.json`,
    `outputs/personal-trainer/plans/` and the outbox card.
 2. **Push fresh data.** `app_sync.py export <dir> [--today D]` writes
-   `config/*` and `briefs/*` bodies (it runs `trainer.py brief` for the
-   three days at normal and low readiness) and prints the `ArtifactData
-   batch` writes; fill each `if_version` from a `list` of `config` and
-   `briefs` first.
+   `config/*` (records included) and `briefs/*` bodies (it runs `trainer.py
+   brief` for the three days at normal and low readiness) and prints the
+   `ArtifactData batch` writes; fill each `if_version` from a `list` of
+   `config` and `briefs` first.
    On a first push the documents don't exist yet: send the batch without
    `if_version`.
 3. **Demos.** `ArtifactData list media_requests`; for each with `done: false`,
