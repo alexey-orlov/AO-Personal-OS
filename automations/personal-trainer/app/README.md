@@ -208,6 +208,21 @@ Rules the app keeps, so the engine can trust the data:
    `status: planned`, `source: skill`, `built_by: skill`, `plan` = the checked
    plan. The app opens it as "Trainer's plan for today".
 
+### The nightly run (scheduled task)
+
+Steps 1–3 also run on their own: the scheduled task "Trainer Notebook →
+sheet sync" (`trig_01XnowrFjfm8LNznfA7ecU7P`, created 2026-11-25 on Alex's
+request) starts a fresh cloud session every night at 21:41 Pacific
+(`CRON_TZ=America/Los_Angeles 41 21 * * *`) in the Default environment,
+which carries `GSHEETS_TOKEN_JSON`. Its prompt points here and adds only
+the guard rails: nothing waiting means no change and no commit; no
+`dev/sandbox.sh`; a session counts as synced only once its sheet row is
+confirmed; a failure queues one Telegram alert in the trainings topic. It
+stores no claude.ai connectors (it needs none: the sheet goes through
+`gym_sheet.py`, the app through the built-in ArtifactData tool). The app
+also keeps the id in `config/automation`. Change the schedule or prompt
+with `update_trigger`, never by deleting and recreating it.
+
 ## What the app does with stale data
 
 The brief is only as fresh as the last push. When finished app sessions are
