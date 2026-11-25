@@ -503,22 +503,24 @@ class TestReverse(unittest.TestCase):
         self.assertEqual(plan["relinks"]["cal1::m1"]["ss_id"], "SS2")
 
     def ek(self, uid="U1", start="2026-06-20T08:00:00-07:00", end="2026-06-20T08:30:00-07:00", **kw):
-        """An ss-cal-read row from a calendar read straight from Apple Calendar (GigaCloud's feed)."""
+        """An ss-cal-read row from a calendar read straight from Apple Calendar (GigaCloud's Exchange calendar)."""
         e = {"uid": "local-" + uid, "external_id": uid, "title": "Product daily", "start": start, "end": end,
              "all_day": False, "recurring": False, "detached": False, "occurrence": start,
-             "availability": "busy", "status": "none", "attendees": [], "organizer_email": ""}
+             "availability": "busy", "status": "none", "attendees": [], "organizer_email": "", "my_status": "",
+             "calendar": "Календар", "source": "oleksii.orlov@gigacloud.ua", "source_type": "exchange"}
         e.update(kw)
         return e
 
     def test_eventkit_busy_rules_and_keys(self):
-        # 2026-11-24: GigaCloud read from Apple Calendar's subscription instead of Google's lagging copy
+        # 2026-11-24: GigaCloud read from its Exchange account in Apple Calendar instead of Google's lagging copy
         rows = [
             self.ek("A"),                                                   # busy
             self.ek("N", availability="notSupported"),                      # feed can't say -> busy
-            self.ek("T", availability="tentative"),                         # tentative -> busy
+            self.ek("T", availability="tentative", my_status="needsAction"),  # unanswered -> busy
             self.ek("F", availability="free"),                              # Free -> skip
             self.ek("C", status="canceled"),                                # cancelled -> skip
             self.ek("X", title="Canceled: (HOLD) Integrity expectations"),  # Outlook's cancelled title -> skip
+            self.ek("Q", my_status="declined"),                             # I declined -> skip
             self.ek("D", all_day=True),                                     # all-day -> skip
             self.ek("S", attendees=[{"email": "olekorlov@softserveinc.com"}]),  # already on SS -> skip
             self.ek("R", recurring=True),                                   # a series: UID + original start
@@ -528,19 +530,32 @@ class TestReverse(unittest.TestCase):
                     occurrence="2026-06-22T08:00:00-07:00"),                # moved occurrence keeps its key
             self.ek("A"),                                                   # a repeated key -> one slot
         ]
-        out = sc.eventkit_busy({"events": rows, "calendar": "GigaCloud"})["busy_events"]
+        out = sc.eventkit_busy({"events": rows})["busy_events"]
         self.assertEqual([b["key"] for b in out], [
-            "ek:GigaCloud::A", "ek:GigaCloud::N", "ek:GigaCloud::T",
-            "ek:GigaCloud::R@20260620T150000Z", "ek:GigaCloud::R@20260621T150000Z",
-            "ek:GigaCloud::M@20260622T150000Z"])
+            "ek:A", "ek:N", "ek:T", "ek:R@20260620T150000Z", "ek:R@20260621T150000Z", "ek:M@20260622T150000Z"])
         self.assertEqual((out[5]["start"], out[5]["end"]), ("2026-06-22T09:00:00-07:00", "2026-06-22T09:30:00-07:00"))
+        # the key lands in the SS placeholder's notes, which SS colleagues with full details can read
+        self.assertFalse([b["key"] for b in out if "gigacloud" in b["key"].casefold() or "Календар" in b["key"]])
+
+    def test_ek_sources_spec(self):
+        import run
+        old = os.environ.get("CALSYNC_EK_SOURCES")
+        os.environ["CALSYNC_EK_SOURCES"] = " a@b.ua::Календар=g1@import.calendar.google.com , Src::Cal, broken "
+        try:
+            self.assertEqual(run.ek_sources(), [("a@b.ua", "Календар", "g1@import.calendar.google.com"),
+                                                ("Src", "Cal", None)])
+        finally:
+            if old is None:
+                os.environ.pop("CALSYNC_EK_SOURCES")
+            else:
+                os.environ["CALSYNC_EK_SOURCES"] = old
 
     def test_eventkit_slot_converges_through_its_placeholder(self):
-        busy = sc.eventkit_busy({"events": [self.ek("A")], "calendar": "GigaCloud"})["busy_events"]
+        busy = sc.eventkit_busy({"events": [self.ek("A")]})["busy_events"]
         c = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": []})["creates"][0]
-        self.assertEqual(c["marker"], "[[gcal-busy:ek:GigaCloud::A]]")
+        self.assertEqual(c["marker"], "[[gcal-busy:ek:A]]")
         # read back from SS in another offset with no ledger: recognised, not created again
-        ph = [{"ss_id": "SS9", "key": "ek:GigaCloud::A",
+        ph = [{"ss_id": "SS9", "key": "ek:A",
                "start": "2026-06-20T18:00:00+03:00", "end": "2026-06-20T18:30:00+03:00"}]
         plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph})
         self.assertEqual(plan["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
