@@ -1483,7 +1483,7 @@ function exerciseCard(w, it, isCur) {
   const nodes = [head];
   const ov = w.plan.overrides?.[it.id];
   if (it.swapped_from) {   // the planned exercise stays one tap away, whatever the swap went through
-    const why = (ov || "").replace(/^instead of [^:]+:\s*/, "");
+    const why = (ov || "").replace(/^instead of [^:]+:\s*/, "").replace(/^swapped$/, "");
     nodes.push(el("div", { class: "swapline" }, el("span", { class: "small faint grow", text: `↻ Planned: ${enName(it.swapped_from.id)}${why ? " · " + why : ""}` }),
       el("button", { class: "how", type: "button", "aria-label": `Back to ${enName(it.swapped_from.id)}`, on: { click: () => doResult([swapTo(w, slot, it.swapped_from.id)], w) } }, "Back")));
   } else if (ov) nodes.push(el("div", { class: "small faint", text: "↻ " + ov }));
@@ -1714,7 +1714,7 @@ function sheetBody(s, w) {
       const cur = c.id === pi.id; const pic = thumbFor(c.id);
       const hurt = (exS(c.id)?.joints || []).filter(j => P.has(j)).map(j => JOINT_EN[j]);
       const warn = hurt.length ? `loads your ${hurt.join(", ")} today` : rep[c.id] === "missing" ? "you said this gym doesn't have it" : "";
-      return el("button", { class: "opt", type: "button", "aria-current": String(cur), on: { click: () => cur ? closeSheet() : doResult([swapTo(w, i, c.id, "machine busy or swapped")], w) } },
+      return el("button", { class: "opt", type: "button", "aria-current": String(cur), on: { click: () => cur ? closeSheet() : doResult([swapTo(w, i, c.id)], w) } },
         pic ? el("img", { class: "thumb", src: picSrc(pic), alt: "", loading: "lazy" }) : el("span", { class: "thumb none", html: ICON.dumbbell }),
         el("span", { class: "txt" }, el("span", { class: "row1" }, el("b", { text: enName(c.id) }), c.planned ? el("span", { class: "tag", text: "Planned" }) : null),
           el("span", { class: "ru", text: ruName(c.id) }), el("span", { class: "small muted" }, wt(c), warn ? el("span", { class: "warn-s", text: " · " + warn }) : null)),
