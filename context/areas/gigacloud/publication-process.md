@@ -95,15 +95,7 @@ _updated: 2026-11-25_
   - the block between stages 3 and 4 becomes stage 4 «Перший клієнт», with «Перед» and «Після першого клієнта» sub-blocks; «Зміни» becomes stage 5;
   - his action plan replaces the draft;
   - an accent slide with the formula opens and closes the deck: процеси, що працюють = прозорість флоу + автоматизація + buy-in учасників.
-- 2026-10-12 — v4–v5 (all from Alex):
-  - colour-band stage headers;
-  - the CRM checklist after the map;
-  - stage 4 detailed;
-  - «Перед першим клієнтом» added;
-  - the conditional-step rules set;
-  - PMO = Operations;
-  - Head of Product on two slides;
-  - hidden field-check slides per approver.
+- 2026-10-12 — v4–v5 (all from Alex): colour-band stage headers; the CRM checklist after the map; stage 4 detailed; «Перед першим клієнтом» added; the conditional-step rules set; PMO = Operations; Head of Product on two slides; hidden field-check slides per approver.
 - 2026-10-12 — v3 (Alex): approvals design → delivery → Head of Product → finance after a two-roles slide; cards headed by step + Owner with «when» and «mandatory» split, «Як фіксується» and business results; CRM paths under screenshots; team tables as stages × teams with ★/✎.
 - 2026-10-11 — v2 (Alex): hybrid process-approval cards owned by Operations · Business process lead; two standard screenshot frames; one colour per stage on one grid. The stage after publication is «Готовність команд»; the action plan is a draft for Alex.
 

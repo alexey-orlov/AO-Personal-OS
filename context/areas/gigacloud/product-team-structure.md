@@ -1,7 +1,7 @@
 # Product team structure — CPO part-time transition
 
-_status: proposal deck v1 (10 slides, UA; 2026-10-16, fork and hiring slides added 2026-10-20) from Alex's Miro board; next step — Alex's own part-time terms and Edik's offer. The Head of Product vacancy is live; its test assignment v2 was drafted 2026-11-22 and awaits Alex's decisions_
-_updated: 2026-11-22_
+_status: proposal deck v1 (10 slides, UA; 2026-10-16, fork and hiring slides added 2026-10-20) from Alex's Miro board; next step — Alex's own part-time terms and Edik's offer. The Head of Product vacancy is live; its test assignment v2 was drafted 2026-11-22 and awaits Alex's decisions. The team's titles, zones and cadence went on the product-committee deck 2026-11-25_
+_updated: 2026-11-25_
 
 ## Snapshot
 
@@ -16,6 +16,17 @@ _updated: 2026-11-22_
   - C-level / org structure — think about hiring a strong COO + a new org structure that splits the product function → later consider moving Product Operations into Operations and the Product Lead into the CTO function.
 - **Availability, CA ↔ Kyiv** (chat, 2026-10-16): the overlapping hours are 07:00–09:00 CA = 17:00–19:00 Kyiv, and sometimes 23:00–24:00 CA = 09:00–10:00 Kyiv (next day); they are for the team weeklies and the ongoing project calls. The gap is 10 h, 9 h on 25.10–1.11.2026 and 14–28.03.2027 (tzdata 2026b), when the morning window lands at 16:00–18:00 Kyiv.
 - **Edik and the team (Q3):** launches (new products / quarterly projects) + current tasks (team coordination: backlog, ad-hoc decisions). (chat, 2026-10-16)
+- **The team, titles and zones** (Alex, 2026-11-25; Product Manager titles from the staff list in Юніт (5)):
+  - Alex — CPO: margin (C-level coordination), PLM 2.0, «Квоти і ціни 2.0» (price architecture), the Kyivstar synergy;
+  - Eduard (Edik) Kuznietsov — Product Lead: launches and quarterly projects, team coordination, margin calculation fixes and FY2027 pricing;
+  - Anastasiia Lebedenko — Product Manager: operational initiatives, pricing-correctness control, licenses and resell;
+  - Vasylyna Sukhenko — Product Manager: product issues / insights, presale requests and calculations, lost-deal analysis, prof-services products.
+- **Team cadence** (Alex's table from the deck of 16–18.11; the online / offline split it also records is left out):
+  - with sales — typical requests through the CRM, ad-hoc requests and hard customer questions, a biweekly pipeline sync led by Vasylyna, product-catalog update presentations;
+  - with clients — presale meetings on request, first-client launch support (pushing R&D, delivery, presale and billing);
+  - governance — the product committee, a planned «triangle» sync, the team weekly, a daily stand-up.
+
+  (chat, 2026-11-25)
 - **Alex's four projects (Q3'FY2026):** «Квоти і ціни 2.0» — owner COO (CRM operating model: quotas for existing and new customers, ad-hoc cases, sales convenience, historical prices); the CPO designs the pricing architecture and extra price rules and helps automate. «Оновлення PLM» — owner CPO, the product team's Q3 focus → [publication-process](publication-process.md). «Синергія з Київстар» — added by Alex 2026-10-20, name only (owner, scope and role TBD on the slide). «Маржинальність» — owner CPO; the first part is done, from here mostly coordinating COO, CFO and Country Director → roadmap on [pricing-unit-economics](pricing-unit-economics.md). (chat, 2026-10-16)
 - **Product function, NOW → TO BE** (share of Product's tasks, per the board):
   - Product Operations 65 % — costing and prices, catalog data and its automation, contract and delivery processes, publication control, ad-hoc technical-process decisions: CPO → product team ⇒ **COO → Product Operations**.
@@ -30,7 +41,8 @@ _updated: 2026-11-22_
 
 ## People
 
-- Edik (Eduard, inferred the same Eduard who corrects the Юніт workbook) — product team; proposed Product Lead; owns input validation and the price update in the margin roadmap.
+- Eduard (Edik) Kuznietsov — Product Lead (so titled in the margin plan's «Next steps», 2026-11-25); owns margin directions 1 (calculation fixes) and 7 (FY2027 pricing).
+- Anastasiia Lebedenko, Vasylyna Sukhenko — Product Managers (zones above).
 - Misha Sakun — the precedent for ad-hoc consulting (role not on the board).
 
 ## Decisions
@@ -54,6 +66,7 @@ _updated: 2026-11-22_
 
 ## Activity
 
+- 2026-11-25 — the team's titles, zones and cadence on the product-committee deck ([README](README.md#active-threads)). (chat)
 - 2026-11-22 — [Head of Product test assignment v3](docs/hop-test-assignment/evaluation-key.md) — text cut back to the PM test's wording (939 → 547 words), structured, same link. (chat)
 - 2026-11-22 — [Head of Product test assignment v2](docs/hop-test-assignment/evaluation-key.md) — UA Google Doc plus evaluation key; v1 re-cut after three fresh-context candidate reads (12-15 h → 7-8 h). (chat)
 - 2026-10-20 — «Синергія з Київстар» added to Alex's Q3 projects (owner / scope / role TBD); the plan now says 4 projects. (chat)
