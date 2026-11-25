@@ -111,6 +111,10 @@ deck or one-pager work.
     In Ukrainian body text a one-letter word (в, у, і, з, й, а, о) binds to the next word, and a sentence
     of four words or more ends on two words, never one («прямо / в CRM.», not «прямо в / CRM.»). Keep that
     binding out of two- and three-word labels in narrow boxes, where it forces a mid-word break («Нова модел / ь»).
+    In builder code write the characters as escapes (`' '`, `'‑'`), never the literal glyph: a
+    rewritten file can come back with a literal U+00A0 turned into a plain space, and then every binding
+    silently stops working (2026-11-25, the product-committee builder). After rewriting a builder, check the
+    saved .pptx text for U+00A0 before rendering.
 19. **A worked-example table shows exactly what the result is computed from, in formula order, and
     the numbers live in the table, not in notes** (2026-09-27, Alex on the Sales-data slide).
     - Trace the source formula backwards from the result cell. Cut every row or column that is not
