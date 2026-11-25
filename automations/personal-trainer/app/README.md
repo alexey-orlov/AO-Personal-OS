@@ -215,13 +215,20 @@ sheet sync" (`trig_01XnowrFjfm8LNznfA7ecU7P`, created 2026-11-25 on Alex's
 request) starts a fresh cloud session every night at 21:41 Pacific
 (`CRON_TZ=America/Los_Angeles 41 21 * * *`) in the Default environment,
 which carries `GSHEETS_TOKEN_JSON`. Its prompt points here and adds only
-the guard rails: nothing waiting means no change and no commit; no
-`dev/sandbox.sh`; a session counts as synced only once its sheet row is
-confirmed; a failure queues one Telegram alert in the trainings topic. It
-stores no claude.ai connectors (it needs none: the sheet goes through
+the guard rails: first a `git push --dry-run` preflight, and without push
+access it writes nothing anywhere and sends Alex a phone notification;
+nothing waiting means no change and no commit; no `dev/sandbox.sh`; a
+session counts as synced only once its sheet row is confirmed; any failure
+sends one phone notification plus a Telegram card in the trainings topic.
+It stores no claude.ai connectors (it needs none: the sheet goes through
 `gym_sheet.py`, the app through the built-in ArtifactData tool). The app
 also keeps the id in `config/automation`. Change the schedule or prompt
 with `update_trigger`, never by deleting and recreating it.
+Push access: a task created from a chat session starts without repository
+sources, so its runs can clone the repo but the git proxy refuses the push
+(2026-11-25 test run: "not in this session's authorized repository set").
+The repository has to be added to the routine, with push access, in
+claude.ai; until then every run stops at the preflight and notifies.
 
 ## What the app does with stale data
 
