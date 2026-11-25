@@ -1299,6 +1299,9 @@ function homeView() {
   const active = Object.values(S.workouts).filter(w => w.status === "active");
   for (const w of active) nodes.push(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "In progress" }), el("h2", { text: `${DAY_EN[w.day]} · ${fmtDate(w.date)}` }),
     el("button", { class: "btn primary block", type: "button", on: { click: () => { S.cur = w.id; S.view = "workout"; lsSet("tn.cur", w.id); render(); } } }, "Resume workout")));
+  // a finished session the sheet doesn't have yet (Google Sheets unreachable at "Save session"): one tap writes it
+  for (const w of Object.values(S.workouts).filter(x => x.status === "done" && x.feedback?.done && !x.sync?.sheet_logged_at).sort((a, b) => a.date < b.date ? -1 : 1))
+    nodes.push(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Not in My training yet" }), el("h2", { text: `${DAY_EN[w.day]} · ${fmtDate(w.date)}` }), sheetStatusNode(w)));
   for (const w of planned) nodes.push(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Trainer's plan for today" }), el("h2", { text: `${DAY_EN[w.day]} · ${w.plan?.strength?.length || 0} exercises` }),
     w.plan?.note ? el("p", { class: "muted small", text: w.plan.note }) : null,
     el("button", { class: "btn primary block", type: "button", on: { click: () => { w.log ||= { warmup: {}, strength: {}, crossfit: {} }; w.feedback ||= { items: {}, actual: {} }; w.changes ||= []; w.machine_missing ||= {}; w.plan.overrides ||= {}; w.checkin ||= { readiness: "normal", pain: [] }; S.cur = w.id; S.view = "workout"; render(); } } }, "Open the trainer's plan")));
@@ -2143,13 +2146,15 @@ function sheetStatusNode(w) {
 
 /* ---------------- summary + history */
 function summaryView(w) {
-  const fb = w.feedback || {}; const nt = w.sync?.next_time || {};
-  const rows = w.plan.strength.map(it => { const a = fb.actual?.[it.id]; const r = fb.items?.[it.id]?.rating; const n = nt[it.id];
-    return el("div", { class: "hist" }, el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "small muted", text: a ? a.lb.map((v, i) => `${v}×${a.reps_per_set[i]}`).join(" · ") : "no sets logged" }),
+  const fb = w.feedback || {}; const nt = w.sync?.next_time || {}; const t = segTimes(w);
+  const rows = w.plan.strength.map(it => { const a = fb.actual?.[it.id]; const r = fb.items?.[it.id]?.rating; const n = nt[it.id]; const k = "s:" + slotOf(it);
+    return el("div", { class: "hist" }, el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "small muted", text: (a ? a.lb.map((v, i) => `${v}×${a.reps_per_set[i]}`).join(" · ") : "no sets logged") + (t[k] >= 30 ? ` · ${mins(t[k])}` : "") }),
         n?.lb?.length ? el("div", { class: "small", text: `Next time: ${n.lb.join(" / ")} lb` }) : r && !w.sync?.feedback_recorded_at ? el("div", { class: "small faint", text: NEXT_HINT[r] || "" }) : null),
       el("span", { class: "badge " + (r || ""), text: RATINGS.find(x => x[0] === r)?.[1] || "not rated" })); });
   const synced = w.sync?.feedback_recorded_at;
+  const parts = [["warmup", "Warm-up"], ["strength", "Strength"], ["crossfit", "Crossfit"]].filter(([k]) => t[k] >= 30).map(([k, l]) => `${l} ${mins(t[k])}`);
   return [el("div", { class: "card" }, el("div", { class: "eyebrow", text: fmtDate(w.date) }), el("h1", { text: `${DAY_EN[w.day]} done` }),
+      w.started_at && w.finished_at ? el("p", { class: "muted", style: "margin:0" }, "Session ", el("b", { text: hms(totalSec(w)) }), parts.length ? ` · ${parts.join(" · ")}` : "") : null,
       el("p", { class: "muted", text: synced ? `The trainer has it too (${fmtDate(synced)}).${Object.keys(nt).length ? " Next session's weights are below." : ""}`
         : "Saved. The trainer's engine picks up your ratings at its next sync (“синхронизируй приложение” in Claude Code); until then the next plan starts from what you actually lifted." }),
       sheetStatusNode(w),
@@ -2165,7 +2170,7 @@ function historyView() {
     const synced = w.sync?.feedback_recorded_at; const inSheet = w.sync?.sheet_logged_at;
     const st = w.status === "done" ? (inSheet ? "in the sheet" : "not in the sheet") : w.status;
     return el("button", { class: "opt", type: "button", on: { click: () => { S.cur = w.id; S.view = w.status === "done" ? "summary" : "workout"; render(); } } },
-      el("div", { class: "row" }, el("b", { class: "grow", text: `${fmtDate(w.date)} · ${DAY_EN[w.day] || w.day}` }),
+      el("div", { class: "row" }, el("b", { class: "grow", text: `${fmtDate(w.date)} · ${DAY_EN[w.day] || w.day}${w.status === "done" && w.started_at && w.finished_at ? " · " + mins(totalSec(w)) : ""}` }),
         el("span", { class: "badge" + (inSheet ? " easy" : w.status === "done" ? " hard" : ""), text: st }),
         w.status === "done" ? el("span", { class: "badge" + (synced ? " easy" : ""), text: synced ? "trainer ✓" : "trainer: next sync" }) : null),
       el("span", { class: "small muted", text: (w.plan?.strength || []).map(it => enName(it.id)).join(", ") }),
