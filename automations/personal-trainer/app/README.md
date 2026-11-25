@@ -261,22 +261,42 @@ check-in screen. The real progression comes back after the next sync.
 
 ## Exercise demos ("How to" on every exercise)
 
-In order: demos saved in `media/<id>` (or a `media` list on the catalog
-entry) · "Search YouTube" (opens YouTube with "<en name> proper form") ·
-"Technique tips from Claude" (the page's Claude, quick tier, from the
-catalog cues; cached 24 h) · "Ask the trainer to find a demo" (a
-`media_requests` row the next sync fills) · "Add your own photo or video"
-(`assets`, shown inline). The trainer's catalog cues show on top. Drawings
-sit on a white panel in both themes (black line art), and the "How to"
-button shows the start-position thumbnail when an exercise has one.
+A bottom sheet with a fixed header (name, ✕; drag it down or press Escape
+to close) that keeps its scroll and its Claude tips when data refreshes.
+In order: pictures (tap one to see it full screen) · the trainer's notes ·
+saved videos · "Find more": "Search YouTube" ("<en name> proper form"),
+"See the <brand> machine" (Google Images for the brand gym.json
+`brands_seen` gives that kind of machine: Matrix for weight stacks, Hoist
+for plate-loaded), "Technique tips from Claude" (quick tier, from the
+catalog cues; cached 24 h), "Ask the trainer to find a demo" (a
+`media_requests` row the next sync fills) and "Add a photo or video".
+
+Pictures: Alex's own photos first, then the start/end drawings. Every
+machine exercise has two photo slots, "The machine" and "Its
+instructions" (the plate printed on it): one tap opens the camera or the
+library, the photo is shrunk to 1600 px before it goes up (`assets`), and
+it can be deleted from the full-screen view. The manufacturers' own photos
+and placards are not stored: they are copyrighted, and as of 2026-11-25 no
+openly licensed photo of a Matrix or Hoist machine of the catalog's kinds
+exists on Commons, Openverse or Flickr (77 Commons files checked); his
+photos of the gym's machines are the faithful version, the brand link the
+stand-in. Drawings sit on a white panel in both themes (black line art);
+a near-match drawing carries a `fit_note`, shown under the pictures. The
+"How to" button and the swap list show his machine photo, else the start
+drawing.
 
 ## Testing a change (app or engine)
 
 1. `python3 app/app_sync.py export app/.work/harness/seed --today <date>`, then
    `python3 app/dev/make_harness.py` builds `app/.work/harness/harness.html`: the
-   page with a stand-in db (that seed) and a stand-in Claude that returns the
-   page's own draft. Serve it with the `trainer-app-harness` entry in
-   `.claude/launch.json` and drive it at phone width.
+   page with a stand-in db (that seed, plus any `seed/media/*.json`), a
+   stand-in Claude that returns the page's own draft and a stand-in asset
+   store. Serve it with the `trainer-app-harness` entry in
+   `.claude/launch.json` and drive it at phone width. The stand-in db and
+   clock survive a reload of the tab (that is how to test a half-done
+   session coming back); `harness.html?fresh` starts over. Pictures load
+   from `.work/harness/_blob/<asset id>.svg` (an asset is fetched with the
+   Artifact tool's `read` and the id as `path`).
 2. Check parity: build plans in the page (`buildTemplate(contextFor(day, ck))`
    for several check-ins, plus a broken one), save them, run
    `trainer.py check` on each; the error and warning counts, `accepted` and
@@ -299,10 +319,19 @@ button shows the start-position thumbnail when an exercise has one.
   trim, the time dose for crossfit, the alternative named in `if_missing`).
 - A second session on one date (`<date>-2`) merges its feedback into
   `plans/<date>.json`: `trainer.py feedback` takes a date, not an id.
-- Demos are pre-loaded for 26 exercises: the next Legs session, the first
-  Pull session and the back-pain warm-ups (`media-sources.json`). Bird dog
-  and jumping jacks have a video but no picture yet (Commons throttled the
-  download); the other catalog exercises get theirs through requests.
+- Start/end drawings cover 44 exercises (`media-sources.json`): 28 of the
+  31 strength exercises, 8 of 12 warm-ups, 8 of 22 crossfit moves. None
+  fits the chest-supported T-bar row (the only T-bar drawing is the banned
+  bent-over row), the chest-supported row machine (the seated cable row
+  drawing would teach the unsupported position), cable hip abduction, bird
+  dog, Pallof hold, seated back extension, plate halo, and the cardio and
+  gymnastic crossfit moves (rope, jumping jacks, rower, bike, battle ropes, burpees, box
+  jumps, HSPU, toes-to-bar, wall balls, thrusters, overhead plate squat,
+  push press, plank drag). Those keep their videos, YouTube search and his
+  own photos.
+- "Save session" writing the sheet from the phone has been tested against
+  a scratch copy of the tab, not yet on a real session: the 11/23 session
+  went into the sheet through the trainer's sync.
 
 ## Live artifact
 
