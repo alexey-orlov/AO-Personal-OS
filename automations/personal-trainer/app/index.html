@@ -11,6 +11,7 @@
   --easy: #1d7a4a; --easy-soft: #dcefe3; --hard: #a35a00; --hard-soft: #f6e6cf;
   --pain: #b3261e; --pain-soft: #f7dcda; --skip: #6b7277;
   --paper: #ffffff; /* ground for black line-art drawings, the same in both themes */
+  --overlay: rgba(8, 10, 12, .92); --overlay-ink: #eef0ee; --overlay-btn: rgba(255, 255, 255, .16); /* the photo viewer is dark in both themes */
   --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --f-body: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --r: 12px; --tap: 48px;
@@ -167,6 +168,68 @@ textarea { min-height: 80px; resize: vertical }
 @media (prefers-reduced-motion: reduce) { .spin { animation: none } }
 .empty { text-align: center; padding: 28px 12px }
 .empty h1 { margin-bottom: 8px }
+/* session clock: the header shows the whole workout and the part in progress; cards and section heads show their own time */
+.brand.live { cursor: pointer; text-transform: none; letter-spacing: 0 }
+.hdr-row { display: flex; align-items: baseline; gap: 8px }
+.hdr-lbl { font: 600 11px/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3) }
+.hdr-total { font: 700 26px/1 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: .02em; color: var(--ink) }
+.brand.live small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2) }
+.brand.live small [data-t] { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600 }
+.tmr { font: 600 13px/1 var(--f-body); font-variant-numeric: tabular-nums; color: var(--ink-3); white-space: nowrap }
+.tmr.live { color: var(--accent) }
+.ex-title { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap }
+.section-h .tmr { align-self: center }
+/* last result and record: one quiet line on each exercise */
+.rec { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12.5px; line-height: 1.35; color: var(--ink-3); margin-top: 3px }
+.rec b { font-weight: 600; color: var(--ink-2) }
+/* swaps */
+.swapline { display: flex; gap: 8px; align-items: center }
+.swapline .how { min-height: 34px }
+.ring .opt { flex-direction: row; align-items: center; gap: 12px }
+.ring .opt[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); background: var(--accent-soft) }
+.ring .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
+.ring .row1 { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap }
+.thumb { width: 46px; height: 46px; border-radius: 8px; object-fit: contain; background: var(--paper); border: 1px solid var(--line); flex: none }
+.thumb.none { display: grid; place-items: center; background: var(--sunk); color: var(--ink-3) }
+.thumb.none svg { width: 22px; height: 22px }
+.tag { font: 600 11px/1 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent) }
+.warn-s { color: var(--hard) }
+/* crossfit time typed in */
+.dur { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto; gap: 8px; align-items: center }
+.dur input { text-align: center; font: 600 24px/1 var(--f-display); font-variant-numeric: tabular-nums; min-height: 52px }
+.dur .u { font-size: 14px; color: var(--ink-2) }
+.linkbtn { background: none; border: 0; padding: 6px 0; color: var(--accent); font-weight: 600; font-size: 14px; text-align: left; align-self: flex-start; min-height: 36px }
+.clock.over { color: var(--hard) }
+/* bottom sheets: a header with the title and a close button stays on top while the body scrolls; drag the header down to close */
+html.sheet-open, html.sheet-open body { overflow: hidden }
+.sheet { padding-top: 0; overscroll-behavior: contain }
+.sheet.enter { animation: sheet-up .2s ease-out }
+@keyframes sheet-up { from { transform: translateY(40px); opacity: .4 } }
+@media (prefers-reduced-motion: reduce) { .sheet.enter { animation: none } }
+.sheet-h { position: sticky; top: 0; z-index: 2; background: var(--bg); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; align-items: start; padding: 8px 0 8px; touch-action: none }
+.sheet-h .grab { grid-column: 1 / -1; justify-self: center; margin-bottom: 4px }
+.sheet-h h2 { overflow-wrap: anywhere }
+.sheet-h .x { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--sunk); color: var(--ink-2); font-size: 22px; line-height: 1; display: grid; place-items: center }
+.acts { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden }
+.acts > a, .acts > button { display: flex; gap: 12px; align-items: center; text-decoration: none; color: inherit; background: none; border: 0; border-top: 1px solid var(--line); padding: 10px 14px; min-height: 56px; text-align: left; width: 100% }
+.acts > :first-child { border-top: 0 }
+.acts .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); flex: none }
+.acts .ic svg { width: 18px; height: 18px }
+.acts span { min-width: 0 }
+.acts button:disabled { opacity: .6; cursor: default }
+.tipbox { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; white-space: pre-wrap; font-size: 14.5px }
+/* pictures: tap to enlarge; empty slots invite a photo of this gym's machine and its instructions plate */
+.picbtn { display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: 10px }
+.add-tile { width: 100%; aspect-ratio: 4 / 5; max-width: 100%; border: 1.5px dashed var(--line); border-radius: 10px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 10px; color: var(--ink-2); font-size: 13px; font-weight: 600; text-align: center }
+.add-tile svg { width: 28px; height: 28px; color: var(--accent) }
+.add-tile .faint { font-weight: 400; font-size: 12px }
+.lightbox { position: fixed; inset: 0; z-index: 30; background: var(--overlay); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  padding: calc(56px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)) }
+.lightbox img { max-width: 100%; max-height: calc(100% - 70px); object-fit: contain; background: var(--paper); border-radius: 8px }
+.lightbox .cap { color: var(--overlay-ink); font-size: 14px; text-align: center }
+.lightbox .x { position: absolute; top: calc(10px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--overlay-btn); color: var(--overlay-ink); font-size: 24px }
+.lightbox .row .btn { min-height: 40px }
+.pending { display: flex; gap: 10px; align-items: center }
 </style>
 
 <header class="top"><div class="row">
@@ -179,6 +242,7 @@ textarea { min-height: 80px; resize: vertical }
 <div id="bar"></div>
 <div id="rest"></div>
 <div id="sheet"></div>
+<div id="lightbox"></div>
 
 <script>
 "use strict";
@@ -239,6 +303,9 @@ const ICON = {
   spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>',
   up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
   flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  image: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>',
+  dumbbell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7v10M9 5v14M15 5v14M18 7v10M9 12h6M3 10v4M21 10v4"/></svg>',
 };
 const icon = k => el("span", { class: "ic", html: ICON[k] });
 const lbToKg = lb => Math.round(lb / KG_LB * 10) / 10;
