@@ -29,12 +29,13 @@ export CALSYNC_SS_SOURCE="${CALSYNC_SS_SOURCE:-Exchange}"
 export CALSYNC_SS_WRITE_CAL="${CALSYNC_SS_WRITE_CAL:-Calendar}"
 
 # --- reverse leg: calendars read straight from Apple Calendar ---------------------------
-# "<account>::<calendar>[=<Google calendar id it replaces>]", comma-separated, names as
-# `ss-cal-read --list` prints them. While the calendar is in Apple Calendar its events block SS
-# directly and the Google calendar after "=" is skipped; while it isn't, that Google copy stays
-# the source. GigaCloud: its Exchange account in Apple Calendar (added 2026-11-24) instead of
-# Google's copy of its published feed, which lags 5-6 h. Set to "" to disable.
-export CALSYNC_EK_SOURCES="${CALSYNC_EK_SOURCES-oleksii.orlov@gigacloud.ua::Календар=g1ijcmfb7h40pmmcj3f67cnpki8kn898@import.calendar.google.com}"
+# "<type>:<calendar title>[=<Google calendar id it replaces>]", comma-separated, as
+# `ss-cal-read --list` prints them; SoftServe's own account never counts. While the calendar is in
+# Apple Calendar its events block SS directly and the Google calendar after "=" is skipped; while it
+# isn't, that Google copy stays the source. GigaCloud: its Exchange account's «Календар» (added to
+# Apple Calendar 2026-11-24) instead of Google's copy of its published feed, which lags 5-6 h.
+# Set to "" to disable.
+export CALSYNC_EK_SOURCES="${CALSYNC_EK_SOURCES-exchange:Календар=g1ijcmfb7h40pmmcj3f67cnpki8kn898@import.calendar.google.com}"
 
 # --- secrets (macOS Keychain) ----------------------------------------------
 # Your own Google Cloud "Desktop app" OAuth client. Store once:

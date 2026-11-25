@@ -507,7 +507,7 @@ class TestReverse(unittest.TestCase):
         e = {"uid": "local-" + uid, "external_id": uid, "title": "Product daily", "start": start, "end": end,
              "all_day": False, "recurring": False, "detached": False, "occurrence": start,
              "availability": "busy", "status": "none", "attendees": [], "organizer_email": "", "my_status": "",
-             "calendar": "Календар", "source": "oleksii.orlov@gigacloud.ua", "source_type": "exchange"}
+             "calendar": "Календар", "source": "me@infra.example", "source_type": "exchange"}
         e.update(kw)
         return e
 
@@ -535,15 +535,17 @@ class TestReverse(unittest.TestCase):
             "ek:A", "ek:N", "ek:T", "ek:R@20260620T150000Z", "ek:R@20260621T150000Z", "ek:M@20260622T150000Z"])
         self.assertEqual((out[5]["start"], out[5]["end"]), ("2026-06-22T09:00:00-07:00", "2026-06-22T09:30:00-07:00"))
         # the key lands in the SS placeholder's notes, which SS colleagues with full details can read
-        self.assertFalse([b["key"] for b in out if "gigacloud" in b["key"].casefold() or "Календар" in b["key"]])
+        self.assertFalse([b["key"] for b in out if "infra" in b["key"] or "Календар" in b["key"]])
 
-    def test_ek_sources_spec(self):
+    def test_ek_sources_spec_and_ss_never_counts(self):
         import run
         old = os.environ.get("CALSYNC_EK_SOURCES")
-        os.environ["CALSYNC_EK_SOURCES"] = " a@b.ua::Календар=g1@import.calendar.google.com , Src::Cal, broken "
+        os.environ["CALSYNC_EK_SOURCES"] = " Exchange:Календар=g1@import.calendar.google.com , subscribed:Feed, broken "
         try:
-            self.assertEqual(run.ek_sources(), [("a@b.ua", "Календар", "g1@import.calendar.google.com"),
-                                                ("Src", "Cal", None)])
+            self.assertEqual(run.ek_sources(), [("exchange", "Календар", "g1@import.calendar.google.com"),
+                                                ("subscribed", "Feed", None)])
+            self.assertFalse(run._not_ss(run.SS_SOURCE.upper()))      # SoftServe's own account: never a source
+            self.assertTrue(run._not_ss("me@infra.example"))
         finally:
             if old is None:
                 os.environ.pop("CALSYNC_EK_SOURCES")

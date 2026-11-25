@@ -199,23 +199,28 @@ _LIST_LINE = re.compile(r"^\[(.*)\] \((\w+)\) :: (.*)$")
 
 
 def ek_sources():
-    """CALSYNC_EK_SOURCES ("<account>::<calendar>[=<Google calendar id it replaces>]", comma-
-    separated, names as `ss-cal-read --list` prints them) -> [(account, calendar, Google id or None)]."""
+    """CALSYNC_EK_SOURCES ("type:Title[=Google calendar id it replaces]", comma-separated, type
+    and title as `ss-cal-read --list` prints them) -> [(type, title, replaced Google id or None)]."""
     out = []
     for item in os.environ.get("CALSYNC_EK_SOURCES", "").split(","):
         spec, _, gid = item.strip().partition("=")
-        src, sep, cal = spec.partition("::")
-        if sep and src.strip() and cal.strip():
-            out.append((src.strip(), cal.strip(), gid.strip() or None))
+        typ, _, title = spec.partition(":")
+        if typ.strip() and title.strip():
+            out.append((typ.strip().lower(), title.strip(), gid.strip() or None))
     return out
 
 
-def read_ek(src, cal, g_min, g_max):
+def _not_ss(source):
+    """A calendar of any account but SoftServe's: SS events must never block SS (they'd loop)."""
+    return (source or "").casefold() != SS_SOURCE.casefold()
+
+
+def read_ek(typ, title, g_min, g_max):
     """One Apple Calendar calendar over the Google window [g_min, g_max) -> (rows, error)."""
     lo = datetime.fromisoformat(g_min.replace("Z", "+00:00"))
     hi = datetime.fromisoformat(g_max.replace("Z", "+00:00"))
     try:
-        out = subprocess.run([READER, "--source", src, "--calendar", cal, "--from", g_min,
+        out = subprocess.run([READER, "--type", typ, "--calendar", title, "--from", g_min,
                               "--days", str((hi - lo).days + 1)],
                              capture_output=True, text=True, timeout=60)
     except Exception as e:
@@ -226,7 +231,8 @@ def read_ek(src, cal, g_min, g_max):
         rows = json.loads(out.stdout or "[]")
     except json.JSONDecodeError as e:
         return None, "reader bad JSON: %s" % e
-    return [r for r in rows if sc._utc(r["start"]) < hi and sc._utc(r["end"]) > lo], None   # Google's overlap rule
+    return [r for r in rows if _not_ss(r.get("source"))
+            and sc._utc(r["start"]) < hi and sc._utc(r["end"]) > lo], None   # Google's overlap rule
 
 
 def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
@@ -242,21 +248,21 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     # Apple Calendar can't be listed or read, neither copy is used and nothing is pruned: falling
     # back to the Google copy for one run would re-key every placeholder of that calendar twice.
     ek_busy, skip = [], set()
-    for src, cal, gid in ek_sources():
+    for typ, title, gid in ek_sources():
         if ek_cals is None:
             complete = False
             if gid:
                 skip.add(gid)
-            errors.append("rev %s: Apple Calendar list unavailable" % cal)
+            errors.append("rev %s: Apple Calendar list unavailable" % title)
             continue
-        if not any(s.casefold() == src.casefold() and c.casefold() == cal.casefold() for s, _, c in ek_cals):
+        if not any(t == typ and c.casefold() == title.casefold() and _not_ss(s) for s, t, c in ek_cals):
             continue                                  # not in Apple Calendar: its Google copy stays the source
         if gid:
             skip.add(gid)
-        rows, err = read_ek(src, cal, g_min, g_max)
+        rows, err = read_ek(typ, title, g_min, g_max)
         if err:
             complete = False
-            errors.append("rev %s: %s" % (cal, err))
+            errors.append("rev %s: %s" % (title, err))
             continue
         ek_busy += sc.eventkit_busy({"events": rows, "config": CFG})["busy_events"]
     for cal in cals:
