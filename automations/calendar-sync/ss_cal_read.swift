@@ -1,10 +1,12 @@
-// ss_cal_read.swift — headless EventKit reader for the SoftServe calendar.
+// ss_cal_read.swift — headless EventKit reader for the calendars in Apple Calendar.
 // Build:  swiftc ss_cal_read.swift -o .work/ss-cal-read
 // Usage:  ss-cal-read --list                 (list calendars: "[source] (type) :: title")
-//         ss-cal-read --exchange --days 14   (events of the Exchange calendars, from now)
-//         ss-cal-read --type subscribed --calendar GigaCloud --from <iso8601> --days 17
-//         (--source <substr> matches the account title; --type the account type as --list prints it;
-//          --calendar the calendar title, exact and case-insensitive; --from the window start, default now)
+//         ss-cal-read --type exchange --source Exchange --days 14          (SoftServe's account, from now)
+//         ss-cal-read --source <account> --calendar <title> --from <iso8601> --days 17
+//         (--source the account title, --calendar the calendar title, both exact and case-insensitive,
+//          as --list prints them; --type the account type as --list prints it; --from the window start,
+//          default now). Two accounts with the --source title, or an unknown flag, are errors: a read is
+//          never widened to calendars nobody named.
 // Emits a JSON array on stdout; times are absolute ISO8601 (already correct — no tz guesswork).
 import EventKit
 import Foundation
@@ -14,7 +16,6 @@ var sourceFilter: String? = nil
 var typeFilter: String? = nil
 var calendarFilter: String? = nil
 var fromArg: String? = nil
-var exchangeOnly = false
 var listOnly = false
 var args = Array(CommandLine.arguments.dropFirst())
 var i = 0
@@ -25,9 +26,9 @@ while i < args.count {
     case "--type":     if i+1 < args.count { typeFilter = args[i+1].lowercased(); i += 1 }
     case "--calendar": if i+1 < args.count { calendarFilter = args[i+1].lowercased(); i += 1 }
     case "--from":     if i+1 < args.count { fromArg = args[i+1]; i += 1 }
-    case "--exchange": exchangeOnly = true       // SoftServe is the only Exchange account
     case "--list":     listOnly = true
-    default: break
+    default:           // e.g. the retired --exchange, which read every Exchange account as SoftServe
+        FileHandle.standardError.write("BAD_ARG \(args[i])\n".data(using: .utf8)!); exit(4)
     }
     i += 1
 }
@@ -84,15 +85,19 @@ func meetingURL(_ e: EKEvent) -> String? {
 }
 
 var selected = cals
-if exchangeOnly { selected = selected.filter { $0.source.sourceType == .exchange } }
-if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercased().contains(sf) } }
+if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercased() == sf } }
 if let tf = typeFilter { selected = selected.filter { typeName($0.source.sourceType) == tf } }
 if let cf = calendarFilter { selected = selected.filter { $0.title.lowercased() == cf } }
 // A filter that matches no calendar is a failed read, not an empty one: never fall back to every
 // calendar (EventKit's nil = all), and never report "no events" for an account that isn't there.
-let filtered = exchangeOnly || sourceFilter != nil || typeFilter != nil || calendarFilter != nil
+let filtered = sourceFilter != nil || typeFilter != nil || calendarFilter != nil
 if filtered && selected.isEmpty {
     FileHandle.standardError.write("NO_MATCHING_CALENDAR\n".data(using: .utf8)!); exit(5)
+}
+// An account title two accounts share can't tell them apart: macOS names a new Exchange account
+// "Exchange" by default, so a second one would be read as SoftServe. Rename one in Internet Accounts.
+if let sf = sourceFilter, Set(selected.map { $0.source.sourceIdentifier }).count > 1 {
+    FileHandle.standardError.write("AMBIGUOUS_SOURCE \(sf): two accounts have this title\n".data(using: .utf8)!); exit(6)
 }
 let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
 let isoIn = ISO8601DateFormatter(); isoIn.formatOptions = [.withInternetDateTime]
