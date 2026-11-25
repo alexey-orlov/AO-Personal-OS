@@ -1226,33 +1226,55 @@ function composeFeedback(w) {
   }
   return JSON.parse(JSON.stringify(fb));
 }
-function finishWorkout(w) {
+/** endAt: when the session really ended (the last logged action, if "Save session" came much later); default now. */
+function finishWorkout(w, endAt) {
   w.feedback = Object.assign({}, w.feedback, composeFeedback(w));
-  w.status = "done"; w.finished_at = nowISO(); saveWorkout(w, true);
+  const end = endAt && w.started_at && endAt > w.started_at ? endAt : nowISO();
+  focusSeg(w, "end", end);
+  w.status = "done"; w.finished_at = end; saveWorkout(w, true);
   lsSet("tn.cur", null); try { wake?.release(); } catch {}
+  syncTicker();
   S.view = "summary"; window.scrollTo(0, 0); render();
   syncToSheet(w);   // straight into "My training": the same tap that finishes the session
 }
 
 /* ================================================================ rendering */
-let deferred = false;
+let deferT = 0;
 function render() {
-  // never rebuild the screen under someone typing: catch up when the field loses focus
+  // never rebuild the screen under someone typing: catch up a moment after the field loses focus. The pause matters: a tap on
+  // a button blurs the field first, and rebuilding at once would swap the button out before its click lands (2026-11-25: the
+  // crossfit time's Save and "Save session" after typing a note did nothing on the phone).
   const a = document.activeElement;
   if (a && (a.tagName === "TEXTAREA" || (a.tagName === "INPUT" && a.type !== "file")) && a.closest("#app, #sheet")) {
-    if (!deferred) { deferred = true; a.addEventListener("blur", () => { deferred = false; setTimeout(render, 0); }, { once: true }); }
+    if (!a.dataset.deferred) { a.dataset.deferred = "1"; a.addEventListener("blur", () => { delete a.dataset.deferred; clearTimeout(deferT); deferT = setTimeout(render, 350); }, { once: true }); }
     return;
   }
+  clearTimeout(deferT);
   const app = document.getElementById("app");
-  const sub = document.getElementById("brandSub");
-  const sync = S.cfg.sync;
-  sub.textContent = S.ready ? (sync?.pushed_at ? `${gymCfg().name ? gymCfg().name.split("(")[0].trim() + " · " : ""}synced ${fmtDate(sync.pushed_at)}` : "Not synced yet") : (S.err ? "Offline" : "Loading…");
+  renderHeader();
   document.getElementById("histBtn").onclick = () => { S.view = S.view === "history" ? (curW()?.status === "active" ? "workout" : "home") : "history"; window.scrollTo(0, 0); render(); };
   document.getElementById("histBtn").textContent = S.view === "history" ? "Close" : "History";
   const y = window.scrollY;
   app.replaceChildren(...viewNodes().filter(Boolean));
-  renderBar(); renderRest(); renderSheet();
+  renderBar(); renderRest(); renderSheet(); renderLightbox();
+  syncTicker();
   window.scrollTo(0, y);
+}
+/** Out of a workout the header names the app and the sync; during one it is the session clock, always in sight. */
+function renderHeader() {
+  const brand = document.getElementById("brand"); const aw = S.ready ? activeW() : null;
+  if (aw) {
+    const live = liveSeg(aw); const t = segTimes(aw);
+    brand.className = "brand live"; brand.setAttribute("role", "timer");
+    brand.replaceChildren(
+      el("span", { class: "hdr-row" }, el("span", { class: "hdr-lbl", text: "Workout" }), el("span", { class: "hdr-total", "data-t": "total", text: hms(totalSec(aw)) })),
+      el("small", null, live ? [segLabel(aw, live) + " · ", el("span", { "data-t": "live", text: hms(t[live] || 0) })] : aw.log?.timeline?.length ? "All parts done: tap Finish" : ""));
+    brand.onclick = S.view === "workout" && S.cur === aw.id ? null : () => { S.cur = aw.id; S.view = "workout"; lsSet("tn.cur", aw.id); window.scrollTo(0, 0); render(); };
+    return;
+  }
+  const sync = S.cfg.sync;
+  brand.className = "brand"; brand.removeAttribute("role"); brand.onclick = null;
+  brand.replaceChildren("Trainer Notebook", el("small", { id: "brandSub", text: S.ready ? (sync?.pushed_at ? `${gymCfg().name ? gymCfg().name.split("(")[0].trim() + " · " : ""}synced ${fmtDate(sync.pushed_at)}` : "Not synced yet") : (S.err ? "Offline" : "Loading…") }));
 }
 function viewNodes() {
   if (S.err && !S.ready) return [el("div", { class: "card empty" }, el("h1", { text: "Trainer Notebook" }), el("p", { class: "muted", text: S.err }))];
