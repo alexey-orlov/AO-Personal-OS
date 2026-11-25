@@ -107,7 +107,11 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   lower-level item to the lower list or drop it. Test every pair: if one trigger or one fix covers
   both, merge them. Give the fewest items that cover the space, often the user's own examples plus one
   or two, each a name and one line, with no evidence or solution tails unless asked. My first cut held
-  ten situations, four of them team-level, and eight challenges, three of them overlapping.
+  ten situations, four of them team-level, and eight challenges, three of them overlapping. Pick the
+  items by the weight of the evidence (pains documented at the accounts), not by what the offer already
+  covers, and replace an item you flag as weak with a stronger candidate instead of keeping it: my next
+  cut kept two bottlenecks I had called weak while a support load measured at 40% of firmware time sat
+  in reserve.
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
