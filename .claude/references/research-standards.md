@@ -57,6 +57,12 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   names (a direction, an example module), quoted as written. Mark it only where it targets the item directly; leave the rest blank, and
   say in chat what has no match. Do not add units of your own, "partly" marks or paraphrased labels. My first mapping split the
   deck's directions into lab steps and closest-row partial matches, and it read as a different offer.
+- **A list of inputs (context for agents, data sources, prerequisites) carries only what the work truly needs from outside**
+  (Alex, 2026-11-24, on the R&D explainer's Agent context column: "no abundancy - only stuff that you really would supply as
+  custom context"). Test each entry against the work it serves in that step. Drop what is nice to have, what is general knowledge
+  (public standards), and what the agent can look up on its own. Mark every entry the agent cannot reach on its own, or that the team
+  may not have, as visibly weaker (lighter text), with the reason one hover away. My first cut listed 54 entries; 47 survived, 7 of
+  them lighter.
 - Don't force-fill a fixed framework. When mapping content into a given set of categories,
   a matrix, or a template, populate only cells the evidence supports and mark the rest "—".
   A fully-populated grid is a red flag (template-completion bias), not a win — separate
