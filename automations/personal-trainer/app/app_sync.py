@@ -52,6 +52,53 @@ def brief(day, today, low):
     return json.loads(r.stdout)
 
 
+def _norm(s):
+    return re.sub(r"\s+", " ", str(s or "").strip().casefold()).rstrip(".")
+
+
+def _top_reps(reps):
+    """Reps of the last (heaviest) set: '10-10-9' -> '9', '10-9' -> '9', '12' -> '12'; a range like '8-12' stays as written."""
+    s = str(reps or "").replace("–", "-").replace(" ", "")
+    parts = s.split("-")
+    if all(p.isdigit() for p in parts) and (len(parts) >= 3 or (len(parts) == 2 and int(parts[0]) >= int(parts[1]))):
+        return parts[-1]
+    return s
+
+
+def records_body(hist, cat, gym_cfg, now):
+    """config/records: per strength exercise, the last session and the heaviest top set of all time, each with the gym it was
+    in (weights in kg as the sheet keeps them; the app shows a US gym's in lb). Built from the "My training" history."""
+    row = {}
+    for e in cat["strength"]:
+        for r in e.get("sheet_rows", []):
+            row[_norm(r)] = e["id"]
+    gyms = gym_cfg.get("gyms", {})
+
+    def gym_of(d):
+        for g, c in gyms.items():
+            if (not c.get("since") or d >= c["since"]) and (not c.get("until") or d <= c["until"]):
+                return g
+        return None
+
+    items = {}
+    sessions = sorted(hist.get("sessions", []), key=lambda s: s.get("date") or "")
+    for s in sessions:
+        d = s.get("date")
+        for x in s.get("strength", []):
+            i = row.get(_norm(x.get("name")))
+            ws = [w for w in (x.get("w_start"), x.get("w_end")) if w is not None]
+            if not i or not ws or not d:
+                continue
+            top = max(ws)
+            r = items.setdefault(i, {})
+            r["last"] = {"date": d, "gym": gym_of(d), "sets": x.get("sets"), "reps": str(x.get("reps") or ""), "kg": [ws[0], ws[-1]]}
+            best = r.get("best")
+            if not best or top > best["kg"] + 0.05:
+                r["best"] = {"date": d, "gym": gym_of(d), "kg": top, "reps": _top_reps(x.get("reps"))}
+    return {"as_of": sessions[-1]["date"] if sessions else None, "computed_at": now,
+            "history_synced_at": hist.get("synced_at"), "items": items}
+
+
 def cmd_export(a):
     now = datetime.now().isoformat(timespec="seconds")
     out = os.path.abspath(a.dir)
@@ -65,6 +112,8 @@ def cmd_export(a):
         ("config", "sheet"): {"spreadsheet_id": sheet_id.group(1) if sheet_id else None, "tab": tab.group(1) if tab else "Sheet1"},
         ("config", "catalog"): load(os.path.join(ENGINE_D, "catalog.json")),
         ("config", "gym"): load(os.path.join(ENGINE_D, "gym.json")),
+        # last result and all-time record on every exercise card
+        ("config", "records"): records_body(hist, load(os.path.join(ENGINE_D, "catalog.json")), load(os.path.join(ENGINE_D, "gym.json")), now),
         ("config", "skill"): {
             "methodology_md": open(os.path.join(SKILL_REF, "methodology.md"), encoding="utf-8").read(),
             "feedback_md": open(os.path.join(SKILL_REF, "feedback.md"), encoding="utf-8").read(),
