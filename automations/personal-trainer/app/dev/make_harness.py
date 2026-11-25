@@ -36,7 +36,10 @@ mock = r"""
 /* --- test harness only: shift "today" to the brief's date, 16:00 UTC --- */
 (() => {
   const [Y, M, D0] = "__TODAY__".split("-").map(Number);
-  const Real = Date; const OFF = Date.UTC(Y, M - 1, D0, 16, 0, 0) - Real.now();
+  // the clock keeps running across reloads of this tab (add ?fresh to the URL to start over), like the stored data below
+  if (location.search.includes("fresh")) { try { sessionStorage.clear(); localStorage.clear(); } catch {} }
+  const t0 = Number(sessionStorage.getItem("__harness_t0")) || Date.now(); sessionStorage.setItem("__harness_t0", String(t0));
+  const Real = Date; const OFF = Date.UTC(Y, M - 1, D0, 16, 0, 0) - t0;
   class D extends Real { constructor(...a) { if (a.length) super(...a); else super(Real.now() + OFF); } static now() { return Real.now() + OFF; } }
   window.Date = D;
 })();
@@ -51,7 +54,10 @@ mock = r"""
 /* --- in-memory db with the page's API surface (collection().onSnapshot, doc().set/get/update) --- */
 (() => {
   const SEED = __SEED__;
-  const store = new Map(Object.entries(SEED));
+  // the stand-in db survives a reload of this tab, as the real one does: that is how a half-done session comes back
+  let kept = null; try { kept = JSON.parse(sessionStorage.getItem("__harness_store") || "null"); } catch {}
+  const store = new Map(Object.entries(kept || SEED));
+  const persist = () => { try { sessionStorage.setItem("__harness_store", JSON.stringify(Object.fromEntries(store))); } catch {} };
   const subs = new Map();   // collection -> [fn]
   const snapOf = coll => { const docs = [...store.entries()].filter(([k]) => k.split("/")[0] === coll && k.split("/").length === 2)
       .map(([k, v]) => ({ id: k.split("/")[1], exists: true, data: () => JSON.parse(JSON.stringify(v)), metadata: { fromCache: false, hasPendingWrites: false } }));
@@ -60,8 +66,8 @@ mock = r"""
   const db = {
     collection: coll => ({ onSnapshot(next) { (subs.get(coll) || subs.set(coll, []).get(coll)).push(next); setTimeout(() => next(snapOf(coll)), 20); return () => {}; } }),
     doc: path => ({
-      async set(data) { if (window.__dbDown) throw { code: "unavailable", message: "test: store down" }; window.__writes.push({ path, data: JSON.parse(JSON.stringify(data)) }); store.set(path, JSON.parse(JSON.stringify(data))); notify(path.split("/")[0]); },
-      async update(data) { store.set(path, Object.assign({}, store.get(path), data)); notify(path.split("/")[0]); },
+      async set(data) { if (window.__dbDown) throw { code: "unavailable", message: "test: store down" }; window.__writes.push({ path, data: JSON.parse(JSON.stringify(data)) }); store.set(path, JSON.parse(JSON.stringify(data))); persist(); notify(path.split("/")[0]); },
+      async update(data) { store.set(path, Object.assign({}, store.get(path), data)); persist(); notify(path.split("/")[0]); },
       async get() { const v = store.get(path); return { id: path.split("/")[1], exists: !!v, data: () => v && JSON.parse(JSON.stringify(v)) }; },
     }),
   };
