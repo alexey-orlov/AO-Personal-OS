@@ -5,7 +5,8 @@
 //    {"op":"update","ss_id":"<calendarItemIdentifier>","key":"...","start":"...","end":"...","title":"...","marker":"..."},
 //    {"op":"delete","ss_id":"<calendarItemIdentifier>"}]
 // Output (stdout): JSON array — [{"op","key","ok","ss_id","error"}]; ss_id is the placeholder's stable id.
-// Writes into the writable Exchange calendar titled $CALSYNC_SS_WRITE_CAL (default "Calendar").
+// Writes only into $CALSYNC_SS_WRITE_CAL of the Exchange account $CALSYNC_SS_SOURCE, and changes only
+// events there that carry the [[gcal-busy:...]] marker (see the calendar lookup below).
 import EventKit
 import Foundation
 
@@ -24,13 +25,24 @@ if !granted {
     exit(2)
 }
 
-// Locate the SS Exchange calendar to write into (the main "Calendar", not Birthdays/holidays).
-let wantTitle = ProcessInfo.processInfo.environment["CALSYNC_SS_WRITE_CAL"] ?? "Calendar"
-let exCals = store.calendars(for: .event).filter { $0.source.sourceType == .exchange && $0.allowsContentModifications }
-guard let ssCal = exCals.first(where: { $0.title == wantTitle })
-        ?? exCals.first(where: { $0.title != "Birthdays" && !$0.title.lowercased().contains("holiday") }) else {
-    FileHandle.standardError.write("NO_WRITABLE_EXCHANGE_CALENDAR\n".data(using: .utf8)!)
+// The one calendar it writes into: $CALSYNC_SS_WRITE_CAL (default "Calendar") of the Exchange account
+// titled $CALSYNC_SS_SOURCE (default "Exchange"), names as `ss-cal-read --list` prints them. No
+// fallback to another calendar or account: GigaCloud's Exchange account is in Apple Calendar too.
+let env = ProcessInfo.processInfo.environment
+let wantSource = (env["CALSYNC_SS_SOURCE"] ?? "Exchange").lowercased()
+let wantTitle = (env["CALSYNC_SS_WRITE_CAL"] ?? "Calendar").lowercased()
+let marker = "[[" + (env["CALSYNC_REVERSE_MARKER"] ?? "gcal-busy") + ":"
+let ssCals = store.calendars(for: .event).filter {
+    $0.source.sourceType == .exchange && $0.source.title.lowercased() == wantSource
+        && $0.title.lowercased() == wantTitle && $0.allowsContentModifications }
+guard ssCals.count == 1, let ssCal = ssCals.first else {
+    FileHandle.standardError.write((ssCals.isEmpty ? "NO_WRITABLE_SS_CALENDAR\n"
+        : "AMBIGUOUS_SS_CALENDAR: \(ssCals.count) accounts titled \(wantSource) have \(wantTitle)\n").data(using: .utf8)!)
     exit(3)
+}
+// Only our own placeholders are ever changed: in the SoftServe calendar and carrying the marker.
+func isOurs(_ ev: EKEvent) -> Bool {
+    ev.calendar?.calendarIdentifier == ssCal.calendarIdentifier && (ev.notes ?? "").contains(marker)
 }
 
 func esc(_ s: String) -> String {
@@ -59,7 +71,7 @@ for c in cmds {
     switch op {
     case "create", "update":
         let ev: EKEvent
-        if op == "update", !ssid.isEmpty, let existing = eventById(ssid) { ev = existing }
+        if op == "update", !ssid.isEmpty, let existing = eventById(ssid), isOurs(existing) { ev = existing }
         else { ev = EKEvent(eventStore: store); ev.calendar = ssCal }   // upsert: recreate if the update target vanished
         if let s = parseDate((c["start"] as? String) ?? ""), let e = parseDate((c["end"] as? String) ?? "") {
             ev.title = (c["title"] as? String) ?? "Busy"
@@ -72,7 +84,8 @@ for c in cmds {
     case "delete":
         if ssid.isEmpty { ok = true }
         else if let ev = eventById(ssid) {
-            do { try store.remove(ev, span: .thisEvent, commit: true); ok = true } catch { err = "\(error)" }
+            if !isOurs(ev) { err = "refused: not a Busy placeholder in the SoftServe calendar" }
+            else { do { try store.remove(ev, span: .thisEvent, commit: true); ok = true } catch { err = "\(error)" } }
         } else { ok = true }                                  // already gone
     default: err = "unknown op"
     }
