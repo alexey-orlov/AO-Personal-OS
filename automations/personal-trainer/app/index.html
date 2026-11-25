@@ -1139,13 +1139,50 @@ function applyTime(w, min) {
   w.changes.push({ at: nowISO(), kind: "time", summary: `${min} min left: ${changed.join("; ") || "plan already fits"}`, ids: [] });
   return changed;
 }
-function restoreOriginal(w, id) {
-  const i = w.plan.strength.findIndex(x => x.id === id); const o = w.plan.strength[i]?.swapped_from; if (!o) return null;
-  w.plan.strength[i] = clone(o.item); markSupersets(w.plan.strength);
-  if (!w.log.strength[id]?.sets?.some(s => s.done)) delete w.log.strength[id];
-  delete w.plan.overrides[id]; if (w.machine_missing) delete w.machine_missing[o.id];
-  w.changes.push({ at: nowISO(), kind: "swap", summary: `${enName(id)} → back to ${enName(o.id)}`, ids: [id, o.id] });
-  return `Back to ${enName(o.id)}`;
+/* ---------------- swaps: one fixed ring per slot
+   A slot is the exercise the plan put there. Its ring is that planned exercise first, then its alternatives in one fixed
+   order, best first; picking from the ring never reorders it, so swapping on and on always comes round to the planned one
+   (Alex, 2026-11-25; on 11/23 the swaps ping-ponged Smith Shoulder Press ↔ Cable Lateral Raise with no way back). */
+const RING_ALTS = 5;
+function swapRing(w, i) {
+  const it = w.plan.strength[i]; if (!it) return [];
+  const origin = it.swapped_from || { id: it.id, item: it };
+  const others = new Set(w.plan.strength.filter((_, j) => j !== i).map(x => x.id));
+  const ctx = ctxForWorkout(w);
+  let alts = ctx ? swapCandidates(ctx, origin.id, new Set(w.checkin.pain || []), others, true).filter(c => c.id !== origin.id).slice(0, RING_ALTS) : [];
+  // the exercise on the slot now always stays in its ring, even if it no longer ranks
+  if (it.id !== origin.id && !alts.some(c => c.id === it.id)) alts = [...alts.slice(0, RING_ALTS - 1), Object.assign({}, it)];
+  return [Object.assign({}, origin.item || {}, { id: origin.id, planned: true }), ...alts];
+}
+/** Put ring entry `toId` on slot i. Logged sets of the exercise it replaces stay in the log. */
+function swapTo(w, i, toId, why) {
+  const it = w.plan.strength[i]; if (!it || it.id === toId) return null;
+  const origin = it.swapped_from || { id: it.id, item: it };
+  const r = swapRing(w, i).find(c => c.id === toId); if (!r) return null;
+  const ni = r.planned ? clone(origin.item) : toPlanItem(r);
+  if (r.planned) delete ni.swapped_from; else ni.swapped_from = origin;
+  w.plan.strength[i] = ni; markSupersets(w.plan.strength);
+  if (!w.log.strength[it.id]?.sets?.some(s => s.done)) delete w.log.strength[it.id];
+  delete w.plan.overrides[it.id];
+  if (r.planned) {   // back on the planned machine: a "this gym doesn't have it" said about it today is taken back
+    if (w.gym_reports) w.gym_reports = w.gym_reports.filter(g => g.missing !== origin.id);
+    if (w.machine_missing) delete w.machine_missing[origin.id];
+  } else w.plan.overrides[ni.id] = `instead of ${enName(origin.id)}: ${why || "swapped"}`;
+  w.changes.push({ at: nowISO(), kind: "swap", summary: `${enName(it.id)} → ${r.planned ? "back to " : ""}${enName(toId)}`, ids: [it.id, toId] });
+  return r.planned ? `Back to ${enName(toId)}` : `${enName(it.id)} → ${enName(toId)}`;
+}
+/** "This gym doesn't have it": the trainer learns it at the sync, and the slot moves on to the next ring entry. */
+function markMissing(w, i) {
+  const it = w.plan.strength[i]; if (!it) return null;
+  addGymReport(w, { missing: it.id });
+  const ring = swapRing(w, i); const k = Math.max(0, ring.findIndex(c => c.id === it.id));
+  const rep = gymReports().machines;
+  const next = [...ring.slice(k + 1), ...ring.slice(0, k)].find(c => c.id !== it.id && rep[c.id] !== "missing");
+  w.machine_missing[it.id] = { kind: "missing", replaced_by: next?.id || null, machine: exS(it.id)?.en || it.id };
+  if (!next) { w.changes.push({ at: nowISO(), kind: "missing", summary: `no ${enName(it.id)} in this gym, no swap left`, ids: [it.id] }); return `Noted: no ${enName(it.id)} here. Nothing to swap in: skip it or do it later.`; }
+  const msg = swapTo(w, i, next.id, "this gym doesn't have it");
+  w.machine_missing[it.id].replaced_by = next.id;
+  return msg;
 }
 /** What Alex tells the app about this gym, for the next sync (trainer.py gym --have / --missing / --equip): one entry per machine or kit. */
 function addGymReport(w, r) {
@@ -1168,26 +1205,12 @@ function fallbackItem(w, it) {
   const kg = pe?.kg ?? c.load_kg; if (kg != null) { ni.kg = c.max_kg != null ? Math.min(kg, c.max_kg) : kg; ni.lb = crossLoad(c, ni.kg); }
   return ni;
 }
-function swapExercise(w, id, kind, chosenId) {
-  const ctx = ctxForWorkout(w); const used = new Set(w.plan.strength.map(i => i.id)); const P = new Set(w.checkin.pain || []);
-  if (kind === "busy-later") {
-    const i = w.plan.strength.findIndex(x => x.id === id); const [it] = w.plan.strength.splice(i, 1); w.plan.strength.push(it); markSupersets(w.plan.strength);
-    w.changes.push({ at: nowISO(), kind: "busy", summary: `${enName(id)} moved to the end (machine busy)`, ids: [id] }); return `${enName(id)} moved to the end`;
-  }
-  const cands = swapCandidates(ctx, id, P, used, kind === "busy" || kind === "missing");
-  const r = chosenId ? cands.find(c => c.id === chosenId) : cands[0];
-  if (!r) return null;
-  const i = w.plan.strength.findIndex(x => x.id === id);
-  const old = w.plan.strength[i]; const origin = old.swapped_from || { id: old.id, item: old };
-  const ni = toPlanItem(r); if (origin.id !== r.id) ni.swapped_from = origin; // "Back to <original>" stays one tap away
-  w.plan.strength[i] = ni; markSupersets(w.plan.strength);
-  if (!w.log.strength[id]?.sets?.some(s => s.done)) delete w.log.strength[id]; // logged sets are progress: never dropped
-  delete w.plan.overrides[id];
-  w.plan.overrides[r.id] = `instead of ${enName(origin.id)}: ${kind === "missing" ? "the gym doesn't have it" : kind === "busy" ? "machine busy" : "swap"}`;
-  if (kind === "missing" || kind === "busy") w.machine_missing[id] = { kind, replaced_by: r.id, machine: exS(id)?.en || id };
-  if (kind === "missing") addGymReport(w, { missing: id });
-  w.changes.push({ at: nowISO(), kind: kind === "swap" ? "swap" : kind, summary: `${enName(id)} → ${enName(r.id)}`, ids: [id, r.id] });
-  return `${enName(id)} → ${enName(r.id)}`;
+/** Machine busy: the exercise goes to the end of the strength part, sets and all. */
+function moveLater(w, id) {
+  const i = w.plan.strength.findIndex(x => x.id === id); if (i < 0) return null;
+  const [it] = w.plan.strength.splice(i, 1); w.plan.strength.push(it); markSupersets(w.plan.strength);
+  const T = w.log.timeline || []; if (T[T.length - 1]?.k === segOf(w, it)) focusSeg(w, nextSeg(w));
+  w.changes.push({ at: nowISO(), kind: "busy", summary: `${enName(id)} moved to the end (machine busy)`, ids: [id] }); return `${enName(id)} moved to the end`;
 }
 
 /* ================================================================ finishing */
