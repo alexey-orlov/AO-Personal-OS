@@ -1,7 +1,7 @@
 # Walnut Creek rental search
 
-_status: active — 44 listings in the "WC appartment" tab, staged in its Stage column (2026-11-09): 4 To schedule, 3 Planned, 5 Visited, 32 not yet; the rental map colours them pink · blue · yellow (grey = Dismissed)_
-_updated: 2026-11-09_
+_status: likely done (inferred) — on a 2026-11-25 SoftServe call Alex said the household is a few days into permanent housing in Walnut Creek ([call](../softserve/calls/2026-11-25_091841_default_20261125063320BAC4658D.md)); which listing isn't recorded. The sheet as last read (2026-11-09): 44 listings in the "WC appartment" tab, staged in its Stage column: 4 To schedule, 3 Planned, 5 Visited, 32 not yet; the rental map colours them pink · blue · yellow (grey = Dismissed)_
+_updated: 2026-11-25_
 _source files: Google Sheet "Relocation planning", tab "WC appartment" (the shortlist) — registry entry in [external-sources](../../_meta/external-sources.md)_
 
 Part of [relocation](README.md): finding the household's first US rental in Walnut Creek (ZIPs 94595–94598).
@@ -29,6 +29,7 @@ Part of [relocation](README.md): finding the household's first US rental in Waln
 
 ## Open loops
 
+- **Gap** — which listing the family moved into (Alex, 2026-11-25 call: a few days into permanent housing in Walnut Creek); the loops below may be moot.
 - **Anya** — call Villas at San Miguel (price on request) and 1365 Mount Pisgah Rd (Next step "Ане позвонить", chat 2026-11-08).
 - **Mine** — fill in the form with the green card for 538 Churchill Downs Ct; call back castlewood apartments (Next step in the sheet, chat 2026-11-09).
 - **Mine** — on the first open of the [rental map](docs/walnut-creek-map/README.md), choose Continue on the Google Drive prompt so it reads the sheet live; the map's shared copy of the rows (what a phone without the connector shows) updates only from those live loads (chat, 2026-11-07; 2026-11-08).
@@ -37,6 +38,7 @@ Part of [relocation](README.md): finding the household's first US rental in Waln
 
 ## Activity
 
+- 2026-11-25 — [SoftServe call, small talk](../softserve/calls/2026-11-25_091841_default_20261125063320BAC4658D.md) — Alex: a few days into permanent housing in Walnut Creek; which listing isn't recorded.
 - 2026-11-09 — [Visit column + card editor](docs/walnut-creek-map/README.md) — viewing date/time per listing (filled from the tour times and notes); the card edits Stage, Star, Visit, Next step and notes (chat, 2026-11-09).
 - 2026-11-09 — [Stage and Next step columns](docs/walnut-creek-map/README.md) — the sheet now holds each listing's stage in one dropdown (rows colour themselves); the map reads it, the call notes and the green-card form moved into Next step, and the map's Planned ticks were folded in (chat, 2026-11-09).
 - 2026-11-08 — [rental map update](docs/walnut-creek-map/README.md) — 2/3-bed filter, Planned visit / Like / Dislike on each listing, all 44 rows shown; a second Mt. Diablo USD listing (Stoneridge) surfaced (chat, 2026-11-08).
