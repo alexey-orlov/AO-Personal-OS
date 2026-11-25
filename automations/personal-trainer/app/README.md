@@ -217,7 +217,8 @@ Rules the app keeps, so the engine can trust the data:
    `github.com/everkinetic/data`, CC BY-SA 4.0: `exercises.json` maps a name
    to `id_num`, the pair is `dist/svg/<id_num>-relaxation.svg` / `-tension.svg`;
    a `--filter=blob:none` clone plus `git checkout HEAD -- <paths>` fetches
-   only those). Wikimedia Commons as a fallback: its API answers 429 to cloud
+   only those; `dev/contact_sheet.py` shows candidate pairs side by side).
+   Wikimedia Commons as a fallback: its API answers 429 to cloud
    IPs, while file pages (licence, author) and `upload.wikimedia.org` work at
    a few requests a minute. Look at every picture before attaching it, and
    never attach one that shows a variant the catalog bans (barbell hack squat,
