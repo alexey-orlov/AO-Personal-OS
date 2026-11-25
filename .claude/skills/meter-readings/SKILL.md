@@ -19,7 +19,8 @@ history and statements are a separate skill: `facilities-bills`.
   whose mapping is certain. A meter whose `room` is `null` in `meters.json` is never sent: ask Alex.
 - **New must not be lower than previous.** Read the previous value on the submission page itself
   (Водоканал: «Початковий»; Київтеплоенерго: the highest of «Попередні показання», the field's
-  prefilled value and the meter history's newest line; Yasno: «Попередні»; Київгаз: «Попередні
+  prefilled value and the meter history's newest line; Yasno: «Попередні», which can be ОСР's own
+  figure for the 1st; Київгаз: «Попередні
   показання», which can be Київгаз's own estimate, together with the last real reading in the
   history). If a new value is lower, do not send that meter; show Alex the numbers and let him
   resolve it.
@@ -56,11 +57,15 @@ history and statements are a separate skill: `facilities-bills`.
      «Попередні показання» and its field's value, then the newest line of each meter's «Історія
      лічильника».
    - Yasno: open `/my/personal-accounts?accountId=<id>`, click «Передати показання» and read
-     «Попередні».
+     «Попередні». Open «Усі показання» too (`/my/metering?accountId=<id>`, toggle «Усі»): the
+     reading sent last time must still be listed «Від клієнта». If ОСР's figure replaced it, tell Alex.
    - Київгаз: open `https://cabinet.kyivgaz.ua/indicator` and check the account in the top-left
      corner. Read the history: the newest value and the last one whose origin is not «Розрахунок».
 4. **Validate and show the table.** Show Alex one row per meter: previous, new and consumption.
-   - A new value below the previous one stops that meter: ask Alex.
+   - A new value below the previous one stops that meter: ask Alex. Show where the gap came from
+     (the last real reading and the provider's estimates since) and offer a zero-difference reading,
+     equal to the previous value, as the first option: Alex chose it for water on 2026-11-23 and for
+     water and electricity on 2026-11-24. It stays his call every month.
    - A consumption that looks implausible (several times the usual monthly amount) also gets asked
      about first.
    - If Alex's message already said to submit and every check passes, go on. Otherwise ask once.
@@ -89,6 +94,7 @@ history and statements are a separate skill: `facilities-bills`.
      Alex. Accepted, the history gets a new line with today's date and «Особ. кабінет».
    - **Yasno.** Type the value into «Показання» and check that «Спожито» is the expected
      difference. Then press «Зберегти» once and wait: the button spins for a few seconds. The page
-     must say «Показання успішно збережені».
+     must say «Показання успішно збережені», and «Усі показання» must list the value as «Від
+     клієнта» with today's date.
 6. **Report** each meter: previous → new (consumption) and the provider's confirmation, plus
    anything not sent and why. Close your tabs.
