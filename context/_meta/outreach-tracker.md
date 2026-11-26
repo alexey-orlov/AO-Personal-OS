@@ -37,4 +37,4 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 
 Wiki changes made by a run that could not write the tracker. The next run with `ArtifactData` pushes them and clears the line.
 
--
+- maximo-robotics — status stays yes; next step: the dev-team interview ran 2026-11-26 ([note](../areas/softserve/calls/2026-11-26_070440_default_20261126060822873B7770.md)); now DM follow-ups with the engineers, get Richard's and Diego's names (Maximo's product owners, add as contacts), then the tailored offer on the raised challenges (documentation, versioning and deployment, sim-to-real, remote observability). Set `updated_at`. (headless fold, 2026-11-26)
