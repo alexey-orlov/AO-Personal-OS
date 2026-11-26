@@ -176,6 +176,11 @@ counts and the scaffolding, not the essence" and used internal vocabulary
 - **Label content by what it is, never by whose job we guess it is** (2026-11-25, Alex: "don't put titles like 'The Head of
   Firmware's challenge', it's just their company/team challenge"). A customer-facing panel is "Challenge", "Solution",
   "Outcome"; a guessed owner or buyer reads as us sizing up their org chart.
+- **A read of the customer shows the reasoning, never the intelligence trail** (2026-11-26, Alex on the ALSO read slide:
+  "remove hiring signals at all - not worth showing the customer explicitly that we base our assumptions based on their job
+  postings"). Say what we see (their products, platform, launches: facts they would agree with) and what it likely means for
+  them; where the read comes from (job ads, LinkedIn, people's profiles, their internal documents) goes in the notes and the
+  provenance file, never on the page.
 - **Headings are display lines, not sentences** (2026-09-16, Alex on the Services H1 *"From
   Oracle's platforms to agents in production."*: "too long of a heading"). Uppercase display
   type multiplies length, so budget from the rendered size before writing: an H1 is two to

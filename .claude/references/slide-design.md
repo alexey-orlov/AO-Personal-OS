@@ -425,7 +425,13 @@ deck or one-pager work.
     do a poor job keeping the structure clear").
     - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
       peer it details ("PROGRAM FOCUS", "MANUAL TESTS SLOW RELEASES", "FIRMWARE"). The build checks one line and the word count.
-    - What the slide says goes in one sentence-case line under the title, after the strip that shows where the slide sits.
+    - What the slide says goes in one sentence-case line under the title, after the strip that shows where the slide sits. On a
+      detail slide that line says what the slide means for this reader, never a definition the reader already knows: on a
+      workflow slide, what agents do best there (bold), then where we'd start for this customer and why, in short sentences
+      (Alex, 2026-11-26: "would answer what AI agents are the best here at + what / why we may choose as focus").
+    - One-liners set side by side (a row's tagline, a card's line) answer one question, the one the slide is about: on the
+      overview of where agents help, each says what agents do in that workflow (Alex, 2026-11-26: "make sure one-liners
+      cristalize what agents do, because now it answers different things").
     - Retitle reused slides the same way, so every heading in the deck has one look.
 46. **A multi-column slide shows where each column, group and row ends** (2026-11-25, Alex on the module slides: "hard to navigate
     (unclear where one line/column ends and overall structure)"; on slide 4: "a bit off compared to slide 2 and 3"; on the case
@@ -475,11 +481,15 @@ deck or one-pager work.
     - The evidence on the photo half proves the claim in its direction: a number that points the other way goes, however
       impressive (89% assistant use on "AI stops where the board starts"; Alex, 2026-11-25: "the number is high, but the goal was to
       say that for embedded/hardware it's low").
-    - The reader draws the conclusion from the numbers at a glance: two numbers in one unit, about one population, from one
-      source where possible, each captioned in plain words with exactly what was measured. Never a compound measure (a percent of
-      a percent, a threshold on a financial ratio: "6% of companies credit AI with 5%+ of their EBIT") and never two populations
-      side by side (Alex, 2026-11-26: "hard to process and make a conclusion from just by looking"). Ranges too wide to sit side by
-      side at display size stack, each caption under its number.
+    - The reader draws the conclusion from the numbers at a glance: a stark contrast (most against few), both numbers from one
+      survey and a gap the source itself draws, each captioned in the source's own plain words with exactly who was measured
+      ("80% of people say AI made them more productive", "20% of companies are scaling coding agents"). Take the latest edition:
+      figures on AI agents move within a year (developer agent use went from about 14% daily to most developers weekly between
+      2025 and 2026). Never a compound measure (a threshold on a financial ratio: "6% of companies credit AI with 5%+ of their
+      EBIT") and never numbers from two surveys set as one funnel. When a reader finds a number hard, fix that number's caption or
+      swap in a plainer figure from the same source, and keep the contrast that made it work (Alex, 2026-11-26: "hard to process"
+      in the morning; replacing the pair with two ranges lost the contrast, and in the afternoon "I liked 80% - 20%, the contrast
+      was significant ... make sure 20% is simplified"). Ranges too wide to sit side by side at display size stack.
     - A claim about why is shown as its reasons, not as a number. When the slide narrows the deck's claim to one kind of team, the
       reasons are a contrast with the general case (software beside embedded, the narrowed side bright), so the narrowing shows
       without reading (Alex, 2026-11-26: "make sure that slide 3 emphasises (visually) that it is specifics of embedded teams").
@@ -574,13 +584,19 @@ deck or one-pager work.
     - Name every team the buyer leads before the detail starts (on the cover, in the problems), and mark what each problem,
       starting point, example and case is for with one marker set (the workflows' pictograms, lit where it applies, pale where it
       does not). A team that finds itself nowhere stops reading; the program slides are where it does.
+    - A team is marked as hit by the pain's mechanism in that team's own work, never by the quote's wording or the team the
+      deck was first written for: legacy code few understand is core wherever long-lived code lives, apps and cloud included
+      (Alex, 2026-11-26: "this is also a fit for software for sure"). When one mark is corrected, re-check every row by that test.
     - Keep what is distinctive and say it as the extra a team faces, never as the only problem (embedded teams have "three more
       reasons" to stop at level 2, software muted beside embedded); the evidence a team would claim as its own says so (Daxko and
       Payworks marked as software teams).
     - Shared slides never assume one team's tools or place of work: labs run "where your code runs", agent work is verified "in CI
       and on boards", the program's core is "for product teams", and How to start shows the pilot team is picked together.
     - The customer read is organized by the buyer's teams, in the customer's own public names, coded to the deck's workflows, one
-      possible starting point per kind of team where the signals allow.
+      possible starting point per kind of team where the facts allow. Each card shows the read's logic, labelled: WE SEE (a public
+      fact in that team's area) → SO, LIKELY (the struggle it implies) → the challenge it points at (Alex, 2026-11-26: "We know X,
+      so, presumably you struggle with Y + this is labeled as our challenge"); never where the read comes from
+      (`client-documents.md`, the intelligence trail).
     - One rule decides which teams a starting point is for, on every slide that shows it: the teams whose work the pilot changes
       (its modules). The read slide, the starting-point and example slides and the washes on the workflow slides then cannot
       disagree (2026-11-26: a designer found the same starting point lit for different teams on four slides). Mark the two meanings
