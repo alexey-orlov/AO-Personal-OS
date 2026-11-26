@@ -165,7 +165,11 @@ deck or one-pager work.
     scale: labels under a chart 18 pt (name) / 17 pt (bucket), table body 17 pt with 15 pt headers, insight statements 16 pt, panel
     heading 18 pt; only provenance and support lines go down to 13.5–14 pt. When a larger label runs into its neighbour, break it into
     two lines («бакет» / name) rather than shrinking it back, and drop a column that is constant or off the message (billing cycles)
-    to buy the width.
+    to buy the width. The build enforces the floor on the saved file: every ink (body) run ≥ 17 pt, every other run ≥ 13.5 pt. Kept by
+    eye, the rule failed: the committee deck's PLM and innovation slides went out at 15.5–16.5 pt to fit (Alex, 2026-11-25: «замалий
+    шрифт»). Line counts come from real glyph widths, never character counts, which ran up to 22 % wide on bold Cyrillic and left
+    rows with room for two lines that rendered in one. Where the deck's font is not installed, use Arial's advances scaled by a factor
+    measured on a PowerPoint render (e-Ukraine: bold 1.16, light 1.20).
 24. **A process or explainer deck says what each step is for and what really happens, in business terms — the system's own wording is
     input, never output** (2026-10-11, Alex on the GigaCloud publication-process deck: the step essences were "copied from the CRM card").
     - Each step states its purpose, the real activity (who meets, who documents, who tests what) and the result as a business state, not the
@@ -316,7 +320,12 @@ deck or one-pager work.
     - Give each kind its own colour (done = green, next = blue) and its own structure:
       - a done slide keeps the problem → solution → value anatomy and carries a green «Зроблено» pill;
       - a roadmap slide opens with a full-width band in the "next" colour and lists the next items in that colour.
-    - A roadmap slide carries no recap of what is done.
+    - A roadmap slide carries no recap of what is done, and a done slide carries no copy of the plan the roadmap slides show. In a
+      table of done items each one gets its name and one line on what was done and why; a bare name tells the reader nothing
+      (2026-11-25, Alex on the committee deck's Q2 → Q3 goal matrix: «залишити лише сфокусованим на Q2 — колонка назви і
+      one-liner що і для чого зроблено»).
+    - A table of a project's next steps opens with the done stage it builds on, as row 0 marked «Зроблено», so the reader sees
+      the baseline before the plan (2026-11-25, Alex on the margin owners slide).
     - Items that serve different sub-directions of one goal are grouped under the named sub-direction (the "why"),
       never left as one flat list that hides the logic (2026-11-10, Alex: «пункти 1 і 3 — диверсифікація від Broadcom,
       пункт 2 — від продажу VM на користь K8s»).
@@ -371,6 +380,10 @@ deck or one-pager work.
       write; people review"); the build counts it. A band that repeats the slide's lead or cards goes, and tool and stack names
       (STM32, OpenOCD, GDB) go to the notes unless the buyer asked (2026-11-25, Alex on the ALSO deck: "all the oneliners in this
       kind of cards are too long … requirement for them to be clear still stands").
+    - A status cell in a roadmap table says where the item is now, in a few words: the step in progress, in the present tense
+      («Погоджуємо з безпекою і делівері»), or the last milestone when nothing is in progress, with its date when one is due. The
+      % bar shows how far; what is done and what comes next go to the speaker notes (2026-11-25, Alex on the Q3 roadmap: «подумай,
+      як скоротити статус, залишивши його зрозумілим»).
 42. **A seller one-pager opens with who the offer is for, then the challenges that follow from it** (2026-11-13, Alex on the Jumpstart
     seller one-pagers: the account manager may not know the account even has an R&D unit, so the page must link the company to the work).
     - The first section starts with a who-it's-for frame: the kind of company, what its team does, and therefore what that work depends
