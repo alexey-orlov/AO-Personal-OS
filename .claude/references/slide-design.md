@@ -581,3 +581,8 @@ deck or one-pager work.
       and on boards", the program's core is "for product teams", and How to start shows the pilot team is picked together.
     - The customer read is organized by the buyer's teams, in the customer's own public names, coded to the deck's workflows, one
       possible starting point per kind of team where the signals allow.
+    - One rule decides which teams a starting point is for, on every slide that shows it: the teams whose work the pilot changes
+      (its modules). The read slide, the starting-point and example slides and the washes on the workflow slides then cannot
+      disagree (2026-11-26: a designer found the same starting point lit for different teams on four slides). Mark the two meanings
+      apart: "teams hit" for a problem, "pilot teams" for a starting point. The team that owns the rigs and test suites is a team
+      too: give it its card and name it in the pilot.
