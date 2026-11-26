@@ -205,6 +205,8 @@ textarea { min-height: 80px; resize: vertical }
 .ring .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
 .ring .row1 { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap }
 .thumb { width: 46px; height: 46px; border-radius: 8px; object-fit: contain; background: var(--paper); border: 1px solid var(--line); flex: none }
+.thumb.fig-t { background: var(--fig-bg); border-color: transparent; overflow: hidden; display: block }
+.wu-dose { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px }
 .thumb.none { display: grid; place-items: center; background: var(--sunk); color: var(--ink-3) }
 .thumb.none svg { width: 22px; height: 22px }
 .tag { font: 600 11px/1 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent) }
@@ -1431,7 +1433,7 @@ function workoutView(w) {
     const dose = it.secs ? `${n} × ${it.secs}″` : `${n} × ${it.reps}`;
     return el("div", { class: "wu" },
       el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "ru", text: ruName(it.id) }),
-        el("div", { class: "small muted" }, dose + (it.kg ? ` · ${isLb() ? kgToLb5(it.kg) + " lb" : it.kg + " kg"} (${isLb() ? it.kg + " kg" : kgToLb5(it.kg) + " lb"})` : ""), " ", howBtn(it.id))),
+        el("div", { class: "small muted wu-dose" }, el("span", { text: dose + (it.kg ? ` · ${isLb() ? kgToLb5(it.kg) + " lb" : it.kg + " kg"} (${isLb() ? it.kg + " kg" : kgToLb5(it.kg) + " lb"})` : "") }), howBtn(it.id, true))),
       el("div", { class: "dots" }, it.secs && done < n && w.status !== "done" ? holdBtn(w, it) : null, ...Array.from({ length: n }, (_, i) => el("button", { class: "tick", type: "button", "aria-pressed": String(done > i), "aria-label": `Set ${i + 1} done`,
         on: { click: () => { if (w.status === "planned") startSession(w); w.log.warmup[it.id] = { sets_done: done > i ? i : i + 1 }; warmupTick(w); saveWorkout(w); render(); } } }, done > i ? "✓" : String(i + 1)))));
   })));
@@ -1481,10 +1483,13 @@ function startHold(w, it) {
 /** A warm-up set ticked: the warm-up has the floor until its last set, then the first exercise not done takes it. */
 function warmupDone(w) { return (w.plan.warmup || []).every(it => (w.log.warmup[it.id]?.sets_done || 0) >= (it.sets || 2)); }
 function warmupTick(w) { touch(w); focusSeg(w, "warmup"); if (warmupDone(w)) focusSeg(w, nextSeg(w)); }
-function howBtn(id) {
-  const pic = thumbFor(id);
-  return el("button", { class: "how" + (pic ? " pic" : ""), type: "button", on: { click: e => { e.stopPropagation(); openSheet({ kind: "media", id }); } }, "aria-label": `How to do ${enName(id)}` },
-    pic ? el("img", { src: picSrc(pic), alt: "", loading: "lazy" }) : el("span", { html: ICON.play }), "How to");
+/** How to do it: the start and end frames, small (sm: the warm-up and crossfit rows); a tap opens them large with the cues */
+function howBtn(id, sm) {
+  const pair = FIG.pair(id, figSpecs(), figMus(id));
+  const open = { click: e => { e.stopPropagation(); openSheet({ kind: "media", id }); } };
+  if (pair) return el("button", { class: "how figs-btn" + (sm ? " sm" : ""), type: "button", on: open, "aria-label": `How to do ${enName(id)}` },
+    ...pair.map(s => el("span", { class: "fb", html: s })));
+  return el("button", { class: "how", type: "button", on: open, "aria-label": `How to do ${enName(id)}` }, el("span", { html: ICON.play }), "How to");
 }
 function exerciseCard(w, it, isCur) {
   const ex = exS(it.id) || {}; const st = exState(w, it.id); const fb = w.feedback.items[it.id];
@@ -1570,7 +1575,7 @@ function crossfitCard(w) {
         el("div", { class: "dose" }, dose, it.lb ? el("small", { text: `${it.lb} lb · ${it.kg} kg` }) : null),
         el("div", { style: "min-width:0" }, el("b", { text: c.en_short || c.en || it.id }), el("div", { class: "ru", text: c.ru || "" }), c.back === "caution" && c.back_cue_ru ? el("div", { class: "small faint", text: c.back_cue_ru }) : null,
           kitLine(w, it, cf)),
-        howBtn(it.id));
+        howBtn(it.id, true));
     })),
   ];
   const editing = S.cfEdit === w.id && w.status !== "done";
@@ -1735,11 +1740,11 @@ function sheetBody(s, w) {
     const P = new Set(w.checkin.pain || []); const rep = gymReports().machines;
     const wt = c => c.lb?.length ? `${[...new Set(c.lb)].join("–")} lb` : c.hint_lb ? `find the weight (usually ${c.hint_lb} lb)` : "pick a weight";
     const opt = c => {
-      const cur = c.id === pi.id; const pic = thumbFor(c.id);
+      const cur = c.id === pi.id; const pic = FIG.thumb(c.id, figSpecs(), figMus(c.id));
       const hurt = (exS(c.id)?.joints || []).filter(j => P.has(j)).map(j => JOINT_EN[j]);
       const warn = hurt.length ? `loads your ${hurt.join(", ")} today` : rep[c.id] === "missing" ? "you said this gym doesn't have it" : "";
       return el("button", { class: "opt", type: "button", "aria-current": String(cur), on: { click: () => cur ? closeSheet() : doResult([swapTo(w, i, c.id)], w) } },
-        pic ? el("img", { class: "thumb", src: picSrc(pic), alt: "", loading: "lazy" }) : el("span", { class: "thumb none", html: ICON.dumbbell }),
+        pic ? el("span", { class: "thumb fig-t", html: pic }) : el("span", { class: "thumb none", html: ICON.dumbbell }),
         el("span", { class: "txt" }, el("span", { class: "row1" }, el("b", { text: enName(c.id) }), c.planned ? el("span", { class: "tag", text: "Planned" }) : null),
           el("span", { class: "ru", text: ruName(c.id) }), el("span", { class: "small muted" }, wt(c), warn ? el("span", { class: "warn-s", text: " · " + warn }) : null)),
         cur ? el("span", { class: "badge ok", text: "Now" }) : null);
