@@ -427,3 +427,10 @@ deck or one-pager work.
 48. **Highlight a group with a soft wash and a short accent tab, not a rectangle** (2026-11-25, Alex on the program focus slide: "not
     like 'rectangular' frames but rather better looking highlights"). The wash sits behind the group, the tab on its top edge, both in
     one removable group at the back of the z-order; an outline frame is for marking single cards, where a wash would not show.
+
+49. **A deck opens with one or two bold statement slides before any detail** (2026-11-25, Alex on the ALSO deck: "open with 2 bold,
+    well thought off, few words focus slides" on "the power of AI is underutilized" and why embedded and hardware teams lag).
+    - The claim is the title (rule 22's thesis slide), its key phrase in the accent colour, ≤ 6 words; one line under it says the point.
+    - One visual makes the claim visible, the same visual on both slides so they read as a pair (one maturity ladder: where most teams
+      are and where the gains are; then what holds the audience's teams below the next level).
+    - One public number carries the claim, with its source on the slide (decks may go out without notes); under ~85 words a slide.
