@@ -1,7 +1,7 @@
 ---
 note: Visa todo
 area: other
-snapshot: 2026-09-25 08:15
+snapshot: 2026-11-25 22:00
 chars: 15099
 scope: above relevance marker
 ---

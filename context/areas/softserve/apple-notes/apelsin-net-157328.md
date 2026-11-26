@@ -1,7 +1,7 @@
 ---
 note: apelsin.net 157328
 area: softserve
-snapshot: 2026-09-25 08:15
+snapshot: 2026-11-25 22:00
 chars: 1176
 scope: full note (no relevance marker)
 ---
