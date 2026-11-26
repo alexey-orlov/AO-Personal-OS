@@ -596,8 +596,8 @@ deck or one-pager work.
       possible starting point per kind of team where the facts allow. Each card is one plain sentence, that team's situation as
       we see it with the logic inside ("Updates go over the air, so each must work on every vehicle and phone"), then the
       challenge it points at; where we know little, the typical situation for a team like theirs (Alex, 2026-11-26, rejecting
-      labelled WE SEE / SO, LIKELY lines: "should not be leveled up to the heading level"); never where the read comes from
-      (`client-documents.md`, the intelligence trail).
+      labelled WE SEE / SO, LIKELY lines: "should not be leveled up to the heading level"; rule 63); never where the read
+      comes from (`client-documents.md`, the intelligence trail).
     - One rule decides which teams a starting point is for, on every slide that shows it: the teams whose work the pilot changes
       (its modules). The read slide, the starting-point and example slides and the washes on the workflow slides then cannot
       disagree (2026-11-26: a designer found the same starting point lit for different teams on four slides). Mark the two meanings
