@@ -593,12 +593,19 @@ deck or one-pager work.
     - Shared slides never assume one team's tools or place of work: labs run "where your code runs", agent work is verified "in CI
       and on boards", the program's core is "for product teams", and How to start shows the pilot team is picked together.
     - The customer read is organized by the buyer's teams, in the customer's own public names, coded to the deck's workflows, one
-      possible starting point per kind of team where the facts allow. Each card shows the read's logic, labelled: WE SEE (a public
-      fact in that team's area) → SO, LIKELY (the struggle it implies) → the challenge it points at (Alex, 2026-11-26: "We know X,
-      so, presumably you struggle with Y + this is labeled as our challenge"); never where the read comes from
+      possible starting point per kind of team where the facts allow. Each card is one plain sentence, that team's situation as
+      we see it with the logic inside ("Updates go over the air, so each must work on every vehicle and phone"), then the
+      challenge it points at; where we know little, the typical situation for a team like theirs (Alex, 2026-11-26, rejecting
+      labelled WE SEE / SO, LIKELY lines: "should not be leveled up to the heading level"); never where the read comes from
       (`client-documents.md`, the intelligence trail).
     - One rule decides which teams a starting point is for, on every slide that shows it: the teams whose work the pilot changes
       (its modules). The read slide, the starting-point and example slides and the washes on the workflow slides then cannot
       disagree (2026-11-26: a designer found the same starting point lit for different teams on four slides). Mark the two meanings
       apart: "teams hit" for a problem, "pilot teams" for a starting point. The team that owns the rigs and test suites is a team
       too: give it its card and name it in the pilot.
+63. **Make the reasoning clear inside one plain sentence, never by labelling its parts** (2026-11-26, Alex on read cards built as
+    "WE SEE … / SO, LIKELY …": "should not be leveled up to the heading level. it should be a readable short one-liner explaining the
+    situation as we see it"). When a reader asks for the logic behind a line to be clearer, rewrite the sentence so the reason sits in
+    it ("One app serves every vehicle, so each release must work on all of them"); don't add labels, headings or a second line that
+    name the parts of the argument. Labels and headings mark content units (a team, a step, a panel), never the steps of an argument:
+    promoted to that level, a hedge or an inference reads as a finding.
