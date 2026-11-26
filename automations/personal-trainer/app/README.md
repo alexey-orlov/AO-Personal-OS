@@ -331,9 +331,10 @@ up to `assets`).
    store. Serve it with the `trainer-app-harness` entry in
    `.claude/launch.json` and drive it at phone width. The stand-in db and
    clock survive a reload of the tab (that is how to test a half-done
-   session coming back); `harness.html?fresh` starts over. Pictures load
-   from `.work/harness/_blob/<asset id>.svg` (an asset is fetched with the
-   Artifact tool's `read` and the id as `path`).
+   session coming back); `harness.html?fresh` starts over. Uploaded photos
+   stay in the page as object URLs; `.work/harness/_blob/<asset id>.<ext>`
+   serves a real asset fetched with the Artifact tool's `read` (the id as
+   `path`). Figures: `dev/figure_gallery.py` (see "Exercise figures").
 2. Check parity: build plans in the page (`buildTemplate(contextFor(day, ck))`
    for several check-ins, plus a broken one), save them, run
    `trainer.py check` on each; the error and warning counts, `accepted` and
