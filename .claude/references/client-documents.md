@@ -180,7 +180,9 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   "remove hiring signals at all - not worth showing the customer explicitly that we base our assumptions based on their job
   postings"). Say what we see (their products, platform, launches: facts they would agree with) and what it likely means for
   them; where the read comes from (job ads, LinkedIn, people's profiles, their internal documents) goes in the notes and the
-  provenance file, never on the page.
+  provenance file, never on the page. Anything else said about them is a fact that holds by design or is public, or is marked
+  as an inference ("likely"); never state as fact that something fails or hurts at the customer (a cold reader, as their VP,
+  pushed back on "apps break on real vehicles" and "new boards take weeks to bring up" as unsourced claims about them).
 - **Headings are display lines, not sentences** (2026-09-16, Alex on the Services H1 *"From
   Oracle's platforms to agents in production."*: "too long of a heading"). Uppercase display
   type multiplies length, so budget from the rendered size before writing: an H1 is two to
