@@ -417,20 +417,64 @@ deck or one-pager work.
     - One label style per deck (mono caps), applied to reused slides too.
 47. **A program offer shows its program in two slides: an at-a-glance opener and a weekly program** (2026-11-25, Alex: "from a single
     glance it should make clear what the program is … series of training, what your team will be doing, what they'll get"; "showing
-    sessions and what happens in between, mention formats … easy to read, visual").
-    - The opener: big numbers (weeks, team, workshops, labs), one card per phase saying what the team does, the ways of working drawn as
-      chips rather than described (paired → solo), and what the team keeps as a row of icons. Never the vendor's engagement-model
+    sessions and what happens in between, mention formats … easy to read, visual"; later "name it AI Jumpstart at a glance … a sexier
+    slide template … it misses the summary session at the end + potential extension").
+    - The opener, "<Program> at a glance", in the hero-half layout of rule 49: on the white half the journey, one row per phase with
+      its weeks (the weekly program's phase names), ending on the summary session, then a dashed step to what can follow (next
+      cohorts, extended support); on the photo half the big numbers (weeks, team, workshops, labs), what the customer keeps as
+      white icons (so no separate "what we build together" slide) and the tools on a white tile. Never the vendor's engagement-model
       breakdown (Assessment → Activation Pod → Enablement → Agentic team: "that's off").
     - The weekly program: weeks as columns under the phases, one row per session format with its length, one to three words a cell,
-      sessions with us in one colour and the team's own work between sessions in another, KPI checkpoints marked. Models: the AI PM
-      Jumpstart "program journey" grid and the scientists' weekly rhythm (OneDrive `Projects/Jumpstart/`).
-48. **Highlight a group with a soft wash and a short accent tab, not a rectangle** (2026-11-25, Alex on the program focus slide: "not
-    like 'rectangular' frames but rather better looking highlights"). The wash sits behind the group, the tab on its top edge, both in
-    one removable group at the back of the z-order; an outline frame is for marking single cards, where a wash would not show.
-
-49. **A deck opens with one or two bold statement slides before any detail** (2026-11-25, Alex on the ALSO deck: "open with 2 bold,
-    well thought off, few words focus slides" on "the power of AI is underutilized" and why embedded and hardware teams lag).
-    - The claim is the title (rule 22's thesis slide), its key phrase in the accent colour, ≤ 6 words; one line under it says the point.
-    - One visual makes the claim visible, the same visual on both slides so they read as a pair (one maturity ladder: where most teams
-      are and where the gains are; then what holds the audience's teams below the next level).
-    - One public number carries the claim, with its source on the slide (decks may go out without notes); under ~85 words a slide.
+      sessions with us in one colour and the team's own work between sessions in another, KPI checkpoints marked; tagged TEMPLATE
+      (rule 52). Models: the AI PM Jumpstart "program journey" grid and the scientists' weekly rhythm (OneDrive `Projects/Jumpstart/`).
+    - Ways of working (paired runs, skill sign-off, solo runs reviewed, the summary session) are drawn wherever the program is
+      explained: one card each with who takes part as pictograms (the team in ink, us in blue), its week and one line; never a
+      sentence in a lane ("told u before … to visualize interactive formats, not keep the line of text").
+48. **Highlight with a soft wash, never a frame, and put the marker icon in clear space** (2026-11-25, Alex on the program focus slide:
+    "not like 'rectangular' frames but rather better looking highlights"; on the workflow slides: "don't like frame highlights (though
+    icons are good, just make sure they are not hidden and placed properly)").
+    - A column or group: a wash behind it with a short accent tab on its top edge. Marked cards: a wash behind each run of cards,
+      narrow at the sides so washes in neighbouring columns stay apart. A grid cell: the cell itself takes the wash.
+    - The marker icon (which item it is) sits on the wash's top edge in the gap under the header, never over a header, a frame
+      or text; leave that gap in the layout.
+    - Washes in one group at the back; the icons and their key in one group in front (two clicks remove the customer's marks).
+49. **A deck opens with one or two bold statement slides before any detail, in the hero-half layout** (2026-11-25, Alex on the ALSO
+    deck: "open with 2 bold, well thought off, few words focus slides"; then "the reference decks of SoftServe should have some better
+    layouts for bold slides … Hero image (full slide, half slide would be great)").
+    - SoftServe's own bold layout (AIDP Factory V2, slides 15 and 17): the claim (≤ 6 words, two lines, the second in the accent
+      colour) and one visual on the white half; a full-height photo on the other half under a dark wash (a light band under the
+      running header, clear in the middle, dark at the bottom), the running header and page number in white, and the one public
+      number in white at display size with its caption and source.
+    - The same visual on both statement slides so they read as a pair (one maturity ladder: where most teams are and where the gains
+      are; then what holds the audience's teams below the next level). Under ~85 words a slide.
+    - The photo: a brand abstract from SoftServe's decks or a CC0 photo of the thing at stake, cropped so no maker's logo shows.
+50. **Neighbouring slides never share one anatomy** (2026-11-25, Alex on two adjacent row tables: "too monotonous and similar /
+    indistinguishable. When I look I feel content fatigue … allowed to shorten or drop some parts … or rework visualization approach").
+    When two slides in a row would be the same table, redraw one in the shape of its content (voices in speech bubbles; a road from
+    first draft to working code with the blockers as barriers on it) and drop the columns it does not need.
+51. **Label the work, not an object that reads as the agent's output** (2026-11-25, Alex on an overview chip "Parts": "looks weird
+    (agent improves / creates parts?) … Review other word usage from this perspective"). A chip or card under "agents take …" names
+    an activity (Part selection, Board layout, Prototyping, Lab testing, Data analysis, Software design); an object name only where
+    agents make that object (Spec, Docs, Code, Fixes).
+52. **Say what a slide is when it is not a fact: a one-word tag at the right end of the title row** (2026-11-25, Alex: "add some 1-2
+    word labels at the top saying this is an assumed focus challenge for them"; "position it as template program (subject to
+    adjust)"). HYPOTHESIS (orange outline) on the customer's assumed starting points, TEMPLATE (blue outline) on a schedule we adjust;
+    one pill style, one position, mono caps.
+53. **A customer deck carries the customer's logo** (2026-11-25, Alex: "Use Also logo where applicable (including title slide) - and
+    that's for future customizations as well"). Cover: a co-brand lockup, SoftServe's logo, a thin rule, the customer's wordmark (set
+    smaller when it is heavier, so the two weigh the same); the customer read slide: the wordmark at the right end of the title row.
+    From the customer's own site, made transparent in a light and a dark version; ask before downloading.
+54. **A slide family's legends sit in one fixed band at the foot** (2026-11-25, Alex on the overview and workflow slides: "check layouts
+    of legends, a bit poor geometry and placement"). One hairline, then row 1 the scale (each swatch drawn like the mark it explains,
+    its word, its meaning) and row 2 the customer key (its wash, the key line, each marker icon with its name), at the same height
+    on every slide of the family; never squeezed beside a title or a lead.
+55. **Process steps carry one heading each, numbered** (2026-11-25, Alex: "for stage names, having a heading / subheading is
+    abundant. Just keep headings (maybe with numbers?)"). "1 Concept" in one line, the number in the workflow's colour; the number
+    is the anchor across disciplines, and the overview's shared step names carry the same numbers.
+56. **Examples of an overview slide say so in their structure** (2026-11-25, Alex: "Make it clear that 20-21 is about examples of 19
+    slide (program focus). Do that by proper structure, headings/subheadings"). The running header names the parent, the line under
+    the title starts "<Parent>, example deliverables:", the parent marks the items shown next ("EXAMPLE FOLLOWS ›"), the section
+    divider lists them as examples.
+57. **Colour means one thing per deck; where it means nothing, panels stay neutral** (2026-11-25, Alex on the module slides: "I don't
+    get the color coding of the slides, that's confusing"). Three columns that are not a sequence get one style (white, grey band, no
+    arrows); a single accent marks only the names a reader looks up (skill names, weeks).
