@@ -153,7 +153,7 @@ Rules the app keeps, so the engine can trust the data:
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
-> **Brief compatibility.** The app (version 5, 2026-11-25) reads the first
+> **Brief compatibility.** The app (version 6, 2026-11-25) reads the first
 > brief shape and the compact one of engine `8b8cc1ac` (`ask` with recent-pain
 > questions, `pre.recent_pain` / `pre.cleared`, `trim`, `warmup.suggested`,
 > `crossfit.dose` with `movements` / `why`, `crossfit.pool` with `fallback`,
@@ -251,31 +251,76 @@ past them and (b) starts those exercises from the weights actually lifted,
 never higher (`fail` → one step back, `pain` → swap), and says so on the
 check-in screen. The real progression comes back after the next sync.
 
-## Exercise demos ("How to" on every exercise)
+## Exercise figures (the picture of every exercise)
+
+Every exercise has one picture in one style, drawn by the page itself: a
+figure of thick rounded strokes like the instruction plates on gym
+machines, the machine or kit in greys, the working muscle and an arrow for
+the movement in the accent colour, in both themes. A movement gets two
+frames, start and end, each with one line on what to watch in that
+position; a hold gets one frame with its cue beside it; burpees get three.
+Where it shows: the "How to" button on every card and warm-up / crossfit
+row (the start and end frames, small), the swap list (one frame), and the
+How-to sheet (the frames large, with the cues). Decided 2026-11-25 on
+Alex's correction: the earlier mix (Everkinetic drawings for 44 exercises,
+nothing for the rest, empty slots for his own photos) was not what he
+asked for; a movement needs two pictures to read; one style for all.
+
+- **Source of truth:** `figures.json` (one entry per catalog id), pushed as
+  `config/figures` by `app_sync.py export`; the renderer is the FIGURES
+  block of `index.html` (`FIG.of` / `FIG.pair` / `FIG.thumb`). Only numbers
+  and fixed class names reach the SVG markup. Covers 66 of the 67 catalog
+  ids; `squat_high_pull` is retired and has none. A new exercise without
+  an entry shows a plain "How to" button and a sheet without a picture.
+- **An entry:** `view` `side` (faces right), `front` (faces you; limb
+  angles given for the limb on the right of the picture and mirrored) or
+  `top` (shoulders and arms from above or head-on: pallof hold, DB fly from
+  the head end, plank drag); `eq`, the machine and kit; `frames`, each
+  `{"pose", "cue", "label"?, "eq"?}`; `arrow` (`arrow2` from the 2nd to the
+  3rd frame), the joint whose path the start frame shows, `[joint]` straight
+  or `[joint, pivot]` as an arc; `hl`, the regions in the accent colour
+  (default: the catalog's first muscle); `thumb`, the frame for lists.
+- **A pose:** body units (standing ≈ 105 tall, floor at y = 0, up is
+  negative). `at: [joint, x, y]` places one joint; `t` torso and `h` head
+  directions; `a: [upper arm, forearm, len, len]` and `l: [thigh, shin,
+  foot, len, len]` as absolute directions (0 down, 90 forward or out, 180
+  up; the lengths shorten a segment that points at you); or targets `ah` /
+  `lf` (hand, ankle) with the elbow or knee solved, `ab` / `lb` the side it
+  bends to. `a2` `l2` `ah2` `lf2` set the far or left limb; `r` turns the
+  body (the side plank); `behind: true` draws front-view arms behind the
+  body (the rear delt fly, seen from behind).
+- **Equipment** (`[kind, …, {"z": 1|2, "f": frame}]`, points as `[x, y]`,
+  `["joint"]`, `["joint", dx, dy]` or `["joint", "segment", along,
+  across]`): `floor`, `wall`, `pad`, `frame`, `path`, `lever` (with a plate
+  on it), `roll`, `pulley`, `cable`, `band`, `bar`, `handle`, `stack`,
+  `box`, `plate`, `plateside`, `db`, `dbe` (end-on), `kb`, `ball`, `disc`,
+  `ring`, `arc`, `earc`, `rope`.
+- **Checking one:** `python3 app/dev/figure_gallery.py` writes
+  `.work/harness/figures.html`; open it on the `trainer-app-harness` server
+  (`?only=id,id`, `?light` / `?dark`, `?thumbs`, `?big`) and look at every
+  frame at phone size before it ships: is the start and end each clear on
+  its own, the machine the gym's kind, the muscle right, the cue true to
+  the trainer's notes?
+
+The machine drawn is the kind the gym has, not the exact Matrix or Hoist
+model; the manufacturers' photos and plates are not copied (copyrighted,
+and no openly licensed photo of those models exists on Commons, Openverse
+or Flickr as of 2026-11-25). His own photos of this gym's machines and the
+"See the <brand> machine" link cover the exact model.
+
+## The How-to sheet
 
 A bottom sheet with a fixed header (name, ✕; drag it down or press Escape
 to close) that keeps its scroll and its Claude tips when data refreshes.
-In order: pictures (tap one to see it full screen) · the trainer's notes ·
-saved videos · "Find more": "Search YouTube" ("<en name> proper form"),
-"See the <brand> machine" (Google Images for the brand gym.json
-`brands_seen` gives that kind of machine: Matrix for weight stacks, Hoist
-for plate-loaded), "Technique tips from Claude" (quick tier, from the
-catalog cues; cached 24 h), "Ask the trainer to find a demo" (a
-`media_requests` row the next sync fills) and "Add a photo or video".
-
-Pictures: Alex's own photos first, then the start/end drawings. Every
-machine exercise has two photo slots, "The machine" and "Its
-instructions" (the plate printed on it): one tap opens the camera or the
-library, the photo is shrunk to 1600 px before it goes up (`assets`), and
-it can be deleted from the full-screen view. The manufacturers' own photos
-and placards are not stored: they are copyrighted, and as of 2026-11-25 no
-openly licensed photo of a Matrix or Hoist machine of the catalog's kinds
-exists on Commons, Openverse or Flickr (77 Commons files checked); his
-photos of the gym's machines are the faithful version, the brand link the
-stand-in. Drawings sit on a white panel in both themes (black line art);
-a near-match drawing carries a `fit_note`, shown under the pictures. The
-"How to" button and the swap list show his machine photo, else the start
-drawing.
+In order: the figure (frames and cues) · his own photos, if any (tap one
+to see it full screen and delete it there) · the trainer's notes · saved
+videos · "Find more": "Search YouTube" ("<en name> proper form"), "See the
+<brand> machine" (Google Images for the brand gym.json `brands_seen` gives
+that kind of machine: Matrix for weight stacks, Hoist for plate-loaded),
+"Technique tips from Claude" (quick tier, from the catalog cues; cached
+24 h), "Ask the trainer to find a demo" (a `media_requests` row the next
+sync fills) and "Add a photo or video" (shrunk to 1600 px before it goes
+up to `assets`).
 
 ## Testing a change (app or engine)
 
@@ -311,16 +356,16 @@ drawing.
   trim, the time dose for crossfit, the alternative named in `if_missing`).
 - A second session on one date (`<date>-2`) merges its feedback into
   `plans/<date>.json`: `trainer.py feedback` takes a date, not an id.
-- Start/end drawings cover 44 exercises (`media-sources.json`): 28 of the
-  31 strength exercises, 8 of 12 warm-ups, 8 of 22 crossfit moves. None
-  fits the chest-supported T-bar row (the only T-bar drawing is the banned
-  bent-over row), the chest-supported row machine (the seated cable row
-  drawing would teach the unsupported position), cable hip abduction, bird
-  dog, Pallof hold, seated back extension, plate halo, and the cardio and
-  gymnastic crossfit moves (rope, jumping jacks, rower, bike, battle ropes, burpees, box
-  jumps, HSPU, toes-to-bar, wall balls, thrusters, overhead plate squat,
-  push press, plank drag). Those keep their videos, YouTube search and his
-  own photos.
+- Five figures are diagrams more than portraits: the pallof hold and the
+  plank drag (from above / head-on), the DB fly (from the head end), the
+  rear delt fly (from behind) and the pec deck's end frame (arms meeting in
+  front, foreshortened). Each says its viewpoint in the cue. "Seated back
+  extension with a DB" is drawn as a seated lean forward and back up
+  (inferred from its name); correct the figure if the trainer meant
+  another movement.
+- The asset store still holds the 66 Everkinetic SVGs the media docs used
+  until 2026-11-25; nothing references them. Deleting them (Artifact tool,
+  `delete` with the asset id as `path`) only frees storage.
 - "Save session" writing the sheet from the phone has been tested against
   a scratch copy of the tab, not yet on a real session: the 11/23 session
   went into the sheet through the trainer's sync.
