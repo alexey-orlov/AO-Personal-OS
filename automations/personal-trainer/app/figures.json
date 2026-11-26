@@ -62,11 +62,12 @@
     ["cable", ["hand"], [4, -115]],
     ["pad", [-9, -23.2], [14, -23.2], 7],
     ["frame", [0, -20], [0, -1.7], 4],
+    ["frame", [-28, -1.7], [12, -1.7], 3.4],
     ["roll", ["knee", "th", -3, 10.4], 5],
     ["handle", ["hand"], 90, 5]],
    "frames": [
-    {"pose": {"at": ["hip", 0, -33], "t": 188, "ah": [5, -98], "lf": [26, -5.6]}, "cue": "Thighs under the pad, grip wider than the shoulders"},
-    {"pose": {"at": ["hip", 0, -33], "t": 196, "ah": [2.5, -66], "lf": [26, -5.6]}, "cue": "Pull the bar to the upper chest, elbows down"}],
+    {"pose": {"at": ["hip", 0, -33], "t": 188, "ah": [5, -98], "lf": [26, -5.3]}, "cue": "Thighs under the pad, grip wider than the shoulders"},
+    {"pose": {"at": ["hip", 0, -33], "t": 196, "ah": [2.5, -66], "lf": [26, -5.3]}, "cue": "Pull the bar to the upper chest, elbows down"}],
    "arrow": [["hand", null, 9]]
   },
   "smith_incline_press": {
@@ -178,6 +179,333 @@
     {"pose": {"at": ["pel", 0, -38], "a": [38, 28], "l": [22, 0, 0.35, 1]}, "cue": "Seated between the low pulleys, handles low and wide"},
     {"pose": {"at": ["pel", 0, -38], "a": [215, 200, 0.55, 0.6], "l": [22, 0, 0.35, 1]}, "cue": "Sweep up and in to upper-chest height"}],
    "arrow": [["rhand", null, 8], ["lhand", null, 8]]
+  },
+  "seated_cable_row": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-14, -19.0], [26, -19.0], 6],
+    ["frame", [-4, -19], [-4, -1.7], 4],
+    ["frame", [20, -19], [20, -1.7], 4],
+    ["pad", ["heel", "ft", -2, -5.6], ["toe", "ft", 3, -5.6], 5],
+    ["frame", [60, -1.7], [60, -62], 4],
+    ["pulley", [56, -48]],
+    ["cable", ["hand"], [56, -48]],
+    ["handle", ["hand"], 0, 4]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -28.3], "t": 178, "ah": [33, -50], "lf": [38, -24], "ft": 175}, "cue": "Feet on the plate, knees soft, chest up, arms long"},
+    {"pose": {"at": ["hip", 0, -28.3], "t": 182, "ah": [9, -43], "lf": [38, -24], "ft": 175}, "cue": "Pull to the belly, squeeze the shoulder blades, no lean back"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "chest_supported_tbar": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["box", -22, -8, 36, 8],
+    ["pad", ["hip", "t", 6, 9.8], ["sho", "t", 4, 9.8], 7],
+    ["frame", ["hip", "t", 16, 13], [24, -8], 4],
+    ["lever", [62, -6], ["hand"], 3.6, 0.82, 8],
+    ["handle", ["hand"], 90, 4]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -62], "t": 132, "lf": [-4, -13.3], "ah": [26, -42]}, "cue": "Chest on the pad, arms hang straight"},
+    {"pose": {"at": ["hip", 0, -62], "t": 132, "lf": [-4, -13.3], "ah": [16, -60], "ab": -1}, "cue": "Row the handles up, elbows back; chest stays on the pad"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "kneeling_pullover": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["frame", [70, -1.7], [70, -118], 4],
+    ["pulley", [66, -112]],
+    ["cable", ["hand"], [66, -112]],
+    ["handle", ["hand"], 90, 5]],
+   "frames": [
+    {"pose": {"at": ["knee", 0, -4.4], "t": 165, "l": [0, 270, 275], "a": [148, 148]}, "cue": "Kneel tall facing the high pulley, arms straight, ribs down"},
+    {"pose": {"at": ["knee", 0, -4.4], "t": 165, "l": [0, 270, 275], "a": [18, 18]}, "cue": "Sweep the bar down to the thighs with straight arms"}],
+   "arrow": [["hand", "sho", 8]]
+  },
+  "single_arm_pulldown": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["frame", [-22, -1.7], [-22, -126], 4],
+    ["frame", [-22, -126], [12, -126], 4],
+    ["pulley", [10, -123]],
+    ["cable", ["hand"], [10, -123]],
+    ["handle", ["hand"], 0, 4]],
+   "frames": [
+    {"pose": {"at": ["knee", 0, -4.4], "t": 178, "l": [0, 270, 275], "ah": [8, -100], "a2": [6, 40]}, "cue": "Kneel under the pulley, one arm reaching up"},
+    {"pose": {"at": ["knee", 0, -4.4], "t": 182, "l": [0, 270, 275], "ah": [6, -66], "ab": -1, "a2": [6, 40]}, "cue": "Pull the elbow down to your side, hand to the shoulder"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "biceps_curl_machine": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-10, -24.5], [12, -24.5], 7],
+    ["frame", [0, -24.5], [0, -1.7], 4],
+    ["frame", [-16, -1.7], [28, -1.7], 3.4],
+    ["pad", ["sho", "ua", 3, -9.6], ["sho", "ua", 24, -9.6], 7],
+    ["frame", [30, -1.7], [24, -46], 4],
+    ["lever", ["elb"], ["hand"], 3.2],
+    ["disc", ["hand"], 2.8, {"z": 2}]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -34.3], "t": 172, "a": [44, 52], "lf": [22, -5.3]}, "cue": "Armpits snug on the pad, arms almost straight"},
+    {"pose": {"at": ["hip", 0, -34.3], "t": 172, "a": [44, 178], "lf": [22, -5.3]}, "cue": "Curl up, lower slowly to almost straight"}],
+   "arrow": [["hand", "elb", 7]]
+  },
+  "chest_supported_row_machine": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-10, -24.5], [12, -24.5], 7],
+    ["frame", [0, -24.5], [0, -1.7], 4],
+    ["frame", [-14, -1.7], [34, -1.7], 3.4],
+    ["pad", ["hip", "t", 10, 9.8], ["sho", "t", 2, 9.8], 7],
+    ["frame", ["hip", "t", 14, 14], [22, -1.7], 4],
+    ["lever", [38, -98], ["hand"], 3.6, 0.35, 7],
+    ["handle", ["hand"], 0, 4.5]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -34.3], "t": 176, "ah": [33, -62], "lf": [24, -5.3]}, "cue": "Chest on the pad, arms straight to the handles"},
+    {"pose": {"at": ["hip", 0, -34.3], "t": 178, "a": [272, 88, 0.66, 1], "lf": [24, -5.3]}, "cue": "Row the elbows back, squeeze the shoulder blades"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "hack_squat": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["frame", [26, -1.7], [-34, -106], 3.4],
+    ["pad", ["hip", "t", -6, -9.8], ["sho", "t", 4, -9.8], 7],
+    ["roll", ["sho", "t", 6, 2], 4.6],
+    ["pad", ["heel", "ft", -3, -5.5], ["toe", "ft", 4, -5.5], 5],
+    ["frame", [44, -1.7], [34, -18], 4]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -62], "t": 208, "lf": [26, -22], "ft": 104, "a": [20, 150]}, "cue": "Back and lower back flat on the pad, feet mid-plate"},
+    {"pose": {"at": ["hip", 13, -40], "t": 208, "lf": [26, -22], "ft": 104, "a": [20, 150]}, "cue": "Lower until the knees reach 90°, push through the heels"}],
+   "arrow": [["hip", null, 10]]
+  },
+  "hip_abduction": {
+   "view": "front",
+   "eq": [
+    ["floor", 0],
+    ["pad", [0, -40], [0, -96], 34],
+    ["pad", [-20, -27.5], [20, -27.5], 7],
+    ["frame", [0, -24], [0, -1.7], 4],
+    ["frame", [-22, -1.7], [22, -1.7], 3.4],
+    ["pad", ["rknee", 7.5, -5], ["rknee", 7.5, 6], 5],
+    ["pad", ["lknee", -7.5, -5], ["lknee", -7.5, 6], 5]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -38], "a": [12, -20], "l": [-12, 0, 0.36, 1]}, "cue": "Pads on the outside of the knees, back on the pad"},
+    {"pose": {"at": ["pel", 0, -38], "a": [12, -20], "l": [58, 4, 0.5, 1]}, "cue": "Push the knees apart, pause, return slowly"}],
+   "arrow": [["rknee", null, 8], ["lknee", null, 8]]
+  },
+  "seated_leg_press": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-12, -26.5], [10, -26.5], 7],
+    ["frame", [-2, -26.5], [-2, -1.7], 4],
+    ["frame", [-20, -1.7], [64, -1.7], 3.4],
+    ["pad", ["hip", "t", 2, -9.8], ["sho", "t", 6, -9.8], 7],
+    ["handle", ["hand"], 90, 3.4],
+    ["pad", ["heel", "ft", -3, -5.6], ["toe", "ft", 4, -5.6], 6],
+    ["frame", ["heel", "ft", 2, -9], [62, -30], 3.4],
+    ["frame", [62, -1.7], [62, -40], 4]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -36.3], "t": 204, "ah": [8, -38], "lf": [30, -47], "ft": 182}, "cue": "Feet hip-width on the plate, knees near 90°"},
+    {"pose": {"at": ["hip", 0, -36.3], "t": 204, "ah": [8, -38], "lf": [47, -51], "ft": 182}, "cue": "Press to almost straight; lower without lifting the hips"}],
+   "arrow": [["ank", null, 9]]
+  },
+  "leg_curl": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-10, -36.5], [18, -36.5], 7],
+    ["frame", [4, -36.5], [4, -1.7], 4],
+    ["frame", [-18, -1.7], [30, -1.7], 3.4],
+    ["pad", ["hip", "t", 2, -9.8], ["sho", "t", 6, -9.8], 7],
+    ["handle", ["hand"], 90, 3.4],
+    ["lever", ["knee"], ["ank", "sh", -4, -9.4], 3.2],
+    ["roll", ["ank", "sh", -4, -9.4], 5],
+    ["roll", ["knee", "th", -6, 10.6], 5]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -46.3], "t": 196, "ah": [8, -43], "l": [92, 86]}, "cue": "Knees at the pivot, pad under the lower calves"},
+    {"pose": {"at": ["hip", 0, -46.3], "t": 196, "ah": [8, -43], "l": [92, -12]}, "cue": "Curl the heels down and back, then return slowly"}],
+   "arrow": [["ank", "knee", 8]]
+  },
+  "glute_kickback": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["box", -16, -8, 34, 8],
+    ["pad", [24, -50], [56, -50], 6],
+    ["frame", [44, -47], [44, -1.7], 4],
+    ["lever", [-6, -64], ["heel", "ft", 0, -8], 3.2],
+    ["pad", ["heel", "ft", -3, -5.5], ["toe", "ft", 3, -5.5], 5]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -62], "t": 118, "lf2": [2, -13.3], "l": [32, 302], "a": [12, 92]}, "cue": "Chest and forearms on the pad, working foot on the plate"},
+    {"pose": {"at": ["hip", 0, -62], "t": 118, "lf2": [2, -13.3], "l": [298, 208], "a": [12, 92]}, "cue": "Push back until the hip is straight; no arch in the lower back"}],
+   "arrow": [["ank", "hip", 7]]
+  },
+  "cable_glute_kickback": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["frame", [36, -1.7], [36, -104], 4],
+    ["pulley", [32, -7]],
+    ["cable", ["ank"], [32, -7]]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -54], "t": 162, "lf2": [0, -5.3], "l": [6, 0], "ah": [33, -78]}, "cue": "Strap on the ankle, hold the column, slight forward lean"},
+    {"pose": {"at": ["hip", 0, -54], "t": 162, "lf2": [0, -5.3], "l": [318, 322], "ah": [33, -78]}, "cue": "Kick back until the hip is straight; no arch in the lower back"}],
+   "arrow": [["ank", "hip", 7]]
+  },
+  "cable_hip_abduction": {
+   "view": "front",
+   "hl": ["glute_r"],
+   "eq": [
+    ["floor", 0],
+    ["frame", [-46, -1.7], [-46, -104], 4],
+    ["pulley", [-42, -7]],
+    ["cable", ["rank"], [-42, -7]]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -55.2], "a": [20, -40], "a2": [62, 76], "l": [-5, 0], "l2": [3, 0]}, "cue": "Side-on to the low pulley, strap on the far ankle"},
+    {"pose": {"at": ["pel", 0, -55.2], "a": [20, -40], "a2": [62, 76], "l": [32, 32], "l2": [3, 0]}, "cue": "Lift the leg out to the side, body stays upright"}],
+   "arrow": [["rank", "rhip", 7]]
+  },
+  "hammer_shoulder_press": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-10, -24.5], [12, -24.5], 7],
+    ["frame", [0, -24.5], [0, -1.7], 4],
+    ["frame", [-26, -1.7], [16, -1.7], 3.4],
+    ["pad", ["hip", "t", 1, -9.8], ["sho", "t", 12, -9.8], 7],
+    ["lever", [-32, -26], ["hand"], 4, 0.62, 7],
+    ["handle", ["hand"], 90, 3.6]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -34.3], "t": 190, "a": [12, 178, 0.68, 1], "lf": [23, -5.3]}, "cue": "Handles at shoulder height, back pressed to the pad"},
+    {"pose": {"at": ["hip", 0, -34.3], "t": 190, "a": [170, 170], "lf": [23, -5.3]}, "cue": "Press up and slightly forward; no arch in the lower back"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "shoulder_press_machine": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["pad", [-10, -24.5], [12, -24.5], 7],
+    ["frame", [0, -24.5], [0, -1.7], 4],
+    ["frame", [-26, -1.7], [16, -1.7], 3.4],
+    ["pad", ["hip", "t", 1, -9.8], ["sho", "t", 12, -9.8], 7],
+    ["lever", [-28, -96], ["hand"], 3.6],
+    ["handle", ["hand"], 90, 3.6]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -34.3], "t": 190, "a": [12, 178, 0.68, 1], "lf": [23, -5.3]}, "cue": "Handles at shoulder height, back on the pad"},
+    {"pose": {"at": ["hip", 0, -34.3], "t": 190, "a": [170, 170], "lf": [23, -5.3]}, "cue": "Press up to straight arms, lower to the shoulders"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "smith_shoulder_press": {
+   "view": "side",
+   "eq": [
+    ["floor", 0],
+    ["bar", [7, -1.7], [7, -124], 2.4],
+    ["pad", [-10, -23.5], [12, -23.5], 7],
+    ["frame", [0, -23.5], [0, -1.7], 4],
+    ["frame", [-16, -1.7], [14, -1.7], 3.4],
+    ["pad", ["hip", "t", 1, -9.8], ["sho", "t", 12, -9.8], 7],
+    ["disc", ["hand"], 3.4, {"z": 2}]],
+   "frames": [
+    {"pose": {"at": ["hip", 0, -33.3], "t": 186, "ah": [7, -71], "ab": -1, "lf": [23, -5.3]}, "cue": "Back against the pad, bar at chin height"},
+    {"pose": {"at": ["hip", 0, -33.3], "t": 186, "ah": [7, -98], "ab": -1, "lf": [23, -5.3]}, "cue": "Press straight up; no arch in the lower back"}],
+   "arrow": [["hand", null, 9]]
+  },
+  "db_shoulder_press": {
+   "view": "front",
+   "eq": [
+    ["floor", 0],
+    ["pad", [0, -40], [0, -100], 34],
+    ["pad", [-19, -27.5], [19, -27.5], 7],
+    ["frame", [0, -24], [0, -1.7], 4],
+    ["frame", [-18, -1.7], [18, -1.7], 3.4],
+    ["db", ["rhand"], 90, 9, {"z": 2}],
+    ["db", ["lhand"], 90, 9, {"z": 2}]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -38], "a": [80, 178], "l": [22, 0, 0.35, 1]}, "cue": "Back against the pad, dumbbells at shoulder height"},
+    {"pose": {"at": ["pel", 0, -38], "a": [158, 172], "l": [22, 0, 0.35, 1]}, "cue": "Press overhead until the dumbbells nearly touch"}],
+   "arrow": [["rhand", null, 7], ["lhand", null, 7]]
+  },
+  "upright_row": {
+   "view": "front",
+   "eq": [
+    ["floor", 0],
+    ["pulley", [0, -6]],
+    ["bar", ["lhand"], ["rhand"], 2.6]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -55.2], "a": [-8, -12], "l": [4, 0]}, "cue": "Stand tall at the low pulley, bar at the thighs, narrow grip", "eq": [["cable", ["rhand", -3.6, 0], [0, -6]]]},
+    {"pose": {"at": ["pel", 0, -55.2], "a": [95, 268, 0.82, 1.05], "l": [4, 0]}, "cue": "Lead with the elbows, bar to the collarbones; elbows above the hands", "eq": [["cable", ["rhand", -6.1, 0], [0, -6]]]}],
+   "arrow": [["relb", null, 7], ["lelb", null, 7]]
+  },
+  "lateral_raise_1arm": {
+   "view": "front",
+   "hl": ["delt_r"],
+   "eq": [
+    ["floor", 0],
+    ["pad", [0, -40], [0, -96], 34],
+    ["pad", [-19, -27.5], [19, -27.5], 7],
+    ["frame", [0, -24], [0, -1.7], 4],
+    ["frame", [-18, -1.7], [18, -1.7], 3.4],
+    ["lever", ["rsho"], ["relb", "rua", -2, 7.6], 3],
+    ["roll", ["relb", "rua", -2, 7.6], 4.6]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -38], "a": [10, 4], "l": [22, 0, 0.35, 1], "a2": [4, -32]}, "cue": "Pad on the outside of the elbow, shoulder in line with the pivot"},
+    {"pose": {"at": ["pel", 0, -38], "a": [90, 60], "l": [22, 0, 0.35, 1], "a2": [4, -32]}, "cue": "Raise the elbow to shoulder height, lower slowly"}],
+   "arrow": [["rhand", "rsho", 7]]
+  },
+  "lateral_raise_machine": {
+   "view": "front",
+   "hl": ["delt"],
+   "eq": [
+    ["floor", 0],
+    ["pad", [0, -40], [0, -96], 34],
+    ["pad", [-19, -27.5], [19, -27.5], 7],
+    ["frame", [0, -24], [0, -1.7], 4],
+    ["frame", [-18, -1.7], [18, -1.7], 3.4],
+    ["lever", ["rsho"], ["relb", "rua", -2, 7.6], 3],
+    ["roll", ["relb", "rua", -2, 7.6], 4.6],
+    ["lever", ["lsho"], ["lelb", "lua", -2, -7.6], 3],
+    ["roll", ["lelb", "lua", -2, -7.6], 4.6]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -38], "a": [10, 4], "l": [22, 0, 0.35, 1]}, "cue": "Pads on the outside of the elbows, shoulders in line with the pivots"},
+    {"pose": {"at": ["pel", 0, -38], "a": [90, 60], "l": [22, 0, 0.35, 1]}, "cue": "Raise the elbows to shoulder height, lower slowly"}],
+   "arrow": [["rhand", "rsho", 7], ["lhand", "lsho", 7]]
+  },
+  "cable_lateral_raise_1arm": {
+   "view": "front",
+   "hl": ["delt_r"],
+   "eq": [
+    ["floor", 0],
+    ["frame", [-46, -1.7], [-46, -100], 4],
+    ["pulley", [-42, -7]],
+    ["cable", ["rhand"], [-42, -7]],
+    ["handle", ["rhand"], 0, 3.6]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -55.2], "a": [-22, -16], "a2": [22, -40], "l": [5, 0]}, "cue": "Side-on to the low pulley, handle in the far hand"},
+    {"pose": {"at": ["pel", 0, -55.2], "a": [90, 96], "a2": [22, -40], "l": [5, 0]}, "cue": "Raise the arm out to shoulder height, lower slowly"}],
+   "arrow": [["rhand", "rsho", 7]]
+  },
+  "reverse_pec_deck": {
+   "view": "front",
+   "hl": ["delt", "uback"],
+   "eq": [
+    ["floor", 0],
+    ["frame", [0, -40], [0, -104], 6],
+    ["pad", [-19, -27.5], [19, -27.5], 7],
+    ["frame", [0, -24], [0, -1.7], 4],
+    ["frame", [-18, -1.7], [18, -1.7], 3.4],
+    ["handle", ["rhand"], 0, 4.5],
+    ["handle", ["lhand"], 0, 4.5]],
+   "frames": [
+    {"pose": {"at": ["pel", 0, -38], "a": [-74, -82, 0.4, 0.4], "l": [22, 0, 0.35, 1], "behind": true}, "cue": "Seen from behind: chest on the pad, arms straight ahead"},
+    {"pose": {"at": ["pel", 0, -38], "a": [92, 98], "l": [22, 0, 0.35, 1]}, "cue": "Open the arms wide to shoulder level, squeeze the shoulder blades"}],
+   "arrow": [["rhand", null, 9], ["lhand", null, 9]]
   }
  }
 }
