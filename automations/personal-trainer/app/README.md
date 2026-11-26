@@ -75,9 +75,10 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
 | `config/sync` | skill | `{"pushed_at", "for_date", "history_synced_at", "last_session"}` |
 | `config/sheet` | skill (`app_sync.py export`, from gym-log's `config.sh`) | `{"spreadsheet_id", "tab"}` — where "Save session" writes |
 | `config/records` | skill (`app_sync.py export`, from `data/history.json`) | `{"as_of", "computed_at", "items": {"<id>": {"last": {"date", "gym", "sets", "reps", "kg": [start, end]}, "best": {"date", "gym", "kg", "reps"}}}}` — the "Last … · Best …" line on every exercise card; the app folds in its own finished sessions the history doesn't hold yet. Weights show in the units of the gym they were lifted in (Kyiv kg, US lb) |
+| `config/figures` | skill (`app_sync.py export`, from `figures.json`) | `{"_doc", "items": {"<id>": {"view", "eq", "frames", "arrow", "hl", "thumb"}}}` — the picture of every exercise, drawn by the page (see "Exercise figures") |
 | `briefs/legs` · `briefs/push` · `briefs/pull` | skill | `{"for_date", "computed_at", "normal": <trainer.py brief --day X>, "low": <… --readiness low>}` |
 | `workouts/<YYYY-MM-DD>` | app (skill may create a `planned` one) | see below |
-| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "license_url", "source_url", "added_by": "skill \| me", "added_at", "role": "machine \| placard", "fit_note", "everkinetic"}]}` — append, never drop Alex's items. `role` marks his own photos of this gym's machine and of the instructions plate on it; `fit_note` says what a near-match drawing shows differently ("an underhand grip; the pull is the same"); `everkinetic` is the drawing's id_num |
+| `media/<exercise id>` | skill (demo videos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "added_by": "skill \| me", "added_at", "role"}]}` — append, never drop Alex's items. The skill adds videos only; pictures from the skill are no longer shown (every exercise has its figure). Images are Alex's own photos; `role` (`machine`, `placard`) is on the ones taken before 2026-11-25 |
 | `media_requests/<exercise id>` | app ("Ask the trainer to find a demo"); skill sets `done` | `{"id", "en", "ru", "requested_at", "done": false}` |
 
 ### `workouts/<id>`
@@ -212,20 +213,10 @@ Rules the app keeps, so the engine can trust the data:
    search result, never a guessed one; confirm each with YouTube oEmbed
    (`https://www.youtube.com/oembed?format=json&url=<watch url>` gives title
    and channel; watch pages are bot-walled from cloud IPs). YouTube can't
-   play inside the page, so each opens in a new tab.
-   Pictures: the Everkinetic drawings first (public repo
-   `github.com/everkinetic/data`, CC BY-SA 4.0: `exercises.json` maps a name
-   to `id_num`, the pair is `dist/svg/<id_num>-relaxation.svg` / `-tension.svg`;
-   a `--filter=blob:none` clone plus `git checkout HEAD -- <paths>` fetches
-   only those; `dev/contact_sheet.py` shows candidate pairs side by side).
-   Wikimedia Commons as a fallback: its API answers 429 to cloud
-   IPs, while file pages (licence, author) and `upload.wikimedia.org` work at
-   a few requests a minute. Look at every picture before attaching it, and
-   never attach one that shows a variant the catalog bans (barbell hack squat,
-   free-standing T-bar row, behind-the-neck pulldown). Upload with the
-   Artifact tool (`asset: true`, `file_paths`), then write `media/<id>` with
-   `asset_id`, `title` (Start / End), `source`, `license`, `license_url`,
-   `source_url`. Record what was added in `media-sources.json`.
+   play inside the page, so each opens in a new tab. Record what was added
+   in `media-sources.json`. Pictures are not media: a new catalog exercise
+   gets its figure in `figures.json` (see "Exercise figures"), pushed with
+   step 2.
 4. **Optional: a ready plan.** After Mode 1, write `workouts/<date>` with
    `status: planned`, `source: skill`, `built_by: skill`, `plan` = the checked
    plan. The app opens it as "Trainer's plan for today".

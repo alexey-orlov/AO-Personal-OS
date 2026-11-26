@@ -1,5 +1,5 @@
 {
- "_doc": "What the Trainer Notebook's media/<exercise id> docs hold: demo videos only (YouTube links verified live via oEmbed, title + channel), plus Alex's own photos and videos (added_by: me), which live only in the artifact's db. Pictures of how to do each exercise are not media: the page draws them itself from figures.json (config/figures), every exercise in one style. The Everkinetic drawings and two Wikimedia Commons files that were here until 2026-11-26 were taken out of the docs (git history has them); their SVG files are still in the artifact's asset store, unused.",
+ "_doc": "What the Trainer Notebook's media/<exercise id> docs hold: demo videos only (YouTube links verified live via oEmbed, title + channel), plus Alex's own photos and videos (added_by: me), which live only in the artifact's db. Pictures of how to do each exercise are not media: the page draws them itself from figures.json (config/figures), every exercise in one style. The Everkinetic drawings and two Wikimedia Commons files that were here until 2026-11-25 were taken out of the docs (git history has them); their SVG files are still in the artifact's asset store, unused.",
  "media": {
   "hack_squat": [
    {
