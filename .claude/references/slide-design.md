@@ -474,9 +474,15 @@ deck or one-pager work.
       are; then what holds the audience's teams below the next level). Under ~110 words a slide.
     - The evidence on the photo half proves the claim in its direction: a number that points the other way goes, however
       impressive (89% assistant use on "AI stops where the board starts"; Alex, 2026-11-25: "the number is high, but the goal was to
-      say that for embedded/hardware it's low"). A gap is shown as two numbers side by side, each captioned with exactly what its
-      survey measured and both sources named; a claim about why is shown as its three reasons (a bold head and one line each),
-      not as a number.
+      say that for embedded/hardware it's low").
+    - The reader draws the conclusion from the numbers at a glance: two numbers in one unit, about one population, from one
+      source where possible, each captioned in plain words with exactly what was measured. Never a compound measure (a percent of
+      a percent, a threshold on a financial ratio: "6% of companies credit AI with 5%+ of their EBIT") and never two populations
+      side by side (Alex, 2026-11-26: "hard to process and make a conclusion from just by looking"). Ranges too wide to sit side by
+      side at display size stack, each caption under its number.
+    - A claim about why is shown as its reasons, not as a number. When the slide narrows the deck's claim to one kind of team, the
+      reasons are a contrast with the general case (software beside embedded, the narrowed side bright), so the narrowing shows
+      without reading (Alex, 2026-11-26: "make sure that slide 3 emphasises (visually) that it is specifics of embedded teams").
     - A maturity scale says each level's essence in three to five plain words on the visual itself, under its name ("Tests and
       fixes its code"), so a reader who never saw the scale gets it (Alex, 2026-11-25).
     - The photo: a brand abstract from SoftServe's decks or a CC0 photo of the thing at stake, cropped so no maker's logo shows; a
@@ -538,7 +544,23 @@ deck or one-pager work.
     - One icon never marks two concepts: the same glyph for the KPI report and the summary session, or for a document and a
       review, makes the reader decode. The build lists any glyph that marks two things and any second name a review found (the
       glossary), and both lists must be empty before delivery.
+    - Look-alikes count as one glyph: two files that draw the same picture mark two things just as one file would (2026-11-26:
+      the Lab session's flask and the explainer's flask for board testing passed a check that compared file names). Compare the
+      drawings, and check a new icon against every icon in use before drawing it in (the gauge first drawn for board testing was
+      already a challenge's pictogram).
 60. **An overview shows where, not how much** (2026-11-25, Alex on the four-workflows overview: "skip intensity grade to differentiate
     impact, that's too detailed for this one; if that's no change or wait - skip the item"). The page that opens a slide family
     shows which items exist, all in one style; ratings, and the items with nothing to show (no change, waiting), live on the
     detail slides only. Its lead claims only what the overview itself shows.
+    - On a grid, a missing item reads as "not here". The same work is the same item in every row that has it, and a cell is
+      empty only when nothing there qualifies (Alex, 2026-11-26: the Design column showed software design for firmware only,
+      "while in fact it helps with software design and UX design for cloud & apps & embedded apps as well"). Choose a column's
+      items for the whole column, not row by row, and re-check the grid after every filter (dropping waits had emptied a cell).
+    - A map built from one source inherits its gaps: check each row's steps against what that discipline really does (software
+      that people use has UX design) before trusting the list.
+61. **A diagram's labels state relations, so it reads without explanation** (2026-11-26, Alex on the ladder with a wall: "it looks
+    like embedded & hardware is positioned against the board, which is not right. improve so that it's clear with no
+    explanation"). A marker names who stands where (a pill on the level: "Embedded teams"); a barrier's label names what it
+    demands ("Level 3 needs the board"). Two labels of different kinds on either side of a line (a team here, a thing there) read
+    as two opposing camps. Test before delivery: a reader who sees only the picture states its message in one sentence, and it is
+    the slide's.

@@ -18,7 +18,7 @@ The procedure, the rules and the field reference live in the build kit, one home
 - Account facts: the outreach tracker (`accounts/<slug>`, `tracking/<slug>`; https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe, read with `ArtifactData`), the account's wiki page `context/areas/softserve/<slug>.md`, and the customer's own website for product names and photos.
 - Output: `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/AI Jumpstart for Hardware & Embedded R&D - <Customer>.pptx`.
 
-Before building, read `.claude/references/slide-design.md` (rules 27, 33, 41, 43–60) and `.claude/references/client-documents.md`.
+Before building, read `.claude/references/slide-design.md` (rules 27, 33, 41, 43–61) and `.claude/references/client-documents.md`.
 
 Hard limits, whatever the account notes say:
 - Only public facts on slides; facts from the customer's internal documents or SoftServe's CRM may steer the picks and washes, never appear on a slide or in speaker notes.
@@ -26,7 +26,8 @@ Hard limits, whatever the account notes say:
 - Every reference after "What we hear" uses the five challenges' pictograms and names verbatim, never numbers, and in the challenges' one colour (orange), the customer's starting points included; no second taxonomy; one name per thing across the deck (a fresh reader's terminology pass before delivery; every second name found goes into `base.json` "glossary").
 - One icon per concept: a session type, deliverable or program element that carries an icon takes it from `base.json` "concepts" on every slide that names it; add a concept there, never a one-off icon in a slide's data.
 - Titles name the slide in one line (the build flags HEAD); what it says goes in the line under it.
-- The build's checks are part of done: no FIT, ORPH, HEAD, WORDS, MISS, SYN or ICON line, no new slide over its word budget.
+- The build's checks are part of done: no FIT, ORPH, HEAD, WORDS, MISS, OVERVIEW, SYN or ICON line, no new slide over its word budget.
+- Evidence on the opening statements is readable at a glance: one unit, one population, plain captions, its source checked at the source page; the overview shows the same work in every row that has it (the build checks it).
 - Alex's saved copy of a delivered deck: diff it first; port additions and rewordings into the JSON; a removal of something he asked for (a starting-point slide) is a question for him, asked in the same turn, never adopted silently (`client-documents.md`, living documents).
 - Customer decks go out without speaker notes (`speaker_notes: false` in `base.json`; the notes texts stay in the kit as its record).
 - Product photos and the logo: ask before downloading, only from the customer's own site; crop photos with `prep_photos.py`, make the logo a white and a black transparent PNG; keep them in the kit next to the customer file; never use a competitor's branded product as a stand-in.
