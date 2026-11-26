@@ -112,6 +112,8 @@ def cmd_export(a):
         ("config", "sheet"): {"spreadsheet_id": sheet_id.group(1) if sheet_id else None, "tab": tab.group(1) if tab else "Sheet1"},
         ("config", "catalog"): load(os.path.join(ENGINE_D, "catalog.json")),
         ("config", "gym"): load(os.path.join(ENGINE_D, "gym.json")),
+        # the exercise figures (start and end frames for every exercise), drawn by the page from this data
+        ("config", "figures"): load(os.path.join(HERE, "figures.json")),
         # last result and all-time record on every exercise card
         ("config", "records"): records_body(hist, load(os.path.join(ENGINE_D, "catalog.json")), load(os.path.join(ENGINE_D, "gym.json")), now),
         ("config", "skill"): {

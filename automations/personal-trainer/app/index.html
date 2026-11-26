@@ -2153,42 +2153,33 @@ function mediaFor(id) {
   for (const m of (e?.media || [])) items.push(Object.assign({ added_by: "skill" }, m));
   return items;
 }
-/** The picture for small previews: his own photo of the machine first, then the start drawing, then anything. */
-function thumbFor(id) {
-  const p = mediaFor(id).filter(isPic);
-  return p.find(m => m.role === "machine") || p.find(m => m.added_by !== "me" && /start/i.test(m.title || "")) || p.find(m => m.added_by !== "me") || p[0] || null;
-}
+/* the figures (FIG above) come from config/figures; the strength catalog's first muscle is what lights up */
+const figSpecs = () => S.cfg.figures?.items || null;
+const figMus = id => exS(id)?.muscles || null;
 /** The brand of this kind of machine at the current gym, from gym.json brands_seen ("Matrix (selectorized machines, cardio)"). */
 function brandFor(ex) {
   const sc = String(ex?.step_class || ""); const want = /^plates/.test(sc) ? /plate/i : /^stack/.test(sc) ? /selectori/i : null;
   const hit = want && (gymCfg().brands_seen || []).find(b => want.test(b)); return hit ? hit.split("(")[0].trim() : null;
 }
-/* his own photos from this gym: the machine itself and the instructions plate printed on it */
-const PHOTO_SLOTS = [["machine", "The machine", "Photo of this gym's machine"], ["placard", "Its instructions", "Photo of the plate on the machine"]];
-const ROLE_RANK_PIC = { machine: 0, placard: 1 };
-/* The How-to sheet, in the order it is needed at the machine: pictures (his photos, then the start and end drawings; tap to
-   enlarge), the trainer's notes, saved videos, then ways to find more. Nothing in it is lost when the data refreshes. */
+/** The frames, large: start and end side by side (three in a row for burpees, one beside its cue for a hold). */
+function figBlock(F, name) {
+  const n = F.svgs.length;
+  return el("div", { class: "figs n" + n, role: "img", "aria-label": `${name}: ` + F.labels.map((l, i) => `${l}, ${F.cues[i]}`).join("; ") },
+    ...F.svgs.map((s, i) => el("figure", null, el("div", { class: "pn", html: s }),
+      el("figcaption", null, el("span", { class: "lb", text: n > 1 ? `${i + 1} · ${F.labels[i]}` : F.labels[i] }), F.cues[i] ? el("span", { class: "cue", text: F.cues[i] }) : null))));
+}
+/* The How-to sheet, in the order it is needed at the machine: the figure (start and end, what to watch on each), his own
+   photos if he added any (tap to enlarge), the trainer's notes, saved videos, then ways to find more. The skill's older
+   drawings and photos are not shown: every exercise has a figure in one style now. Nothing here is lost on a data refresh. */
 function mediaSheet(s) {
   const id = s.id; const e = exS(id) || exW(id) || exC(id) || {}; const name = e.en_short || e.en || id;
   const shown = mediaFor(id).filter(m => m.asset_id || safeUrl(m.url));
-  const pics = shown.filter(isPic); const vids = shown.filter(m => !isPic(m));
-  const mine = pics.filter(m => m.added_by === "me").sort((a, b) => (ROLE_RANK_PIC[a.role] ?? 2) - (ROLE_RANK_PIC[b.role] ?? 2));
-  const drawn = pics.filter(m => m.added_by !== "me");
-  const machine = !!exS(id) && e.step_class !== "db_each";
-  const link = (href, text) => safeUrl(href) ? el("a", { href, target: "_blank", rel: "noopener" }, text) : text;
+  const mine = shown.filter(m => isPic(m) && m.added_by === "me"); const vids = shown.filter(m => !isPic(m));
   const nodes = [sheetHead(name, e.ru)];
-  const fig = m => el("figure", null, el("button", { class: "picbtn", type: "button", "aria-label": `Enlarge: ${m.title || "picture"}`, on: { click: () => openLightbox(id, m) } },
-    el("img", { src: picSrc(m), alt: `${name}: ${m.title || "picture"}`, loading: "lazy" })), el("figcaption", { text: m.added_by === "me" ? (m.title || "Your photo") : (m.title || "") }));
-  const slots = machine && S.assets ? PHOTO_SLOTS.filter(([role]) => !mine.some(m => m.role === role)) : [];
-  if (mine.length || drawn.length || slots.length) {
-    const all = [...mine, ...drawn];
-    nodes.push(el("div", { class: "pics" + (all.length + slots.length === 1 ? " one" : "") }, ...all.map(fig), ...slots.map(([role, label, hint]) => addTile(id, role, label, hint))));
-    const fitNote = drawn.find(m => m.fit_note)?.fit_note;
-    if (fitNote) nodes.push(el("div", { class: "faint small", style: "margin-top:-6px", text: "Drawings: " + fitNote }));
-    const credits = [...new Map(drawn.map(m => [[m.source, m.license, m.source_url].join("|"), m])).values()];
-    if (credits.length) nodes.push(el("div", { class: "faint small credit", style: "margin-top:-8px" }, "Drawings: ", ...credits.map((m, i) => [i ? " · " : "", m.source || "Unknown author",
-      m.license ? [", ", link(m.license_url, m.license)] : null, safeUrl(m.source_url) ? [", ", link(m.source_url, "source")] : null])));
-  }
+  const F = FIG.of(id, figSpecs(), figMus(id));
+  if (F) nodes.push(figBlock(F, name));
+  if (mine.length) nodes.push(el("div", { class: "eyebrow", text: "Your photos" }), el("div", { class: "mine" }, ...mine.map(m =>
+    el("button", { class: "picbtn", type: "button", "aria-label": `Enlarge: ${m.title || "your photo"}`, on: { click: () => openLightbox(id, m) } }, el("img", { src: picSrc(m), alt: m.title || "Your photo", loading: "lazy" })))));
   const cues = [e.cue, e.back_cue_ru, e.note_ru].filter(Boolean);
   if (cues.length) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Trainer's notes: " }), cues.join(" · ")));
   if (vids.length) nodes.push(el("div", { class: "acts" }, ...vids.map(m => {
@@ -2196,7 +2187,7 @@ function mediaSheet(s) {
     if (m.kind === "video" && m.asset_id) return el("figure", { class: "media", style: "margin:0;padding:10px" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), el("div", { class: "faint small", text: m.title || "Your video" }));
     return el("a", { href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: [m.source, new URL(src).hostname.replace(/^www\./, "")].filter(Boolean).join(" · ") })));
   })));
-  if (!pics.length && !vids.length && !slots.length) nodes.push(el("p", { class: "muted small", text: "No pictures or videos saved for this one yet." }));
+  if (!F && !mine.length && !vids.length) nodes.push(el("p", { class: "muted small", text: "No picture or video for this one yet." }));
   const tip = S.tips?.[id]; if (tip) nodes.push(el("div", { class: "tipbox", id: "tipBox", "aria-live": "polite", text: tip.text || "Thinking…" }));
   const brand = exS(id) ? brandFor(e) : null; const plain = (e.en || id).replace(/\s*\(.*?\)\s*/g, " ").trim();
   const req = S.requests[id]; const acts = [];
@@ -2209,17 +2200,13 @@ function mediaSheet(s) {
   if (!vids.length || (req && !req.done)) acts.push(el("button", { type: "button", disabled: !!req && !req.done, on: { click: () => requestDemo(id) } }, icon("flag"),
     el("span", null, el("b", { text: req && !req.done ? "Demo requested" : "Ask the trainer to find a demo" }), el("div", { class: "faint small", text: req && !req.done ? `Asked ${fmtDate(req.requested_at)}; it's attached at the next sync` : "At the next sync Claude finds a good video and saves it here" }))));
   if (S.assets) {
+    const up = S.uploading?.[id + ":any"];
     const inp = el("input", { type: "file", id: "upl", accept: "image/*,video/*", hidden: true, on: { change: ev => { uploadMedia(id, ev.target.files[0]); ev.target.value = ""; } } });
-    acts.push(inp, el("button", { type: "button", on: { click: () => inp.click() } }, icon("up"), el("span", null, el("b", { text: "Add a photo or video" }), el("div", { class: "faint small", text: "e.g. the trainer showing you, or a note to yourself" }))));
+    acts.push(inp, el("button", { type: "button", disabled: !!up, on: { click: () => inp.click() } }, up ? el("span", { class: "spin" }) : icon("camera"),
+      el("span", null, el("b", { text: up ? "Saving…" : "Add a photo or video" }), el("div", { class: "faint small", text: "e.g. this gym's machine, its instructions plate, or the trainer showing you" }))));
   }
   nodes.push(el("div", { class: "eyebrow", text: "Find more" }), el("div", { class: "acts" }, ...acts));
   return nodes;
-}
-function addTile(id, role, label, hint) {
-  const up = S.uploading?.[id + ":" + role];
-  const inp = el("input", { type: "file", accept: "image/*", hidden: true, id: "upl-" + role, on: { change: ev => { uploadMedia(id, ev.target.files[0], role); ev.target.value = ""; } } });
-  return el("figure", null, inp, el("button", { class: "add-tile", type: "button", disabled: !!up, on: { click: () => inp.click() } },
-    up ? el("span", { class: "spin" }) : el("span", { html: ICON.camera }), up ? "Saving…" : label, up ? null : el("span", { class: "faint", text: hint })));
 }
 async function askTips(id) {
   const e = exS(id) || exW(id) || exC(id) || {};
