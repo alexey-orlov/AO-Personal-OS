@@ -417,7 +417,7 @@ deck or one-pager work.
 45. **Headings name, the line under them says** (2026-11-25, Alex on the ALSO deck: two-line caps sentences as titles "are too heavy and
     do a poor job keeping the structure clear").
     - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
-      peer it details ("PROGRAM FOCUS", "TOO FEW TESTS TO SHIP SAFELY", "FIRMWARE"). The build checks one line and the word count.
+      peer it details ("PROGRAM FOCUS", "MANUAL TESTS SLOW RELEASES", "FIRMWARE"). The build checks one line and the word count.
     - What the slide says goes in one sentence-case line under the title, after the strip that shows where the slide sits.
     - Retitle reused slides the same way, so every heading in the deck has one look.
 46. **A multi-column slide shows where each column, group and row ends** (2026-11-25, Alex on the module slides: "hard to navigate
@@ -491,3 +491,13 @@ deck or one-pager work.
 57. **Colour means one thing per deck; where it means nothing, panels stay neutral** (2026-11-25, Alex on the module slides: "I don't
     get the color coding of the slides, that's confusing"). Three columns that are not a sequence get one style (white, grey band, no
     arrows); a single accent marks only the names a reader looks up (skill names, weeks).
+58. **A customer deck survives its buyer's skeptical read** (2026-11-25, a VP-of-Engineering review Alex asked for: "no nonsense, no AI
+    content, no clear overstatement, no 'they don't know what they pitch' feelings").
+    - A problem assigned to the customer names a symptom they would say themselves, never a verdict on their work ("Manual tests
+      slow releases", not "Too few tests to ship safely"), and nothing guesses at their org or headcount.
+    - Every number is sourced or worked out on the slide, agrees with our own ratings elsewhere in the deck, and measures one thing
+      with one baseline (no "weeks → days" where the same deck rates that work Low).
+    - Domain words are the customer's own (their buses, rigs and boards; no hobby-board photos); a barrier never carries the name of
+      the thing that removes it; nothing implies agents act unsupervised on hardware that can be damaged.
+    - Before delivery, two fresh readers of the rendered PDF: a presentation designer and the buyer; apply what does not reverse
+      Alex's own calls, and list what was left.
