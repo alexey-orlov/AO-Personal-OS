@@ -11,7 +11,7 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 
 | Slug | Account | Wiki home | Folded | On |
 |---|---|---|---|---|
-| semtech | Semtech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 6 | 2026-11-25 |
+| semtech | Semtech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-26 |
 | horizon-surgical-systems | Horizon Surgical Systems | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-22 |
 | generac | Generac (with ecobee) | [generac](../areas/softserve/generac.md) | 8 | 2026-11-22 |
 | blackberry | BlackBerry (QNX) | [blackberry](../areas/softserve/blackberry.md) | 8 | 2026-11-22 |
