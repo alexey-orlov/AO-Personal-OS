@@ -151,7 +151,8 @@ deck or one-pager work.
       row = top segment), with subtotal rows for the whole and for the cost block. Each row carries its swatch, so the
       table is also the legend.
     - Columns normalised to 100 % say so in the lead; their absolute totals sit on the caps.
-22. **A slide built to land one claim carries that claim as its headline** (2026-10-08, Alex on the GigaCloud «per component, not per
+22. **A slide built to land one claim carries that claim as its headline** (a standalone thesis slide in a talk; in a navigated deck
+    with sections and a spine, rule 45 wins: the title names the slide and the claim goes in the line under it) (2026-10-08, Alex on the GigaCloud «per component, not per
     deal» slide: «зроби головний акцент на тезу, має бути виділено»). The first cut kept the intro series title («Коректна алокація
     витрат у ціну компонентів») as the headline and put the thesis in the grey lead under it, so the slide's one point read as a caption.
     - The thesis is the title, at title size, with its key phrase in the accent colour; break it by hand into ≤ 2 lines.
@@ -246,6 +247,10 @@ deck or one-pager work.
     - The overview carries the structure only; explanatory bands and footnotes under it belong on the detail slides (2026-10-12).
       A navigation slide that opens a section shows its boxes with a one-line purpose each, never the item lists (done, next)
       that the following slides cover (2026-11-10, Alex: «просто три бакета з oneliner, який пояснює ціль»).
+    - Peer detail slides (the four workflows of a process) get one hue each, taken from the source's own coding, and carry it
+      wherever the item appears: its cards, tags, legend and a strip of the peers' pictograms with the current one lit. An overview
+      slide opens the section and shows every peer's structure in miniature (same columns, same order), so the detail slides read
+      as zoom-ins (2026-11-25, Alex: "colorcoding in 4 colors like in the artifact").
     - A stage or block name must hold for every step in it. Name it by the event it centres on («Перший клієнт»), with before/after
       sub-blocks, not by a preposition that excludes some of its steps: «Перед першим клієнтом» was false for the hand-off, which
       comes after. A group that has its own steps is a numbered stage on the same equal-width grid, not a narrow in-between column
@@ -359,6 +364,10 @@ deck or one-pager work.
     - A cut keeps every claim, number and accent. It drops restatements, qualifiers and secondary examples (those move to the speaker
       notes), never the point.
     - When a slide feels full, cut words before shrinking type, adding a slide or widening a box.
+    - In a grid of cards, the line under a card's name is ≤ 6 words and never restates the name's object ("Write docs" → "Agents
+      write; people review"); the build counts it. A band that repeats the slide's lead or cards goes, and tool and stack names
+      (STM32, OpenOCD, GDB) go to the notes unless the buyer asked (2026-11-25, Alex on the ALSO deck: "all the oneliners in this
+      kind of cards are too long … requirement for them to be clear still stands").
 42. **A seller one-pager opens with who the offer is for, then the challenges that follow from it** (2026-11-13, Alex on the Jumpstart
     seller one-pagers: the account manager may not know the account even has an R&D unit, so the page must link the company to the work).
     - The first section starts with a who-it's-for frame: the kind of company, what its team does, and therefore what that work depends
@@ -382,4 +391,33 @@ deck or one-pager work.
       one slide per pick with the pick's number and name as its kicker, the program's focus, the module slides, the highlight frames
       (numbered like the set) and the case tags.
     - Never a second taxonomy the reader has to map onto the first (the offering deck's "program directions" were one); a picked
-      item's line on one slide is word for word the next slide's title.
+      item's name on one slide is word for word the next slide's title.
+    - Point back by pictogram and name, never by number: a number makes the reader decode, a pictogram reads at a glance. Every slide
+      about one item carries a strip of the set's pictograms under its title, the current one lit (2026-11-25, Alex on the challenge
+      numbers: "pick some other approach than numbering … so that cross-referencing on the next slides reads better").
+45. **Headings name, the line under them says** (2026-11-25, Alex on the ALSO deck: two-line caps sentences as titles "are too heavy and
+    do a poor job keeping the structure clear").
+    - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
+      peer it details ("PROGRAM FOCUS", "TOO FEW TESTS TO SHIP SAFELY", "FIRMWARE"). The build checks one line and the word count.
+    - What the slide says goes in one sentence-case line under the title, after the strip that shows where the slide sits.
+    - Retitle reused slides the same way, so every heading in the deck has one look.
+46. **A multi-column slide shows where each column, group and row ends** (2026-11-25, Alex on the module slides: "hard to navigate
+    (unclear where one line/column ends and overall structure)"; on slide 4: "a bit off compared to slide 2 and 3"; on the case
+    slides: "a little bit clunky").
+    - One container per column, its labelled band at the same height as its neighbours'; one card per group; hairlines between rows.
+    - A tag sits next to the thing it labels, never right-aligned across white space.
+    - Slides of one kind share one anatomy: the module slides took the option slides' three panels; a new slide in a section is drawn
+      on a copy of its neighbour (slide 4 on slide 3's table).
+    - One label style per deck (mono caps), applied to reused slides too.
+47. **A program offer shows its program in two slides: an at-a-glance opener and a weekly program** (2026-11-25, Alex: "from a single
+    glance it should make clear what the program is … series of training, what your team will be doing, what they'll get"; "showing
+    sessions and what happens in between, mention formats … easy to read, visual").
+    - The opener: big numbers (weeks, team, workshops, labs), one card per phase saying what the team does, the ways of working drawn as
+      chips rather than described (paired → solo), and what the team keeps as a row of icons. Never the vendor's engagement-model
+      breakdown (Assessment → Activation Pod → Enablement → Agentic team: "that's off").
+    - The weekly program: weeks as columns under the phases, one row per session format with its length, one to three words a cell,
+      sessions with us in one colour and the team's own work between sessions in another, KPI checkpoints marked. Models: the AI PM
+      Jumpstart "program journey" grid and the scientists' weekly rhythm (OneDrive `Projects/Jumpstart/`).
+48. **Highlight a group with a soft wash and a short accent tab, not a rectangle** (2026-11-25, Alex on the program focus slide: "not
+    like 'rectangular' frames but rather better looking highlights"). The wash sits behind the group, the tab on its top edge, both in
+    one removable group at the back of the z-order; an outline frame is for marking single cards, where a wash would not show.
