@@ -367,3 +367,19 @@ deck or one-pager work.
     - Each challenge is a concrete situation a seller who has never met that unit recognises at once, in the nouns of the client's desk,
       and it carries the same name as on the client deck.
     - Case studies on a one-pager are framed cards beside the proof logos, not extra rows under them.
+43. **A slide made for one customer shows that customer, and a photo replaces text wherever it can carry the point** (2026-11-25,
+    Alex on the ALSO deck: "should use images of their products … so that it feels more like them"; "hero photos could be used more
+    to make it less text, more perception").
+    - Their own products, from their own site, cropped to one frame size per row (never stretched); a product with no public picture
+      gets an outlined "in development" frame of the same size with its pictogram, or an unbranded photo of its category, never a
+      competitor's branded product.
+    - On the slides after it, a photo of the thing the slide is about (the board, the bench, the team at work) takes the place of a
+      paragraph that describes it.
+44. **A deck hangs on one spine: introduce one set once and point back to it by the same numbers and names** (2026-11-25, Alex on the
+    ALSO deck: "the concept of directions is now disconnected from general narrative"; "keeping same naming wording for same things
+    helps navigation and better reader referencing").
+    - The set (for the Jumpstart decks, the five challenges of "What we hear") organizes every later section: the customer's picks,
+      one slide per pick with the pick's number and name as its kicker, the program's focus, the module slides, the highlight frames
+      (numbered like the set) and the case tags.
+    - Never a second taxonomy the reader has to map onto the first (the offering deck's "program directions" were one); a picked
+      item's line on one slide is word for word the next slide's title.

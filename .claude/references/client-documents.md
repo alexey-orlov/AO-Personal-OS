@@ -162,6 +162,13 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   screens"). A block that carries no message is cut or moved to the page that owns the
   detail; a page that repeats a sibling page's steps under different names is a structure
   bug, not a copy one.
+- **A pitch answers the obvious objection before it offers anything** (2026-11-25, Alex on the ALSO deck: after "what the
+  business wants" and "what makes it hard", a slide on why the tool everyone already has, here a chat with AI, does not solve it
+  yet). Give the real reasons a thoughtful buyer would raise, in their words, each answered by a part of the offer named exactly
+  as the program slides name it; no strawmen.
+- **Label content by what it is, never by whose job we guess it is** (2026-11-25, Alex: "don't put titles like 'The Head of
+  Firmware's challenge', it's just their company/team challenge"). A customer-facing panel is "Challenge", "Solution",
+  "Outcome"; a guessed owner or buyer reads as us sizing up their org chart.
 - **Headings are display lines, not sentences** (2026-09-16, Alex on the Services H1 *"From
   Oracle's platforms to agents in production."*: "too long of a heading"). Uppercase display
   type multiplies length, so budget from the rendered size before writing: an H1 is two to
