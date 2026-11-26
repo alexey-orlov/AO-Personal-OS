@@ -568,3 +568,16 @@ deck or one-pager work.
     demands ("Level 3 needs the board"). Two labels of different kinds on either side of a line (a team here, a thing there) read
     as two opposing camps. Test before delivery: a reader who sees only the picture states its message in one sentence, and it is
     the slide's.
+62. **A deck for a buyer who leads several teams speaks to each of them** (2026-11-26, Alex on the ALSO deck: "we designed our deck
+    with deliberate focus on embed/firmware/hardware ... I'm worried that we're missing the opp-ty to present solution that fits
+    software teams as well"; a fresh VP review then found the app teams first named on slide 10 and "14 of 15 cards say FIRMWARE").
+    - Name every team the buyer leads before the detail starts (on the cover, in the problems), and mark what each problem,
+      starting point, example and case is for with one marker set (the workflows' pictograms, lit where it applies, pale where it
+      does not). A team that finds itself nowhere stops reading; the program slides are where it does.
+    - Keep what is distinctive and say it as the extra a team faces, never as the only problem (embedded teams have "three more
+      reasons" to stop at level 2, software muted beside embedded); the evidence a team would claim as its own says so (Daxko and
+      Payworks marked as software teams).
+    - Shared slides never assume one team's tools or place of work: labs run "where your code runs", agent work is verified "in CI
+      and on boards", the program's core is "for product teams", and How to start shows the pilot team is picked together.
+    - The customer read is organized by the buyer's teams, in the customer's own public names, coded to the deck's workflows, one
+      possible starting point per kind of team where the signals allow.
