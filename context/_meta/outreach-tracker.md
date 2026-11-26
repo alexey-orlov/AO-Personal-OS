@@ -3,7 +3,7 @@
 Maps each AI Jumpstart outreach account to its tracker docs and its wiki home, and records the tracker version the wiki has folded. The contract that uses it: `.claude/references/jumpstart-outreach-tracker.md`.
 
 - **Tracker:** [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), a private claude.ai artifact. Collections `accounts` (research) and `tracking` (status, next step, contacts, account summary), one doc per slug; read and written with `ArtifactData`.
-- **Last full sync:** 2026-11-23, both directions, all rows below.
+- **Last full sync:** 2026-11-26, both directions, all rows below.
 
 ## Accounts
 
@@ -18,13 +18,13 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | loreal-north-america | L'Oréal North America | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 4 | 2026-11-23 |
 | also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 8 | 2026-11-25 |
-| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-25 |
+| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 9 | 2026-11-26 |
 | aes | AES (Maximo's parent) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-23 |
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
 | hexagon-mining | Hexagon Mining | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
 | georgia-pacific | Georgia-Pacific | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-23 |
-| shi-teoco | SHI / TEOCO | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 1 | 2026-11-23 |
-| oncor-electric | Oncor Electric | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 1 | 2026-11-23 |
+| shi-teoco | SHI / TEOCO | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 4 | 2026-11-26 |
+| oncor-electric | Oncor Electric | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 4 | 2026-11-26 |
 | brain-corp | Brain Corp | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
 | benchling | Benchling | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
 | genentech | Genentech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
@@ -37,4 +37,4 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 
 Wiki changes made by a run that could not write the tracker. The next run with `ArtifactData` pushes them and clears the line.
 
-- maximo-robotics — status stays yes; next step: the dev-team interview ran 2026-11-26 ([note](../areas/softserve/calls/2026-11-26_070440_default_20261126060822873B7770.md)); now DM follow-ups with the engineers, get Richard's and Diego's names (Maximo's product owners, add as contacts), then the tailored offer on the raised challenges (documentation, versioning and deployment, sim-to-real, remote observability). Set `updated_at`. (headless fold, 2026-11-26)
+-
