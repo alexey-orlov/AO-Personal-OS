@@ -540,7 +540,7 @@
    "eq": [
     ["floor", 0]],
    "frames": [
-    {"pose": {"r": 80, "at": ["lelb", 0, -4.4], "a2": [80, 80, 1, 0.3], "l": [0, 0], "a": [45, -45]}, "cue": "On the forearm and the side of the feet; hips up, body in a straight line"}]
+    {"pose": {"r": 70, "at": ["lhand", 0, -3.4], "a2": [70, 70, 1, 0.3], "l": [0, 0], "a": [45, -45]}, "cue": "On the forearm and the side of the feet; hips up, body in a straight line"}]
   },
   "side_plank_rotation": {
    "view": "front",
@@ -548,20 +548,21 @@
    "eq": [
     ["floor", 0]],
    "frames": [
-    {"pose": {"r": 80, "at": ["lelb", 0, -4.4], "a2": [80, 80, 1, 0.3], "l": [0, 0], "a": [100, 100]}, "cue": "Side plank, top arm straight up"},
-    {"pose": {"r": 80, "at": ["lelb", 0, -4.4], "a2": [80, 80, 1, 0.3], "l": [0, 0], "a": [-74, -84]}, "cue": "Reach the top arm under the body, then back up"}],
+    {"pose": {"r": 70, "at": ["lhand", 0, -3.4], "a2": [70, 70, 1, 0.3], "l": [0, 0], "a": [110, 110]}, "cue": "Side plank, top arm straight up"},
+    {"pose": {"r": 70, "at": ["lhand", 0, -3.4], "a2": [70, 70, 1, 0.3], "l": [0, 0], "a": [-66, -76]}, "cue": "Reach the top arm under the body, then back up"}],
    "arrow": [["rhand", "rsho", 7]]
   },
   "pallof_hold": {
-   "view": "front",
-   "hl": ["abs"],
+   "view": "top",
+   "hl": ["chest"],
    "eq": [
-    ["floor", 0],
-    ["frame", [-64, -1.7], [-64, -100], 4],
-    ["band", [-60, -80], ["rhand"]],
-    ["handle", ["rhand"], 0, 4, {"z": 2}]],
+    ["disc", [-62, -24], 4.5],
+    ["band", [-62, -24], ["rhand", -1.5, 0]],
+    ["handle", ["rhand", -1.5, 0], 90, 3.4, {"z": 2}]],
    "frames": [
-    {"pose": {"at": ["pel", 0, -55.2], "l": [9, 0], "a": [-62, -70, 0.3, 0.3]}, "cue": "Side-on to the band, arms straight out from the chest; don't let it turn you"}]
+    {"pose": {"ah": [1.5, -12], "ab": -1}, "cue": "Seen from above: side-on to the band, handle at the chest"},
+    {"pose": {"ah": [1.5, -33], "ab": -1}, "cue": "Press it straight out and hold; don't let the band turn you", "label": "Hold"}],
+   "arrow": [["rhand", null, -8]]
   },
   "glute_bridge": {
    "view": "side",

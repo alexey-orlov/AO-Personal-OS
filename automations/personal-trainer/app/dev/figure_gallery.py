@@ -4,7 +4,7 @@ frame before it ships (README, "Exercise figures").
   python3 automations/personal-trainer/app/dev/figure_gallery.py     # writes .work/harness/figures.html
 
 Open http://127.0.0.1:8798/figures.html (the "trainer-app-harness" entry in .claude/launch.json).
-URL flags: ?dark (dark theme), ?only=id,id (just those), ?big (larger frames), ?thumbs (the small list pictures too).
+URL flags: ?dark / ?light (force a theme), ?only=id,id (just those), ?big (larger frames), ?thumbs (the small list pictures too).
 Test page only: never published.
 """
 import json
@@ -41,6 +41,7 @@ const FIGS = {js(figs.get("items", {}))};
 const ORDER = {js(order)};
 const q = new URLSearchParams(location.search);
 if (q.has("dark")) document.documentElement.dataset.theme = "dark";
+if (q.has("light")) document.documentElement.dataset.theme = "light";
 if (q.has("big")) document.body.classList.add("big");
 const only = q.get("only") ? q.get("only").split(",") : null;
 const g = document.getElementById("g"); let missing = [];
