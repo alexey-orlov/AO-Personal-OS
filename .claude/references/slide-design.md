@@ -528,7 +528,11 @@ deck or one-pager work.
     - A problem assigned to the customer names a symptom they would say themselves, never a verdict on their work ("Manual tests
       slow releases", not "Too few tests to ship safely"), and nothing guesses at their org or headcount.
     - Every number is sourced or worked out on the slide, agrees with our own ratings elsewhere in the deck, and measures one thing
-      with one baseline (no "weeks → days" where the same deck rates that work Low).
+      with one baseline (no "weeks → days" where the same deck rates that work Low). A source's number says whose it is on the slide
+      ("Software development teams · Bain"), so no reader takes it for their own industry's.
+    - The measure a problem slide names is the first metric of that problem's outcome later in the deck ("Time to a safe release"
+      on both), and a contrast never says "only" where the other side does it too (host tests run in CI for firmware as well: "a
+      change counts once it runs on a board", not "proven only on a real board"; review, 2026-11-26).
     - Domain words are the customer's own (their buses, rigs and boards; no hobby-board photos); a barrier never carries the name of
       the thing that removes it; nothing implies agents act unsupervised on hardware that can be damaged.
     - The problem section promises nothing: a column next to the problems names what needs improving, as the measure ("Lead time
