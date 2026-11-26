@@ -1,29 +1,7 @@
 {
- "_doc": "What the Trainer Notebook's media/<exercise id> docs hold. Pictures: Everkinetic drawings (github.com/everkinetic/data, CC BY-SA 4.0; dist/svg/<id_num>-relaxation|tension.svg; `everkinetic` = id_num) uploaded to the artifact's asset store (asset_id -> /_blob/<id>), two Wikimedia Commons files with their own licence. A near-match drawing carries `fit_note`; push-ups, dips and squats show Top (tension file) before Bottom; plank holds show the push-up top only. Pre-loaded 2026-11-24 (18 exercises) and 2026-11-25 (26 more, each drawing looked at before attaching). Videos: YouTube links verified live via oEmbed (title + channel). Excluded on purpose: barbell hack squat, free-standing T-bar row, behind-the-neck pulldown, barbell overhead squat (catalog never list), the seated cable row drawing for the chest-supported row machine (teaches the unsupported position) and a strict one-arm press for the push press (no leg drive). Alex's own photos (added_by: me, role: machine | placard) live only in the artifact's db.",
+ "_doc": "What the Trainer Notebook's media/<exercise id> docs hold: demo videos only (YouTube links verified live via oEmbed, title + channel), plus Alex's own photos and videos (added_by: me), which live only in the artifact's db. Pictures of how to do each exercise are not media: the page draws them itself from figures.json (config/figures), every exercise in one style. The Everkinetic drawings and two Wikimedia Commons files that were here until 2026-11-26 were taken out of the docs (git history has them); their SVG files are still in the artifact's asset store, unused.",
  "media": {
   "hack_squat": [
-   {
-    "kind": "image",
-    "asset_id": "2f2094091ebda523a359ebbc86684401",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "ab98e5b8e514915b39d3a488fe07fbca",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=hglQExHCM9Q",
@@ -35,28 +13,6 @@
   ],
   "hip_abduction": [
    {
-    "kind": "image",
-    "asset_id": "5381b7f2eb888405827b4f6c7cc9d0d1",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "a0c5472cc3f795f7ead2b05e61495462",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=5O_Y9l__iao",
     "title": "Seated Hip Abduction Machine: How To",
@@ -66,28 +22,6 @@
    }
   ],
   "leg_curl": [
-   {
-    "kind": "image",
-    "asset_id": "e5915e7ef846824c0d91009d95f63442",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "868b5daa69429288078d41221e8f6856",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=Z5pRnXaCjpM",
@@ -99,28 +33,6 @@
   ],
   "glute_kickback": [
    {
-    "kind": "image",
-    "asset_id": "57ad0d68a622d24e40ca64830fc5e2e7",
-    "title": "Start (drawn on the cable: same movement)",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "5b5a8c64d36d11066ca7d73b21358035",
-    "title": "End: hips square, no arch at the top",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=-n1Ezkw2s9w",
     "title": "How to perform - Machine Glute Kickbacks at the gym",
@@ -130,28 +42,6 @@
    }
   ],
   "cable_glute_kickback": [
-   {
-    "kind": "image",
-    "asset_id": "57ad0d68a622d24e40ca64830fc5e2e7",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "5b5a8c64d36d11066ca7d73b21358035",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=VSgMyiOu0uE",
@@ -163,28 +53,6 @@
   ],
   "leg_extension": [
    {
-    "kind": "image",
-    "asset_id": "919f64de68938a084642ac9bb357bbf6",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "bc0fffdd14b1b0c54c63ca6ca06ccac9",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=xAUvXdHu1sI",
     "title": "How to do the LEG EXTENSION properly (in just 80 seconds)",
@@ -195,28 +63,6 @@
   ],
   "cable_lateral_raise_1arm": [
    {
-    "kind": "image",
-    "asset_id": "f617c3827ea409d44a49bd7042ff2056",
-    "title": "Arm path, start (drawn with dumbbells)",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "1e203c48630095d5bbe34d21cdbd00d3",
-    "title": "End: one arm at a time on the low cable",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=LLXW6PAsGfQ",
     "title": "How to: Single Arm Cable Lateral Raise",
@@ -225,53 +71,7 @@
     "added_at": "2026-11-24T02:05:00Z"
    }
   ],
-  "lateral_raise_1arm": [
-   {
-    "kind": "image",
-    "asset_id": "f617c3827ea409d44a49bd7042ff2056",
-    "title": "Arm path, start (drawn with dumbbells)",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "1e203c48630095d5bbe34d21cdbd00d3",
-    "title": "End: one arm at a time",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   }
-  ],
   "back_extension": [
-   {
-    "kind": "image",
-    "asset_id": "94d466fb4dced49fe4d4326c4191cfc9",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "f54eede85937317e56ac908377f332f3",
-    "title": "End: body in one line, don't arch past it",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=LJCXIDE2_Ro",
@@ -283,28 +83,6 @@
   ],
   "side_plank_rotation": [
    {
-    "kind": "image",
-    "asset_id": "3c10ae2b98c6190a33f65e7eb0d71358",
-    "title": "Side plank: start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "443f7ec4293f8942c452b367553db321",
-    "title": "Hips up, body straight; then rotate the top arm under and back",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=DXQ9YKHtcsk",
     "title": "Side Plank With Rotation: Proper Form",
@@ -313,55 +91,7 @@
     "added_at": "2026-11-24T02:05:00Z"
    }
   ],
-  "side_plank": [
-   {
-    "kind": "image",
-    "asset_id": "3c10ae2b98c6190a33f65e7eb0d71358",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "443f7ec4293f8942c452b367553db321",
-    "title": "Hold: hips up, body straight",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   }
-  ],
   "glute_bridge": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "a133254e8215d8fe2faa107319e7b696",
-    "title": "Start",
-    "everkinetic": "0109"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "08b59d1bc73e65201cc6b24d347974f7",
-    "title": "End",
-    "everkinetic": "0109"
-   },
    {
     "added_at": "2026-11-24T02:05:00Z",
     "added_by": "skill",
@@ -371,42 +101,7 @@
     "url": "https://www.youtube.com/watch?v=FCvb8ZRjCuk"
    }
   ],
-  "glute_bridge_single": [
-   {
-    "kind": "image",
-    "asset_id": "fe79ceb6c9c5e5bc804a2ac6d7ef57b5",
-    "title": "Single-leg bridge",
-    "source": "Klewis425, Wikimedia Commons",
-    "license": "CC BY-SA 3.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Single_Leg_Bridge.jpg",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z"
-   }
-  ],
   "step_ups": [
-   {
-    "kind": "image",
-    "asset_id": "9aca17f6ebfeb3ecd6392b2221fd328b",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "7c6b49d8c2686212b45f5262d15f95b4",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=Zp7RG4jFScw",
@@ -414,30 +109,6 @@
     "source": "OPEX Fitness",
     "added_by": "skill",
     "added_at": "2026-11-24T02:05:00Z"
-   }
-  ],
-  "walking_lunges": [
-   {
-    "kind": "image",
-    "asset_id": "a824fdd6b9fea908648bb3ac3aaeb716",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "ed09a3259aaf82d421f4d63cab3ad072",
-    "title": "End",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
    }
   ],
   "jumping_jacks": [
@@ -451,17 +122,6 @@
    }
   ],
   "sit_ups": [
-   {
-    "kind": "image",
-    "asset_id": "b88652b5c264a88f4e59fd8bb4538575",
-    "title": "Stages of the sit-up",
-    "source": "Bobjgalindo, Wikimedia Commons",
-    "license": "CC BY 4.0",
-    "license_url": "https://creativecommons.org/licenses/by/4.0/",
-    "source_url": "https://commons.wikimedia.org/wiki/File:An_illustration_of_sit_up_abdominal_exercise.jpg",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:05:00Z"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=VUiWcpNPSRk",
@@ -493,32 +153,6 @@
   ],
   "lat_pulldown": [
    {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "4cf3c1cec89e1184bf9c6b5901b6608e",
-    "title": "Start",
-    "everkinetic": "0093",
-    "fit_note": "an underhand grip; the pull is the same"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "ec587af5928d6dd817c18ca964b40f21",
-    "title": "End",
-    "everkinetic": "0093",
-    "fit_note": "an underhand grip; the pull is the same"
-   },
-   {
     "added_at": "2026-11-24T02:20:00Z",
     "added_by": "skill",
     "kind": "youtube",
@@ -528,28 +162,6 @@
    }
   ],
   "seated_cable_row": [
-   {
-    "kind": "image",
-    "asset_id": "d1345d880f1f27f55f0ead16f169bbcc",
-    "title": "Start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "4c00d39b84446702212ea529ee8466eb",
-    "title": "End: chest up, no leaning back",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=OeLb503NZHk",
@@ -571,28 +183,6 @@
   ],
   "kneeling_pullover": [
    {
-    "kind": "image",
-    "asset_id": "f891a52f10d23ce264e17a56344a3c59",
-    "title": "Same arc, standing version: start",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "1e1d917d1dd7c64e9f0c4ed827a8ce0d",
-    "title": "End (the trainer's version is from the knees)",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=liG1jZTEMxk",
     "title": "Tall Kneeling Cable Straight Arm Lat Pulldown - THIRSTgym.com",
@@ -603,32 +193,6 @@
   ],
   "reverse_pec_deck": [
    {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "a0396127a7b25a9c178bf79b334a3078",
-    "title": "Start",
-    "everkinetic": "0020",
-    "fit_note": "standing with a band; the arms move the same way"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "398882c15be175f63d012a1f7254216b",
-    "title": "End",
-    "everkinetic": "0020",
-    "fit_note": "standing with a band; the arms move the same way"
-   },
-   {
     "added_at": "2026-11-24T02:20:00Z",
     "added_by": "skill",
     "kind": "youtube",
@@ -638,28 +202,6 @@
    }
   ],
   "pull_ups": [
-   {
-    "kind": "image",
-    "asset_id": "f280883428581b60a346d0113858b5d3",
-    "title": "Start: dead hang",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
-   {
-    "kind": "image",
-    "asset_id": "e8e0d51a1b706f2229f4e2b864fbb3e0",
-    "title": "End: chin over the bar",
-    "added_by": "skill",
-    "added_at": "2026-11-24T02:20:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data"
-   },
    {
     "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=sxYkYNyC4j0",
@@ -677,608 +219,6 @@
     "source": "Victoria Rose Fitness",
     "added_by": "skill",
     "added_at": "2026-11-24T02:20:00Z"
-   }
-  ],
-  "biceps_curl_machine": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "e3106ea3b3ef3e3bd23c9c0f2eb98870",
-    "title": "Start",
-    "everkinetic": "0236"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "a2d95188514d7e199da0cf3b7ceb98ba",
-    "title": "End",
-    "everkinetic": "0236"
-   }
-  ],
-  "db_fly": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "15d5a5c55681a924346fd638c88ca8b9",
-    "title": "Start",
-    "everkinetic": "0056"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "81bb7dbbcc07e0f2fa2a77cd943b0d28",
-    "title": "End",
-    "everkinetic": "0056"
-   }
-  ],
-  "db_shoulder_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "1f6564e3007af0ea29fd171d68ab62ff",
-    "title": "Start",
-    "everkinetic": "0031",
-    "fit_note": "a reclined bench; you sit more upright"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "649d69cfa0c7079d1ec7e4a01eed3b1a",
-    "title": "End",
-    "everkinetic": "0031",
-    "fit_note": "a reclined bench; you sit more upright"
-   }
-  ],
-  "dips": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "b83df4f16188b63310aacba1289f54b0",
-    "title": "Top",
-    "everkinetic": "0172"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "15b017094583a0db5d4c9efdddaf6d67",
-    "title": "Bottom",
-    "everkinetic": "0172"
-   }
-  ],
-  "glute_bridge_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "a133254e8215d8fe2faa107319e7b696",
-    "title": "Start",
-    "everkinetic": "0109",
-    "fit_note": "the bridge only, without the dumbbell press"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "08b59d1bc73e65201cc6b24d347974f7",
-    "title": "End",
-    "everkinetic": "0109",
-    "fit_note": "the bridge only, without the dumbbell press"
-   }
-  ],
-  "goblet_squat": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "c188e9aa00233a248664fc25b7e10f2e",
-    "title": "Top",
-    "everkinetic": "0130",
-    "fit_note": "dumbbells at the sides; you hold the kettlebell at your chest"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "3419090ba73d349e65c3077713e2f54c",
-    "title": "Bottom",
-    "everkinetic": "0130",
-    "fit_note": "dumbbells at the sides; you hold the kettlebell at your chest"
-   }
-  ],
-  "hammer_shoulder_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "1f6564e3007af0ea29fd171d68ab62ff",
-    "title": "Start",
-    "everkinetic": "0031",
-    "fit_note": "dumbbells instead of the machine's handles"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "649d69cfa0c7079d1ec7e4a01eed3b1a",
-    "title": "End",
-    "everkinetic": "0031",
-    "fit_note": "dumbbells instead of the machine's handles"
-   }
-  ],
-  "high_plank": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "53b78398628597a2b7c113e0f432d594",
-    "title": "Hold",
-    "everkinetic": "0077",
-    "fit_note": "the top of a push-up: hold it"
-   }
-  ],
-  "incline_press_machine": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "606fddc929be8a50723c5b0c61de9374",
-    "title": "Start",
-    "everkinetic": "0081",
-    "fit_note": "a Smith bar instead of the machine's handles"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "7cfb2c813cef9f53248965c2d20501d1",
-    "title": "End",
-    "everkinetic": "0081",
-    "fit_note": "a Smith bar instead of the machine's handles"
-   }
-  ],
-  "low_cable_fly": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "796a88b9a969060bac992882021bfcfe",
-    "title": "Start",
-    "everkinetic": "0060",
-    "fit_note": "on an incline bench; you sit upright"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "7509800820db4d984d8b412b9a4bcc9a",
-    "title": "End",
-    "everkinetic": "0060",
-    "fit_note": "on an incline bench; you sit upright"
-   }
-  ],
-  "machine_bench": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "6e3af60d90b42f43f07b0c4719f444cf",
-    "title": "Start",
-    "everkinetic": "0078",
-    "fit_note": "a Smith bar instead of the machine's handles"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "9f49451e9f5ceafb874aa32eeea24d46",
-    "title": "End",
-    "everkinetic": "0078",
-    "fit_note": "a Smith bar instead of the machine's handles"
-   }
-  ],
-  "pec_deck": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "1fd29a8e3698d167fd0904aaf26e0665",
-    "title": "Start",
-    "everkinetic": "0050",
-    "fit_note": "standing with bands; the arms move the same way"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "c03fcf872c8454e72e79bafb623e746f",
-    "title": "End",
-    "everkinetic": "0050",
-    "fit_note": "standing with bands; the arms move the same way"
-   }
-  ],
-  "plank_shoulder_taps": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "53b78398628597a2b7c113e0f432d594",
-    "title": "Hold",
-    "everkinetic": "0077",
-    "fit_note": "the plank you tap from"
-   }
-  ],
-  "push_ups": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "53b78398628597a2b7c113e0f432d594",
-    "title": "Top",
-    "everkinetic": "0077"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "31bfdf2083d9ef4fb6f856317a39e582",
-    "title": "Bottom",
-    "everkinetic": "0077"
-   }
-  ],
-  "seated_chest_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "7ee347767bec4209fa34c860e017a2be",
-    "title": "Start",
-    "everkinetic": "0066"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "f2921ba26b82fbefad91838f78bfc9f0",
-    "title": "End",
-    "everkinetic": "0066"
-   }
-  ],
-  "seated_dip_machine": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "ea7b6c3300006d3f21970b9e0d22fc5b",
-    "title": "Start",
-    "everkinetic": "0171"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "df33e546680f4f8fd4d8e35bcc10af87",
-    "title": "End",
-    "everkinetic": "0171"
-   }
-  ],
-  "seated_leg_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "7a5f03bb0a3a530f965a6f3bb7e0d5ed",
-    "title": "Start",
-    "everkinetic": "0127",
-    "fit_note": "a 45° sled; the same knee angle"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "3ba4753299f636c77a523db7117ed646",
-    "title": "End",
-    "everkinetic": "0127",
-    "fit_note": "a 45° sled; the same knee angle"
-   }
-  ],
-  "shoulder_press_machine": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "29f2b371a32f615c13e58dcdf31d7966",
-    "title": "Start",
-    "everkinetic": "0004",
-    "fit_note": "a free bar instead of the machine's handles"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "d9118505ac6c5ced5c70468fe0de021b",
-    "title": "End",
-    "everkinetic": "0004",
-    "fit_note": "a free bar instead of the machine's handles"
-   }
-  ],
-  "single_arm_pulldown": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "4cf3c1cec89e1184bf9c6b5901b6608e",
-    "title": "Start",
-    "everkinetic": "0093",
-    "fit_note": "both hands on a bar; you pull one handle with one arm"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "ec587af5928d6dd817c18ca964b40f21",
-    "title": "End",
-    "everkinetic": "0093",
-    "fit_note": "both hands on a bar; you pull one handle with one arm"
-   }
-  ],
-  "smith_incline_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "606fddc929be8a50723c5b0c61de9374",
-    "title": "Start",
-    "everkinetic": "0081"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "7cfb2c813cef9f53248965c2d20501d1",
-    "title": "End",
-    "everkinetic": "0081"
-   }
-  ],
-  "smith_shoulder_press": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "29f2b371a32f615c13e58dcdf31d7966",
-    "title": "Start",
-    "everkinetic": "0004",
-    "fit_note": "a free bar; in the Smith machine it runs on rails"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "d9118505ac6c5ced5c70468fe0de021b",
-    "title": "End",
-    "everkinetic": "0004",
-    "fit_note": "a free bar; in the Smith machine it runs on rails"
-   }
-  ],
-  "sumo_squat": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "5212c2bdfa439d53218605c385e8646c",
-    "title": "Top",
-    "everkinetic": "0152",
-    "fit_note": "a dumbbell instead of the kettlebell"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "f0ec343284bb3a9e4b0528bcd3e3cd58",
-    "title": "Bottom",
-    "everkinetic": "0152",
-    "fit_note": "a dumbbell instead of the kettlebell"
-   }
-  ],
-  "upright_row": [
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "84a52e12804e7b2cad3e0121dfa57d24",
-    "title": "Start",
-    "everkinetic": "0015"
-   },
-   {
-    "kind": "image",
-    "added_by": "skill",
-    "added_at": "2026-11-25T19:40:00Z",
-    "source": "Everkinetic",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "source_url": "https://github.com/everkinetic/data",
-    "asset_id": "2ee6c4018cf37fac058186efb8b0570c",
-    "title": "End",
-    "everkinetic": "0015"
    }
   ]
  }
