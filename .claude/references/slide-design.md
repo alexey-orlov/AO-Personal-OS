@@ -303,6 +303,9 @@ deck or one-pager work.
       beside real logos on peer panels reads unfinished.
     - A brand-usage caution (the NHS identity rules) is one line to Alex, not a reason to drop the logo on an internal partner deck.
       Size the marks so peer panels look equally heavy: a tall emblem gets more height than a wide wordmark.
+    - A slide about one client (a case study) names it once, by its logo at the top left in the title's place; never its name as
+      the title plus its logo in a facts cell elsewhere (2026-11-25, Alex on the Daxko and Payworks slides: "strange to have bold
+      name at the top + logo at the bottom right corner"). The name stays as the logo's alt text.
 34. **Every number names what it counts, and every line reads without the other slides** (2026-10-23, Alex on the principles slide:
     "1 week in Essential" right under "Essential … in six weeks" read as the whole version lasting a week, and "after 2 to 4" made
     sense only after the kit slide).
@@ -414,6 +417,10 @@ deck or one-pager work.
     - Wherever pictograms appear without their names (a frame's badge), the slide carries a key that names each one used; keep
       the reference pictograms distinct from every other icon set on the same slides (2026-11-25, Alex: "Give legend of the
       challenges, which icons you've used").
+    - The spine's items keep one colour on every slide, including where they are the customer's assumed starting points: those
+      are spine items too, so they take the spine's colour, never a second one (2026-11-25, Alex: "challenges are coded in blue
+      color, but when we talk about our hypotheses for Also we code them red … decide on the best color"). Choose the colour no
+      other code uses (orange there: blue was SoftServe's and a workflow's).
 45. **Headings name, the line under them says** (2026-11-25, Alex on the ALSO deck: two-line caps sentences as titles "are too heavy and
     do a poor job keeping the structure clear").
     - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
@@ -438,11 +445,16 @@ deck or one-pager work.
       white icons (so no separate "what we build together" slide) and the tools on a white tile. Never the vendor's engagement-model
       breakdown (Assessment → Activation Pod → Enablement → Agentic team: "that's off").
     - The weekly program: weeks as columns under the phases, one row per session format with its length, one to three words a cell,
-      sessions with us in one colour and the team's own work between sessions in another, KPI checkpoints marked; tagged TEMPLATE
-      (rule 52). Models: the AI PM Jumpstart "program journey" grid and the scientists' weekly rhythm (OneDrive `Projects/Jumpstart/`).
-    - Ways of working (paired runs, skill sign-off, solo runs reviewed, the summary session) are drawn wherever the program is
-      explained: one card each with who takes part as pictograms (the team in ink, us in blue), its week and one line; never a
-      sentence in a lane ("told u before … to visualize interactive formats, not keep the line of text").
+      sessions with us in blue and the team's own work between sessions in neutral grey (never a colour another code owns), KPI
+      checkpoints marked with the KPI icon; tagged TEMPLATE (rule 52). Models: the AI PM Jumpstart "program journey" grid and the
+      scientists' weekly rhythm (OneDrive `Projects/Jumpstart/`).
+    - Ways of working (paired runs, skill sign-off, solo runs, the summary session) are drawn wherever the program is explained: one
+      card each with who takes part as pictograms (the team in ink, us in blue), its week and one line; never a sentence in a lane
+      ("told u before … to visualize interactive formats, not keep the line of text").
+    - The opener, the how-it-runs slide, the weekly program and the examples use the same words and icons for the same sessions and
+      deliverables: write them once (a concept list in the build data) and draw every slide from it (2026-11-25, Alex: "slide 18
+      uses wording that I believe rephrases terms used on 16, 17 … if we can use visual icons introduced earlier on the slide 18 -
+      makes sense"; rule 59).
 48. **Highlight with a soft wash, never a frame, and put the marker icon in clear space** (2026-11-25, Alex on the program focus slide:
     "not like 'rectangular' frames but rather better looking highlights"; on the workflow slides: "don't like frame highlights (though
     icons are good, just make sure they are not hidden and placed properly)").
@@ -459,8 +471,16 @@ deck or one-pager work.
       running header, clear in the middle, dark at the bottom), the running header and page number in white, and the one public
       number in white at display size with its caption and source.
     - The same visual on both statement slides so they read as a pair (one maturity ladder: where most teams are and where the gains
-      are; then what holds the audience's teams below the next level). Under ~85 words a slide.
-    - The photo: a brand abstract from SoftServe's decks or a CC0 photo of the thing at stake, cropped so no maker's logo shows.
+      are; then what holds the audience's teams below the next level). Under ~110 words a slide.
+    - The evidence on the photo half proves the claim in its direction: a number that points the other way goes, however
+      impressive (89% assistant use on "AI stops where the board starts"; Alex, 2026-11-25: "the number is high, but the goal was to
+      say that for embedded/hardware it's low"). A gap is shown as two numbers side by side, each captioned with exactly what its
+      survey measured and both sources named; a claim about why is shown as its three reasons (a bold head and one line each),
+      not as a number.
+    - A maturity scale says each level's essence in three to five plain words on the visual itself, under its name ("Tests and
+      fixes its code"), so a reader who never saw the scale gets it (Alex, 2026-11-25).
+    - The photo: a brand abstract from SoftServe's decks or a CC0 photo of the thing at stake, cropped so no maker's logo shows; a
+      darker wash where text runs over a busy photo.
 50. **Neighbouring slides never share one anatomy** (2026-11-25, Alex on two adjacent row tables: "too monotonous and similar /
     indistinguishable. When I look I feel content fatigue … allowed to shorten or drop some parts … or rework visualization approach").
     When two slides in a row would be the same table, redraw one in the shape of its content (voices in speech bubbles; a road from
@@ -489,8 +509,14 @@ deck or one-pager work.
     the title starts "<Parent>, example deliverables:", the parent marks the items shown next ("EXAMPLE FOLLOWS ›"), the section
     divider lists them as examples.
 57. **Colour means one thing per deck; where it means nothing, panels stay neutral** (2026-11-25, Alex on the module slides: "I don't
-    get the color coding of the slides, that's confusing"). Three columns that are not a sequence get one style (white, grey band, no
-    arrows); a single accent marks only the names a reader looks up (skill names, weeks).
+    get the color coding of the slides, that's confusing"; then on the challenges coded blue on one slide and red on another).
+    - Three columns that are not a sequence get one style (white, grey band, no arrows); a single accent marks only the names a
+      reader looks up (skill names, weeks).
+    - Write the deck's code down before building (Jumpstart decks: orange = the challenges and the customer's starting points; blue
+      = SoftServe and its sessions; one hue per workflow; neutral grey = the customer team's own work) and check every slide
+      against it: a thing keeps its colour everywhere, and when a code takes a colour, every other use of that colour goes
+      neutral (the team's own work moved from salmon to grey; a challenge → solution → outcome slide colours the challenge panel
+      orange and the outcome panel neutral). The brand's accent line in hero titles is typography, not a code.
 58. **A customer deck survives its buyer's skeptical read** (2026-11-25, a VP-of-Engineering review Alex asked for: "no nonsense, no AI
     content, no clear overstatement, no 'they don't know what they pitch' feelings").
     - A problem assigned to the customer names a symptom they would say themselves, never a verdict on their work ("Manual tests
@@ -499,5 +525,20 @@ deck or one-pager work.
       with one baseline (no "weeks → days" where the same deck rates that work Low).
     - Domain words are the customer's own (their buses, rigs and boards; no hobby-board photos); a barrier never carries the name of
       the thing that removes it; nothing implies agents act unsupervised on hardware that can be damaged.
-    - Before delivery, two fresh readers of the rendered PDF: a presentation designer and the buyer; apply what does not reverse
-      Alex's own calls, and list what was left.
+    - The problem section promises nothing: a column next to the problems names what needs improving, as the measure ("Lead time
+      per change"), never the result ("Shorter lead time"); results come after the solution (2026-11-25, Alex: "what improves ->
+      What needs improvement").
+    - Before delivery, two fresh readers of the rendered PDF: a presentation designer (who also checks one name, one icon and one
+      colour per thing) and the buyer; apply what does not reverse Alex's own calls, and list what was left.
+59. **One icon per concept, wherever the concept appears** (2026-11-25, Alex: "in activities we don't use the icons for activities
+    that were introduced on slide 17. Make sure that if we introduce icons for a concept, than we use it in other places").
+    - Every concept the deck pictures (a session type, a deliverable, a program element) has one icon, or one who-and-what pair,
+      kept in one list in the build data; every slide that names the concept as a labelled item (a chip, a card, a cell, a list
+      row, a reused slide's box) draws that icon from the list. An item whose peers carry icons never stands without one.
+    - One icon never marks two concepts: the same glyph for the KPI report and the summary session, or for a document and a
+      review, makes the reader decode. The build lists any glyph that marks two things and any second name a review found (the
+      glossary), and both lists must be empty before delivery.
+60. **An overview shows where, not how much** (2026-11-25, Alex on the four-workflows overview: "skip intensity grade to differentiate
+    impact, that's too detailed for this one; if that's no change or wait - skip the item"). The page that opens a slide family
+    shows which items exist, all in one style; ratings, and the items with nothing to show (no change, waiting), live on the
+    detail slides only. Its lead claims only what the overview itself shows.

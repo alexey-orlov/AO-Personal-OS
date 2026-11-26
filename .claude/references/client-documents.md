@@ -38,6 +38,13 @@ generating script or the conversation's memory of it, and never regenerate over 
 hand-edited file (the script is stale the moment he edits; port his edits first or build
 inside the edited file's shell).
 
+A change found only by diffing his file is evidence, not an instruction. Port the edits
+that add or reword; but when one removes something he explicitly asked for earlier (a
+deleted slide, a dropped section), keep the content (hidden or set aside, not destroyed)
+and ask him in the same turn, as the turn's question, whether the removal was meant
+(2026-11-25: his saved ALSO deck lacked one of the two starting-point slides he had asked
+for; I hid it and mentioned it in passing, and he asked why it was gone).
+
 ## Marketing copy: persona first, scaffolding last (2026-09-16)
 
 From Alex's review of the Oracle mini-site home page: the copy "overemphasized the
