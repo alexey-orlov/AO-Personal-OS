@@ -239,6 +239,18 @@ html.sheet-open, html.sheet-open body { overflow: hidden }
 .lightbox .cap { color: var(--overlay-ink); font-size: 14px; text-align: center }
 .lightbox .x { position: absolute; top: calc(10px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--overlay-btn); color: var(--overlay-ink); font-size: 24px }
 .lightbox .row .btn { min-height: 40px }
+/* exercise figures (FIG): inline SVG coloured through the --fig tokens */
+.fig { display: block; width: 100%; height: auto; aspect-ratio: 1 }
+.fig line, .fig polyline, .fig circle[class^="s-"] { fill: none; stroke-linecap: round; stroke-linejoin: round }
+.fig .s-ink { stroke: var(--fig-ink) } .fig .f-ink { fill: var(--fig-ink) } .fig polygon.f-ink { stroke: var(--fig-ink); stroke-linejoin: round }
+.fig .s-far { stroke: var(--fig-far) } .fig .f-far { fill: var(--fig-far) }
+.fig .s-hl { stroke: var(--fig-hl) } .fig .f-hl { fill: var(--fig-hl) } .fig .s-hlf { stroke: var(--fig-hlf) }
+.fig .s-bg { stroke: var(--fig-bg) } .fig .f-bg { fill: var(--fig-bg) }
+.fig .s-eq { stroke: var(--fig-eq) } .fig .f-eq { fill: var(--fig-eq) } .fig .edge { stroke: var(--fig-eq); stroke-width: 1.2 }
+.fig .s-pad { stroke: var(--fig-pad) } .fig .f-pad { fill: var(--fig-pad) }
+.fig .s-wt { stroke: var(--fig-wt) } .fig .f-wt { fill: var(--fig-wt) }
+.fig .s-arr { stroke: var(--fig-arr) } .fig .f-arr { fill: var(--fig-arr); stroke: var(--fig-arr); stroke-linejoin: round }
+.fig .s-gnd { stroke: var(--fig-gnd) }
 .pending { display: flex; gap: 10px; align-items: center }
 </style>
 
