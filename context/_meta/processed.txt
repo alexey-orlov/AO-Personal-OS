@@ -116,6 +116,7 @@ context/areas/softserve/calls/2026-11-25_091841_default_20261125063320BAC4658D.m
 context/areas/softserve/calls/2026-11-25_092146_default_202611240904364F05371A.md
 context/areas/softserve/calls/2026-11-25_092814_one-on-one_20261124144031AE96DFF0.md
 context/areas/softserve/calls/2026-11-25_094002_default_2026112508331879C4E3FA.md
+context/areas/softserve/calls/2026-11-26_070440_default_20261126060822873B7770.md
 context/areas/softserve/calls/generac/2026-11-22_sales-call_pasted-ecobee-iot-platform-kickoff.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md
