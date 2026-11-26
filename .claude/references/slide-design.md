@@ -249,8 +249,11 @@ deck or one-pager work.
       that the following slides cover (2026-11-10, Alex: «просто три бакета з oneliner, який пояснює ціль»).
     - Peer detail slides (the four workflows of a process) get one hue each, taken from the source's own coding, and carry it
       wherever the item appears: its cards, tags, legend and a strip of the peers' pictograms with the current one lit. An overview
-      slide opens the section and shows every peer's structure in miniature (same columns, same order), so the detail slides read
-      as zoom-ins (2026-11-25, Alex: "colorcoding in 4 colors like in the artifact").
+      slide opens the section on the detail slides' grid (same columns, same order) and names, per cell, the one or two items that
+      carry it (a short name and a pictogram, shaded by level), so the slide can be retold: what is the same across the peers (the
+      same chip in several rows), what differs. Unnamed shading tells nothing, and a column that does not serve that comparison
+      goes (2026-11-25, Alex: "colorcoding in 4 colors like in the artifact"; then: "keeping unnamed steps with different
+      transparency level brings no value … should be easy to retell for me").
     - A stage or block name must hold for every step in it. Name it by the event it centres on («Перший клієнт»), with before/after
       sub-blocks, not by a preposition that excludes some of its steps: «Перед першим клієнтом» was false for the hand-off, which
       comes after. A group that has its own steps is a numbered stage on the same equal-width grid, not a narrow in-between column
@@ -395,6 +398,9 @@ deck or one-pager work.
     - Point back by pictogram and name, never by number: a number makes the reader decode, a pictogram reads at a glance. Every slide
       about one item carries a strip of the set's pictograms under its title, the current one lit (2026-11-25, Alex on the challenge
       numbers: "pick some other approach than numbering … so that cross-referencing on the next slides reads better").
+    - Wherever pictograms appear without their names (a frame's badge), the slide carries a key that names each one used; keep
+      the reference pictograms distinct from every other icon set on the same slides (2026-11-25, Alex: "Give legend of the
+      challenges, which icons you've used").
 45. **Headings name, the line under them says** (2026-11-25, Alex on the ALSO deck: two-line caps sentences as titles "are too heavy and
     do a poor job keeping the structure clear").
     - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
