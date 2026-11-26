@@ -1,5 +1,5 @@
 {
- "_doc": "draft",
+ "_doc": "Exercise figures for the Trainer Notebook, drawn by the page's FIG renderer (index.html, FIGURES block): every exercise in one style, like the instruction plates on gym machines. One entry per catalog id. view = side | front | top; eq = the machine and kit; frames = 1 (a hold) to 3 poses, each with a cue (what to watch in that position) and an optional label; arrow (arrow2 for the 2nd to 3rd frame) = the joint whose path the start frame shows; hl = regions in the accent colour (default: the catalog's first muscle); thumb = the frame used in lists. Pose keys, equipment kinds and how to check a new figure: app/README.md, 'Exercise figures'. app_sync.py export pushes it as config/figures.",
  "items": {
   "leg_extension": {
    "view": "side",
