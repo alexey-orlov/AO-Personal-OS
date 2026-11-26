@@ -96,15 +96,21 @@ h2 { font-size: 22px; font-weight: 700; letter-spacing: .01em }
 .kebab { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; flex: none }
 .how { min-height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 13px; font-weight: 600; flex: none; display: inline-flex; align-items: center; gap: 6px }
 .how svg { width: 16px; height: 16px }
-.how.pic { padding: 3px 10px 3px 3px }
-.how.pic img { width: 34px; height: 34px; object-fit: contain; background: var(--paper); border-radius: 7px }
-.pics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
-.pics.one { grid-template-columns: 1fr }
-.pics figure { margin: 0; display: grid; gap: 4px; min-width: 0 }
-.pics img { width: 100%; max-width: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: var(--paper); border: 1px solid var(--line); border-radius: 10px }
-.pics.one img { aspect-ratio: auto }
-.pics figcaption { font-size: 12.5px; color: var(--ink-3); text-align: center }
-.credit a { color: inherit }
+/* the How-to button: the exercise's start and end frames, small; the sheet shows them large */
+.how.figs-btn { padding: 3px; gap: 3px; min-height: 0 }
+.how.figs-btn .fb { width: 40px; height: 40px; border-radius: 7px; background: var(--fig-bg); overflow: hidden; flex: none }
+.how.figs-btn.sm .fb { width: 32px; height: 32px; border-radius: 6px }
+.figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+.figs.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px }
+.figs figure { margin: 0; display: grid; gap: 6px; align-content: start; min-width: 0 }
+.figs.n1 figure { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: center }
+.figs .pn { background: var(--fig-bg); border-radius: 12px; overflow: hidden }
+.figs figcaption { display: grid; gap: 2px; min-width: 0 }
+.figs .lb { font: 600 11px/1.2 var(--f-body); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3) }
+.figs .cue { font-size: 13px; line-height: 1.35; color: var(--ink-2) }
+.figs.n3 .cue { font-size: 12px }
+.mine { display: flex; flex-wrap: wrap; gap: 8px }
+.mine img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); display: block }
 .sets { display: grid; gap: 6px }
 .set { display: grid; grid-template-columns: 26px minmax(0,1.25fr) minmax(0,1fr) 48px; gap: 6px; align-items: center }
 .set .n { font: 600 15px/1 var(--f-display); color: var(--ink-3); text-align: center }
@@ -229,10 +235,7 @@ html.sheet-open, html.sheet-open body { overflow: hidden }
 .acts button:disabled { opacity: .6; cursor: default }
 .tipbox { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; white-space: pre-wrap; font-size: 14.5px }
 /* pictures: tap to enlarge; empty slots invite a photo of this gym's machine and its instructions plate */
-.picbtn { display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: 10px }
-.add-tile { width: 100%; aspect-ratio: 4 / 5; max-width: 100%; border: 1.5px dashed var(--line); border-radius: 10px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 10px; color: var(--ink-2); font-size: 13px; font-weight: 600; text-align: center }
-.add-tile svg { width: 28px; height: 28px; color: var(--accent) }
-.add-tile .faint { font-weight: 400; font-size: 12px }
+.picbtn { display: block; padding: 0; border: 0; background: none; border-radius: 10px }
 .lightbox { position: fixed; inset: 0; z-index: 30; background: var(--overlay); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
   padding: calc(56px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)) }
 .lightbox img { max-width: 100%; max-height: calc(100% - 70px); object-fit: contain; background: var(--paper); border-radius: 8px }
@@ -385,7 +388,7 @@ async function boot() {
     if (seen.has("workouts") && pendingWrite.size) flushAll();
     scheduleRender();
   }, e => { S.err = `Data stopped loading (${e.code}). Reopen the page.`; render(); });
-  sub("config", snap => { for (const d of snap.docs) S.cfg[d.id] = d.data(); IDX = null; });
+  sub("config", snap => { for (const d of snap.docs) S.cfg[d.id] = d.data(); IDX = null; FIG.sync(S.cfg.figures); });
   sub("briefs", snap => { for (const d of snap.docs) S.briefs[d.id] = d.data(); });
   sub("workouts", snap => {
     const w = {}; S.dbSync = {};
@@ -2092,37 +2095,45 @@ const FIG = (() => {
     out.push("</svg>");
     return out.join("");
   }
-  /** all frames of one exercise, fitted into one shared square so the frames compare: { svgs, labels, cues, hold } */
-  function build(spec, muscles, thumb) {
+  const BODY = new Set(["ink", "far", "hl", "hlf"]);
+  const square = (b, pad, min) => { const size = Math.max(b[2] - b[0] + 2 * pad, b[3] - b[1] + 2 * pad, min || 0); return [(b[0] + b[2]) / 2 - size / 2, (b[1] + b[3]) / 2 - size / 2, size, size]; };
+  /** One exercise drawn in one of three ways:
+      "full"  every frame (up to 3) with the machine and the arrows, in one shared square so the frames compare;
+      "pair"  the first two frames cropped to the body, for the small button on a card;
+      "thumb" one frame cropped to the body (the end frame unless spec.thumb says otherwise), for lists. */
+  function build(spec, muscles, mode) {
     const view = spec?.view || "side";
     if (!spec || !VIEWS[view] || !Array.isArray(spec.frames) || !spec.frames.length) return null;
     const hl = new Set(Array.isArray(spec.hl) ? spec.hl : (muscles || []).slice(0, 1).map(m => MUS[m]).filter(Boolean));
-    const frs = spec.frames.slice(0, 3); const solved = frs.map(fr => solve(view, (fr && fr.pose) || {}));
+    const frs = spec.frames.slice(0, 3).filter(fr => fr && typeof fr === "object"); if (!frs.length) return null;
+    const solved = frs.map(fr => solve(view, fr.pose || {}));
     const ops = solved.map((F, i) => {
       const o = VIEWS[view][2](F, hl);
       for (const it of [...(Array.isArray(spec.eq) ? spec.eq : []), ...(Array.isArray(frs[i].eq) ? frs[i].eq : [])]) equip(o, it, F, i);
-      if (!thumb && solved[i + 1] && i < 2) arrows(o, i === 0 ? spec.arrow : spec.arrow2, solved[i], solved[i + 1]);
+      if (mode === "full" && solved[i + 1] && i < 2) arrows(o, i === 0 ? spec.arrow : spec.arrow2, solved[i], solved[i + 1]);
       return o;
     });
-    const b = bbox(ops.flat()); const pad = 5;
-    const size = Math.max(b[2] - b[0] + 2 * pad, b[3] - b[1] + 2 * pad, num(spec.min) || 92);
-    const vb = [(b[0] + b[2]) / 2 - size / 2, (b[1] + b[3]) / 2 - size / 2, size, size];
-    const n = frs.length;
+    if (mode !== "full") {
+      const pick = mode === "thumb" ? [ops[Math.min(ops.length - 1, Math.max(0, spec.thumb == null ? ops.length - 1 : num(spec.thumb)))]] : ops.slice(0, 2);
+      const bare = pick.map(o => o.filter(q => q.k !== "floor" && q.k !== "wall"));
+      const vb = square(bbox(bare.flat().filter(q => BODY.has(q.c))), 7);
+      return mode === "thumb" ? svg(bare[0], vb) : bare.map(o => svg(o, vb));
+    }
+    const vb = square(bbox(ops.flat()), 5, num(spec.min) || 92); const n = frs.length;
     return { svgs: ops.map(o => svg(o, vb)), hold: n === 1, cues: frs.map(fr => String(fr.cue || "")),
       labels: frs.map((fr, i) => String(fr.label || (n === 1 ? "Hold" : n === 2 ? ["Start", "End"][i] : `Step ${i + 1}`))) };
   }
-  const cache = new Map(); let ver = null;
+  const cache = new Map(); let seen = null;
   const get = (k, f) => { if (!cache.has(k)) cache.set(k, f()); return cache.get(k); };
   return {
-    /** the exercise's frames for the How-to sheet, or null when it has no figure */
-    of(id, specs, muscles) { return get("f:" + id, () => build(specs?.[id], muscles, false)); },
-    /** one small frame for lists and buttons, without the arrow (the end frame unless the spec's thumb says otherwise) */
-    thumb(id, specs, muscles) {
-      return get("t:" + id, () => { const b = build(specs?.[id], muscles, true); if (!b) return null; const t = specs?.[id]?.thumb;
-        return b.svgs[Math.min(b.svgs.length - 1, Math.max(0, t == null ? b.svgs.length - 1 : num(t)))]; });
-    },
-    /** drop the cache when config/figures changes */
-    sync(v) { if (v !== ver) { ver = v; cache.clear(); } },
+    /** the frames for the How-to sheet: { svgs, labels, cues, hold }, or null when the exercise has no figure */
+    of(id, specs, muscles) { return get("f:" + id, () => build(specs?.[id], muscles, "full")); },
+    /** the first two frames, small, for the button on a card */
+    pair(id, specs, muscles) { return get("p:" + id, () => build(specs?.[id], muscles, "pair")); },
+    /** one small frame for lists */
+    thumb(id, specs, muscles) { return get("t:" + id, () => build(specs?.[id], muscles, "thumb")); },
+    /** forget the drawings when config/figures is replaced */
+    sync(doc) { if (doc !== seen) { seen = doc; cache.clear(); } },
   };
 })();
 /* FIGURES:END */

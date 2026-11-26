@@ -54,7 +54,7 @@ for (const [id, name, ru, mus, part, status] of ORDER) {{
   b.svgs.forEach((s, i) => {{ const c = document.createElement("div"); c.innerHTML = `<div class=pn>${{s}}</div><div class=lb></div><div class=cue></div>`;
     c.querySelector(".lb").textContent = `${{i + 1}} · ${{b.labels[i]}}`; c.querySelector(".cue").textContent = b.cues[i]; fr.append(c); }});
   d.append(fr);
-  if (q.has("thumbs")) {{ const t = document.createElement("div"); t.className = "th"; const s = FIG.thumb(id, FIGS, mus); t.innerHTML = `<div class=pn>${{s}}</div><div class="pn s">${{s}}</div>`; d.append(t); }}
+  if (q.has("thumbs")) {{ const t = document.createElement("div"); t.className = "th"; const s = FIG.thumb(id, FIGS, mus); const pr = FIG.pair(id, FIGS, mus) || []; t.innerHTML = `<div class=pn>${{s}}</div><div class="pn s">${{s}}</div>` + pr.map(x => `<div class="pn s">${{x}}</div>`).join(""); d.append(t); }}
   g.append(d);
 }}
 document.title = `Figures · ${{missing.length}} missing`;
