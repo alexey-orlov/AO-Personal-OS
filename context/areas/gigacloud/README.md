@@ -67,8 +67,8 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Open loops
 
-- Mine — committee deck v1: Alex's review, and its open points. (chat, 2026-11-25)
-  - The Q2-closed list: OpenStack and USD prices were left out as Q1; government products, Azure Local's repackaging and Security Authorization Services as closed in Q3, outside the Q3 plan.
+- Mine — committee deck v2 (slides 5–11): Alex's review, and its open points. (chat, 2026-11-25)
+  - Inferred «why» lines: vSAN («хмара під обсяг клієнта»), the service contracts («типові»). The PLM competences status reads «зустріч з відділами» for the meeting with Doroshenko, Shaporina, Kosenko and Zubko, whose roles no source gives.
   - Go-live support for OpenStack and Kubernetes: the sources hold no case.
   - Cadence: who the «triangle» sync includes, and how often the product committee meets; the sales sync is shown as one meeting for the pipeline and product issues (inferred).
 - Mine — results deck before the talk. [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-12)
@@ -85,6 +85,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
+- 2026-11-25 — product committee deck v2, slides 5–11 — on Alex's feedback: a Q2-only strategy slide with what-and-why lines (vSAN and the service contracts added), Q3 statuses cut to the step in progress, margin row 0, table text never under 17 pt. (chat)
 - 2026-11-25 — product committee deck v1 — 11 UA slides; the data behind it folded into [pricing-unit-economics](pricing-unit-economics.md) (8 next-step directions, FY planning), [publication-process](publication-process.md) (PLM 2.0 in Q3) and [product-team-structure](product-team-structure.md) (titles, zones, cadence). (chat)
 - 2026-11-22 — [Head of Product test assignment v2](docs/hop-test-assignment/evaluation-key.md) — UA Google Doc (three tasks) plus evaluation key, re-cut after three fresh-context candidate reads; the vacancy is live on PeopleForce. (chat)
 - 2026-11-12 — [half-year results deck v6 → v7](docs/h1-results-deck/HANDOFF.md) — 26 slides on Alex's fourth round; v7 also drops the lost-deal analysis from the strategy slide. OpenStack shows its price gap to VMware and its 3–4-node minimum instead of invented segment variants. Public S3 shows its 11 clients and Cubbit's real logo instead of the protection tiers. The pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. (chat)
@@ -94,4 +95,3 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
 - 2026-09-26 — [results deck](pricing-unit-economics.md) — 26-slide UA deck of allocation results (steps 1–4, 5 buckets, 5 methods, per-component examples) from Alex's brief + Юніт.xlsx; handoff rewritten for both decks. (chat)
-- 2026-08-27 — [action-plan deck](pricing-unit-economics.md) — 11-slide UA deck for CFO/department alignment built from Alex's brief + Margin.xlsx (4-model taxonomy A–D, price stack, InfoSec P&L split, next steps). (chat)
