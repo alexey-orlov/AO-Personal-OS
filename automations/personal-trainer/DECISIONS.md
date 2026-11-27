@@ -183,6 +183,17 @@ from Kyiv (70 kg ≈ 154 lb), so ×0.75 was too cautious there; the next plans
 start from what he did. Keep ×0.75 for the legs machines until the first
 legs session shows the same, then revisit.
 
+Push day 27.11 (×0.75, and ×0.9 for 37 days since the last chest day):
+Chest Press 80/100/100 → 80/80/100 ×12, easy (Matrix Aura stack); Pec Deck
+85/105/105 from Kyiv 73 kg, which Alex called far too low and started at 105;
+the rear-delt machine again 150 lb, ok. So ×0.75 is too cautious for the
+chest and fly machines here, as it was for rear delts, and right for the
+pulldown, row and curl. It costs one session per machine (the next plans
+start from the US log); open: learn the factor per gym and machine type from
+the machines already calibrated there instead of a fixed 0.75. The app's
+change note that evening called the 32% "learned from Mon and Tue"; it was
+the fixed rule, and the note was wrong.
+
 ## Open questions for Alex
 
 - «Экстензия сидя с гантелью (10 кг)»: which movement exactly (US name)?

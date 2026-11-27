@@ -219,7 +219,10 @@ Rules the app keeps, so the engine can trust the data:
    step 2.
 4. **Optional: a ready plan.** After Mode 1, write `workouts/<date>` with
    `status: planned`, `source: skill`, `built_by: skill`, `plan` = the checked
-   plan. The app opens it as "Trainer's plan for today".
+   plan. The app opens it as "Trainer's plan for today". Rewriting the
+   numbers of a session already in the app adds a `changes` entry (`kind:
+   rebuild`) whose summary gives each new number with the engine's own `why`
+   for it, never a cause the engine didn't compute.
 
 ### The nightly run (scheduled task)
 
