@@ -18,6 +18,10 @@ deck or one-pager work.
    some row at almost any width (Alex, 2026-09-29, on the mini-site's group tiles).
 3. **Show absence as an empty instance of the same container** (e.g. a "not filled in
    yet" panel next to a filled one), never as missing/shrunken structure or a bare gap.
+   A yes/no mark follows the same rule: filled vs empty (a dot vs a ring under labelled
+   columns), never a dark vs a pale copy of the same icon, which reads as a third state
+   (2026-11-27, Alex on the customer one-pager's team marks: pale "still too contrasty,
+   and not clear whether it's pale or not").
 4. **No free-floating side text** — annotations/principles live inside a structured
    panel or card.
 5. **Color semantics follow the source outline's own coding mapped to brand hues**: two
@@ -640,7 +644,7 @@ deck or one-pager work.
     one-pager: first built on the seller two-pager's left-rail rows, "create customer onepager from scratch … best practices about
     one-pagers worldwide"; then, for the rebuild, "сейчас оно выглядит дешевато и посредственно … use larger freedom within the wider
     palette of SoftServe's brand book … maybe some refs we saved hold you back").
-    - Art-direct first, fit second: one bold idea per band, few large elements, display type at full size (Azurio 34 pt hero, 17 pt section
+    - Art-direct first, fit second: one bold idea per band, few large elements, display type at full size (Azurio 28–34 pt hero, 17 pt section
       heads), proof figures as the loudest thing after the headline, and the copy cut to about 380 words to make room. A page that follows
       every token yet reads as a form of small boxes is the failure; saved brand notes (`SS26-THEME.md`) set the tokens, never the
       composition. Look at the brand's own bold layouts (its template decks' heroes and collages) before drafting.
@@ -650,18 +654,25 @@ deck or one-pager work.
       footer: "аляписто … from many contrasting pictures, and the hero and footer without gradient"). Check every text pair by number:
       4.5:1 under 18 pt, so small orange labels take the accent's deep shade and small white text sits only on the deep blue.
     - The hero says what kind of offer it is, for whom and to what end, before any slogan works on the reader: the brand row carries the
-      general program name, the heading names the market in the accent line ("Built for / physical products."), and the line under it names
-      the format, the teams and the outcome ("An agentic AI training and enablement program that helps your software, firmware and hardware
-      engineers ship more with the same team, on their own code and boards") (Alex, 2026-11-27: "it's non-obvious that we're offering the
-      training & enablement program"; "the title doesn't refer boldly to physical products"). A benefit slogan alone leaves the reader guessing
+      general program name, the heading names the market in the accent ("Level up engineering / for physical products / with agentic AI.",
+      Alex's own words), and the line under it names the format, the teams and the outcome ("An agentic AI training and enablement program
+      for your software, embedded and hardware engineering teams to learn to work with AI agents on their own code and boards, and ship more
+      with the same team") (Alex, 2026-11-27: "it's non-obvious that we're offering the training & enablement program"; "the title doesn't
+      refer boldly to physical products"). A benefit slogan alone leaves the reader guessing
       whether it is a product, a service or a course.
     - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal ("ship more with the same team") in the hero's
-      line, then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the
-      commitment ("Six weeks with one pilot team"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
+      line, then "Where engineering weeks go", "AI's power, mostly unused" (the general reason companies miss AI's full outcome, never a
+      narrower sub-claim such as "AI stops where the board starts"), with its answer side labelled as the offer's own ("What holds AI back →
+      What the program builds", never a generic "What it takes", which readers did not take for the offer), the commitment ("Six-week
+      enablement program"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
       stories" as small eyebrows over large figures, so the proof is the loudest thing after the headline. Check each heading against the
       deck, a seller's call and the customer's own words with a fresh reviewer.
-    - Every team the buyer leads finds itself near the top: the deck's team pictograms with names beside the problem heading, and each
-      problem marked with the same pictograms (ink = hit, pale = not); proof is labelled by industry, never as "software teams".
+    - Every team the buyer leads finds itself near the top: the problems as a matrix with the deck's team pictograms and names as column
+      heads, a filled dot where a team is hit and an empty ring where it is not (rule 3); proof is labelled by industry, never as "software
+      teams".
+    - Apply rule 9 on every one-pager: at least one two-column band, a narrow vertical stack against a wide vertical list (here the problem
+      matrix beside the problem → answer cards), while true sequences such as the weekly schedule stay horizontal bands (Alex, 2026-11-27:
+      "one of the blocks vertical, so the one-pager doesn't look so lineated as it is now"; rule 9 already said so and the page ignored it).
     - Measures are drawn, not iconised: a schedule with the baseline and the KPI report on it, a worked-example bar with a bracket over the
       share it comes from, large figures for results; never one icon repeated beside every measure.
     - The buyer still reads it top to bottom as an argument: outcome, problem and cost, the objection answered, the offer and its commitment,
