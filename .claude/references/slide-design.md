@@ -425,10 +425,14 @@ deck or one-pager work.
     do a poor job keeping the structure clear").
     - The title is the slide's name in one line of ≤ 6 words: the name its section divider lists, the spine item it is about, or the
       peer it details ("PROGRAM FOCUS", "MANUAL TESTS SLOW RELEASES", "FIRMWARE"). The build checks one line and the word count.
+      A slide about the customer is named from their side ("What it may mean for ALSO?"), not by our activity ("Our read of
+      ALSO"; Alex, 2026-11-26).
     - What the slide says goes in one sentence-case line under the title, after the strip that shows where the slide sits. On a
       detail slide that line says what the slide means for this reader, never a definition the reader already knows: on a
       workflow slide, what agents do best there (bold), then where we'd start for this customer and why, in short sentences
-      (Alex, 2026-11-26: "would answer what AI agents are the best here at + what / why we may choose as focus").
+      (Alex, 2026-11-26: "would answer what AI agents are the best here at + what / why we may choose as focus"). A line that
+      only counts or restates what the slide already shows is noise: drop it, and the slide goes without one (Alex, 2026-11-26,
+      on "One vehicle platform, five teams, three starting points": "noise subheading, 0 net new info, skip it").
     - One-liners set side by side (a row's tagline, a card's line) answer one question, the one the slide is about: on the
       overview of where agents help, each says what agents do in that workflow (Alex, 2026-11-26: "make sure one-liners
       cristalize what agents do, because now it answers different things").
