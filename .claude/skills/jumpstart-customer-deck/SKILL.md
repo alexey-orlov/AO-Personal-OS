@@ -16,7 +16,7 @@ The procedure, the rules and the field reference live in the build kit, one home
   - `customers/also.json`: the worked example to copy.
 - Inputs: the offering deck and the "What we hear" draft in `Current offerings/AI Jumpstart for Hardware & Embedded R&D/`.
 - Account facts: the outreach tracker (`accounts/<slug>`, `tracking/<slug>`; https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe, read with `ArtifactData`), the account's wiki page `context/areas/softserve/<slug>.md`, and the customer's own website for product names and photos.
-- Output: `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/AI Jumpstart for Hardware & Embedded R&D - <Customer>.pptx`.
+- Output: `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/AI Jumpstart for Hardware & Embedded R&D - <Customer>.pptx`; the universal deck and the backup deck in `Customer decks/General/`.
 
 Before building, read `.claude/references/slide-design.md` (rules 27, 33, 41, 43–62) and `.claude/references/client-documents.md`.
 
@@ -31,7 +31,7 @@ Hard limits, whatever the account notes say:
 - Alex's saved copy of a delivered deck: diff it first; port additions and rewordings into the JSON; a removal of something he asked for (a starting-point slide) is a question for him, asked in the same turn, never adopted silently (`client-documents.md`, living documents).
 - Every engineering team the buyer leads finds itself in the deck: team markers on the challenges (by the pain's mechanism in each team's work), starting points, examples and cases; no shared slide assumes boards (`slide-design.md` rule 62).
 - Our read of the customer shows the reasoning, never the intelligence trail: the read slide shows the customer's likely priorities as rows (challenge, one plain sentence of our read, team tags), which are the starting points, named the customer's "potential focus areas" on every slide (Alex, 2026-11-26), the other challenges listed, and their flagship product as a hero (look and feel only); no hiring signals. Each workflow slide's line under the title says what agents do best there and where we'd start for the customer and why (`workflow.<key>.focus`).
-- Customer decks go out without speaker notes (`speaker_notes: false` in `base.json`; the notes texts stay in the kit as its record).
+- Customer decks go out with no hidden slides and no speaker notes, the notes pages themselves removed (`base.json` "hidden_slides": false, `speaker_notes: false`; the notes texts stay in the kit as its record). Backups live only in `Customer decks/General/AI Jumpstart for Hardware & Embedded R&D - Backup slides.pptx`, next to the universal deck, both written by the general build (Alex, 2026-11-27). Never replace a deck Alex has open in PowerPoint: stage it, ask him to save and close, diff his save, then swap.
 - Product photos and the logo: ask before downloading, only from the customer's own site; crop photos with `prep_photos.py`, make the logo a white and a black transparent PNG; keep them in the kit next to the customer file; never use a competitor's branded product as a stand-in.
 - Before delivery, two fresh-context reviews of the rendered PDF (Opus, deck only): a presentation designer and a skeptical VP of Engineering at the customer; apply what they find (Alex, 2026-11-25).
 - Build in the scratchpad, never over a delivered deck Alex may have edited (read and diff it first; keep his file in `Customer decks/_previous/` before replacing it); the kit itself is edited only in OneDrive.

@@ -36,7 +36,12 @@ template, renaming, content changes). Before matching, updating, or basing new w
 ANY existing deliverable, READ the current file from disk — never work from the
 generating script or the conversation's memory of it, and never regenerate over a
 hand-edited file (the script is stale the moment he edits; port his edits first or build
-inside the edited file's shell).
+inside the edited file's shell). Diff geometry as well as text: a moved shape is an edit
+too. Never replace a file he has open in PowerPoint, Word or Excel (ask the running app
+for its open documents first): his next save overwrites the new file with his open copy
+(2026-11-27: his ALSO deck, open since the morning, replaced a delivered rebuild at 12:34
+with its hidden slides back). Stage the new file, ask him to save and close, diff his
+save, then swap.
 
 A change found only by diffing his file is evidence, not an instruction. Port the edits
 that add or reword; but when one removes something he explicitly asked for earlier (a
