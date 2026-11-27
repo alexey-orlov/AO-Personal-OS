@@ -635,17 +635,25 @@ deck or one-pager work.
     it ("One app serves every vehicle, so each release must work on all of them"); don't add labels, headings or a second line that
     name the parts of the argument. Labels and headings mark content units (a team, a step, a panel), never the steps of an argument:
     promoted to that level, a hedge or an inference reads as a finding.
-64. **A customer one-pager is designed from scratch for its genre, the enterprise solution brief, in the brand's current system; it
-    never adapts an internal page's anatomy** (2026-11-27, Alex on the hardware Jumpstart's customer one-pager, which I had built on the
-    seller two-pager's left-rail rows: "Forget about that one, create customer onepager from scratch. Remember softserve style and all
-    the best practices about one-pagers worldwide").
-    - The buyer reads it top to bottom as an argument: the outcome headline in their words with the program's name above it, the problem
-      and what it costs, the objection answered (why the tool they already have falls short), the offer with its commitment, the outcomes
-      and how they are measured, named proof with a quote, one call to action with a contact. 380 to 470 words.
-    - Compose by content, never by a repeated row: a hero with the photograph, a story column beside a proof column, true sequences
-      horizontal, the call to action as the page's one dark band. No left rail, no section numbers, no reader's-question labels.
-    - Use the brand's current system with its real fonts, never a system font: for SoftServe, Azurio and Replica, blue for action, the
-      orange accent once, the orange-75 dash over figures, one grey and one dark plate, octagonal cuts (`SS26-THEME.md` in the
-      Oracle-Solutions-Site repo).
-    - Take facts, icons, photos and helpers from other builds; never their layout. The kit and its tailoring steps:
+64. **A customer one-pager is art-directed from scratch for its genre, the enterprise solution brief: bold, in the brand's own imagery and
+    full palette, in the deck's language; it never adapts an internal page's anatomy** (2026-11-27, Alex, twice on the hardware Jumpstart's
+    customer one-pager: first built on the seller two-pager's left-rail rows, "create customer onepager from scratch … best practices about
+    one-pagers worldwide"; then, for the rebuild, "сейчас оно выглядит дешевато и посредственно … use larger freedom within the wider
+    palette of SoftServe's brand book … maybe some refs we saved hold you back").
+    - Art-direct first, fit second: one bold idea per band, few large elements, display type at full size (Azurio 34 pt hero, 17 pt section
+      heads), strong colour blocks (a black hero, a Lviv-blue program band, a black closing band), brand photography (the template collages'
+      diagonal cuts), and the content cut to about 375 words to make room. A page that follows every token yet reads as a form of small
+      boxes is the failure; the saved brand notes (`SS26-THEME.md`, the website's restraint) set the tokens, never the composition. Look at
+      the brand's own bold layouts (its template decks' heroes and collages) before drafting.
+    - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal as the headline ("Ship more with the
+      same team."), then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the program's
+      commitment ("Six weeks with one pilot team"), "Expected value", "Success stories", and the deck's "How to start" line. Check each against
+      the deck, a seller's call and the customer's own words.
+    - Every team the buyer leads finds itself at the top and in each problem: the deck's team pictograms and hues in the hero, and the teams
+      each challenge hits as dots in those hues; proof is framed by industry, never as "software teams".
+    - Measures are drawn, not iconised: a schedule with the baseline and the KPI report on it, a worked-example bar for an estimate, figures
+      under the fact dash for results; never one icon repeated beside every measure.
+    - The buyer still reads it top to bottom as an argument: outcome, problem and cost, the objection answered, the offer and its commitment,
+      how value is measured, named proof, one call to action with a contact.
+    - Take facts, icons, photos and helpers from other builds; never their layout. The kit, its art direction and its tailoring steps:
       OneDrive `Current offerings/one-pager-build/brief/DESIGN.md`.
