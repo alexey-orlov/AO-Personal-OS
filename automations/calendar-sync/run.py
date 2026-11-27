@@ -136,14 +136,32 @@ def to_api_body(p, source_key=None, content_hash=None):
     return body
 
 
-def ss_write(commands):
-    """Apply create/update/delete commands to the SS Exchange calendar via the EventKit writer."""
+def write_busy(commands, args=()):
+    """Apply create/update/delete commands through the EventKit writer. `args` pins the calendar it
+    writes; none = SoftServe's, from CALSYNC_SS_SOURCE / CALSYNC_SS_WRITE_CAL."""
     if not commands:
         return []
-    p = subprocess.run([WRITER], input=json.dumps(commands), capture_output=True, text=True, timeout=120)
+    p = subprocess.run([WRITER] + list(args), input=json.dumps(commands), capture_output=True, text=True, timeout=120)
     if p.returncode != 0:
         raise RuntimeError("writer exit %s: %s" % (p.returncode, (p.stderr or "")[:200]))
     return json.loads(p.stdout or "[]")
+
+
+def ss_write(commands):
+    return write_busy(commands)
+
+
+def gc_write(commands):
+    return write_busy(commands, GC_WRITER_ARGS)
+
+
+def gc_preflight():
+    """The GigaCloud writer with no commands: exit 0 when its calendar is there and writable."""
+    try:
+        p = subprocess.run([WRITER] + GC_WRITER_ARGS, input="[]", capture_output=True, text=True, timeout=60)
+    except Exception as e:
+        return False, "spawn failed: %s" % e
+    return p.returncode == 0, "exit %s: %s" % (p.returncode, (p.stderr or "").strip()[:200])
 
 
 def _load_json(path, default):
@@ -231,13 +249,12 @@ def _not_ss(source):
     return (source or "").casefold() != SS_SOURCE.casefold()
 
 
-def read_ek(typ, title, g_min, g_max):
-    """One Apple Calendar calendar over the Google window [g_min, g_max) -> (rows, error)."""
+def _read_window(args, g_min, g_max):
+    """ss-cal-read <args> over the Google window [g_min, g_max) -> (rows overlapping it, error)."""
     lo = datetime.fromisoformat(g_min.replace("Z", "+00:00"))
     hi = datetime.fromisoformat(g_max.replace("Z", "+00:00"))
     try:
-        out = subprocess.run([READER, "--type", typ, "--calendar", title, "--from", g_min,
-                              "--days", str((hi - lo).days + 1)],
+        out = subprocess.run([READER] + list(args) + ["--from", g_min, "--days", str((hi - lo).days + 1)],
                              capture_output=True, text=True, timeout=60)
     except Exception as e:
         return None, "reader spawn failed: %s" % e
@@ -247,8 +264,74 @@ def read_ek(typ, title, g_min, g_max):
         rows = json.loads(out.stdout or "[]")
     except json.JSONDecodeError as e:
         return None, "reader bad JSON: %s" % e
-    return [r for r in rows if _not_ss(r.get("source"))
-            and sc._utc(r["start"]) < hi and sc._utc(r["end"]) > lo], None   # Google's overlap rule
+    return [r for r in rows if sc._utc(r["start"]) < hi and sc._utc(r["end"]) > lo], None   # Google's overlap rule
+
+
+def read_ek(typ, title, g_min, g_max):
+    """One Apple Calendar calendar (of any account but SoftServe's) over the Google window -> (rows, error)."""
+    rows, err = _read_window(["--type", typ, "--calendar", title], g_min, g_max)
+    if err:
+        return None, err
+    return [r for r in rows if _not_ss(r.get("source"))], None
+
+
+def google_events(gcal, cals, skip, g_min, g_max, tag):
+    """Events of every listed Google calendar not in `skip`, each tagged with `_cal` -> (events,
+    errors); an error means that calendar could not be read, so the read is incomplete."""
+    events, errors = [], []
+    for cal in cals:
+        if cal["id"] in skip:
+            continue
+        try:
+            for ev in gcal.list_events(g_min, g_max, calendar_id=cal["id"]):
+                ev["_cal"] = cal["id"]
+                events.append(ev)
+        except Exception as e:
+            errors.append("%s list %s: %s" % (tag, cal.get("summaryOverride") or cal.get("summary") or cal["id"], e))
+    return events, errors
+
+
+def print_dry(tag, plan, complete):
+    """A DRY run lists every create, update and delete a busy-block plan would make."""
+    c = plan["counts"]
+    print("[%s] DRY plan: +%d ~%d -%d =%d skip (complete=%s)"
+          % (tag, c["create"], c["update"], c["delete"], c["skip"], complete))
+    for x in plan["creates"] + plan["updates"]:
+        print("   would %s Busy %s .. %s  [%s]" % (x["op"], x["start"], x["end"], x["key"][:70]))
+    for x in plan["deletes"]:
+        print("   would delete %s%s" % (x.get("key") or x["ss_id"], " (duplicate)" if x.get("duplicate") else ""))
+
+
+def apply_busy(plan, ledger, ledger_path, write, tag):
+    """Run a busy-block plan through its writer and record in its ledger what landed.
+    Returns ((added, modified, deleted), errors)."""
+    by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
+    dup_ids = {d["ss_id"] for d in plan["deletes"] if d.get("duplicate")}
+    try:
+        results = write(plan["creates"] + plan["updates"] + plan["deletes"])
+    except Exception as e:
+        return (0, 0, 0), ["%s writer: %s" % (tag, e)]
+    ledger.update(plan.get("relinks") or {})   # point the ledger at the placeholder the calendar really holds
+    a = m = d = 0
+    errors = []
+    for r in results:
+        if not r.get("ok"):
+            errors.append("%s %s %s: %s" % (tag, r.get("op"), r.get("key") or r.get("ss_id"), r.get("error")))
+            continue
+        op = r.get("op")
+        if op in ("create", "update"):
+            ledger[r["key"]] = {"ss_id": r.get("ss_id"), "hash": by_key.get(r["key"], {}).get("hash")}
+            a += (op == "create"); m += (op == "update")
+        elif op == "delete":
+            if r.get("ss_id") not in dup_ids:      # pruning a duplicate keeps the slot's entry
+                ledger.pop(r.get("key"), None)
+            d += 1
+    try:
+        with open(ledger_path, "w", encoding="utf-8") as f:
+            json.dump(ledger, f, ensure_ascii=False, indent=2, sort_keys=True)
+    except OSError as e:
+        errors.append("%s ledger save: %s" % (tag, e))
+    return (a, m, d), errors
 
 
 def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
