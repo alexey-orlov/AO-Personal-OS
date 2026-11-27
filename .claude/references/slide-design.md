@@ -645,12 +645,18 @@ deck or one-pager work.
       every token yet reads as a form of small boxes is the failure; saved brand notes (`SS26-THEME.md`) set the tokens, never the
       composition. Look at the brand's own bold layouts (its template decks' heroes and collages) before drafting.
     - Boldness comes from type and figures, never from slabs: one light page with one temperature arc and soft transitions, one photograph
-      whose own colours become the hero's gradient (no cut, no frame), soft brand washes for bands, and at most one dark anchor, a deep
-      gradient behind the call to action (2026-11-27, Alex on a black hero, a saturated blue band with a second photograph and a black
+      whose own colours become the hero's gradient (no cut, no frame), soft brand washes for bands, and at most one dark anchor, SoftServe
+      black behind the call to action (the brand's footer colour, lifted by a faint charcoal gradient; Alex, 2026-11-27) (2026-11-27, Alex on a black hero, a saturated blue band with a second photograph and a black
       footer: "аляписто … from many contrasting pictures, and the hero and footer without gradient"). Check every text pair by number:
       4.5:1 under 18 pt, so small orange labels take the accent's deep shade and small white text sits only on the deep blue.
-    - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal as the headline ("Ship more with the
-      same team."), then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the
+    - The hero says what kind of offer it is, for whom and to what end, before any slogan works on the reader: the brand row carries the
+      general program name, the heading names the market in the accent line ("Built for / physical products."), and the line under it names
+      the format, the teams and the outcome ("An agentic AI training and enablement program that helps your software, firmware and hardware
+      engineers ship more with the same team, on their own code and boards") (Alex, 2026-11-27: "it's non-obvious that we're offering the
+      training & enablement program"; "the title doesn't refer boldly to physical products"). A benefit slogan alone leaves the reader guessing
+      whether it is a product, a service or a course.
+    - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal ("ship more with the same team") in the hero's
+      line, then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the
       commitment ("Six weeks with one pilot team"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
       stories" as small eyebrows over large figures, so the proof is the loudest thing after the headline. Check each heading against the
       deck, a seller's call and the customer's own words with a fresh reviewer.
