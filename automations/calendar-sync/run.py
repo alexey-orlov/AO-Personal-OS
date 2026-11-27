@@ -383,10 +383,10 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors + werr
 
 
-def gc_pass(g_min, g_max, gcal, ek_cals):
+def gc_pass(now, g_min, g_max, gcal, ek_cals):
     """Busy at SoftServe (its account, read straight from Apple Calendar) or in a personal Google
-    calendar -> GigaCloud 'Busy' blocks in GC_CAL of the account GC_SOURCE. Plans only while
-    GC_DRY. Returns (counts, errors)."""
+    calendar -> GigaCloud 'Busy' blocks in GC_CAL of the account GC_SOURCE, for slots that haven't
+    ended by `now`. Plans only while GC_DRY. Returns (counts, errors)."""
     zero = {"gc_added": 0, "gc_modified": 0, "gc_deleted": 0}
     if ek_cals is None:
         return zero, ["gc: Apple Calendar list unavailable"]
@@ -424,7 +424,7 @@ def gc_pass(g_min, g_max, gcal, ek_cals):
     ledger = _load_json(GC_LEDGER, {})
     plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger, "ss_placeholders": placeholders,
                                  "source_complete": complete, "config": dict(CFG, reverse_marker=CFG["gc_marker"]),
-                                 "create_after": datetime.now(timezone.utc).isoformat()})   # no blocks in the past
+                                 "create_after": now.isoformat()})   # no new blocks in the past
     if GC_DRY:
         print_dry("gigacloud", plan, complete)
         ok, why = gc_preflight()
@@ -496,7 +496,7 @@ def main():
             errors.append("reverse pass: %s" % e)
     if GC_SOURCE:
         try:
-            gcc, gerr = gc_pass(g_min, g_max, gcal, ek_cals)
+            gcc, gerr = gc_pass(now, g_min, g_max, gcal, ek_cals)
             counts.update(gcc); errors += gerr
         except Exception as e:
             errors.append("gc pass: %s" % e)

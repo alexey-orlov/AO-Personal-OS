@@ -727,10 +727,11 @@ class TestGigaCloud(unittest.TestCase):
                                      GC_GOOGLE_COPY="gcfeed@import.calendar.google.com", GC_DRY=False,
                                      GC_LEDGER=ledger, CFG=dict(run.CFG, **self.CFG),
                                      _read_window=fake_read, gc_write=fake_write):
-                counts, errors = run.gc_pass("2026-11-30T00:00:00Z", "2026-12-16T00:00:00Z", FakeGcal(), ek)
+                now = sc._utc("2026-11-30T12:00:00Z")
+                counts, errors = run.gc_pass(now, "2026-11-30T00:00:00Z", "2026-12-16T00:00:00Z", FakeGcal(), ek)
                 args = run.gc_writer_args()
                 # not in Apple Calendar -> nothing read or written
-                self.assertEqual(run.gc_pass("a", "b", FakeGcal(), [("Exchange", "exchange", "Calendar")])[0],
+                self.assertEqual(run.gc_pass(now, "a", "b", FakeGcal(), [("Exchange", "exchange", "Calendar")])[0],
                                  {"gc_added": 0, "gc_modified": 0, "gc_deleted": 0})
             self.assertEqual(errors, [])
             self.assertEqual(counts, {"gc_added": 2, "gc_modified": 0, "gc_deleted": 0})
