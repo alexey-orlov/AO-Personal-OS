@@ -644,7 +644,10 @@ function buildWarmup(ctx, plan) {
     for (const F of ["A", "B", "C"]) {
       if (items.length >= sug.length) break;
       if (items.some(x => exW(x.id)?.family === F) || !fam[F]) continue;
-      const r = rungItem(fam[F].rung || fam[F].rungs?.[(fam[F].level || 1) - 1] || fam[F].current, F, false);
+      let r = rungItem(fam[F].rung || fam[F].rungs?.[(fam[F].level || 1) - 1] || fam[F].current, F, false);
+      // a rung this gym can't do (Pallof needs a band): its catalog stand-in, once, or nothing
+      const kit = r && exW(r.id)?.equipment;
+      if (kit && kitStatus({ equipment: kit }) === "missing") { const fb = exW(r.id).fallback; r = fb && !items.some(x => x.id === fb) ? rungItem(fb, exW(fb)?.family, false) : null; }
       if (r && !bad(r)) items.push(r);
     }
     if (items.length < sug.length) plan.why.push("Warm-up shortened: today's pain rules out the rest.");

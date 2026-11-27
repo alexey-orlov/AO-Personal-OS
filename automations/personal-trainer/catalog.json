@@ -1293,7 +1293,7 @@
   }
  ],
  "warmup": {
-  "_doc": "Families: A plank/anti-extension, B side plank, C anti-rotation band, D glute bridge, E back extension, F shoulder prep. Level = the rung the trainer moved Alex up over 3 months (static -> dynamic/unilateral -> loaded).",
+  "_doc": "Families: A plank/anti-extension, B side plank, C anti-rotation band, D glute bridge, E back extension, F shoulder prep. Level = the rung the trainer moved Alex up over 3 months (static -> dynamic/unilateral -> loaded). equipment = the kit an item needs (gym.json equipment); where the gym lacks it, the engine and the app give its fallback, or a stabilizer from a family not yet in the warm-up.",
   "items": [
    {
     "id": "bird_dog",
@@ -1369,7 +1369,9 @@
     "level": 1,
     "sets": 2,
     "secs": 40,
-    "note_ru": "12.10 тренер дал 2×45″"
+    "equipment": "band",
+    "fallback": "bird_dog",
+    "note_ru": "12.10 тренер дал 2×45″; без резины в зале → Dog birds (Alex, 27.11)"
    },
    {
     "id": "glute_bridge",
