@@ -56,7 +56,6 @@ CFG = {
 }
 _REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
 _GCKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["gc_marker"]))
-GC_WRITER_ARGS = ["--source", GC_SOURCE, "--calendar", GC_CAL, "--marker", CFG["gc_marker"]]
 
 
 def read_ss():
@@ -151,14 +150,19 @@ def ss_write(commands):
     return write_busy(commands)
 
 
+def gc_writer_args():
+    """Pins the writer to GigaCloud's calendar and its marker; it then touches nothing else."""
+    return ["--source", GC_SOURCE, "--calendar", GC_CAL, "--marker", CFG["gc_marker"]]
+
+
 def gc_write(commands):
-    return write_busy(commands, GC_WRITER_ARGS)
+    return write_busy(commands, gc_writer_args())
 
 
 def gc_preflight():
     """The GigaCloud writer with no commands: exit 0 when its calendar is there and writable."""
     try:
-        p = subprocess.run([WRITER] + GC_WRITER_ARGS, input="[]", capture_output=True, text=True, timeout=60)
+        p = subprocess.run([WRITER] + gc_writer_args(), input="[]", capture_output=True, text=True, timeout=60)
     except Exception as e:
         return False, "spawn failed: %s" % e
     return p.returncode == 0, "exit %s: %s" % (p.returncode, (p.stderr or "").strip()[:200])
@@ -338,7 +342,7 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
     """Busy time in every Google calendar and in the calendars read straight from Apple Calendar
     (CALSYNC_EK_SOURCES) -> SS 'Busy' placeholders. Returns (counts, errors)."""
     zero = {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}
-    events, complete, errors = [], True, []
+    complete, errors = True, []
     try:
         cals = gcal.list_calendars()
     except Exception as e:
