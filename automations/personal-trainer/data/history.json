@@ -2984,8 +2984,106 @@
     "finish": "10:40"
    },
    "warmup_summary": "Удержание резины 2x45\" → Ягодичный мост на каждую ногу 2x15 → Plank shoulders touch 2x20"
+  },
+  {
+   "date": "2026-11-27",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Жим сидя",
+     "sets": 3,
+     "reps": "10-10-12",
+     "w_start": 36.3,
+     "w_end": 45.4,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 47.6,
+     "w_end": 74.8,
+     "category": "Chest"
+    },
+    {
+     "name": "Сведение рук лёжа",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 11.3,
+     "w_end": 15.9,
+     "category": "Chest"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "12-10-10",
+     "w_start": 56.7,
+     "w_end": 68,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Plank shoulders touch",
+     "sets": 2,
+     "reps": "20",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "JJ",
+      "sets": 3,
+      "reps": "25",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Push-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Зашагивание на тумбу",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 10,
+      "w_end": 10
+     },
+     {
+      "name": "Plank dumbbell drag",
+      "sets": 3,
+      "reps": "30",
+      "w_start": 10,
+      "w_end": 10
+     }
+    ],
+    "summary": "JJ 25 → Push-ups 15 → Зашагивание на тумбу 20 (10 кг) → Plank dumbbell drag 30 (10 кг)",
+    "rounds": "3",
+    "cap": "12'",
+    "finish": "2:30"
+   },
+   "warmup_summary": "Plank shoulders touch 2x20 → Бок. планка с поворотом 2x15 → Dog birds 2x15"
   }
  ],
  "source": "My training sheet (connector grid)",
- "synced_at": "2026-11-27T21:30:56"
+ "synced_at": "2026-11-27T22:51:35"
 }

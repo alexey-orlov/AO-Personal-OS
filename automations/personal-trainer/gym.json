@@ -71,7 +71,9 @@
     "reverse_pec_deck": "have",
     "leg_curl": "have",
     "leg_extension": "have",
-    "seated_chest_press": "have"
+    "seated_chest_press": "have",
+    "pec_deck": "have",
+    "db_fly": "have"
    },
    "substitutions": {
     "lateral_raise_1arm": "cable_lateral_raise_1arm"
@@ -85,7 +87,7 @@
     "pullup_bar": "likely",
     "dip_bars": "unknown",
     "kb": "unknown",
-    "rope": "unknown",
+    "rope": "missing",
     "rower": "unknown",
     "air_bike": "missing",
     "battle_rope": "unknown",

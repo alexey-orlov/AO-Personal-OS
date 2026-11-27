@@ -200,7 +200,9 @@ Rules the app keeps, so the engine can trust the data:
    `outputs/personal-trainer/plans/` and the outbox card.
 2. **Push fresh data.** `app_sync.py export <dir> [--today D]` writes
    `config/*` (records included) and `briefs/*` bodies (it runs `trainer.py
-   brief` for the three days at normal and low readiness) and prints the
+   brief` for the three days at normal and low readiness; on the session's
+   own day it plans for the next day, since a brief leaves out sessions
+   dated on its own day) and prints the
    `ArtifactData batch` writes; fill each `if_version` from a `list` of
    `config` and `briefs` first.
    On a first push the documents don't exist yet: send the batch without
