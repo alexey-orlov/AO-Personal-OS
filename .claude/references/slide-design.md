@@ -635,24 +635,28 @@ deck or one-pager work.
     it ("One app serves every vehicle, so each release must work on all of them"); don't add labels, headings or a second line that
     name the parts of the argument. Labels and headings mark content units (a team, a step, a panel), never the steps of an argument:
     promoted to that level, a hedge or an inference reads as a finding.
-64. **A customer one-pager is art-directed from scratch for its genre, the enterprise solution brief: bold, in the brand's own imagery and
-    full palette, in the deck's language; it never adapts an internal page's anatomy** (2026-11-27, Alex, twice on the hardware Jumpstart's
-    customer one-pager: first built on the seller two-pager's left-rail rows, "create customer onepager from scratch … best practices about
+64. **A customer one-pager is art-directed from scratch for its genre, the enterprise solution brief: bold, in the brand's own imagery, in
+    the deck's language; it never adapts an internal page's anatomy** (2026-11-27, Alex, twice on the hardware Jumpstart's customer
+    one-pager: first built on the seller two-pager's left-rail rows, "create customer onepager from scratch … best practices about
     one-pagers worldwide"; then, for the rebuild, "сейчас оно выглядит дешевато и посредственно … use larger freedom within the wider
     palette of SoftServe's brand book … maybe some refs we saved hold you back").
     - Art-direct first, fit second: one bold idea per band, few large elements, display type at full size (Azurio 34 pt hero, 17 pt section
-      heads), strong colour blocks (a black hero, a Lviv-blue program band, a black closing band), brand photography (the template collages'
-      diagonal cuts), and the content cut to about 375 words to make room. A page that follows every token yet reads as a form of small
-      boxes is the failure; the saved brand notes (`SS26-THEME.md`, the website's restraint) set the tokens, never the composition. Look at
-      the brand's own bold layouts (its template decks' heroes and collages) before drafting.
+      heads), strong colour blocks (a black hero, a Lviv-blue program band, a black closing band), the brand's own photography behind its
+      template collages' diagonal cuts, and the copy cut to about 380 words to make room. A page that follows every token yet reads as a
+      form of small boxes is the failure; saved brand notes (`SS26-THEME.md`, the website's restraint) set the tokens, never the
+      composition. Look at the brand's own bold layouts (its template decks' heroes and collages) before drafting.
+    - Two hues carry the meaning, as the best enterprise sheets do: orange for the problem, SoftServe blue for the answer, orange-75 as the
+      dash over a measured result; markers, rules and client logos stay neutral (ink, pale grey, grey logos). Extra hues, even the deck's
+      own team colours, make the page garish at one-page scale (fresh designer review, 2026-11-27).
     - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal as the headline ("Ship more with the
-      same team."), then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the program's
-      commitment ("Six weeks with one pilot team"), "Expected value", "Success stories", and the deck's "How to start" line. Check each against
-      the deck, a seller's call and the customer's own words.
-    - Every team the buyer leads finds itself at the top and in each problem: the deck's team pictograms and hues in the hero, and the teams
-      each challenge hits as dots in those hues; proof is framed by industry, never as "software teams".
-    - Measures are drawn, not iconised: a schedule with the baseline and the KPI report on it, a worked-example bar for an estimate, figures
-      under the fact dash for results; never one icon repeated beside every measure.
+      same team."), then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the
+      commitment ("Six weeks with one pilot team"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
+      stories" as small eyebrows over large figures, so the proof is the loudest thing after the headline. Check each heading against the
+      deck, a seller's call and the customer's own words with a fresh reviewer.
+    - Every team the buyer leads finds itself near the top: the deck's team pictograms with names beside the problem heading, and each
+      problem marked with the same pictograms (ink = hit, pale = not); proof is labelled by industry, never as "software teams".
+    - Measures are drawn, not iconised: a schedule with the baseline and the KPI report on it, a worked-example bar with a bracket over the
+      share it comes from, large figures for results; never one icon repeated beside every measure.
     - The buyer still reads it top to bottom as an argument: outcome, problem and cost, the objection answered, the offer and its commitment,
       how value is measured, named proof, one call to action with a contact.
     - Take facts, icons, photos and helpers from other builds; never their layout. The kit, its art direction and its tailoring steps:
