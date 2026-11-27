@@ -43,7 +43,13 @@ deck or one-pager work.
    (summary stats, scope, mechanics, results, people) should read as visually different
    forms. Mix directions: pair a narrow vertical stack against a wide vertical list in a
    two-column band, keep true sequences horizontal (flows with arrows), and reserve
-   repeated same-form rows for genuinely peer content.
+   repeated same-form rows for genuinely peer content. Alignment claims a relationship:
+   two independent lists side by side never share row lines (a common header rule, rows
+   starting and ending on the same lines), or readers pair their rows; make one of them
+   its own object, such as a tinted panel with its own rhythm, and align only the band's
+   outer edges (2026-11-27, Alex on a challenge matrix beside four problem cards set on
+   one subgrid: "a misleading feeling that rows in the table on the left match the rows
+   in the table on the right").
 10. **Structure by hierarchy, not by tinting every group** (2026-09-02, Toyota/Oracle
     practice slide): a slide where every content group sits in its own coloured panel
     (three grey cards + blue panel + orange panel + chip row + two stat bands) gives the
@@ -671,7 +677,8 @@ deck or one-pager work.
       heads, a filled dot where a team is hit and an empty ring where it is not (rule 3); proof is labelled by industry, never as "software
       teams".
     - Apply rule 9 on every one-pager: at least one two-column band, a narrow vertical stack against a wide vertical list (here the problem
-      matrix beside the problem → answer cards), while true sequences such as the weekly schedule stay horizontal bands (Alex, 2026-11-27:
+      matrix beside the problem → answer cards in their own light-blue panel, so their rows never pair up), while true sequences such as
+      the weekly schedule stay horizontal bands (Alex, 2026-11-27:
       "one of the blocks vertical, so the one-pager doesn't look so lineated as it is now"; rule 9 already said so and the page ignored it).
     - Measures are drawn, not iconised: a schedule with the baseline and the KPI report on it, a worked-example bar with a bracket over the
       share it comes from, large figures for results; never one icon repeated beside every measure.
