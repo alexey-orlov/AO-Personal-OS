@@ -23,4 +23,4 @@ A second deliverable from the same Clockify entries: a colleague (Bohdan, 2026-1
 - One number per row: hours done plus hours planned to month end.
 - Comments are for the accounting team and internal stakeholders who read Workday: the kind of work in general words, one product name (AI Jumpstart), no people's names, no internal shorthand (two-pager, ADP, account-plan details).
 - Clients by the name SoftServe's account uses (Ride ALSO, Generac (ecobee)).
-- Non-presale hours (R&D, Oracle) go in one line below the table. The unsplit outreach line goes to Alex with its hours by day, never into the table.
+- Non-presale hours go in a second table below, same columns, one row per bucket (R&D, Oracle partnership), each with its own one-liner of what was done that month (Alex, 2026-11-27). The unsplit outreach line goes to Alex with its hours by day, never into a table.

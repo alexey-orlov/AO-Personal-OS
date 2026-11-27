@@ -65,7 +65,14 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   the industry — can restate it: name the business in the sentence, use literal words, introduce
   everything you refer to, no cleverness or ellipsis; if the pain is obvious only to insiders, one
   clause first says it exists and why it hurts (Alex, 2026-09-22: "the Oracle rep should know the
-  issue first — many won't have that in their mental model").
+  issue first — many won't have that in their mental model"). The check is a mechanism, not a
+  self-read: before any client page or deck goes out, a fresh-context reviewer that holds only the
+  rendered file (the PDF, never the copy file or the brief) lists every word, label, mark, number
+  and logo it cannot place; each is fixed in place within the page's budget, and the ones left
+  are written down with their reason (Alex, 2026-11-27, on the hardware customer one-pager,
+  delivered after three design rounds and no cold read: "Remember the no-prior-context rule,
+  check for it"; the first cold read found 25 gaps, among them an undefined "agentic", an
+  unlabelled icon key and grey logos read as redaction marks).
 - **A problem and its solution go one "so what" further, to the money** (2026-10-01, Alex on
   the Plan vs actual pair, whose problem ended on "schedules, costs and contracts don't link" and
   whose solution ended on "confirmed causes become the next bid's lessons": "it's 1 'so what'
