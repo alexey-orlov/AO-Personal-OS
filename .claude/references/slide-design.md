@@ -562,6 +562,14 @@ deck or one-pager work.
       What needs improvement").
     - Before delivery, two fresh readers of the rendered PDF: a presentation designer (who also checks one name, one icon and one
       colour per thing) and the buyer; apply what does not reverse Alex's own calls, and list what was left.
+    - A pilot promises only what its weeks can move: a leading measure inside the pilot (manual test hours, expert hours,
+      interfaces under test), the business measure over later releases, a guardrail the team already tracks (escaped
+      regressions), and a baseline from records the customer keeps (PR and release history), never from ones it does not
+      (hours on tickets). The program's own KPI names each starting point's measure, so the promise and the plan agree
+      (2026-11-26, a simulated ALSO VP: "My CEO asked about release time, not task hours").
+    - Speak the buyer's engineering language: the industry's terms (hardware in the loop, EVT and DVT, map files, signed OTA
+      waves, UL standards), the order engineers really work in (host tests and emulators before the board), and the
+      safety interlocks that make an agent's hands-on step acceptable (a fused, interlocked bench; read-only instruments).
 59. **One icon per concept, wherever the concept appears** (2026-11-25, Alex: "in activities we don't use the icons for activities
     that were introduced on slide 17. Make sure that if we introduce icons for a concept, than we use it in other places").
     - Every concept the deck pictures (a session type, a deliverable, a program element) has one icon, or one who-and-what pair,
