@@ -2886,8 +2886,106 @@
     "items": []
    },
    "warmup_summary": "Экстензия с контролем осанки 2x15 → Бок. планка с поворотом 2x15 → Dog birds 2x15"
+  },
+  {
+   "date": "2026-11-25",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Сгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40.8,
+     "w_end": 45.4,
+     "category": "Legs"
+    },
+    {
+     "name": "Разгиб. голени",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40.8,
+     "w_end": 45.4,
+     "category": "Legs"
+    },
+    {
+     "name": "Жим сидя на плечи в Смитт",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 22.7,
+     "w_end": 27.2,
+     "category": "Shoulders"
+    },
+    {
+     "name": "Отведение на ягодицы",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 54.4,
+     "w_end": 54.4,
+     "category": "Glutes"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Удержание резины",
+     "sets": 2,
+     "reps": "45\"",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Ягодичный мост на каждую ногу",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Plank shoulders touch",
+     "sets": 2,
+     "reps": "20",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": [
+     {
+      "name": "Burpees",
+      "sets": 3,
+      "reps": "10",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Зашагивание на тумбу",
+      "sets": 3,
+      "reps": "20",
+      "w_start": 10,
+      "w_end": 10
+     },
+     {
+      "name": "Push-ups",
+      "sets": 3,
+      "reps": "15",
+      "w_start": null,
+      "w_end": null
+     },
+     {
+      "name": "Plank dumbbell drag",
+      "sets": 3,
+      "reps": "30",
+      "w_start": 10,
+      "w_end": 10
+     }
+    ],
+    "summary": "Burpees 10 → Зашагивание на тумбу 20 (10 кг) → Push-ups 15 → Plank dumbbell drag 30 (10 кг)",
+    "rounds": "3",
+    "cap": "12'",
+    "finish": "10:40"
+   },
+   "warmup_summary": "Удержание резины 2x45\" → Ягодичный мост на каждую ногу 2x15 → Plank shoulders touch 2x20"
   }
  ],
  "source": "My training sheet (connector grid)",
- "synced_at": "2026-11-24T03:00:11"
+ "synced_at": "2026-11-27T21:30:56"
 }
