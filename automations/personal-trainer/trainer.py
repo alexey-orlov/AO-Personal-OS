@@ -863,6 +863,24 @@ def warmup_suggest(st, day):
         notes = ["поясница: только стабилизация"]
     if not set(fams) & CORE:
         fams[-1] = "A"
+    taken = set()
+
+    def usable(wid):
+        """The rung, or a stand-in when the gym lacks its kit (Pallof needs a band): first a stabilizer from a
+        family not yet in the trio, else the catalog fallback even if its family repeats; None when nothing fits."""
+        w = st.cat.warm.get(wid) or {}
+        eq = w.get("equipment")
+        if not eq or st.equipment.get(eq) != "missing":
+            return wid
+        cands = [w.get("fallback")] + [rung(st, f2, level_for(f2))[0] for f2 in ("B", "A")]
+        cands = [c for c in cands if c and c not in taken and not (st.cat.warm[c].get("equipment") and
+                                                                   st.equipment.get(st.cat.warm[c]["equipment"]) == "missing")]
+        fresh = [c for c in cands if st.cat.warm[c]["family"] not in fams]
+        pick = (fresh or cands or [None])[0]
+        if pick:
+            notes.append(f"разминка: {w['ru']} — в зале нет ({eq}) → {st.cat.warm[pick]['ru']}")
+        return pick
+
     items, advanced = [], False
     for f in fams:
         lvl = level_for(f)
@@ -888,6 +906,11 @@ def warmup_suggest(st, day):
             if w2:
                 wid, kg, advanced = w2, k2, True
                 notes.append(f"{f}: ступень вверх после {n_at} трен.")
+        alt = usable(wid)
+        if alt is None:
+            continue
+        if alt != wid:
+            wid, kg, u = alt, None, []
         w = st.cat.warm[wid]
         item = {"id": wid, "sets": w.get("sets", 2)}
         if w.get("secs"):
@@ -898,13 +921,18 @@ def warmup_suggest(st, day):
         if kg:
             item["kg"] = kg
         items.append(item)
+        taken.add(wid)
     for f in ("C", "B", "A"):
         if len(items) >= 3:
             break
         if f not in [st.cat.warm[i["id"]]["family"] for i in items]:
             wid, kg = rung(st, f, level_for(f))
+            wid = usable(wid)
+            if wid is None or wid in taken:
+                continue
             w = st.cat.warm[wid]
             items.append({"id": wid, "sets": w.get("sets", 2), **({"secs": w["secs"]} if w.get("secs") else {"reps": w.get("reps", 15)})})
+            taken.add(wid)
     fam_state = {f: {"rung": rung(st, f, cur[f])[0], "level": cur[f], "last": ddmm(u[-1][0])}
                  for f, u in sorted(uses.items())}
     return {"suggested": items, "notes": notes, "families": fam_state}

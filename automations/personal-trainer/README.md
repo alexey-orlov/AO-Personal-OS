@@ -18,7 +18,7 @@ mini-app (`app/`, owned by its own session; `app/README.md`).
 | File | What |
 |---|---|
 | `trainer.py` | CLI, see commands below |
-| `catalog.json` | every exercise the trainer gave: sheet row names, RU display name, US name, day, role/order, rep range, progression cadence, steps, how its weight carries to another gym (`us_transfer`), substitutes (`alt_ids`), joints, lower-back status; warm-up families and rungs; crossfit movements with patterns, timing, kit and fallbacks; the never-list |
+| `catalog.json` | every exercise the trainer gave: sheet row names, RU display name, US name, day, role/order, rep range, progression cadence, steps, how its weight carries to another gym (`us_transfer`), substitutes (`alt_ids`), joints, lower-back status; warm-up families and rungs, with the kit a rung needs and its stand-in; crossfit movements with patterns, timing, kit and fallbacks; the never-list |
 | `gym.json` | current gym (24 Hour Fitness Walnut Creek North Main, lb, since 2026-11-19): weight steps, plate grid, machine availability, substitutions, crossfit kit |
 | `data/history.json` | normalized snapshot of the "My training" sheet (strength, warm-up, crossfit per date); committed so every device sees it |
 | `DECISIONS.md` | evidence behind each rule (trainer pages, backtest, gym research, test rounds); never loaded at runtime |
