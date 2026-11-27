@@ -387,6 +387,9 @@ deck or one-pager work.
       («Погоджуємо з безпекою і делівері»), or the last milestone when nothing is in progress, with its date when one is due. The
       % bar shows how far; what is done and what comes next go to the speaker notes (2026-11-25, Alex on the Q3 roadmap: «подумай,
       як скоротити статус, залишивши його зрозумілим»).
+    - A whole slide earns its place the same way: one that only repeats what other slides show goes (kept as a hidden backup),
+      and its one unique fact moves to where the term is used (Alex, 2026-11-26, on the program focus slide: "does it bring any
+      extra value and net new information?"; its definition of a module moved into the example modules' line).
 42. **A seller one-pager opens with who the offer is for, then the challenges that follow from it** (2026-11-13, Alex on the Jumpstart
     seller one-pagers: the account manager may not know the account even has an R&D unit, so the page must link the company to the work).
     - The first section starts with a who-it's-for frame: the kind of company, what its team does, and therefore what that work depends
@@ -473,6 +476,8 @@ deck or one-pager work.
     - The marker icon (which item it is) sits on the wash's top edge in the gap under the header, never over a header, a frame
       or text; leave that gap in the layout.
     - Washes in one group at the back; the icons and their key in one group in front (two clicks remove the customer's marks).
+    - Name a highlight by what it marks: the washes over the work a customer's starting points would change are its likely
+      focus areas, not where we start (Alex, 2026-11-26: "as technically we may start not with them").
 49. **A deck opens with one or two bold statement slides before any detail, in the hero-half layout** (2026-11-25, Alex on the ALSO
     deck: "open with 2 bold, well thought off, few words focus slides"; then "the reference decks of SoftServe should have some better
     layouts for bold slides … Hero image (full slide, half slide would be great)").
@@ -537,6 +542,9 @@ deck or one-pager work.
       against it: a thing keeps its colour everywhere, and when a code takes a colour, every other use of that colour goes
       neutral (the team's own work moved from salmon to grey; a challenge → solution → outcome slide colours the challenge panel
       orange and the outcome panel neutral). The brand's accent line in hero titles is typography, not a code.
+    - A change of colour inside one row of peers must mean something the slide itself states (a key or a label); a wash on some
+      boxes with no key on that slide reads as random alternation, so the peers share one style (Alex, 2026-11-26, on the
+      program focus row: "does swapping colors in a single row have any meaning? if not - avoid").
 58. **A customer deck survives its buyer's skeptical read** (2026-11-25, a VP-of-Engineering review Alex asked for: "no nonsense, no AI
     content, no clear overstatement, no 'they don't know what they pitch' feelings").
     - A problem assigned to the customer names a symptom they would say themselves, never a verdict on their work ("Manual tests
