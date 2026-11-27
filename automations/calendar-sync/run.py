@@ -58,18 +58,23 @@ _REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
 _GCKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["gc_marker"]))
 
 
-def read_ss():
-    """Apple Calendar (SoftServe's Exchange account only) -> (forward source_events, reverse
-    placeholders, complete, err).
+def read_ss(now, g_min):
+    """Apple Calendar (SoftServe's Exchange account only), from Monday of this week (g_min) to DAYS
+    days from now -> (forward source_events, reverse placeholders, complete, err).
 
+    From Monday, not from now: the forward leg owns this week's copies, and a meeting that has
+    ended must stay in its source, or its copy reads as gone (until 2026-11-27 every copy was
+    deleted once its meeting ended). The horizon stays DAYS days from now.
     Pinned to the account titled CALSYNC_SS_SOURCE: another Exchange account in Apple Calendar
     (GigaCloud's, since 2026-11-24) must never be read as SoftServe. Splits the single EventKit
     read: our own reverse 'Busy' placeholders (notes carry the [[gcal-busy:...]] marker) are pulled
     OUT of the forward source — that's the Loop-B recursion break — and returned separately so the
     reverse leg can reconcile them."""
+    hi = now + timedelta(days=DAYS)
+    span = int((hi - datetime.fromisoformat(g_min.replace("Z", "+00:00"))).total_seconds() // 86400) + 1
     try:
-        out = subprocess.run([READER, "--type", "exchange", "--source", SS_SOURCE, "--days", str(DAYS)],
-                             capture_output=True, text=True, timeout=60)
+        out = subprocess.run([READER, "--type", "exchange", "--source", SS_SOURCE, "--from", g_min,
+                              "--days", str(span)], capture_output=True, text=True, timeout=60)
     except Exception as e:
         return [], [], False, "reader spawn failed: %s" % e
     if out.returncode != 0:
@@ -93,6 +98,8 @@ def read_ss():
             m = _REVKEY.search(notes)
             placeholders.append({"ss_id": e.get("uid"), "key": m.group(1) if m else None,
                                  "start": e.get("start"), "end": e.get("end")})
+            continue
+        if sc._utc(e["start"]) >= hi:     # the read rounds up to whole days; mirror only DAYS from now
             continue
         evs.append({
             "owa_id": e.get("uid"),                 # stable EventKit id -> reschedules = updates
@@ -192,6 +199,7 @@ def forward_pass(now, source, g_min, g_max, gcal):
     ledger = _load_json(LEDGER, {})
     plan = sc.reconcile({
         "now_utc": now.isoformat(), "owa_tz": CFG["tz"], "source_complete": True,
+        "source_from": g_min,                  # read_ss reads from here: earlier copies are never judged gone
         "source_events": source, "ledger": ledger,
         "google_copies": ext["google_copies"], "google_native": ext["google_native"], "config": CFG,
     })
@@ -473,7 +481,7 @@ def main():
     ek_cals = snapshot_calendars(g_min, g_max)
     # SoftServe is pinned by account title in the reader and the writer, and a title two accounts
     # share fails both (README, gotcha 8), so a second Exchange account can't pass for SoftServe.
-    source, placeholders, complete, err = read_ss()
+    source, placeholders, complete, err = read_ss(now, g_min)
     if not complete:
         sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
         print("ERROR: %s" % err)
