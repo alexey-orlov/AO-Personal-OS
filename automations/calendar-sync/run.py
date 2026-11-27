@@ -2,13 +2,16 @@
 """
 run.py — one calendar-sync pass, pure code (no Claude, no browser).
 
-  Apple Calendar (EventKit via ss-cal-read)  ->  sync_core.reconcile  ->  Google (gcal.py)
+  forward:   SoftServe (EventKit, ss-cal-read)    -> sync_core.reconcile          -> Google (gcal.py)
+  reverse:   Google + GigaCloud (EventKit)         -> sync_core.reverse_reconcile  -> SoftServe (ss-cal-write)
+  gigacloud: SoftServe (EventKit) + personal Google -> sync_core.reverse_reconcile -> GigaCloud (ss-cal-write --source ...)
 
 Run isolated so zoneinfo imports cleanly under macOS TCC:
     python3 -I run.py            # honors CALSYNC_DRY_RUN; prints a one-line result
 Env (from config.sh): CALSYNC_HERE, CALSYNC_LEDGER, CALSYNC_RUNLOG, CALSYNC_CALENDAR_ID,
 CALSYNC_ATTENDEE, CALSYNC_SS_EMAIL, CALSYNC_SS_SOURCE, CALSYNC_EK_SOURCES, CALSYNC_TZ,
-CALSYNC_PREFIX, CALSYNC_DAYS_AHEAD, CALSYNC_DRY_RUN, CALSYNC_GOOGLE_CLIENT_ID/_SECRET.
+CALSYNC_PREFIX, CALSYNC_DAYS_AHEAD, CALSYNC_DRY_RUN, CALSYNC_GOOGLE_CLIENT_ID/_SECRET,
+CALSYNC_GC_SOURCE / _WRITE_CAL / _EMAIL / _GOOGLE_COPY / _LEDGER / _DRY_RUN (the GigaCloud leg).
 """
 import os
 import re
@@ -31,6 +34,14 @@ DAYS = int(os.environ.get("CALSYNC_DAYS_AHEAD", "14"))
 DRY = os.environ.get("CALSYNC_DRY_RUN", "1") == "1"
 REVERSE = os.environ.get("CALSYNC_REVERSE", "1") == "1"   # reverse leg on by default; CALSYNC_REVERSE=0 disables
 SS_SOURCE = os.environ.get("CALSYNC_SS_SOURCE", "Exchange")   # SoftServe's account title in Apple Calendar
+# GigaCloud leg: off unless config.sh names GigaCloud's account; writes only when the whole sync is
+# live AND its own flag (.work/state/LIVE-GC -> CALSYNC_GC_DRY_RUN=0) is set, else it plans.
+GC_SOURCE = os.environ.get("CALSYNC_GC_SOURCE", "")
+GC_CAL = os.environ.get("CALSYNC_GC_WRITE_CAL", "Календар")
+GC_EMAIL = os.environ.get("CALSYNC_GC_EMAIL") or GC_SOURCE        # the account is titled by its address
+GC_GOOGLE_COPY = os.environ.get("CALSYNC_GC_GOOGLE_COPY", "")
+GC_LEDGER = os.environ.get("CALSYNC_GC_LEDGER", os.path.join(HERE, ".work/state/gc-ledger.json"))
+GC_DRY = DRY or os.environ.get("CALSYNC_GC_DRY_RUN", "1") == "1"
 CFG = {
     "days_ahead": DAYS,
     "prefix": os.environ.get("CALSYNC_PREFIX", "SS: "),
@@ -38,9 +49,14 @@ CFG = {
     "softserve_email": os.environ.get("CALSYNC_SS_EMAIL", "olekorlov@softserveinc.com"),
     "tz": os.environ.get("CALSYNC_TZ", "Europe/Kyiv"),
     "reverse_marker": os.environ.get("CALSYNC_REVERSE_MARKER", "gcal-busy"),
+    "gc_marker": os.environ.get("CALSYNC_GC_MARKER", "busy-sync"),
+    "gc_email": GC_EMAIL,
+    "gc_google_copy": GC_GOOGLE_COPY,
     "busy_title": os.environ.get("CALSYNC_BUSY_TITLE", "Busy"),
 }
 _REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
+_GCKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["gc_marker"]))
+GC_WRITER_ARGS = ["--source", GC_SOURCE, "--calendar", GC_CAL, "--marker", CFG["gc_marker"]]
 
 
 def read_ss():
