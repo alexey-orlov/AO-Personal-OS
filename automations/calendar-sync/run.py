@@ -423,7 +423,8 @@ def gc_pass(g_min, g_max, gcal, ek_cals):
     busy += sc.gc_google_busy({"events": events, "config": CFG})["busy_events"]
     ledger = _load_json(GC_LEDGER, {})
     plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger, "ss_placeholders": placeholders,
-                                 "source_complete": complete, "config": dict(CFG, reverse_marker=CFG["gc_marker"])})
+                                 "source_complete": complete, "config": dict(CFG, reverse_marker=CFG["gc_marker"]),
+                                 "create_after": datetime.now(timezone.utc).isoformat()})   # no blocks in the past
     if GC_DRY:
         print_dry("gigacloud", plan, complete)
         ok, why = gc_preflight()

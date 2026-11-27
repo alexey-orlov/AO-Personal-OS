@@ -548,10 +548,13 @@ def reverse_reconcile(inp):
 
     1:1 and content-free: each placeholder is just "Busy" at the slot's time, carrying a
     [[<marker>:<key>]] note so no leg reads it as busy time and we can re-link if the ledger is lost.
-    Idempotency hash is over absolute instants; delete-guard mirrors the forward leg."""
+    Idempotency hash is over absolute instants; delete-guard mirrors the forward leg.
+    `create_after` (an instant, optional): a slot that ended by then gets no new placeholder, so a
+    first run never backfills the past part of the window; placeholders already there are kept."""
     cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
     title, mk = cfg.get("busy_title", "Busy"), cfg.get("reverse_marker", "gcal-busy")
     placeholders = inp.get("ss_placeholders") or []
+    cutoff = _utc(inp["create_after"]) if inp.get("create_after") else None
 
     existing = {}   # key -> {ss_id, hash}
     for k, v in (inp.get("reverse_ledger") or {}).items():
@@ -585,6 +588,8 @@ def reverse_reconcile(inp):
                 skips.append({"key": key, "reason": "up-to-date"})
             else:
                 updates.append({**cmd, "op": "update", "ss_id": cur["ss_id"]})
+        elif cutoff and b.get("end") and _utc(b["end"]) <= cutoff:
+            skips.append({"key": key, "reason": "ended"})
         else:
             creates.append({**cmd, "op": "create"})
 

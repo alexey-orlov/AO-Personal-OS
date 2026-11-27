@@ -657,6 +657,21 @@ class TestGigaCloud(unittest.TestCase):
         self.assertEqual(plan["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
         self.assertEqual(plan["relinks"]["ek:A"]["ss_id"], "GC9")
 
+    def test_no_new_block_for_a_slot_that_already_ended(self):
+        busy = sc.eventkit_busy({"events": [self.ss("A"), self.ss("B", start="2026-12-02T08:00:00-08:00",
+                                                                   end="2026-12-02T08:30:00-08:00")],
+                                 "config": self.CFG, "target_email": self.GC})["busy_events"]
+        now = "2026-12-01T20:00:00Z"                                  # A (ends 16:30Z) is over, B is ahead
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": [],
+                                     "create_after": now, "config": dict(self.CFG, reverse_marker="busy-sync")})
+        self.assertEqual([c["key"] for c in plan["creates"]], ["ek:B"])
+        self.assertEqual(plan["skips"], [{"key": "ek:A", "reason": "ended"}])
+        # a block already there for an ended slot stays (still in the window), it isn't deleted
+        ph = [{"ss_id": "GC1", "key": "ek:A", "start": "2026-12-01T08:00:00-08:00", "end": "2026-12-01T08:30:00-08:00"}]
+        kept = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph,
+                                     "create_after": now, "config": dict(self.CFG, reverse_marker="busy-sync")})
+        self.assertEqual(kept["counts"], {"create": 1, "update": 0, "delete": 0, "skip": 1})
+
     def test_daily_summary_names_both_block_directions(self):
         fd, path = tempfile.mkstemp(suffix=".jsonl")
         os.close(fd)
