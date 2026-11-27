@@ -641,13 +641,14 @@ deck or one-pager work.
     one-pagers worldwide"; then, for the rebuild, "сейчас оно выглядит дешевато и посредственно … use larger freedom within the wider
     palette of SoftServe's brand book … maybe some refs we saved hold you back").
     - Art-direct first, fit second: one bold idea per band, few large elements, display type at full size (Azurio 34 pt hero, 17 pt section
-      heads), strong colour blocks (a black hero, a Lviv-blue program band, a black closing band), the brand's own photography behind its
-      template collages' diagonal cuts, and the copy cut to about 380 words to make room. A page that follows every token yet reads as a
-      form of small boxes is the failure; saved brand notes (`SS26-THEME.md`, the website's restraint) set the tokens, never the
+      heads), proof figures as the loudest thing after the headline, and the copy cut to about 380 words to make room. A page that follows
+      every token yet reads as a form of small boxes is the failure; saved brand notes (`SS26-THEME.md`) set the tokens, never the
       composition. Look at the brand's own bold layouts (its template decks' heroes and collages) before drafting.
-    - Two hues carry the meaning, as the best enterprise sheets do: orange for the problem, SoftServe blue for the answer, orange-75 as the
-      dash over a measured result; markers, rules and client logos stay neutral (ink, pale grey, grey logos). Extra hues, even the deck's
-      own team colours, make the page garish at one-page scale (fresh designer review, 2026-11-27).
+    - Boldness comes from type and figures, never from slabs: one light page with one temperature arc and soft transitions, one photograph
+      whose own colours become the hero's gradient (no cut, no frame), soft brand washes for bands, and at most one dark anchor, a deep
+      gradient behind the call to action (2026-11-27, Alex on a black hero, a saturated blue band with a second photograph and a black
+      footer: "аляписто … from many contrasting pictures, and the hero and footer without gradient"). Check every text pair by number:
+      4.5:1 under 18 pt, so small orange labels take the accent's deep shade and small white text sits only on the deep blue.
     - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal as the headline ("Ship more with the
       same team."), then "Where engineering weeks go", "AI stops where the board starts" (what holds it back → what it takes), the
       commitment ("Six weeks with one pilot team"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
