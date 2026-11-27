@@ -8,6 +8,8 @@ A second deliverable from the same Clockify entries: a colleague (Bohdan, 2026-1
 - An entry that is clearly one account goes to that account whole.
 - Jumpstart outreach that names no single account: split it by what that day's calls and Claude sessions show; when nothing shows, put it in one outreach line that Alex splits himself.
 - Everything else goes to its bucket: Oracle, or R&D (offering building, team syncs, 1:1s).
+- Only an account in an active presale gets a row: tracker status talking or yes. Research on accounts not yet engaged (not-started, reached-out, parked) goes to R&D (inferred from Alex moving NextEra and L'Oréal to R&D, 2026-11-27).
+- Attribute work by the artifact it produced, not by the session it ran in. One deck session built the tailored decks for several accounts (OneDrive `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/`, one file per account, dated versions in `_previous/`), so its hours belong to each of those accounts, not only to the one the session is named after (Alex moved 6h from ALSO to Maximo, ecobee, Semtech and QNX, 2026-11-27).
 - Evidence for the splits:
   - A call's time is its recording start, the call note's `_source:` stamp (Mac local time).
   - Past SoftServe meetings can't be read from a session: Google's `SS:` copies are deleted once they pass, and `ss-cal-read` returns `EVENTKIT_DENIED` outside CalendarSync.app. Its `.work/state/last-read.json` holds only upcoming meetings.
