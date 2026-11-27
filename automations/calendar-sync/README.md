@@ -58,12 +58,12 @@ gigacloud: SoftServe (EventKit read)        →  sync_core.reverse_reconcile  �
 - **`gcal.py`** — dependency-free Google client (stdlib urllib). OAuth installed-app flow (scopes:
   `calendar.events` for forward writes + `calendar.readonly` for the multi-calendar reads);
   `list_calendars` / list / create / update / delete, always `sendUpdates=none`.
-- **`run.py`** — one tick = **forward pass** (EventKit read of SoftServe's account only → `reconcile` →
-  `gcal`), **reverse pass** (all Google calendars + `CALSYNC_EK_SOURCES` → `reverse_reconcile` →
-  `ss-cal-write`), then **GigaCloud pass** (SoftServe's account + personal Google calendars →
-  `reverse_reconcile` → `ss-cal-write` pinned to GigaCloud). Skips all-day events; pulls our own
-  `[[gcal-busy]]` placeholders out of the forward source. Writes, for diagnostics,
-  `.work/state/last-read.json` (the forward SS read) and `.work/state/calendars.txt` (every Apple
+- **`run.py`** — one tick = **forward pass** (EventKit read of SoftServe's account only, from Monday of
+  this week to 14 days from now → `reconcile` → `gcal`), **reverse pass** (all Google calendars +
+  `CALSYNC_EK_SOURCES` → `reverse_reconcile` → `ss-cal-write`), then **GigaCloud pass** (SoftServe's
+  account + personal Google calendars → `reverse_reconcile` → `ss-cal-write` pinned to GigaCloud).
+  Skips all-day events; pulls our own `[[gcal-busy]]` placeholders out of the forward source. Writes,
+  for diagnostics, `.work/state/last-read.json` (the forward SS read) and `.work/state/calendars.txt` (every Apple
   Calendar calendar with its count of timed events in the window). A DRY run lists every create and
   delete it would make, in every leg.
 - **Host:** launchd `com.user.calendar-sync` runs `open -g -j -W ~/Applications/CalendarSync.app` every
@@ -85,7 +85,7 @@ gigacloud: SoftServe (EventKit read)        →  sync_core.reverse_reconcile  �
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google), reverse pass (Google+GigaCloud→SS), GigaCloud pass (SS+Google→GigaCloud) |
 | `run.sh` | runner, one run at a time (`.work/state/run.lock`, stale locks taken over): `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (49) |
+| `test_sync_core.py` | unit tests (53) |
 | `config.sh` | constants + Keychain creds + `LIVE`/`LIVE-GC` flags + `CALSYNC_SS_SOURCE`/`CALSYNC_SS_WRITE_CAL` (SoftServe's account and calendar) + `CALSYNC_GC_*` (GigaCloud's account, calendar, address, Google copy) + `CALSYNC_EK_SOURCES` (calendars read from Apple Calendar) |
 | `setup.sh` | builds the reader + writer (swiftc), builds the host app if missing, installs the launchd agent. `--plist-only` reinstalls just the agent · `--build-host` builds the app only (test before switching) · `--rebuild-host` rebuilds it and reinstalls (macOS asks for the grants again) · `--terminal-host` installs the Terminal fallback. Lints the plist before replacing anything. |
 | `~/Applications/CalendarSync.app` | the faceless host app (built by `setup.sh`, not in git); its grants live in System Settings → Privacy & Security → Calendars / Files and Folders |
@@ -100,7 +100,9 @@ gigacloud: SoftServe (EventKit read)        →  sync_core.reverse_reconcile  �
   description) are ever updated/deleted in Google, and only events carrying the leg's own marker in
   SoftServe or GigaCloud — **never** a native event.
 - Cancellations (`Отменено:` / `Cancelled:` …) and out-of-window meetings → the copy is **deleted**
-  (suppressed entirely if the read was incomplete).
+  (suppressed entirely if the read was incomplete). A copy is deleted only for a time the read covered
+  (from Monday of this week): a meeting that has ended keeps its copy, and past weeks are never touched
+  (gotcha 10).
 - **Native dedup:** an SS meeting already on Google (same title, `olekorlov@softserveinc.com` as
   organizer/attendee) is **skipped**, not duplicated. Likewise a meeting that already invites the other
   work address gets no block there (it is on that calendar already).
@@ -111,8 +113,8 @@ gigacloud: SoftServe (EventKit read)        →  sync_core.reverse_reconcile  �
   by the CET bug and three doubled "Busy" blocks sat there for days. How one arises: a create times out
   on our side after the server already took it (the `SS:` copy, 2026-11-18), so the ledger never records
   it, and when it lies past the window the next run lists (the Google read stops at Monday + 16 days
-  while the SS read runs 14 days from now, so Wed–Fri), that run creates it again. Such a pair is pruned
-  once both are listed.
+  while the SS read runs to 14 days from now, so Wed–Fri), that run creates it again. Such a pair is
+  pruned once both are listed.
 
 ## Status sync — Busy/Free + "Your response"
 Each copy mirrors the user's real SS RSVP:
@@ -249,6 +251,13 @@ After the reverse pass, `run.py` blocks GigaCloud time the same way (since 2026-
    zsh a bare `log` is a builtin and prints nothing): `/usr/bin/log show --last 15m --style compact
    --predicate 'process == "exchangesyncd"'` shows one `pushing items` and one `updating event` per
    written block, and any server error.
+10. **The read must cover every time the delete pass judges.** Until 2026-11-27 the forward read
+    started at "now" while its delete pass took Monday onward as covered, so a meeting that had ended
+    looked gone and its `SS:` copy was deleted at the next run. That was so from 2026-06-17 on; a copy
+    survived only when no run came between its meeting's end and Monday (Friday evenings, weekends, the
+    Mac off), and since the round-the-clock runs of 11-19 almost none did. Now the read starts Monday,
+    `reconcile` gets the read's start as `source_from`, and it never deletes a copy for a time before
+    that (nor before Monday). The fix restored this week's 27 copies; earlier weeks' are gone.
 
 ## Setup (one-time)
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
