@@ -70,7 +70,8 @@
     "biceps_curl_machine": "have",
     "reverse_pec_deck": "have",
     "leg_curl": "have",
-    "leg_extension": "have"
+    "leg_extension": "have",
+    "seated_chest_press": "have"
    },
    "substitutions": {
     "lateral_raise_1arm": "cable_lateral_raise_1arm"

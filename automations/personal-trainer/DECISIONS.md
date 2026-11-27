@@ -130,6 +130,12 @@ Alex trains there from late November 2026 (Alex, 2026-11-23). Researched
   rope, rower, air bike, kettlebells, dip bars, battle ropes) stays
   "unknown" with fallbacks. Alex's answers turn these into have/missing via
   `trainer.py gym`.
+- Seen on site since (Alex's photos and comments): the chest press is a
+  Matrix Aura Chest Press, a selectorized stack (27.11); the outer-thigh
+  machine is a Hoist (25.11); there is no resistance band (27.11). A
+  plate-loaded 45° incline lever (`incline_press_machine`) is not confirmed:
+  on 27.11 Alex swapped to it, used the Matrix chest press, and the lever's
+  plate numbers (50/70/70 lb) were far too low for that stack.
 - Weights do not carry 1:1 between gyms: cables and Smith are close (0.9),
   plate-loaded levers carry the same plates on another sled (0.85),
   selectorized cams differ most (0.75), and single-arm or kickback machines
