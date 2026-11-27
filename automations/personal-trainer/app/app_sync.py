@@ -17,7 +17,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ENGINE_D = os.path.dirname(HERE)
@@ -104,6 +104,11 @@ def cmd_export(a):
     out = os.path.abspath(a.dir)
     hist = load(os.path.join(ENGINE_D, "data", "history.json"))
     sessions = hist.get("sessions", [])
+    # a brief for day D leaves out sessions dated D: a sync on the session's own day plans for the day after it
+    if not a.today and sessions:
+        last = max(datetime.strptime(s["date"], "%Y-%m-%d").date() for s in sessions)
+        if last >= datetime.now().date():
+            a.today = (last + timedelta(days=1)).isoformat()
     gym_cfg = open(os.path.join(REPO, "automations", "gym-log", "config.sh"), encoding="utf-8").read()
     sheet_id = re.search(r'GYM_SHEET_ID="([^"]+)"', gym_cfg)
     tab = re.search(r'GYM_TAB="([^"]+)"', gym_cfg)
