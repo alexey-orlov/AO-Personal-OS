@@ -2,8 +2,10 @@
 
 usage: python3 build.py OUT.html
 
-Tabs by kind of thing (Alex, 2026-11-22): Мебель · Аксессуары и декор · Техника · Другое
-(«Другое» only holds what fits none of the first three). Every sheet row is on the page;
+Tabs by kind of thing (Alex, 2026-11-22/27): Мебель · Хранение · Аксессуары и декор · Техника ·
+Другое. «Хранение» is exactly the rows whose «Категория» is Хранение (storage systems and
+things to store in — set the category in the sheet to move a row there); «Другое» only holds
+what fits none of the others. Every sheet row is on the page;
 whether it shows as bought or not needed comes only from the page's db, which sync.py keeps
 equal to the sheet's «Статус» (Куплено / Отказались) — run sync.py before building.
 
@@ -22,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, ".."))
 import shop  # noqa: E402  (the shopping-list helper; reads the sheet)
 
-TABS = ["furniture", "decor", "tech", "other"]
+TABS = ["furniture", "storage", "decor", "tech", "other"]
 
 RESTORE_TYPES = {"Диваны и кресла", "Столы", "Стулья и табуреты", "Детская мебель", "Тумбы",
                  "Стеллажи и полки", "Перегородки", "Шкафы и комоды", "Уличная мебель",
@@ -40,10 +42,13 @@ OTHER_RULES = {
     "Присоска": ("Amazon", "Ищи heavy duty suction cup; крепче всего держат вакуумные с рычажком (lever)"),
     "Перфорированная панель": ("", "Магниты к обычной SKÅDIS (ДВП) не липнут — нужна стальная или клипсы"),
     "Телевизор": ("Best Buy · Costco · Target", "Чёрная пятница — 27 ноября"),
+    "Коробка для проводов": ("Amazon", "Ищи cable organizer box или cord storage box с 10 отделениями"),
 }
 
 
 def tab_of(r):
+    if r["cat"] == "Хранение":
+        return "storage"
     if r["cat"] == "Мебель":
         return "furniture"
     if (r["cat"] in ("Техника", "Электроника") or r["type"] == "Камины"
@@ -55,7 +60,15 @@ def tab_of(r):
     return "decor"
 
 
+STORAGE_GROUPS = {"Тумбы": "Мебель для хранения", "Стеллажи и полки": "Мебель для хранения",
+                  "Шкафы и комоды": "Мебель для хранения", "Детская мебель": "Мебель для хранения",
+                  "Корзины и контейнеры": "Корзины и коробки", "Вешалки и крючки": "Крючки и вешалки",
+                  "Аксессуары для ванной": "Ванная"}
+
+
 def group_of(r, tab):
+    if tab == "storage":
+        return STORAGE_GROUPS.get(r["type"], r["type"])
     return r["type"] if tab in ("furniture", "tech") else r["cat"]
 
 
@@ -104,7 +117,10 @@ def main(out):
             "stores": stores,
         })
     order = {k: i for i, k in enumerate(L["room"])}
-    gorder = {k: i for i, k in enumerate(L["type"] + L["cat"])}
+    gorder = {}
+    for i, k in enumerate(["Мебель для хранения", "Корзины и коробки", "Органайзеры",
+                           "Крючки и вешалки", "Ванная"] + L["type"] + L["cat"]):
+        gorder.setdefault(k, i)   # first mention sets the order
     items.sort(key=lambda o: (TABS.index(o["tab"]), gorder.get(o["group"], 999), o["group"],
                               order.get(o["room"], 99), o["name"]))
     page = open(os.path.join(HERE, "page.html"), encoding="utf-8").read()

@@ -51,7 +51,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 header.top { padding-block: 14px 4px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 header.top > * { min-width: 0; }
 h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
-.tabs { display: grid; grid-template-columns: repeat(var(--ntabs, 4), minmax(0, 1fr)); gap: 4px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
+.tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 4px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
 .tabs a {
   text-decoration: none; color: var(--ink); text-align: center; border-radius: 9px; padding: 7px 4px;
   font-weight: 600; font-size: 0.86rem; line-height: 1.2; min-height: 44px; display: grid; place-content: center; text-wrap: balance;
@@ -170,6 +170,7 @@ footer { color: var(--muted); font-size: 0.8rem; padding-top: 20px; }
 const ITEMS = __ITEMS__;
 const TABS = [
   { key: "furniture", name: "Мебель" },
+  { key: "storage", name: "Хранение" },
   { key: "decor", name: "Аксессуары и декор" },
   { key: "tech", name: "Техника" },
   { key: "other", name: "Другое" },
