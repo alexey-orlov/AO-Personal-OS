@@ -1,0 +1,265 @@
+{
+ "crossfit": {
+  "cap_min": 12,
+  "format": "rounds",
+  "items": [
+   {
+    "id": "burpees",
+    "reps": 10,
+    "swapped_from": {
+     "fallback": "burpees",
+     "id": "air_bike",
+     "reps": 15,
+     "unit": "cal"
+    }
+   },
+   {
+    "id": "step_ups",
+    "kg": 10,
+    "lb": 20,
+    "reps": 20
+   },
+   {
+    "id": "push_ups",
+    "reps": 15
+   },
+   {
+    "id": "plank_db_drag",
+    "kg": 10,
+    "lb": 20,
+    "reps": 30
+   }
+  ],
+  "rounds": 3
+ },
+ "date": "2026-11-25",
+ "day": "legs",
+ "gym": "us",
+ "note": "Lower back hurts, so strength is back-safe machines only.",
+ "overrides": {
+  "crossfit": "Draft kept: air bike (with burpees fallback), step-ups for legs, push-ups, plank drag. All are back-safe and have low recent use.",
+  "smith_shoulder_press": "instead of Cable Lateral Raise: swapped",
+  "strength": "Hack Squat and Glute Kickback removed because they load the lower back and have no safe swap.",
+  "warmup": "Brief suggested back_extension_seated_db, but lower back hurts, so only stabilizers (A/B/C) are used: pallof_hold, glute_bridge_single kept and plank_shoulder_taps (A) replaces the back extension."
+ },
+ "pre": {
+  "cleared": [],
+  "pain": [
+   "lower_back"
+  ],
+  "readiness": "normal",
+  "time_min": null
+ },
+ "strength": [
+  {
+   "action": "calibrate",
+   "id": "leg_curl",
+   "kg": [
+    40.8,
+    45.4,
+    45.4
+   ],
+   "lb": [
+    90,
+    100,
+    100
+   ],
+   "reps": "10",
+   "sets": 3,
+   "step_lb": 5,
+   "why": "новый тренажёр: в Киеве 68 кг (12.10) → старт −32 %"
+  },
+  {
+   "action": "calibrate",
+   "id": "leg_extension",
+   "kg": [
+    40.8,
+    45.4,
+    45.4
+   ],
+   "lb": [
+    90,
+    100,
+    100
+   ],
+   "reps": "10",
+   "sets": 3,
+   "step_lb": 5,
+   "why": "новый тренажёр: в Киеве 68 кг (12.10) → старт −32 %"
+  },
+  {
+   "action": "calibrate",
+   "id": "smith_shoulder_press",
+   "kg": [
+    13.6,
+    22.7,
+    22.7
+   ],
+   "lb": [
+    30,
+    50,
+    50
+   ],
+   "reps": "10",
+   "sets": 3,
+   "swapped_from": {
+    "id": "cable_lateral_raise_1arm",
+    "item": {
+     "action": "probe",
+     "hint_lb": "10–15",
+     "id": "cable_lateral_raise_1arm",
+     "replaces": "lateral_raise_1arm",
+     "reps": "10-12",
+     "sets": 3,
+     "step_lb": 5,
+     "why": "тренажёры разные: вес подобрать, 12 повторов с запасом 2 (обычно 10–15 lb)"
+    }
+   }
+  },
+  {
+   "action": "calibrate",
+   "id": "hip_abduction",
+   "kg": [
+    61.2,
+    70.3,
+    70.3
+   ],
+   "lb": [
+    135,
+    155,
+    155
+   ],
+   "reps": "15",
+   "sets": 3,
+   "step_lb": 10,
+   "why": "новый тренажёр: в Киеве 107 кг (12.10) → старт −32 %"
+  }
+ ],
+ "warmup": [
+  {
+   "id": "pallof_hold",
+   "secs": 45,
+   "sets": 2
+  },
+  {
+   "id": "glute_bridge_single",
+   "reps": 15,
+   "sets": 2
+  },
+  {
+   "id": "plank_shoulder_taps",
+   "reps": 20,
+   "sets": 2
+  }
+ ],
+ "why": [
+  "Hack Squat and Glute Kickback dropped: lower back hurts today, no safe swap.",
+  "Warm-up is stabilizers only, and crossfit uses back-safe movements."
+ ],
+ "source": "app",
+ "built_by": "claude",
+ "feedback": {
+  "crossfit_time": "10:40",
+  "done": true,
+  "overall": "",
+  "source": "app",
+  "items": {
+   "hip_abduction": {
+    "note": "Hoist outer-thigh machine; 120 lb was good",
+    "rating": "hard"
+   },
+   "leg_curl": {
+    "note": "",
+    "rating": "ok"
+   },
+   "leg_extension": {
+    "note": "",
+    "rating": "ok"
+   },
+   "smith_shoulder_press": {
+    "note": "",
+    "rating": "ok"
+   }
+  },
+  "actual": {
+   "hip_abduction": {
+    "kg": [
+     54.4,
+     54.4,
+     54.4
+    ],
+    "lb": [
+     120,
+     120,
+     120
+    ],
+    "machine": "Hoist Outer Thigh",
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "leg_curl": {
+    "kg": [
+     40.8,
+     45.4,
+     45.4
+    ],
+    "lb": [
+     90,
+     100,
+     100
+    ],
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "leg_extension": {
+    "kg": [
+     40.8,
+     45.4,
+     45.4
+    ],
+    "lb": [
+     90,
+     100,
+     100
+    ],
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "smith_shoulder_press": {
+    "kg": [
+     22.7,
+     22.7,
+     27.2
+    ],
+    "lb": [
+     50,
+     50,
+     60
+    ],
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   }
+  },
+  "recorded_at": "2026-11-27T21:30:56"
+ }
+}

@@ -60,7 +60,7 @@
     "lateral_raise_1arm": "unlikely",
     "chest_supported_tbar": "have",
     "glute_kickback": "unknown",
-    "hip_abduction": "likely",
+    "hip_abduction": "have",
     "hack_squat": "unknown",
     "seated_leg_press": "likely",
     "smith_incline_press": "have",
@@ -68,7 +68,9 @@
     "lat_pulldown": "have",
     "seated_cable_row": "have",
     "biceps_curl_machine": "have",
-    "reverse_pec_deck": "have"
+    "reverse_pec_deck": "have",
+    "leg_curl": "have",
+    "leg_extension": "have"
    },
    "substitutions": {
     "lateral_raise_1arm": "cable_lateral_raise_1arm"
@@ -84,7 +86,7 @@
     "kb": "unknown",
     "rope": "unknown",
     "rower": "unknown",
-    "air_bike": "unknown",
+    "air_bike": "missing",
     "battle_rope": "unknown"
    }
   }
