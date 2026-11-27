@@ -2,20 +2,25 @@
 """
 sync_core.py — deterministic brain for the calendar-sync automation.
 
-One-way mirror: SoftServe (read from Outlook-on-the-web by the skill) -> Google
-Calendar. This module owns everything that must be EXACT and testable; the skill
-owns the I/O it can't (OWA DOM read via the Chrome MCP, Google writes via the
-connector). No network, stdlib only, single file.
+Forward: SoftServe meetings -> SS: copies in Google. Busy blocks: busy time in Google and
+GigaCloud -> "Busy" in SoftServe, busy time in SoftServe and personal Google -> "Busy" in
+GigaCloud. run.py does the I/O (EventKit reader/writer, Google API); this module owns
+everything that must be EXACT and testable. No network, stdlib only, single file.
 
 Run isolated to avoid the macOS TCC import-scan of ~/Documents:
     python3 -I automations/calendar-sync/sync_core.py <subcommand>   # see main()
 
 Subcommands (all JSON on stdin -> JSON on stdout unless noted):
-  reconcile       source events + known copies -> {creates,updates,deletes,skips}
-  schedule        -> {in_window, is_open_hour, next_delay_seconds, ...}
-  log-run         append one run record to the run-log (jsonl)
-  daily-summary   aggregate UNREPORTED runs -> one Telegram message; mark reported
-  commit          apply executed creates/updates/deletes to the ledger
+  reconcile          source events + known copies -> {creates,updates,deletes,skips}
+  extract            Google events -> our SS: copies vs native events
+  reverse-sources    Google events -> busy slots to block in SoftServe
+  eventkit-busy      Apple Calendar rows -> busy slots to block in the other work calendar
+  gc-google-busy     Google events -> busy slots to block in GigaCloud
+  reverse-reconcile  busy slots + known blocks -> writer commands (either work calendar)
+  schedule           -> {in_window, is_open_hour, next_delay_seconds, ...}
+  log-run            append one run record to the run-log (jsonl)
+  daily-summary      aggregate UNREPORTED runs -> one Telegram message; mark reported
+  commit             apply executed creates/updates/deletes to the ledger
 
 Design notes:
   * OWA renders this SS mailbox in a non-Kyiv timezone (observed: US/Pacific).
@@ -43,8 +48,11 @@ DEFAULT_CONFIG = {
     "tz": "Europe/Kyiv",
     "marker": "ss-sync",
     "match_overlap_minutes": 90,            # native-dup time tolerance
-    "busy_title": "Busy",                   # reverse-leg placeholder title
-    "reverse_marker": "gcal-busy",          # reverse placeholders carry [[gcal-busy:<key>]] in notes
+    "busy_title": "Busy",                   # placeholder title, SoftServe and GigaCloud alike
+    "reverse_marker": "gcal-busy",          # SoftServe placeholders carry [[gcal-busy:<key>]] in notes
+    "gc_marker": "busy-sync",               # GigaCloud placeholders carry [[busy-sync:<key>]] in notes
+    "gc_email": "",                         # GigaCloud identity: a meeting GigaCloud holds isn't blocked there
+    "gc_google_copy": "",                   # Google's copy of GigaCloud's calendar: never blocks GigaCloud
 }
 
 # Titles that mean "this meeting is off" — RU / UK / EN. Case-insensitive.
@@ -422,6 +430,14 @@ def _rev_hash(start_iso, end_iso):
     return _sha(norm(start_iso), norm(end_iso))[:16]
 
 
+def _ours(text, cfg):
+    """A "Busy" block this sync wrote: SoftServe's carry the reverse marker, GigaCloud's the gc
+    marker. Never a source of busy time in either direction, or a block would be blocked back
+    (an SS meeting -> a GigaCloud block -> an SS block over the meeting it came from)."""
+    t = text or ""
+    return any("[[%s:" % m in t for m in (cfg.get("reverse_marker"), cfg.get("gc_marker")) if m)
+
+
 def _google_is_busy(ev):
     """A timed, busy, not-cancelled, not-self-declined Google event = time the user actually holds."""
     if ev.get("status") == "cancelled":
@@ -449,11 +465,13 @@ def _google_is_ss_related(ev, cfg):
 
 
 def reverse_sources(inp):
-    """Google events (each tagged with `_cal`) -> busy slots to block in SS, anti-recursion applied."""
+    """Google events (each tagged with `_cal`) -> busy slots to block in SS, anti-recursion applied.
+    A GigaCloud block seen through Google's copy of the GigaCloud feed (the source while GigaCloud's
+    account is out of Apple Calendar) carries its marker in the description and is skipped."""
     cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
     out = []
     for ev in inp.get("events") or []:
-        if not _google_is_busy(ev) or _google_is_ss_related(ev, cfg):
+        if not _google_is_busy(ev) or _google_is_ss_related(ev, cfg) or _ours(ev.get("description"), cfg):
             continue
         out.append({"key": "%s::%s" % (ev.get("_cal", ""), ev.get("id", "")),
                     "start": (ev.get("start") or {}).get("dateTime"),
@@ -462,25 +480,31 @@ def reverse_sources(inp):
 
 
 def eventkit_busy(inp):
-    """Events of one calendar read straight from Apple Calendar (ss-cal-read rows) -> busy slots,
-    by Google's rule: timed, not Free, not cancelled, not declined, not an SS meeting. EventKit
-    reports some feeds' availability as "notSupported"; that counts as busy, the safe side for SS.
+    """Events of a calendar read straight from Apple Calendar (ss-cal-read rows) -> busy slots for the
+    calendar the blocks go to, by Google's rule: timed, not Free, not cancelled, not declined. Two
+    directions use it: GigaCloud rows -> SoftServe blocks (the default) and SoftServe rows ->
+    GigaCloud blocks (`target_email` = GigaCloud's address). A meeting with `target_email` among its
+    people is already on the target calendar and is skipped; so is any Busy block this sync wrote.
+    An unanswered invite blocks (only a decline frees the time), and EventKit's "notSupported"
+    availability counts as busy: both are the safe side for the target calendar.
     Key "ek:<iCal UID>", plus the original start for an occurrence of a series (all of them share
     the UID), so a refresh never re-keys a slot. The key names no calendar or account: it sits in
-    the notes of the SS placeholder, which anyone with full-details access to that calendar reads."""
+    the notes of the placeholder, which anyone with full-details access to that calendar reads."""
     cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
-    ss = cfg["softserve_email"].casefold()
+    target = ((inp["target_email"] if "target_email" in inp else cfg["softserve_email"]) or "").casefold()
     out, keys = [], set()
     for e in inp.get("events") or []:
         if e.get("all_day") or not e.get("start") or not e.get("end"):
             continue
+        if _ours(e.get("notes"), cfg):
+            continue                                   # one of our own Busy blocks (anti-recursion)
         if e.get("availability") == "free" or e.get("status") == "canceled" or is_cancelled(e.get("title", "")):
             continue
         if e.get("my_status") == "declined":
             continue
         people = [e.get("organizer_email") or ""] + [a.get("email") or "" for a in e.get("attendees") or []]
-        if any(ss in p.casefold() for p in people):
-            continue                                   # already on SS itself (anti-recursion, as for Google)
+        if target and any(target in p.casefold() for p in people):
+            continue                                   # already on the target calendar itself
         key = "ek:%s" % (e.get("external_id") or e.get("uid") or "")
         if (e.get("recurring") or e.get("detached")) and e.get("occurrence"):
             key += "@" + _utc(e["occurrence"]).strftime("%Y%m%dT%H%M%SZ")
