@@ -59,6 +59,7 @@ This is the always-on default voice. It applies unless the user's own pasted voi
 
 **Hard rules:**
 - **No em dashes. Ever.** Use a simple hyphen with spaces, a comma, or split the sentence. This is the single most reliable AI tell to remove.
+- **Only words Alex would use himself.** The message goes out under his name, so he has to know every term in it and be able to explain it if the recipient answers back. Terms of art, abbreviations and product names that came from research, a transcript or a source document, not from Alex's own words, get replaced with plain words: "PLC ladder logic and KRL for the KUKA arm" becomes "the code on the robot's controllers and the programs that run the arm". A term stays only if Alex used it himself in the conversation or in his draft (Alex, 2026-11-27, on a DM to a Maximo engineer).
 - One clear ask. Make the next step obvious without being pushy.
 - Short paragraphs (1-3 sentences). Easy to scan on a phone.
 - Concrete and specific over polished and corporate. Insider wording beats agency wording.
@@ -109,6 +110,7 @@ Run this pass on your own draft. It catches the errors that lose trust:
 - Exactly one ask, and is the next step unambiguous?
 - On a chat channel (Slack, Teams, WhatsApp), does it read like an email: paragraphs, an explainer, proof points, prices? Split it into short bubbles (hi, who I am and why you · what we do, the offer in a line and the ask · the attachment with a one-line caption) and move the detail into the attachment.
 - Any em dash? Any banned phrase? Any sentence that sounds like a brochure?
+- Did every term, abbreviation and product name come from Alex's own words? Anything picked up from research or a transcript gets plain words.
 - Would a busy senior person read this in 15 seconds and know what to do?
 - Does the register match the relationship, or did it default to generic-professional?
 - Does any phrase presuppose context the recipient doesn't have? On **cold inbound** (the recipient is reaching out for the first time), they know nothing about Alex — "still", "as I mentioned", "continuing our chat", "circling back", "as discussed" all silently assume shared history that doesn't exist. Drop the temporal marker, or drop the status preamble entirely (often answering their question — "yes, happy to chat" — is enough; the status is implicit).
