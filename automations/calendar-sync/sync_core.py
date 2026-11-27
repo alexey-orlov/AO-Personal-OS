@@ -378,8 +378,15 @@ def reconcile(inp):
     # is a stale duplicate left by the old shared-key scheme, or is a second live copy of a
     # current occurrence (reason "duplicate": the occurrence keeps the copy `existing` holds).
     # Deduping by event id (not by source_key) is what lets us prune BOTH copies when two
-    # collided on one legacy key. Guard: never prune on an incomplete read.
+    # collided on one legacy key. Guards: never prune on an incomplete read, and never prune a
+    # copy whose meeting starts before the time the read covers from (`source_from`, the read's
+    # start; never earlier than Monday, so past weeks stay as they are): the read never looked
+    # there, so it can't tell the meeting is gone. Until 2026-11-27 this guard used Monday while
+    # the read started at "now", and every copy was deleted as soon as its meeting ended.
     deletes = []
+    covered_from = win_start.astimezone(timezone.utc)
+    if inp.get("source_from"):
+        covered_from = max(covered_from, _utc(inp["source_from"]))
     if inp.get("source_complete", True):
         owned = {}   # google_event_id -> (source_key, start_kiev)
         for k, cur in existing.items():
@@ -401,10 +408,10 @@ def reconcile(inp):
             else:
                 reason = "gone-or-cancelled"
             try:
-                future = sk is None or _utc(sk) >= win_start.astimezone(timezone.utc)
+                covered = sk is None or _utc(sk) >= covered_from
             except Exception:
-                future = True
-            if future:
+                covered = True
+            if covered:
                 deletes.append({"source_key": key, "google_event_id": gid, "reason": reason})
 
     return {
