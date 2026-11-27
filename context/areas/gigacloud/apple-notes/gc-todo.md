@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-08-18 08:00
-chars: 19919
+snapshot: 2026-11-26 22:00
+chars: 21623
 scope: above relevance marker
 ---
 GC Todo
@@ -27,9 +27,31 @@ Max discount = 1 – (Total COGS, UA Region, UAH / Price, UAH + Min margin, %) *
 Актуальность проектов в Jira
 
 
-Todo
+Проблемы чеклиста
+Microsoft Windows Server 2025 Remote Desktop Services License, annually - Sales kickoff, Operations kickoff почему-то требуются
+Microsoft SQL Server 2025 Standard Edition License, perpetual - Sales kickoff, Operations kickoff почему-то требуются
+Microsoft SQL Server 2025 CAL License, perpetual - Sales kickoff, Operations kickoff почему-то требуются
+https://crm.gigacloud.eu/0/Shell/#Card/GCLProductContractType_FormPage/edit/26b4778f-5ad8-407a-a0cb-74122896aea1 - Contract. VCFaaS - 06.11 16.49 - после перехода в драфт снова перевели в аппрувал, но система сразу перевела процесс в Approved
 
 
+Todo автоматизация
+Галочка - available In pricelist переименовать в should be available
+Почему-то не хватает прав на редактирование product delivery process.
+Ручное добавление виз в ревизию
+Колонки для данных по маржинальности
+Renewal цены для приватной инфраструктуры
+Возможность фиксировать промежуточные статусы PoC и других активностей
+Деталь с доступными Block storage в продукте
+L2-L4 Support - lock editing
+Фиксация маппинга датацентров и компонент\
+Галочка доступность продукту
+
+
+
+
+Пофиксить привязки:
+Временные записи на проде
+￼
 
 Gov
 531b5fdd-ebd8-49fa-8bab-fa4446b25921
@@ -37,13 +59,21 @@ Gov
 Non-gov
 36e6677e-f441-4d9d-867b-66e772837a9a
 
-Фиксы на вроде
+Фиксы на проде
+Галочка для Capacity по Contract process, Sales Ukraine - delivery process
 Проставить дефолтные версии галочек 
-Удалить чеклисты для гос
 Обновить текущие статусы в чекисте
-Component. Field auto-filling: Hardware details (Comp node, GPU only) + Min margin - поменять версию
-Revisions. Approval - поменять версию
+Product checklists: Set elements as not needed (sub-process) - поменять версию
+Product checklists. Log action item - поменять версию
+Product checklists: Set elements as To Do (sub-process) - поменять версию
+Product checklists: Add/update required checklist items - поменять версию
+Мар
+Revisions. Launch processes upon event: delete component in product - поменять версию после поставки
 Product catalogue. Sync gov product - поменять версию после поставки
+Component. Field auto-filling: Hardware details (Comp node, GPU only) + Min margin - поменять версию
+Master process. Internal request processing - create components and price items - поменять версию
+Удалить чеклисты для гос
+Revisions. Approval - поменять версию
 Price item: Field calculation helper: Pricing fields - поменять версию после поставки
 Price item. Field auto-filling: current margin, max discount - поменять версию
 Active (spec infra products): required fields - (2) business rules, product page

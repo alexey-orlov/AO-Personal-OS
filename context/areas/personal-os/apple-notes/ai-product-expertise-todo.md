@@ -1,11 +1,11 @@
 ---
-note: AI Product expertise ToDo
+note: lyAI Product expertise ToDo
 area: personal-os
-snapshot: 2026-09-25 08:15
-chars: 1734
+snapshot: 2026-11-26 22:00
+chars: 1736
 scope: above relevance marker
 ---
-AI Product expertise ToDo
+lyAI Product expertise ToDo
 
 
 Insights:
