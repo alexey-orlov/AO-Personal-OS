@@ -515,11 +515,39 @@ def eventkit_busy(inp):
     return {"busy_events": out}
 
 
+def gc_google_busy(inp):
+    """Google events (each tagged with `_cal`) -> busy slots to block in GigaCloud, by the rule
+    SoftServe's blocks use (timed, not Free, not cancelled, not self-declined), minus: Google's copy
+    of GigaCloud's own calendar (`gc_google_copy`), a SoftServe meeting or its SS: copy (SoftServe
+    blocks GigaCloud straight from its own calendar), a meeting GigaCloud already holds (`gc_email`
+    among its people), and any Busy block this sync wrote. Key "g:" + a hash of calendar and event
+    id: it sits in the notes of the GigaCloud block, which GigaCloud colleagues with full-details
+    access can read, so it must name no personal calendar or address."""
+    cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
+    gc = (cfg.get("gc_email") or "").casefold()
+    copy = cfg.get("gc_google_copy") or ""
+    out = []
+    for ev in inp.get("events") or []:
+        if copy and ev.get("_cal") == copy:
+            continue                                   # GigaCloud itself, as Google sees it
+        if not _google_is_busy(ev) or _google_is_ss_related(ev, cfg) or _ours(ev.get("description"), cfg):
+            continue
+        people = [(ev.get("organizer") or {}).get("email") or ""] + [a.get("email") or "" for a in ev.get("attendees") or []]
+        if gc and any(gc in p.casefold() for p in people):
+            continue                                   # already on GigaCloud itself
+        out.append({"key": "g:" + _sha("%s::%s" % (ev.get("_cal", ""), ev.get("id", "")))[:16],
+                    "start": (ev.get("start") or {}).get("dateTime"),
+                    "end": (ev.get("end") or {}).get("dateTime")})
+    return {"busy_events": out}
+
+
 def reverse_reconcile(inp):
-    """Busy slots + known placeholders -> {create, update, delete} writer commands.
+    """Busy slots + known placeholders -> {create, update, delete} writer commands, for either work
+    calendar: SoftServe's blocks carry config `reverse_marker`, GigaCloud's run passes its gc marker
+    there. (`ss_placeholders` / `ss_id` name the blocks and their ids in whichever calendar it is.)
 
     1:1 and content-free: each placeholder is just "Busy" at the slot's time, carrying a
-    [[gcal-busy:<key>]] note so the forward leg skips it and we can re-link if the ledger is lost.
+    [[<marker>:<key>]] note so no leg reads it as busy time and we can re-link if the ledger is lost.
     Idempotency hash is over absolute instants; delete-guard mirrors the forward leg."""
     cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
     title, mk = cfg.get("busy_title", "Busy"), cfg.get("reverse_marker", "gcal-busy")
@@ -638,6 +666,9 @@ def log_run(inp):
         "rev_added": int(inp.get("rev_added", 0)),        # reverse leg: SS 'Busy' placeholders
         "rev_modified": int(inp.get("rev_modified", 0)),
         "rev_deleted": int(inp.get("rev_deleted", 0)),
+        "gc_added": int(inp.get("gc_added", 0)),          # GigaCloud leg: GigaCloud 'Busy' placeholders
+        "gc_modified": int(inp.get("gc_modified", 0)),
+        "gc_deleted": int(inp.get("gc_deleted", 0)),
         "error": inp.get("error"),
         "reported": False,
     }
@@ -656,13 +687,18 @@ def daily_summary(inp):
     deleted = sum(int(r.get("deleted", 0)) for r in pending)
     rev = sum(int(r.get("rev_added", 0)) + int(r.get("rev_modified", 0)) for r in pending)
     rev_del = sum(int(r.get("rev_deleted", 0)) for r in pending)
+    gcb = sum(int(r.get("gc_added", 0)) + int(r.get("gc_modified", 0)) for r in pending)
+    gc_del = sum(int(r.get("gc_deleted", 0)) for r in pending)
     msg = "SoftServe calendar sync: %d attempts, %d successful. %d events added/modified." % (
         attempts, ok, events)
     if deleted:
         msg += " %d removed." % deleted
     if rev or rev_del:
-        msg += "\nGoogle→SS busy-blocks: %d added/updated%s." % (
+        msg += "\nGoogle+GigaCloud→SS busy-blocks: %d added/updated%s." % (
             rev, (", %d removed" % rev_del) if rev_del else "")
+    if gcb or gc_del:
+        msg += "\nSS+Google→GigaCloud busy-blocks: %d added/updated%s." % (
+            gcb, (", %d removed" % gc_del) if gc_del else "")
     errs = [r for r in pending if r.get("error")]
     if errs:
         msg += "\n\nErrors:"
@@ -753,6 +789,7 @@ _COMMANDS = {
     "extract": extract,
     "reverse-sources": reverse_sources,
     "eventkit-busy": eventkit_busy,
+    "gc-google-busy": gc_google_busy,
     "reverse-reconcile": reverse_reconcile,
     "schedule": schedule,
     "log-run": log_run,
