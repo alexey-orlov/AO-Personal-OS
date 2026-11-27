@@ -1,7 +1,7 @@
 # Generac and ecobee: the IoT platform project and the hardware Jumpstart pursuit
 
-_status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wants the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. Next: Alex listens to the latest project recording, talks to the SoftServe project team (Muaz Malas, the main SME, first), drafts the tailored Jumpstart and reviews it with Oksana, ideally the week of 2026-11-23._
-_updated: 2026-11-24_
+_status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wanted the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. The tailored deck is built (2026-11-26): legacy code (HVAC logic into the new firmware), manual tests on today's releases, memory on the next chip, one app and cloud for two thermostat generations; board bring-up stays in the side list, since no new board exists for a weeks 4–6 pilot. Next: Oksana's review and OK before it goes out._
+_updated: 2026-11-26_
 _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), doc `generac`: the live status, next step, contacts and account summary · registry and sync ledger: [outreach-tracker](../../_meta/outreach-tracker.md)_
 
 ## Snapshot
@@ -37,7 +37,7 @@ _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGh
 
 Mine:
 - Listen to the recording of the project's latest meeting; talk to the SoftServe project team, Muaz Malas first. (chat, 2026-11-22)
-- Draft the tailored AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team; review it with Oksana, ideally the week of 2026-11-23. (chat, 2026-11-22)
+- Review the tailored ecobee deck with Oksana and get her OK: it names the move to the next thermostat, which ecobee shared with SoftServe's project, never the OS, chip, platform name or dates (OneDrive `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/`). (chat, 2026-11-26)
 - Find stakeholders at Generac itself, beyond ecobee. (chat, 2026-11-22)
 
 Theirs:
@@ -49,6 +49,7 @@ Gaps:
 - Whether SoftServe's embedded developers on smart security sit in the firmware org (a ready pilot team, inferred), and what stalled the earlier discussion.
 ## Activity
 
+- 2026-11-26 — ecobee customer deck (chat, 2026-11-26) — "Agentic Engineering Jumpstart for Physical Products" for ecobee, a Generac company, built with the customer-deck kit and reviewed by a simulated ecobee VP of firmware and a designer; the review swapped bring-up for release testing, named HVAC logic and the thermostat–cloud API, and said "the next chip". Sources and review record in the kit's PROVENANCE.md.
 - 2026-11-25 — [Firmware & Hardware R&D explainer](https://claude.ai/artifact/9UKRLYvLPz6NQYpLiZ57ir) (chat, 2026-11-23/25) — built to prepare the tailored Jumpstart: the SDLC steps for cloud & apps, embedded apps, firmware and hardware, general and at ecobee; Revs C–L add embedded apps as a fourth layer, a combined timeline, where each layer's effort and time go (each step's share on a true 0–100% bar), and each step's kinds of work, named by their nature, with time shares from published studies and independently reviewed agentic-AI scores (recalibrated in Rev J), plus where the Jumpstart's modules land, the agent skills and context each step needs, wording that ties the firmware rows to the R&D-leader challenges (Rev K), and firmware test writing as its own row, scored radical and marked 02 (Rev L); the page carries no citations, the evidence sits beside it in OneDrive (`Explainer/research/jumpstart-mapping.md` holds the deck gaps, `business-fit-review.md` how the "What we hear" slides map onto the rows).
 - 2026-11-22 — [ecobee IoT platform kickoff](calls/generac/2026-11-22_sales-call_pasted-ecobee-iot-platform-kickoff.md) + Alex's meeting with Oksana (chat, 2026-11-22) — page created: the project, the firmware context, the tailor-first steer. Web research the same day named no VP of firmware; two VP candidates and a firmware manager recorded.
 - 2026-11-13 — Hardware two-pager and first outreach ([jumpstart-science](jumpstart-science.md#active-threads)) — Generac researched; Alex Bekh introduced Alex to the client partner.
