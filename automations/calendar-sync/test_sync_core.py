@@ -749,5 +749,74 @@ class TestGigaCloud(unittest.TestCase):
                 os.unlink(ledger)
 
 
+class TestForwardWindow(unittest.TestCase):
+    """2026-11-27: every SS: copy was deleted once its meeting ended — the read started at "now"
+    while the delete pass took Monday onward as covered."""
+    MONDAY = "2026-06-14T21:00:00Z"      # 2026-06-15 00:00 Kyiv; NOW_UTC is Wednesday 2026-06-17 08:49Z
+
+    def ev(self, uid, start, end):
+        return {"owa_id": uid, "title": "Meeting " + uid, "start_wall": start, "end_wall": end,
+                "my_status": "accepted", "attendees": []}
+
+    def setUp(self):
+        self.A = self.ev("A", "2026-06-17T06:00:00+00:00", "2026-06-17T06:30:00+00:00")   # ended this morning
+        self.B = self.ev("B", "2026-06-17T12:00:00+00:00", "2026-06-17T12:30:00+00:00")   # later today
+        self.C = self.ev("C", "2026-06-16T10:00:00+00:00", "2026-06-16T10:30:00+00:00")   # yesterday
+        first = sc.reconcile({"now_utc": NOW_UTC, "source_events": [self.A, self.B, self.C],
+                              "source_from": self.MONDAY, "ledger": {}})
+        self.ledger = {c["source_key"]: {"google_event_id": "g-" + c["source_key"], "content_hash": c["content_hash"],
+                                         "start_kiev": c["start_kiev"]} for c in first["creates"]}
+        self.ledger["id:D"] = {"google_event_id": "g-id:D", "content_hash": "x",
+                               "start_kiev": "2026-06-12T12:00:00+03:00"}                 # last week
+
+    def test_an_ended_meeting_keeps_its_copy_when_the_read_starts_now(self):
+        plan = sc.reconcile({"now_utc": NOW_UTC, "source_events": [self.B], "source_from": NOW_UTC,
+                             "ledger": self.ledger})
+        self.assertEqual(plan["deletes"], [])        # A ended, C is yesterday: the read never looked there
+
+    def test_a_read_from_monday_mirrors_the_whole_week(self):
+        # C was removed in SoftServe: the read covered yesterday, so its copy goes; A ended and stays
+        plan = sc.reconcile({"now_utc": NOW_UTC, "source_events": [self.A, self.B], "source_from": self.MONDAY,
+                             "ledger": self.ledger})
+        self.assertEqual([d["google_event_id"] for d in plan["deletes"]], ["g-id:C"])
+        self.assertEqual(plan["counts"]["skip"], 2)
+
+    def test_last_week_is_never_touched_even_by_an_earlier_read(self):
+        plan = sc.reconcile({"now_utc": NOW_UTC, "source_events": [self.A, self.B, self.C],
+                             "source_from": "2026-06-10T00:00:00Z", "ledger": self.ledger})
+        self.assertEqual(plan["deletes"], [])        # D (last week) is outside the window: kept as it is
+
+    def test_forward_read_starts_monday_and_keeps_the_horizon(self):
+        from unittest import mock
+        import run
+        now = sc._utc("2026-11-27T18:40:00Z")                        # a Friday afternoon in SF
+        g_min, _ = run.window_bounds(now)
+        self.assertEqual(g_min, "2026-11-22T22:00:00Z")               # Monday 00:00 Kyiv
+        rows = [
+            {"uid": "past", "title": "Daily", "start": "2026-11-24T06:15:00-08:00", "end": "2026-11-24T06:45:00-08:00"},
+            {"uid": "ph", "title": "Busy", "notes": "[[gcal-busy:cal1::e1]]",
+             "start": "2026-11-25T09:00:00-08:00", "end": "2026-11-25T09:30:00-08:00"},
+            {"uid": "far", "title": "Later", "start": "2026-12-11T20:00:00-08:00", "end": "2026-12-11T20:30:00-08:00"},
+            {"uid": "hol", "title": "Holiday", "all_day": True, "start": "2026-11-26T00:00:00-08:00",
+             "end": "2026-11-27T00:00:00-08:00"}]
+        seen = {}
+
+        def fake_run(cmd, **kw):
+            seen["cmd"] = cmd
+            return mock.Mock(returncode=0, stdout=json.dumps(rows), stderr="")
+
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(run, "HERE", tmp), \
+                mock.patch.object(run.subprocess, "run", fake_run):
+            evs, ph, complete, err = run.read_ss(now, g_min)
+        cmd = seen["cmd"]
+        self.assertEqual(cmd[cmd.index("--from") + 1], g_min)
+        self.assertEqual(cmd[cmd.index("--source") + 1], run.SS_SOURCE)
+        days = int(cmd[cmd.index("--days") + 1])
+        self.assertGreaterEqual(sc._utc(g_min).timestamp() + days * 86400, now.timestamp() + run.DAYS * 86400)
+        self.assertTrue(complete)
+        self.assertEqual([e["owa_id"] for e in evs], ["past"])         # past kept, beyond DAYS dropped
+        self.assertEqual([(p["ss_id"], p["key"]) for p in ph], [("ph", "cal1::e1")])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
