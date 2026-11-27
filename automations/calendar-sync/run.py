@@ -364,55 +364,69 @@ def reverse_pass(placeholders, g_min, g_max, gcal, ek_cals=None):
             errors.append("rev %s: %s" % (title, err))
             continue
         ek_busy += sc.eventkit_busy({"events": rows, "config": CFG})["busy_events"]
-    for cal in cals:
-        if cal["id"] in skip:
-            continue
-        try:
-            for ev in gcal.list_events(g_min, g_max, calendar_id=cal["id"]):
-                ev["_cal"] = cal["id"]
-                events.append(ev)
-        except Exception as e:
-            complete = False                          # a calendar failed -> don't prune placeholders this run
-            errors.append("rev list %s: %s" % (cal.get("summaryOverride") or cal.get("summary") or cal["id"], e))
+    events, lerr = google_events(gcal, cals, skip, g_min, g_max, "rev")
+    if lerr:
+        complete = False                              # a calendar failed -> don't prune placeholders this run
+        errors += lerr
     busy = sc.reverse_sources({"events": events, "config": CFG})["busy_events"] + ek_busy
     rledger = _load_json(REV_LEDGER, {})
     plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": rledger,
                                  "ss_placeholders": placeholders, "source_complete": complete, "config": CFG})
-    c = plan["counts"]
     if DRY:
-        print("[reverse] DRY plan: +%d ~%d -%d =%d skip (complete=%s)"
-              % (c["create"], c["update"], c["delete"], c["skip"], complete))
-        for x in plan["creates"] + plan["updates"]:
-            print("   would %s Busy %s .. %s  [%s]" % (x["op"], x["start"], x["end"], x["key"][:70]))
-        for x in plan["deletes"]:
-            print("   would delete %s%s" % (x.get("key") or x["ss_id"], " (duplicate)" if x.get("duplicate") else ""))
+        print_dry("reverse", plan, complete)
         return zero, errors
-    by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
-    dup_ids = {d["ss_id"] for d in plan["deletes"] if d.get("duplicate")}
+    (ra, rm, rd), werr = apply_busy(plan, rledger, REV_LEDGER, ss_write, "rev")
+    return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors + werr
+
+
+def gc_pass(g_min, g_max, gcal, ek_cals):
+    """Busy at SoftServe (its account, read straight from Apple Calendar) or in a personal Google
+    calendar -> GigaCloud 'Busy' blocks in GC_CAL of the account GC_SOURCE. Plans only while
+    GC_DRY. Returns (counts, errors)."""
+    zero = {"gc_added": 0, "gc_modified": 0, "gc_deleted": 0}
+    if ek_cals is None:
+        return zero, ["gc: Apple Calendar list unavailable"]
+    if not any(s.casefold() == GC_SOURCE.casefold() and t == "exchange" and c.casefold() == GC_CAL.casefold()
+               for s, t, c in ek_cals):
+        return zero, ["gc: %s of %s is not in Apple Calendar" % (GC_CAL, GC_SOURCE)]
+    # The blocks GigaCloud already holds. Unread, nothing is written: every slot would be created twice.
+    rows, err = _read_window(["--type", "exchange", "--source", GC_SOURCE, "--calendar", GC_CAL], g_min, g_max)
+    if err:
+        return zero, ["gc read: %s" % err]
+    marker = "[[%s:" % CFG["gc_marker"]
+    placeholders = []
+    for r in rows:
+        notes = r.get("notes") or ""
+        if marker in notes:
+            m = _GCKEY.search(notes)
+            placeholders.append({"ss_id": r.get("uid"), "key": m.group(1) if m else None,
+                                 "start": r.get("start"), "end": r.get("end")})
+    # Sources: SoftServe's whole account over the same window (its own "Busy" blocks drop out in
+    # eventkit_busy), and every Google calendar but Google's copy of GigaCloud.
+    complete, errors = True, []
+    ss_rows, err = _read_window(["--type", "exchange", "--source", SS_SOURCE], g_min, g_max)
+    if err:
+        complete = False
+        errors.append("gc SoftServe read: %s" % err)
+    busy = sc.eventkit_busy({"events": ss_rows or [], "config": CFG, "target_email": GC_EMAIL})["busy_events"]
     try:
-        results = ss_write(plan["creates"] + plan["updates"] + plan["deletes"])
+        events, lerr = google_events(gcal, gcal.list_calendars(), {GC_GOOGLE_COPY}, g_min, g_max, "gc")
     except Exception as e:
-        return zero, errors + ["rev writer: %s" % e]
-    rledger.update(plan.get("relinks") or {})   # point the ledger at the placeholder SS really holds
-    ra = rm = rd = 0
-    for r in results:
-        if not r.get("ok"):
-            errors.append("rev %s %s: %s" % (r.get("op"), r.get("key") or r.get("ss_id"), r.get("error")))
-            continue
-        op = r.get("op")
-        if op in ("create", "update"):
-            rledger[r["key"]] = {"ss_id": r.get("ss_id"), "hash": by_key.get(r["key"], {}).get("hash")}
-            ra += (op == "create"); rm += (op == "update")
-        elif op == "delete":
-            if r.get("ss_id") not in dup_ids:      # pruning a duplicate keeps the slot's entry
-                rledger.pop(r.get("key"), None)
-            rd += 1
-    try:
-        with open(REV_LEDGER, "w", encoding="utf-8") as f:
-            json.dump(rledger, f, ensure_ascii=False, indent=2, sort_keys=True)
-    except OSError as e:
-        errors.append("rev ledger save: %s" % e)
-    return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors
+        events, lerr = [], ["gc list_calendars: %s" % e]
+    if lerr:
+        complete = False
+        errors += lerr
+    busy += sc.gc_google_busy({"events": events, "config": CFG})["busy_events"]
+    ledger = _load_json(GC_LEDGER, {})
+    plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger, "ss_placeholders": placeholders,
+                                 "source_complete": complete, "config": dict(CFG, reverse_marker=CFG["gc_marker"])})
+    if GC_DRY:
+        print_dry("gigacloud", plan, complete)
+        ok, why = gc_preflight()
+        print("   GigaCloud calendar writable: %s" % ("yes" if ok else why))
+        return zero, errors + ([] if ok else ["gc writer preflight: %s" % why])
+    (a, m, d), werr = apply_busy(plan, ledger, GC_LEDGER, gc_write, "gc")
+    return {"gc_added": a, "gc_modified": m, "gc_deleted": d}, errors + werr
 
 
 def snapshot_calendars(g_min, g_max):
@@ -461,7 +475,8 @@ def main():
         return 1
     import gcal
 
-    counts = {"added": 0, "modified": 0, "deleted": 0, "rev_added": 0, "rev_modified": 0, "rev_deleted": 0}
+    counts = {"added": 0, "modified": 0, "deleted": 0, "rev_added": 0, "rev_modified": 0, "rev_deleted": 0,
+              "gc_added": 0, "gc_modified": 0, "gc_deleted": 0}
     errors = []
     try:
         fwd, ferr = forward_pass(now, source, g_min, g_max, gcal)
@@ -474,14 +489,26 @@ def main():
             counts.update(rev); errors += rerr
         except Exception as e:
             errors.append("reverse pass: %s" % e)
+    if GC_SOURCE:
+        try:
+            gcc, gerr = gc_pass(g_min, g_max, gcal, ek_cals)
+            counts.update(gcc); errors += gerr
+        except Exception as e:
+            errors.append("gc pass: %s" % e)
 
     sc.log_run({"path": RUNLOG, "ok": not errors,
                 "added": counts["added"], "modified": counts["modified"], "deleted": counts["deleted"],
                 "rev_added": counts["rev_added"], "rev_modified": counts["rev_modified"],
-                "rev_deleted": counts["rev_deleted"], "error": ("; ".join(errors)[:400] or None)})
-    print("%s  SS->G: +%d ~%d -%d   G->SS: +%d ~%d -%d%s" % (
+                "rev_deleted": counts["rev_deleted"], "gc_added": counts["gc_added"],
+                "gc_modified": counts["gc_modified"], "gc_deleted": counts["gc_deleted"],
+                "error": ("; ".join(errors)[:400] or None)})
+    gc_line = ""
+    if GC_SOURCE:
+        gc_line = "   ->GC: " + ("plan only" if GC_DRY else "+%d ~%d -%d" % (
+            counts["gc_added"], counts["gc_modified"], counts["gc_deleted"]))
+    print("%s  SS->G: +%d ~%d -%d   G->SS: +%d ~%d -%d%s%s" % (
         "DRY-RUN" if DRY else "applied", counts["added"], counts["modified"], counts["deleted"],
-        counts["rev_added"], counts["rev_modified"], counts["rev_deleted"],
+        counts["rev_added"], counts["rev_modified"], counts["rev_deleted"], gc_line,
         ("  (%d errors)" % len(errors)) if errors else ""))
     return 0
 
