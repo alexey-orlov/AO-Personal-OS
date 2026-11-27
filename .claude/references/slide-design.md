@@ -483,7 +483,7 @@ deck or one-pager work.
       say that for embedded/hardware it's low").
     - The reader draws the conclusion from the numbers at a glance: a stark contrast (most against few), both numbers from one
       survey and a gap the source itself draws, each captioned in the source's own plain words with exactly who was measured
-      ("80% of people say AI made them more productive", "20% of companies are scaling coding agents"). Take the latest edition:
+      ("80% of people say AI boosts their own productivity", "20% of companies scale agents company-wide"). Take the latest edition:
       figures on AI agents move within a year (developer agent use went from about 14% daily to most developers weekly between
       2025 and 2026). Never a compound measure (a threshold on a financial ratio: "6% of companies credit AI with 5%+ of their
       EBIT") and never numbers from two surveys set as one funnel. When a reader finds a number hard, fix that number's caption or
