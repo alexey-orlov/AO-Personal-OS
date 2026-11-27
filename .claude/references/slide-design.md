@@ -597,11 +597,16 @@ deck or one-pager work.
     - Shared slides never assume one team's tools or place of work: labs run "where your code runs", agent work is verified "in CI
       and on boards", the program's core is "for product teams", and How to start shows the pilot team is picked together.
     - The customer read is organized by the buyer's teams, in the customer's own public names, coded to the deck's workflows, one
-      possible starting point per kind of team where the facts allow. Each card is one plain sentence, that team's situation as
-      we see it with the logic inside ("Updates go over the air, so each must work on every vehicle and phone"), then the
-      challenge it points at; where we know little, the typical situation for a team like theirs (Alex, 2026-11-26, rejecting
-      labelled WE SEE / SO, LIKELY lines: "should not be leveled up to the heading level"; rule 63); never where the read
-      comes from (`client-documents.md`, the intelligence trail).
+      possible starting point per kind of team where the facts allow. Since 2026-11-26 evening it is organized by the
+      customer's likely priorities instead: the challenges that sound most pressing to them as full rows (pictogram, name, one
+      plain sentence of our read with the logic inside, team tags), which are the starting points, and the other challenges
+      listed with their team tags (Alex: "we should not break it down by teams, but rather we should pick the challenges that
+      sound the top priority to the customer"); where we know little, the typical situation for a company like theirs (rule
+      63: never labelled parts); never where the read comes from (`client-documents.md`, the intelligence trail).
+    - A picture the argument never uses is decoration: give it a decorative role (a hero beside the content, no caption), never
+      a content row with labels that invites the reader to look for its link (Alex, 2026-11-26, on a "What ALSO builds" row of
+      product photos: "we never make connection between particular product and the challenges ... it will be just the look and
+      feel element, not part of the narrative").
     - One rule decides which teams a starting point is for, on every slide that shows it: the teams whose work the pilot changes
       (its modules). The read slide, the starting-point and example slides and the washes on the workflow slides then cannot
       disagree (2026-11-26: a designer found the same starting point lit for different teams on four slides). Mark the two meanings
