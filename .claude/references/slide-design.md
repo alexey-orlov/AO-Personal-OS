@@ -663,7 +663,7 @@ deck or one-pager work.
     - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal ("ship more with the same team") in the hero's
       line, then "Where engineering weeks go", "AI's power, mostly unused" (the general reason companies miss AI's full outcome, never a
       narrower sub-claim such as "AI stops where the board starts"), with its answer side labelled as the offer's own ("What holds AI back →
-      What the program builds", never a generic "What it takes", which readers did not take for the offer), the commitment ("Six-week
+      What the program offers", never a generic "What it takes", which readers did not take for the offer), the commitment ("Six-week
       enablement program"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
       stories" as small eyebrows over large figures, so the proof is the loudest thing after the headline. Check each heading against the
       deck, a seller's call and the customer's own words with a fresh reviewer.
