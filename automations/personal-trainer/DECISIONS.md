@@ -132,7 +132,10 @@ Alex trains there from late November 2026 (Alex, 2026-11-23). Researched
   `trainer.py gym`.
 - Seen on site since (Alex's photos and comments): the chest press is a
   Matrix Aura Chest Press, a selectorized stack (27.11); the outer-thigh
-  machine is a Hoist (25.11); there is no resistance band (27.11). A
+  machine is a Hoist (25.11); there is no resistance band (27.11); there is
+  a Nautilus Freedom Trainer, two cable stacks on arms that swing up and
+  down, its stacks labelled 1.5 kg (~3 lb) per plate, read as the load at
+  the handle [inference], usable for the low-to-high cable fly (27.11). A
   plate-loaded 45° incline lever (`incline_press_machine`) is not confirmed:
   on 27.11 Alex swapped to it, used the Matrix chest press, and the lever's
   plate numbers (50/70/70 lb) were far too low for that stack.
