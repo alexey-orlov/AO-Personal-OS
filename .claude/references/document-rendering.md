@@ -90,6 +90,10 @@ that slide:
   renders it from the embedded data, which is why the PowerPoint path is the accurate one.
 - SoftServe faces live in `/Library/Fonts/Managed/` on KN7X2Y65NX; installing a face into
   `~/Library/Fonts/` makes QuickLook render it. Tell Alex if you leave fonts installed.
+- Manrope, the title font of the hardware AI Jumpstart offering deck (its theme's major font), is installed in
+  `~/Library/Fonts/` on KN7X2Y65NX (variable `Manrope[wght].ttf`, Google's font repository, 2026-11-26, Alex's OK); without it
+  PowerPoint's PDF export set covers and dividers in a fallback face. PowerPoint loads a new font only after a restart: check
+  `osascript -e 'tell application "Microsoft PowerPoint" to get saved of every presentation'` before quitting it.
 - Prove text fit with the font file where you have it: PIL `ImageFont.truetype(path, pt).getlength(s)/72`
   = inches; leave ~10 % slack.
 
