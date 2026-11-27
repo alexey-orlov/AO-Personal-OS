@@ -49,7 +49,11 @@ deck or one-pager work.
    its own object, such as a tinted panel with its own rhythm, and align only the band's
    outer edges (2026-11-27, Alex on a challenge matrix beside four problem cards set on
    one subgrid: "a misleading feeling that rows in the table on the left match the rows
-   in the table on the right").
+   in the table on the right"). When the panel's colour is what draws a complaint, change
+   its tint (neutral grey, or the exact tint that already means the same thing), never
+   remove the panel: dropping a light-blue panel to cure "two types of blue" brought the
+   merged rows straight back (same day: "back to the problem between 2 columns, they're
+   kind of merging and matching"). Answer both complaints at once.
 10. **Structure by hierarchy, not by tinting every group** (2026-09-02, Toyota/Oracle
     practice slide): a slide where every content group sits in its own coloured panel
     (three grey cards + blue panel + orange panel + chip row + two stat bands) gives the
