@@ -1,14 +1,36 @@
-// ss_cal_write.swift — headless EventKit WRITER for SoftServe "Busy" placeholders.
+// ss_cal_write.swift — headless EventKit WRITER for "Busy" placeholders in one work calendar.
 // Build:  swiftc ss_cal_write.swift -o .work/ss-cal-write
+// Usage:  ss-cal-write                                          (SoftServe: env defaults below)
+//         ss-cal-write --source <account> --calendar <title> --marker <name>   (e.g. GigaCloud's)
 // Input  (stdin): JSON array of commands —
-//   [{"op":"create","key":"cal:evid","start":"<rfc3339>","end":"<rfc3339>","title":"Busy","marker":"[[gcal-busy]]"},
+//   [{"op":"create","key":"cal:evid","start":"<rfc3339>","end":"<rfc3339>","title":"Busy","marker":"[[gcal-busy:key]]"},
 //    {"op":"update","ss_id":"<calendarItemIdentifier>","key":"...","start":"...","end":"...","title":"...","marker":"..."},
 //    {"op":"delete","ss_id":"<calendarItemIdentifier>"}]
-// Output (stdout): JSON array — [{"op","key","ok","ss_id","error"}]; ss_id is the placeholder's stable id.
-// Writes only into $CALSYNC_SS_WRITE_CAL of the Exchange account $CALSYNC_SS_SOURCE, and changes only
-// events there that carry the [[gcal-busy:...]] marker (see the calendar lookup below).
+// Output (stdout): JSON array — [{"op","key","ok","ss_id","error"}]; ss_id is the placeholder's stable id
+// (in whichever calendar it writes). Writes only into the calendar --calendar ($CALSYNC_SS_WRITE_CAL) of
+// the Exchange account --source ($CALSYNC_SS_SOURCE), and changes only events there that carry the
+// [[<marker>:...]] note, --marker ($CALSYNC_REVERSE_MARKER, default gcal-busy). An empty "[]" input is a
+// preflight: exit 0 when that is exactly one writable calendar, 3 when not. Unknown flag: exit 4.
 import EventKit
 import Foundation
+
+let env = ProcessInfo.processInfo.environment
+var wantSource = (env["CALSYNC_SS_SOURCE"] ?? "Exchange").lowercased()
+var wantTitle = (env["CALSYNC_SS_WRITE_CAL"] ?? "Calendar").lowercased()
+var markerName = env["CALSYNC_REVERSE_MARKER"] ?? "gcal-busy"
+let argv = Array(CommandLine.arguments.dropFirst())
+var ai = 0
+func badArg(_ s: String) -> Never { FileHandle.standardError.write("BAD_ARG \(s)\n".data(using: .utf8)!); exit(4) }
+while ai < argv.count {
+    let flag = argv[ai]
+    guard ["--source", "--calendar", "--marker"].contains(flag) else { badArg(flag) }
+    guard ai + 1 < argv.count, !argv[ai + 1].trimmingCharacters(in: .whitespaces).isEmpty else { badArg("\(flag) needs a value") }
+    let v = argv[ai + 1]
+    switch flag { case "--source": wantSource = v.lowercased(); case "--calendar": wantTitle = v.lowercased()
+    default: markerName = v }
+    ai += 2
+}
+if markerName.isEmpty { badArg("empty marker") }
 
 let store = EKEventStore()
 let sem = DispatchSemaphore(value: 0)
@@ -25,24 +47,21 @@ if !granted {
     exit(2)
 }
 
-// The one calendar it writes into: $CALSYNC_SS_WRITE_CAL (default "Calendar") of the Exchange account
-// titled $CALSYNC_SS_SOURCE (default "Exchange"), names as `ss-cal-read --list` prints them. No
-// fallback to another calendar or account: GigaCloud's Exchange account is in Apple Calendar too.
-let env = ProcessInfo.processInfo.environment
-let wantSource = (env["CALSYNC_SS_SOURCE"] ?? "Exchange").lowercased()
-let wantTitle = (env["CALSYNC_SS_WRITE_CAL"] ?? "Calendar").lowercased()
-let marker = "[[" + (env["CALSYNC_REVERSE_MARKER"] ?? "gcal-busy") + ":"
-let ssCals = store.calendars(for: .event).filter {
+// The one calendar it writes into: wantTitle of the Exchange account titled wantSource, names as
+// `ss-cal-read --list` prints them. No fallback to another calendar or account: Apple Calendar holds
+// two Exchange accounts (SoftServe's and GigaCloud's), and each run names the one it writes.
+let marker = "[[" + markerName + ":"
+let targetCals = store.calendars(for: .event).filter {
     $0.source.sourceType == .exchange && $0.source.title.lowercased() == wantSource
         && $0.title.lowercased() == wantTitle && $0.allowsContentModifications }
-guard ssCals.count == 1, let ssCal = ssCals.first else {
-    FileHandle.standardError.write((ssCals.isEmpty ? "NO_WRITABLE_SS_CALENDAR\n"
-        : "AMBIGUOUS_SS_CALENDAR: \(ssCals.count) accounts titled \(wantSource) have \(wantTitle)\n").data(using: .utf8)!)
+guard targetCals.count == 1, let targetCal = targetCals.first else {
+    FileHandle.standardError.write((targetCals.isEmpty ? "NO_WRITABLE_CALENDAR \(wantTitle) in \(wantSource)\n"
+        : "AMBIGUOUS_CALENDAR: \(targetCals.count) accounts titled \(wantSource) have \(wantTitle)\n").data(using: .utf8)!)
     exit(3)
 }
-// Only our own placeholders are ever changed: in the SoftServe calendar and carrying the marker.
+// Only our own placeholders are ever changed: in the target calendar and carrying its marker.
 func isOurs(_ ev: EKEvent) -> Bool {
-    ev.calendar?.calendarIdentifier == ssCal.calendarIdentifier && (ev.notes ?? "").contains(marker)
+    ev.calendar?.calendarIdentifier == targetCal.calendarIdentifier && (ev.notes ?? "").contains(marker)
 }
 
 func esc(_ s: String) -> String {
@@ -72,7 +91,7 @@ for c in cmds {
     case "create", "update":
         let ev: EKEvent
         if op == "update", !ssid.isEmpty, let existing = eventById(ssid), isOurs(existing) { ev = existing }
-        else { ev = EKEvent(eventStore: store); ev.calendar = ssCal }   // upsert: recreate if the update target vanished
+        else { ev = EKEvent(eventStore: store); ev.calendar = targetCal }   // upsert: recreate if the update target vanished
         if let s = parseDate((c["start"] as? String) ?? ""), let e = parseDate((c["end"] as? String) ?? "") {
             ev.title = (c["title"] as? String) ?? "Busy"
             ev.startDate = s; ev.endDate = e
@@ -84,7 +103,7 @@ for c in cmds {
     case "delete":
         if ssid.isEmpty { ok = true }
         else if let ev = eventById(ssid) {
-            if !isOurs(ev) { err = "refused: not a Busy placeholder in the SoftServe calendar" }
+            if !isOurs(ev) { err = "refused: not a Busy placeholder in the target calendar" }
             else { do { try store.remove(ev, span: .thisEvent, commit: true); ok = true } catch { err = "\(error)" } }
         } else { ok = true }                                  // already gone
     default: err = "unknown op"
