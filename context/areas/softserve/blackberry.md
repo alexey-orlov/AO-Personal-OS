@@ -1,7 +1,7 @@
 # BlackBerry: Secure Communications services account, QNX and AI-adoption pursuits
 
-_status: a 10+-year services account on BlackBerry's Secure Communications products that keeps renewing (FY27 extensions ~$1.15M won 2026-03) but has lost every recent new bid, the latest being AtHoc's $600K follow-on and $85K POC on 2026-11-05 ("client priorities/org change"). Two expansion pursuits, neither with revenue: QNX embedded (three CRM opportunities at 1-Qualify, closes pushed to Jan–Feb 2027) and AI adoption (VP Paul O'Hagan's 2025 ask). QNX treats subcontractors as competitors (Oksana, 2026-11-22), so capacity sales stall there; the main contact, Andy Gryc, QNX's Developer Ecosystem Director (its lead of enablement and popularization), can open doors inside QNX once SoftServe has a sharp offer, and Alex's take is that an AI enablement program reads differently. Next: that offer, and the meeting with Jason Whissell (listed as VP of IT for QNX) at AWS re:Invent (proposed Tue 2026-12-01, TAO meeting space)._
-_updated: 2026-11-22_
+_status: a 10+-year services account on BlackBerry's Secure Communications products that keeps renewing (FY27 extensions ~$1.15M won 2026-03) but has lost every recent new bid, the latest being AtHoc's $600K follow-on and $85K POC on 2026-11-05 ("client priorities/org change"). Two expansion pursuits, neither with revenue: QNX embedded (three CRM opportunities at 1-Qualify, closes pushed to Jan–Feb 2027) and AI adoption (VP Paul O'Hagan's 2025 ask). QNX treats subcontractors as competitors (Oksana, 2026-11-22), so capacity sales stall there; the main contact, Andy Gryc, QNX's Developer Ecosystem Director (its lead of enablement and popularization), can open doors inside QNX once SoftServe has a sharp offer, and Alex's take is that an AI enablement program reads differently. That offer is now a tailored QNX deck (2026-11-26): enablement of QNX's own engineers on the 7.1-to-8.0 driver port, test evidence for safety-certified releases (people sign the record) and bring-up on released chips, with no hardware. Next: the account owner's OK, then Andy Gryc; the meeting with Jason Whissell (listed as VP of IT for QNX) at AWS re:Invent (proposed Tue 2026-12-01, TAO meeting space)._
+_updated: 2026-11-26_
 _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), doc `blackberry`: the live status, next step, contacts and account summary · registry and sync ledger: [outreach-tracker](../../_meta/outreach-tracker.md)_
 
 ## Snapshot
@@ -34,7 +34,7 @@ _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGh
 ## Open loops
 
 Mine:
-- **A sharp AI enablement offer for QNX**, built from the hardware Jumpstart, that the enablement lead can carry to the right people inside QNX. (chat, 2026-11-22)
+- **The tailored QNX deck: the account owner's OK, then send it to Andy Gryc** to carry to the right people inside QNX (OneDrive `Current offerings/AI Jumpstart for Hardware & Embedded R&D/Customer decks/`). (chat, 2026-11-26)
 - **Help make the Jason Whissell meeting at re:Invent** (proposed Tue 2026-12-01, TAO meeting space): the pitch, the ask and a leave-behind; the same offer can serve it (inferred). (chat, 2026-11-19)
 
 Theirs:
@@ -47,6 +47,7 @@ Gaps:
 
 ## Activity
 
+- 2026-11-26 — QNX customer deck (chat, 2026-11-26) — "Agentic Engineering Jumpstart for Embedded Software", built with the customer-deck kit and reviewed by a simulated VP of Core Product Engineering and a designer: the 8.0 port leads, the evidence card is run by verification engineers with people signing the record, bring-up runs on a released chip (pre-release silicon is under the vendor's NDA), enablement only, no hardware. Sources in the kit's PROVENANCE.md.
 - 2026-11-22 — Status 23.11 (chat, 2026-11-22) — BlackBerry listed under Alex's name in his first weekly status to the R&D team.
 - 2026-11-22 — Oksana's read of QNX (chat, 2026-11-22) — two businesses; QNX evangelizes its platform and treats subcontractors as competitors; the main contact is its enablement lead, and a sharp AI enablement offer comes first. Web research the same day: the lead is Andy Gryc (Alex confirmed), Jason Whissell is a BlackBerry IT person, and the free programme is QNX Everywhere, not open source.
 - 2026-11-20 — Two-pager corrected (chat, 2026-11-20) — three QNX opportunities (~$800K) instead of a "~$700K legacy deal", the Sep 2025 QBR ask as the lead need signal; rebuilt on two pages, the tracker record synced.
