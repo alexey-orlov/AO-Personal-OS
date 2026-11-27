@@ -55,7 +55,11 @@ deck or one-pager work.
     (three grey cards + blue panel + orange panel + chip row + two stat bands) gives the
     reader no entry point. Pick ONE primary structure (e.g. numbered rows with hairlines)
     and at most ONE tinted panel for the secondary structure; colour carries ≤ 2 meanings
-    per slide, and two stages of the same thing are two tints of one hue (rule 5).
+    per slide, and two stages of the same thing are two tints of one hue (rule 5). One
+    meaning takes one exact tint everywhere on the page, flat rather than graded: two
+    near-shades of one hue that mean the same thing (a graded blue band beside a paler blue
+    panel) read as a mistake (2026-11-27, Alex on the customer one-pager: "the two types of
+    blue … look weird and unprofessional").
 11. **Peer claims: all or none** (2026-09-02, packs slide): when outcome/KPI evidence
     exists for only some items in a peer set, drop the evidence row for every item rather
     than showing "—" / "pending" next to proven ones — a visible gap undermines the whole
@@ -668,8 +672,9 @@ deck or one-pager work.
       whether it is a product, a service or a course.
     - Headings come from the deck's spine, so the deck and the page tell one story: the customer's goal ("ship more with the same team") in the hero's
       line, then "Where engineering weeks go", "AI's power, mostly unused" (the general reason companies miss AI's full outcome, never a
-      narrower sub-claim such as "AI stops where the board starts"), with its answer side labelled as the offer's own ("What holds AI back →
-      What the program offers", never a generic "What it takes", which readers did not take for the offer), the commitment ("Six-week
+      narrower sub-claim such as "AI stops where the board starts"), set as a before/after table: "As is" in neutral grey beside "With the
+      program" in the program's own tint, one problem and its answer per row (Alex: "bad as is vs good to be with the program"); the answer
+      side is always labelled as the offer's own, never a generic "What it takes", which readers did not take for the offer), the commitment ("Six-week
       enablement program"), and the deck's Expected value line ("Fewer hours per accepted task") and "Success
       stories" as small eyebrows over large figures, so the proof is the loudest thing after the headline. Check each heading against the
       deck, a seller's call and the customer's own words with a fresh reviewer.
