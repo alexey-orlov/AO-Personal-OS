@@ -1,0 +1,303 @@
+{
+ "crossfit": {
+  "cap_min": 12,
+  "format": "rounds",
+  "items": [
+   {
+    "id": "jumping_jacks",
+    "reps": 25,
+    "swapped_from": {
+     "fallback": "jumping_jacks",
+     "id": "jump_rope",
+     "reps": 50
+    }
+   },
+   {
+    "id": "push_ups",
+    "reps": 15
+   },
+   {
+    "id": "step_ups",
+    "kg": 10,
+    "lb": 20,
+    "reps": 20
+   },
+   {
+    "id": "plank_db_drag",
+    "kg": 10,
+    "lb": 20,
+    "reps": 30
+   }
+  ],
+  "rounds": 3
+ },
+ "date": "2026-11-27",
+ "day": "push",
+ "note": "Lower back pain flagged: machines only, light free weights.",
+ "overrides": {
+  "bird_dog": "No resistance band in this gym, so no Pallof hold; lower back today, so stability only (A/B/C): bird dog.",
+  "db_fly": "instead of Low Cable Fly: swapped",
+  "reverse_pec_deck": "instead of Cable Lateral Raise: swapped"
+ },
+ "pre": {
+  "cleared": [],
+  "pain": [
+   "lower_back"
+  ],
+  "readiness": "normal",
+  "time_min": null
+ },
+ "strength": [
+  {
+   "action": "calibrate",
+   "id": "smith_incline_press",
+   "kg": [
+    27.2,
+    36.3,
+    36.3
+   ],
+   "lb": [
+    60,
+    80,
+    80
+   ],
+   "reps": "8",
+   "sets": 3,
+   "step_lb": 10,
+   "why": "новый тренажёр: в Киеве 45 кг (21.10) → старт −10 %"
+  },
+  {
+   "action": "calibrate",
+   "id": "seated_chest_press",
+   "kg": [
+    36.3,
+    45.4,
+    45.4
+   ],
+   "lb": [
+    80,
+    100,
+    100
+   ],
+   "reps": "8",
+   "sets": 3,
+   "step_lb": 10,
+   "why": "новый тренажёр: в Киеве 70 кг (21.10) → старт −32 %"
+  },
+  {
+   "action": "calibrate",
+   "id": "pec_deck",
+   "kg": [
+    38.6,
+    47.6,
+    47.6
+   ],
+   "lb": [
+    85,
+    105,
+    105
+   ],
+   "reps": "10",
+   "sets": 3,
+   "step_lb": 10,
+   "why": "новый тренажёр: в Киеве 73 кг (21.10) → старт −32 %"
+  },
+  {
+   "action": "calibrate",
+   "id": "db_fly",
+   "kg": [
+    11.3,
+    15.9,
+    15.9
+   ],
+   "lb": [
+    25,
+    35,
+    35
+   ],
+   "reps": "10",
+   "sets": 3,
+   "swapped_from": {
+    "id": "low_cable_fly",
+    "item": {
+     "action": "calibrate",
+     "id": "low_cable_fly",
+     "kg": [
+      6.8,
+      11.3,
+      11.3
+     ],
+     "lb": [
+      15,
+      25,
+      25
+     ],
+     "reps": "10",
+     "sets": 3,
+     "step_lb": 5,
+     "why": "новый тренажёр: в Киеве 16 кг (21.10) → старт −19 %"
+    }
+   }
+  },
+  {
+   "action": "close_ramp",
+   "id": "reverse_pec_deck",
+   "kg": [
+    68,
+    68,
+    68
+   ],
+   "lb": [
+    150,
+    150,
+    150
+   ],
+   "reps": "10",
+   "sets": 3,
+   "swapped_from": {
+    "id": "cable_lateral_raise_1arm",
+    "item": {
+     "action": "probe",
+     "hint_lb": "10–15",
+     "id": "cable_lateral_raise_1arm",
+     "replaces": "lateral_raise_1arm",
+     "reps": "10-12",
+     "sets": 3,
+     "step_lb": 5
+    }
+   }
+  }
+ ],
+ "warmup": [
+  {
+   "id": "plank_shoulder_taps",
+   "reps": 20,
+   "sets": 2
+  },
+  {
+   "id": "side_plank_rotation",
+   "reps": 15,
+   "sets": 2
+  },
+  {
+   "id": "bird_dog",
+   "reps": 15,
+   "sets": 2,
+   "swapped_from": {
+    "id": "pallof_hold",
+    "item": {
+     "id": "pallof_hold",
+     "secs": 40,
+     "sets": 2
+    }
+   }
+  }
+ ],
+ "why": [
+  "Draft kept: it follows the brief weights, the warm-up and the lower-back rules.",
+  "Crossfit is back-safe, has one cardio piece and a push-ups day-muscle movement, and differs from recent combos."
+ ],
+ "source": "app",
+ "built_by": "claude",
+ "feedback": {
+  "crossfit_rating": "easy",
+  "crossfit_time": "2:30",
+  "done": true,
+  "overall": "",
+  "source": "app",
+  "items": {
+   "pec_deck": {
+    "note": "",
+    "rating": "ok"
+   },
+   "reverse_pec_deck": {
+    "note": "",
+    "rating": "ok"
+   },
+   "seated_chest_press": {
+    "note": "",
+    "rating": "easy"
+   }
+  },
+  "actual": {
+   "db_fly": {
+    "kg": [
+     11.3,
+     15.9,
+     15.9
+    ],
+    "lb": [
+     25,
+     35,
+     35
+    ],
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "pec_deck": {
+    "kg": [
+     47.6,
+     74.8,
+     74.8
+    ],
+    "lb": [
+     105,
+     165,
+     165
+    ],
+    "reps": "10",
+    "reps_per_set": [
+     10,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "reverse_pec_deck": {
+    "kg": [
+     56.7,
+     65.8,
+     68
+    ],
+    "lb": [
+     125,
+     145,
+     150
+    ],
+    "reps": "12-10-10",
+    "reps_per_set": [
+     12,
+     10,
+     10
+    ],
+    "sets": 3
+   },
+   "seated_chest_press": {
+    "kg": [
+     36.3,
+     36.3,
+     45.4
+    ],
+    "lb": [
+     80,
+     80,
+     100
+    ],
+    "machine": "Matrix Aura Chest Press",
+    "reps": "10-10-12",
+    "reps_per_set": [
+     10,
+     10,
+     12
+    ],
+    "sets": 3
+   }
+  },
+  "recorded_at": "2026-11-27T22:51:23"
+ }
+}
