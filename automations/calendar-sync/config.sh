@@ -28,6 +28,19 @@ export CALSYNC_DAYS_AHEAD=14                           # this week + next week
 export CALSYNC_SS_SOURCE="${CALSYNC_SS_SOURCE:-Exchange}"
 export CALSYNC_SS_WRITE_CAL="${CALSYNC_SS_WRITE_CAL:-Calendar}"
 
+# --- the GigaCloud account in Apple Calendar ----------------------------------------------
+# Its «Календар» blocks SoftServe (reverse leg, below) and, since 2026-11-27, gets "Busy" blocks
+# wherever Alex is busy at SoftServe or in a personal Google calendar (GigaCloud leg). The leg
+# writes only into CALSYNC_GC_WRITE_CAL of the Exchange account titled CALSYNC_GC_SOURCE (names as
+# `ss-cal-read --list` prints them; the account is titled by its address) and plans only until
+# .work/state/LIVE-GC exists (live switch at the bottom). Google's copy of that calendar, a
+# subscription to its published feed, never blocks it. CALSYNC_GC_SOURCE="" turns the leg off.
+export CALSYNC_GC_EMAIL="oleksii.orlov@gigacloud.ua"     # a meeting GigaCloud already holds isn't blocked there
+export CALSYNC_GC_SOURCE="${CALSYNC_GC_SOURCE-$CALSYNC_GC_EMAIL}"
+export CALSYNC_GC_WRITE_CAL="${CALSYNC_GC_WRITE_CAL:-Календар}"
+export CALSYNC_GC_GOOGLE_COPY="g1ijcmfb7h40pmmcj3f67cnpki8kn898@import.calendar.google.com"
+export CALSYNC_GC_LEDGER="$CALSYNC_STATE/gc-ledger.json"   # GigaCloud leg: key -> {ss_id (its id there), hash}
+
 # --- reverse leg: calendars read straight from Apple Calendar ---------------------------
 # "<type>:<calendar title>[=<Google calendar id it replaces>]", comma-separated, as
 # `ss-cal-read --list` prints them; SoftServe's own account never counts. While the calendar is in
@@ -35,7 +48,7 @@ export CALSYNC_SS_WRITE_CAL="${CALSYNC_SS_WRITE_CAL:-Calendar}"
 # isn't, that Google copy stays the source. GigaCloud: its Exchange account's «Календар» (added to
 # Apple Calendar 2026-11-24) instead of Google's copy of its published feed, which lags 5-6 h.
 # Set to "" to disable.
-export CALSYNC_EK_SOURCES="${CALSYNC_EK_SOURCES-exchange:Календар=g1ijcmfb7h40pmmcj3f67cnpki8kn898@import.calendar.google.com}"
+export CALSYNC_EK_SOURCES="${CALSYNC_EK_SOURCES-exchange:$CALSYNC_GC_WRITE_CAL=$CALSYNC_GC_GOOGLE_COPY}"
 
 # --- secrets (macOS Keychain) ----------------------------------------------
 # Your own Google Cloud "Desktop app" OAuth client. Store once:
@@ -48,5 +61,8 @@ export CALSYNC_GOOGLE_CLIENT_SECRET="$(security find-generic-password -a "$USER"
 # Writes to Google ONLY when .work/state/LIVE exists; otherwise plan-only.
 #   touch automations/calendar-sync/.work/state/LIVE
 if [ -f "$CALSYNC_STATE/LIVE" ]; then export CALSYNC_DRY_RUN=0; else export CALSYNC_DRY_RUN=1; fi
+# The GigaCloud leg has its own switch on top of LIVE: it writes only when LIVE-GC exists too.
+#   touch automations/calendar-sync/.work/state/LIVE-GC
+if [ -f "$CALSYNC_STATE/LIVE-GC" ]; then export CALSYNC_GC_DRY_RUN=0; else export CALSYNC_GC_DRY_RUN=1; fi
 
 mkdir -p "$CALSYNC_STATE" 2>/dev/null || true
