@@ -8,6 +8,7 @@ The AI Jumpstart outreach accounts live in two places that must not drift apart.
 |---|---|---|
 | Status: not-started · reached-out · talking · yes · no · parked | tracker `tracking/<slug>.status` | Alex in the page; an agent when an artifact moves it |
 | Next step, with AM feedback (the page's "Status · next step" field) | `tracking/<slug>.notes` | same |
+| Next customer milestone: the next dated meeting where our offer goes in front of the customer (a pitch, or an alignment or steerco with it on the agenda); never an internal call or a customer meeting without our offer, so empty on most rows | `tracking/<slug>.milestone_date` (YYYY-MM-DD) and `.milestone_note` (who meets whom, what they see, how firm the date is) | same |
 | Contacts, main contact (★) first, up to four | `tracking/<slug>.contacts` | same |
 | Account summary: SoftServe's own context in one or two lines (the relationship, open work, where it stands), empty when there is none, never general company facts | `tracking/<slug>.account_summary` | same |
 | Research: company, signals, people, sizes, Oracle, Edge AI, Teams note | tracker `accounts/<slug>` | agents only |
@@ -26,7 +27,7 @@ One slug per account. It is the doc id in both tracker collections, the account 
 ## Repo → tracker: every fold that changes an outreach account
 
 1. `ArtifactData get` the account's `tracking` doc and note its `version`.
-2. `update` it, never `set`, pinned with `if_version`. Set the status when the artifact moved it. Rewrite `notes` to the current next step, keeping every point Alex wrote that still holds. Set `account_summary` when SoftServe's context changed. Touch `contacts` only to add a SoftServe person. Set `updated_at` only when the status or the next step changed.
+2. `update` it, never `set`, pinned with `if_version`. Set the status when the artifact moved it. Rewrite `notes` to the current next step, keeping every point Alex wrote that still holds. Set `account_summary` when SoftServe's context changed. Set `milestone_date` and `milestone_note` when an artifact sets or moves the next customer milestone, and clear both once it has happened and no next one is set. Touch `contacts` only to add a SoftServe person. Set `updated_at` only when the status or the next step changed.
 3. New people or research go to `accounts/<slug>`. An array is replaced whole, so build it with jq from the current doc.
 4. Write the resulting `tracking` version into the ledger.
 
@@ -35,7 +36,7 @@ A run without `ArtifactData` (the headless pipeline, a cloud routine) adds the s
 ## Tracker → repo: every sweep, and every session that works on the outreach
 
 1. `ArtifactData list` the `tracking` collection and compare each doc's `version` with the ledger.
-2. For each newer doc, fold what changed (status, next step, contacts, summary) into its wiki home as dated facts with `(tracker, <date of updated_at>)` provenance, then write the new version into the ledger.
+2. For each newer doc, fold what changed (status, next step, customer milestone, contacts, summary) into its wiki home as dated facts with `(tracker, <date of updated_at>)` provenance, then write the new version into the ledger.
 3. A `tracking` doc with no registry row is a new account: add its row and wiki home, and set its `accounts/<slug>.wiki_path`.
 4. Push everything under Pending pushes, then clear them.
 
