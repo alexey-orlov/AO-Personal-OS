@@ -361,9 +361,10 @@ deck or one-pager work.
       others greyed out and faint. Keep the geometry identical on every copy, so only the highlight moves.
     - On every slide of the goal, the header carries the goals' icons as a strip, the current one in full colour, next to the
       goal's name. A goal name in small kicker text alone is not enough.
-40. **A one-pager for a time-poor reader is navigated, not read: one numbered anatomy, every item in a visual form** (2026-11-12, Alex on
+40. **A seller one-pager (internal) is navigated, not read: one numbered anatomy, every item in a visual form** (2026-11-12, Alex on
     the first Jumpstart seller one-pagers, which stacked lead paragraphs, bullet lists and cards in a different form per block: "I expect
-    very structured, visual one pager, it should be really easy to navigate, very systematic").
+    very structured, visual one pager, it should be really easy to navigate, very systematic"). Scope: pages for sellers and other
+    internal readers only. A page a customer reads follows rule 64, never this anatomy.
     - Number the sections and run them down one fixed left rail: number badge, section title, and the reader's question the section
       answers ("Why your client cares", "Whom to call first", "What it is worth"). The rail is the table of contents.
     - Every section has the same anatomy (rail + content area, hairline between sections); the content takes the visual form its job needs:
@@ -634,3 +635,17 @@ deck or one-pager work.
     it ("One app serves every vehicle, so each release must work on all of them"); don't add labels, headings or a second line that
     name the parts of the argument. Labels and headings mark content units (a team, a step, a panel), never the steps of an argument:
     promoted to that level, a hedge or an inference reads as a finding.
+64. **A customer one-pager is designed from scratch for its genre, the enterprise solution brief, in the brand's current system; it
+    never adapts an internal page's anatomy** (2026-11-27, Alex on the hardware Jumpstart's customer one-pager, which I had built on the
+    seller two-pager's left-rail rows: "Forget about that one, create customer onepager from scratch. Remember softserve style and all
+    the best practices about one-pagers worldwide").
+    - The buyer reads it top to bottom as an argument: the outcome headline in their words with the program's name above it, the problem
+      and what it costs, the objection answered (why the tool they already have falls short), the offer with its commitment, the outcomes
+      and how they are measured, named proof with a quote, one call to action with a contact. 380 to 470 words.
+    - Compose by content, never by a repeated row: a hero with the photograph, a story column beside a proof column, true sequences
+      horizontal, the call to action as the page's one dark band. No left rail, no section numbers, no reader's-question labels.
+    - Use the brand's current system with its real fonts, never a system font: for SoftServe, Azurio and Replica, blue for action, the
+      orange accent once, the orange-75 dash over figures, one grey and one dark plate, octagonal cuts (`SS26-THEME.md` in the
+      Oracle-Solutions-Site repo).
+    - Take facts, icons, photos and helpers from other builds; never their layout. The kit and its tailoring steps:
+      OneDrive `Current offerings/one-pager-build/brief/DESIGN.md`.
