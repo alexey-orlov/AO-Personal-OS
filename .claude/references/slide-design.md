@@ -424,7 +424,8 @@ deck or one-pager work.
       gets an outlined "in development" frame of the same size with its pictogram, or an unbranded photo of its category, never a
       competitor's branded product.
     - On the slides after it, a photo of the thing the slide is about (the board, the bench, the team at work) takes the place of a
-      paragraph that describes it.
+      paragraph that describes it, and only that thing: another of the customer's products, people or a scene its text doesn't name
+      read as a mistake (2026-11-27, Alex: a doorbell feed on a slide about thermostats).
 44. **A deck hangs on one spine: introduce one set once and point back to it by the same numbers and names** (2026-11-25, Alex on the
     ALSO deck: "the concept of directions is now disconnected from general narrative"; "keeping same naming wording for same things
     helps navigation and better reader referencing").
