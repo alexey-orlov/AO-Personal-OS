@@ -1,6 +1,6 @@
 ---
 name: ss-monthly-report
-description: Build the monthly SoftServe "Contingent Worker Subcontractor" hours report from Clockify — pull the month's SS time entries (Clockify API, an already-exported detailed-report PDF, or by exporting one via the Chrome extension in an interactive session), rebuild the Details tab grouped by the "[Prefix]" in each entry description, subtotal each group at the contract rate, preserve the business-trip line, and write each group's amount into its project row on the summary tab. Use on /ss-monthly-report, "build my SoftServe monthly report", "do the Clockify report for last month", "prepare the contingent worker report", "update the hours in the Jul'26 report", or when Alex drops a Clockify detailed-report PDF and asks to turn it into the client Excel. Also the engine behind the monthly launchd job (automations/ss-monthly-report/run.sh, 08:00 on the 1st).
+description: Build the monthly SoftServe "Contingent Worker Subcontractor" hours report from Clockify — pull the month's SS time entries (Clockify API, an already-exported detailed-report PDF, or by exporting one via the Chrome extension in an interactive session), rebuild the Details tab grouped by the "[Prefix]" in each entry description, subtotal each group at the contract rate, preserve the business-trip line, and write each group's amount into its project row on the summary tab. Use on /ss-monthly-report, "build my SoftServe monthly report", "do the Clockify report for last month", "prepare the contingent worker report", "update the hours in the Jul'26 report", or when Alex drops a Clockify detailed-report PDF and asks to turn it into the client Excel. Also the engine behind the monthly launchd job (automations/ss-monthly-report/run.sh, 08:00 on the 1st). Also splits the month's hours per presale when a colleague asks for them for Workday ("hours per presale", "години по кожному присейлу").
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -70,6 +70,12 @@ rename a client-facing Project Name to make a prefix match: Sep'26 did, and Alex
   presentation and the Oracle minisite work on R&D, as Sep'26 kept the OCI GTM and Arrow
   partner calls. The line it draws (inferred): an Oracle opportunity, industry team or event is
   presale; internal work about Oracle and partner go-to-market calls are R&D.
+
+## Hours per presale for Workday
+
+When a colleague asks for the month's hours per presale ("client name and a short comment"),
+the deliverable is a message, not the workbook: follow
+[`references/presale-hours-workday.md`](references/presale-hours-workday.md).
 
 ## Procedure
 
