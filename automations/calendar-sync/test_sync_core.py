@@ -571,5 +571,167 @@ class TestReverse(unittest.TestCase):
         self.assertEqual(guarded["counts"]["delete"], 0)
 
 
+class TestGigaCloud(unittest.TestCase):
+    """GigaCloud leg (2026-11-27): busy at SoftServe or in personal Google -> GigaCloud 'Busy'."""
+    GC = "me@infra.example"
+    SS = "olekorlov@softserveinc.com"
+    CFG = {"gc_email": "me@infra.example", "gc_google_copy": "gcfeed@import.calendar.google.com"}
+
+    def ss(self, uid, my_status="accepted", start="2026-12-01T08:00:00-08:00", end="2026-12-01T08:30:00-08:00", **kw):
+        """An ss-cal-read row from SoftServe's account: Alex is invited at his SoftServe address."""
+        e = {"uid": "local-" + uid, "external_id": uid, "title": "Jumpstart daily", "start": start, "end": end,
+             "all_day": False, "recurring": False, "detached": False, "occurrence": start,
+             "availability": "tentative" if my_status in ("", "tentative") else "busy", "status": "none",
+             "my_status": my_status, "organizer_email": "lead@softserveinc.com", "notes": "",
+             "attendees": [{"email": self.SS, "is_me": True, "status": my_status}],
+             "calendar": "Calendar", "source": "Exchange", "source_type": "exchange"}
+        e.update(kw)
+        return e
+
+    def gev(self, id, cal="orlov.alexej@gmail.com", **kw):
+        e = {"id": id, "_cal": cal, "summary": "School run",
+             "start": {"dateTime": "2026-12-01T07:30:00-08:00"}, "end": {"dateTime": "2026-12-01T08:00:00-08:00"}}
+        e.update(kw)
+        return e
+
+    def test_softserve_meetings_block_gigacloud_unless_declined(self):
+        rows = [
+            self.ss("A"),                                             # accepted -> block
+            self.ss("U", my_status=""),                               # never answered -> block (Alex, 2026-11-27)
+            self.ss("T", my_status="tentative"),                      # maybe -> block
+            self.ss("D", my_status="declined"),                       # declined -> skip
+            self.ss("X", title="Canceled: Oracle steerco"),           # cancelled -> skip
+            self.ss("F", availability="free"),                        # Free -> skip
+            self.ss("G", attendees=[{"email": self.SS}, {"email": self.GC}]),   # GigaCloud holds it -> skip
+            self.ss("P", my_status="", notes="[[gcal-busy:ek:Z]]"),   # our own SoftServe block -> never a source
+            self.ss("R", recurring=True, start="2026-12-02T06:15:00-08:00", end="2026-12-02T06:30:00-08:00",
+                    occurrence="2026-12-02T06:15:00-08:00"),          # a series occurrence keys by its start
+        ]
+        out = sc.eventkit_busy({"events": rows, "config": self.CFG, "target_email": self.GC})["busy_events"]
+        self.assertEqual([b["key"] for b in out], ["ek:A", "ek:U", "ek:T", "ek:R@20261202T141500Z"])
+        # the SoftServe address on every SoftServe meeting must not read as "already on the target"
+        self.assertEqual(len(sc.eventkit_busy({"events": [self.ss("A")]})["busy_events"]), 0)
+
+    def test_a_gigacloud_block_never_comes_back_as_a_softserve_block(self):
+        # SS meeting -> GigaCloud block -> (GigaCloud read for the reverse leg) -> must NOT block SS again
+        busy = sc.eventkit_busy({"events": [self.ss("A")], "config": self.CFG, "target_email": self.GC})["busy_events"]
+        cmd = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": [],
+                                    "config": dict(self.CFG, reverse_marker="busy-sync")})["creates"][0]
+        self.assertEqual((cmd["marker"], cmd["title"]), ("[[busy-sync:ek:A]]", "Busy"))
+        gc_row = {"uid": "GC1", "external_id": "GCUID1", "title": "Busy", "start": cmd["start"], "end": cmd["end"],
+                  "all_day": False, "availability": "busy", "status": "none", "my_status": "", "attendees": [],
+                  "organizer_email": "", "notes": cmd["marker"], "source": self.GC}
+        self.assertEqual(sc.eventkit_busy({"events": [gc_row]})["busy_events"], [])
+        # ...nor through Google's copy of the GigaCloud feed (the source while the account is out of Apple Calendar)
+        feed = self.gev("f1", cal="gcfeed@import.calendar.google.com", summary="Busy", description=cmd["marker"])
+        self.assertEqual(sc.reverse_sources({"events": [feed]})["busy_events"], [])
+
+    def test_personal_google_blocks_gigacloud(self):
+        events = [
+            self.gev("keep"),                                                        # personal -> block
+            self.gev("fam", cal="family123@group.calendar.google.com", summary="Dentist"),  # Family -> block
+            self.gev("feed", cal="gcfeed@import.calendar.google.com", summary="Product daily"),  # GigaCloud itself
+            self.gev("sscopy", summary="SS: Weekly sync-up"),                        # SS: copy -> SS covers it
+            self.gev("ssmark", extendedProperties={"private": {"ssSync": "id:abc"}}),
+            self.gev("ssatt", attendees=[{"email": self.SS}]),                       # an SS meeting
+            self.gev("gcatt", attendees=[{"email": self.GC}]),                       # GigaCloud holds it
+            self.gev("gcorg", organizer={"email": self.GC}),
+            self.gev("ours", description="[[busy-sync:ek:A]]"),                      # our block -> never a source
+            self.gev("free", transparency="transparent"),
+            self.gev("dec", attendees=[{"self": True, "responseStatus": "declined"}]),
+            {"id": "ad", "_cal": "orlov.alexej@gmail.com", "summary": "Trip",
+             "start": {"date": "2026-12-01"}, "end": {"date": "2026-12-02"}},       # all-day
+        ]
+        out = sc.gc_google_busy({"events": events, "config": self.CFG})["busy_events"]
+        self.assertEqual(len(out), 2, out)
+        self.assertEqual(out[0]["key"], "g:" + sc._sha("orlov.alexej@gmail.com::keep")[:16])
+        self.assertEqual(out[0]["start"], "2026-12-01T07:30:00-08:00")
+        # the key sits in the GigaCloud block's notes: no personal calendar or address in it
+        self.assertFalse([b for b in out if "@" in b["key"] or "family" in b["key"]])
+
+    def test_gigacloud_block_converges_through_its_placeholder(self):
+        busy = sc.eventkit_busy({"events": [self.ss("A")], "config": self.CFG, "target_email": self.GC})["busy_events"]
+        ph = [{"ss_id": "GC9", "key": "ek:A", "start": "2026-12-01T18:00:00+02:00", "end": "2026-12-01T18:30:00+02:00"}]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph,
+                                     "config": dict(self.CFG, reverse_marker="busy-sync")})
+        self.assertEqual(plan["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
+        self.assertEqual(plan["relinks"]["ek:A"]["ss_id"], "GC9")
+
+    def test_daily_summary_names_both_block_directions(self):
+        fd, path = tempfile.mkstemp(suffix=".jsonl")
+        os.close(fd)
+        try:
+            sc.log_run({"path": path, "ok": True, "rev_added": 2, "gc_added": 3, "gc_deleted": 1})
+            msg = sc.daily_summary({"path": path, "dry_run": True})["message"]
+            self.assertIn("\nGoogle+GigaCloud→SS busy-blocks: 2 added/updated.", msg)
+            self.assertIn("\nSS+Google→GigaCloud busy-blocks: 3 added/updated, 1 removed.", msg)
+        finally:
+            os.unlink(path)
+
+    def test_gc_pass_reads_writes_and_skips_as_designed(self):
+        from unittest import mock
+        import run
+        ss_rows = [self.ss("A"), self.ss("U", my_status="", start="2026-12-01T09:00:00-08:00",
+                                         end="2026-12-01T09:30:00-08:00"),
+                   self.ss("D", my_status="declined"), self.ss("P", notes="[[gcal-busy:g:1]]")]
+        gc_rows = [  # GigaCloud already holds the block for A, plus a real GigaCloud meeting
+            {"uid": "GCPH-A", "notes": "[[busy-sync:ek:A]]", "start": "2026-12-01T18:00:00+02:00",
+             "end": "2026-12-01T18:30:00+02:00"},
+            {"uid": "GCREAL", "notes": "Agenda", "start": "2026-12-01T10:00:00+02:00", "end": "2026-12-01T11:00:00+02:00"}]
+        reads = []
+
+        def fake_read(args, g_min, g_max):
+            reads.append(list(args))
+            return (gc_rows if "--calendar" in args else ss_rows), None
+
+        class FakeGcal:
+            listed = []
+
+            def list_calendars(self):
+                return [{"id": "orlov.alexej@gmail.com"}, {"id": "gcfeed@import.calendar.google.com"}]
+
+            def list_events(self, a, b, calendar_id=None):
+                FakeGcal.listed.append(calendar_id)
+                return [{"id": "p1", "summary": "School run", "start": {"dateTime": "2026-12-01T07:30:00-08:00"},
+                         "end": {"dateTime": "2026-12-01T08:00:00-08:00"}},
+                        {"id": "p2", "summary": "SS: Jumpstart daily", "start": {"dateTime": "2026-12-01T08:00:00-08:00"},
+                         "end": {"dateTime": "2026-12-01T08:30:00-08:00"}}]
+
+        written = []
+
+        def fake_write(cmds):
+            written.extend(cmds)
+            return [{"op": c["op"], "key": c.get("key"), "ok": True, "ss_id": "NEW-" + str(i)} for i, c in enumerate(cmds)]
+
+        fd, ledger = tempfile.mkstemp(suffix=".json")
+        os.close(fd)
+        os.unlink(ledger)
+        ek = [("Exchange", "exchange", "Calendar"), (self.GC, "exchange", "Календар")]
+        try:
+            with mock.patch.multiple(run, GC_SOURCE=self.GC, GC_EMAIL=self.GC, GC_CAL="Календар",
+                                     GC_GOOGLE_COPY="gcfeed@import.calendar.google.com", GC_DRY=False,
+                                     GC_LEDGER=ledger, CFG=dict(run.CFG, **self.CFG),
+                                     _read_window=fake_read, gc_write=fake_write):
+                counts, errors = run.gc_pass("2026-11-30T00:00:00Z", "2026-12-16T00:00:00Z", FakeGcal(), ek)
+                args = run.gc_writer_args()
+                # not in Apple Calendar -> nothing read or written
+                self.assertEqual(run.gc_pass("a", "b", FakeGcal(), [("Exchange", "exchange", "Calendar")])[0],
+                                 {"gc_added": 0, "gc_modified": 0, "gc_deleted": 0})
+            self.assertEqual(errors, [])
+            self.assertEqual(counts, {"gc_added": 2, "gc_modified": 0, "gc_deleted": 0})
+            self.assertEqual(sorted(c["key"] for c in written),
+                             sorted(["ek:U", "g:" + sc._sha("orlov.alexej@gmail.com::p1")[:16]]))
+            self.assertTrue(all(c["marker"] == "[[busy-sync:%s]]" % c["key"] for c in written))
+            self.assertEqual(FakeGcal.listed, ["orlov.alexej@gmail.com"])     # Google's GigaCloud copy never read
+            self.assertIn(["--type", "exchange", "--source", self.GC, "--calendar", "Календар"], reads)
+            self.assertIn(["--type", "exchange", "--source", "Exchange"], reads)
+            self.assertEqual(args, ["--source", self.GC, "--calendar", "Календар", "--marker", "busy-sync"])
+            with open(ledger) as f:
+                self.assertEqual(sorted(json.load(f)), sorted(["ek:A", "ek:U", "g:" + sc._sha("orlov.alexej@gmail.com::p1")[:16]]))
+        finally:
+            if os.path.exists(ledger):
+                os.unlink(ledger)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
