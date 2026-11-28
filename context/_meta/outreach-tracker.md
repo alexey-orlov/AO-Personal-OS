@@ -13,11 +13,11 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 |---|---|---|---|---|
 | semtech | Semtech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 9 | 2026-11-26 |
 | horizon-surgical-systems | Horizon Surgical Systems | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-22 |
-| generac | Generac (with ecobee) | [generac](../areas/softserve/generac.md) | 9 | 2026-11-26 |
+| generac | Generac (with ecobee) | [generac](../areas/softserve/generac.md) | 10 | 2026-11-27 |
 | blackberry | BlackBerry (QNX) | [blackberry](../areas/softserve/blackberry.md) | 10 | 2026-11-27 |
 | nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | loreal-north-america | L'Oréal North America | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-27 |
-| also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 11 | 2026-11-27 |
+| also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 12 | 2026-11-27 |
 | maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 10 | 2026-11-26 |
 | aes | AES (Maximo's parent) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-23 |
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
