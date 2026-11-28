@@ -109,6 +109,7 @@ Theirs:
 
 ## Activity
 
+- 2026-11-27 — Outreach moves (chat, 2026-11-27) — Maximo's deck to Roksolana with a Tue 12-01 sync; ALSO's one-pager to Ira with a Tue 12-01 sync; a Mon 11-30 call with Muaz Malas on ecobee; Oksana's review of the ecobee and QNX decks booked for Wed 12-02.
 - 2026-11-27 — [Module-fit map for ALSO, Semtech and Maximo](https://claude.ai/artifact/3YFH2WkSW74ZhPPdm2WLgt) (chat, 2026-11-27) — the known teams and people at the three accounts against the six modules and four workflows, sponsors apart, sources marked confirmed or research; our read, to test with each account team.
 - 2026-11-27 — Customer one-pager redesigned (chat, 2026-11-27) — after Alex's "cheap and mediocre", "garish" and two rounds of notes: his hero copy, a two-column band of the challenge matrix and the AI-gap cards, team dots, a SoftServe-black footer, Haemonetics with an AI-process metric, cold-reader gaps fixed in place.
 - 2026-11-26 — Customer decks for ecobee, Maximo, Semtech and QNX (chat, 2026-11-26) — built with the kit from the reviewed account reads, each read by a simulated skeptical VP of Engineering at the customer and a designer, fixes applied, in OneDrive `Customer decks/`: Maximo's leads with the simulation-to-site gap, Semtech's with catching issues before customer qualification (ecobee's and QNX's on their pages); none goes out before its account owner's OK.

@@ -18,7 +18,7 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | loreal-north-america | L'Oréal North America | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-27 |
 | also | ALSO (listed as Ride Also) | [also](../areas/softserve/also.md) | 12 | 2026-11-27 |
-| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 10 | 2026-11-26 |
+| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 11 | 2026-11-27 |
 | aes | AES (Maximo's parent) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-23 |
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
 | hexagon-mining | Hexagon Mining | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
