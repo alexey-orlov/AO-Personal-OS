@@ -2916,7 +2916,7 @@
      "category": "Shoulders"
     },
     {
-     "name": "Отведение на ягодицы",
+     "name": "Отведение на ягодицы (Hoist)",
      "sets": 3,
      "reps": "10",
      "w_start": 54.4,
@@ -2990,7 +2990,7 @@
    "body_weight": null,
    "strength": [
     {
-     "name": "Жим сидя",
+     "name": "Жим сидя (Matrix)",
      "sets": 3,
      "reps": "10-10-12",
      "w_start": 36.3,

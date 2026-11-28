@@ -2295,7 +2295,8 @@ function colLetter(i) { let s = ""; i += 1; while (i) { const r = (i - 1) % 26; 
 /** app_sync.py sheet_payload: only what was logged (done sets, ticked warm-up sets, crossfit with a time or a rating). */
 function sheetPayload(doc) {
   const c = cat(); const idx = {}; for (const e of [...(c.strength || []), ...(c.warmup?.items || []), ...(c.crossfit?.items || [])]) idx[e.id] = e;
-  const row = i => (idx[i]?.sheet_rows || [i])[0];
+  const own = gymCfg().sheet_rows || {};   // this gym's own row where its machine's scale differs (gym.json sheet_rows)
+  const row = i => own[i] || (idx[i]?.sheet_rows || [i])[0];
   const [y, m, d] = doc.date.slice(0, 10).split("-").map(Number);
   const payload = { date: `${m}/${d}/${y}`, entries: [] }; const notes = [];
   if (doc.body_weight_kg != null) payload.my_weight = shNum(doc.body_weight_kg);

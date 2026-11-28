@@ -125,7 +125,8 @@
   {
    "id": "seated_chest_press",
    "sheet_rows": [
-    "Жим сидя"
+    "Жим сидя",
+    "Жим сидя (Matrix)"
    ],
    "ru": "Жим сидя на грудь",
    "en": "Seated Chest Press (machine)",
@@ -683,7 +684,8 @@
   {
    "id": "hip_abduction",
    "sheet_rows": [
-    "Отведение на ягодицы"
+    "Отведение на ягодицы",
+    "Отведение на ягодицы (Hoist)"
    ],
    "ru": "Отведение на ягодицы",
    "en": "Hip Abduction Machine",

@@ -185,7 +185,9 @@ Rules the app keeps, so the engine can trust the data:
    digest. Otherwise (the app couldn't reach Google Sheets), by gym-log's own
    writer and rules:
    `app_sync.py sheet <file> --dump <dump.json>` builds the `log` payload
-   (catalog `sheet_rows` names, kg at one decimal, `M/D/YYYY`, crossfit only
+   (catalog `sheet_rows` names, or the gym's own row from `gym.json`
+   `sheet_rows` where its machine's kg don't compare with the old gym's,
+   kg at one decimal, `M/D/YYYY`, crossfit only
    when a time or rating was recorded; notes on stderr flag new rows),
    `source automations/gym-log/config.sh && "$PYTHON_BIN" "$GYM_SHEET" log < payload.json`
    writes it, a second `dump` must show every entry in its row, then

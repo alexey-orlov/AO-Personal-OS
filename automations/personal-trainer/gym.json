@@ -1,5 +1,5 @@
 {
- "_doc": "Where Alex trains and what that gym has. 'current' picks the gym; 'since' is its first day: weights logged before it come from other machines and only seed a calibration start. steps_lb = one increment on that equipment; grid_lb = what a weight is rounded to (plates load 5 lb a side). machines: catalog id -> have | missing | unknown | unlikely (Alex's answers make them have/missing; `trainer.py gym` writes them). substitutions: catalog id -> catalog id used instead in this gym. equipment: crossfit kit -> seen | likely | unknown | have | missing. Evidence for the US entries: DECISIONS.md, 'US gym'.",
+ "_doc": "Where Alex trains and what that gym has. 'current' picks the gym; 'since' is its first day: weights logged before it come from other machines and only seed a calibration start. steps_lb = one increment on that equipment; grid_lb = what a weight is rounded to (plates load 5 lb a side). machines: catalog id -> have | missing | unknown | unlikely (Alex's answers make them have/missing; `trainer.py gym` writes them). substitutions: catalog id -> catalog id used instead in this gym. sheet_rows: catalog id -> the 'My training' row this gym's sessions are written to, when its machine's scale differs from the catalog's first row (the catalog lists that name too, so history stays one exercise). equipment: crossfit kit -> seen | likely | unknown | have | missing. Evidence for the US entries: DECISIONS.md, 'US gym'.",
  "current": "us",
  "gyms": {
   "kyiv": {
@@ -92,6 +92,10 @@
     "air_bike": "missing",
     "battle_rope": "unknown",
     "band": "missing"
+   },
+   "sheet_rows": {
+    "seated_chest_press": "Жим сидя (Matrix)",
+    "hip_abduction": "Отведение на ягодицы (Hoist)"
    }
   }
  }
