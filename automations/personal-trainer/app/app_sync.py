@@ -183,11 +183,20 @@ def _num(x):
     return int(x) if float(x).is_integer() else round(float(x), 1)
 
 
-def sheet_payload(doc, cat):
+def gym_rows(gym_cfg, d):
+    """The sheet rows of the gym Alex trained in on day d (gym.json `sheet_rows`: its own row where its machine's scale differs)."""
+    for c in (gym_cfg or {}).get("gyms", {}).values():
+        if (not c.get("since") or d >= c["since"]) and (not c.get("until") or d <= c["until"]):
+            return c.get("sheet_rows") or {}
+    return {}
+
+
+def sheet_payload(doc, cat, gym_cfg=None):
     """A finished app workout -> the gym-log `log` payload (one date block). Only logged data: done sets,
     warm-up sets ticked, crossfit only when a time or a rating was recorded."""
     idx = {e["id"]: e for e in cat["strength"] + cat["warmup"]["items"] + cat["crossfit"]["items"]}
-    row = lambda i: (idx.get(i, {}).get("sheet_rows") or [i])[0]
+    own = gym_rows(gym_cfg, doc["date"][:10])
+    row = lambda i: own.get(i) or (idx.get(i, {}).get("sheet_rows") or [i])[0]
     y, m, d = (int(x) for x in doc["date"][:10].split("-"))
     payload = {"date": f"{m}/{d}/{y}", "entries": []}
     notes = []
@@ -205,8 +214,8 @@ def sheet_payload(doc, cat):
                     else {"pull": "Back", "push": "Chest", "legs": "Legs"}.get((days or ["pull"])[0], "Back"))
         payload["entries"].append({"category": category, "exercise": row(i), "sets": a.get("sets") or len(a["kg"]),
                                    "reps": str(a.get("reps")), "w_start": _num(a["kg"][0]), "w_end": _num(a["kg"][-1])})
-        if a.get("machine"):
-            notes.append(f"{row(i)}: done on {a['machine']} (same row; split it if the scale differs)")
+        if a.get("machine") and i not in own:
+            notes.append(f"{row(i)}: done on {a['machine']} (same row; if its scale differs, give it its own row in gym.json sheet_rows)")
     wu_log = (doc.get("log") or {}).get("warmup") or {}
     combo = []
     for it in doc["plan"].get("warmup", []):
@@ -252,7 +261,7 @@ def cmd_sheet(a):
         doc = doc["data"]
     if doc.get("status") != "done":
         sys.exit(f"{doc.get('id')}: status is {doc.get('status')!r}, not done")
-    payload, notes = sheet_payload(doc, load(os.path.join(ENGINE_D, "catalog.json")))
+    payload, notes = sheet_payload(doc, load(os.path.join(ENGINE_D, "catalog.json")), load(os.path.join(ENGINE_D, "gym.json")))
     if a.dump:
         have = {e["name"] for c in load(a.dump).get("categories", []) for e in c.get("exercises", [])}
         notes += [f"new sheet row: {e['exercise']} ({e['category']})" for e in payload["entries"] if e["exercise"] not in have]
